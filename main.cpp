@@ -38,7 +38,7 @@ int main()
     system("cls");
     cout << iustzTitle << string(3, '\n') << "Enter your usename: ";
     string username;
-    cin >> username;
+    getline(cin, username);
     json users = loadData(usersFilePath);
     if (users[username].is_null())
         cout << "Hello for the first time";
