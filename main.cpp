@@ -1,6 +1,6 @@
 #include "Assets/nlohmann/json.hpp"
 // #include "classes.h"
-#include "helperfunctions.cpp"
+#include "funcsAndVars.cpp"
 #include <iostream>
 #include <windows.h>
 #include <ctype.h>
