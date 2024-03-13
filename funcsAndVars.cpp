@@ -61,7 +61,7 @@ bool isZero(string s)
     return 1;
 }
 
-void cleanintstring(string &s)
+void cleanIntString(string &s)
 {
     if (isZero(s))
     {
@@ -80,35 +80,34 @@ void cleanintstring(string &s)
     }
 }
 
-void getinput(string &input, string options, int from, int to, bool cls = 0, string indexerrormessage = "index error", bool exceptzero = 0)
+void getInput(string &input, string options, int from, int to, bool cls = true, string errorMessage = "invalid input")
 {
-    bool indexerror = 0, typeerror = 0, emptystring = 0;
+    bool indexError = 0, typeError = 0, emptyString = 0;
     do
     {
         if (cls)
             clearScreen();
-        if (indexerror || typeerror || emptystring)
-            cout << red << "invalid input" << reset << endl;
-        cout << options;
-        indexerror = typeerror = 0;
+        if (indexError || typeError || emptyString)
+            cout << red << errorMessage << reset;
+        cout << endl
+             << options;
+        indexError = typeError = 0;
         getline(cin, input);
         if (input == "")
-            emptystring = 1;
+            emptyString = 1;
         else
         {
-            emptystring = 0;
+            emptyString = 0;
             if (isInteger(input))
             {
-                cleanintstring(input);
+                cleanIntString(input);
                 if (input.size() > max(to_string(to).size(), to_string(from).size()) || stoi(input) > to || stoi(input) < from)
-                    indexerror = 1;
-                if (exceptzero && input == "0")
-                    indexerror = 0;
+                    indexError = 1;
             }
             else
-                typeerror = 1;
+                typeError = 1;
         }
-    } while (indexerror || typeerror || emptystring);
+    } while (indexError || typeError || emptyString);
 }
 
 template <typename element, typename list>

@@ -42,7 +42,7 @@ int main()
         getline(cin, name);
         cout << "nice " << name << "! now ";
         int age;
-        getinput(sinput, "enter your age: ", 1, 200);
+        getInput(sinput, "enter your age: ", 1, 200);
         age = stoi(sinput);
     }
     // Show Menu
