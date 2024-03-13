@@ -121,10 +121,10 @@ bool isIn(element x, list A)
     return 0;
 }
 
-json loadData(string filename)
+json loadData(string fileName)
 {
     json j;
-    ifstream file(filename);
+    ifstream file(fileName);
     file >> j;
     file.close();
     return j;

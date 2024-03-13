@@ -2,18 +2,18 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-class character;
+class Character;
 
-class item // passive, consumable and throwable items + skills
+class Item // passive, consumable and throwable items + skills
 {
 protected:
-    character *owner = nullptr;
+    Character *owner = nullptr;
 
 public:
     virtual void useItem();
 };
 
-class character
+class Character
 {
 protected:
     string name;
@@ -22,7 +22,7 @@ protected:
     int health;
     int energy;
     int level = 0;
-    vector<item> backpack;
+    vector<Item> backpack;
 
 public:
     // getters
@@ -32,7 +32,7 @@ public:
     int getHealth() const { return health; }
     int getEnergy() const { return energy; }
     int getLevel() const { return level; }
-    vector<item> getBackpack() const { return backpack; }
+    vector<Item> getBackpack() const { return backpack; }
 
     // setters
     void setName(const string &newName) { name = newName; }
@@ -41,9 +41,9 @@ public:
     void setHealth(int newHealth) { health = newHealth; }
     void setEnergy(int newEnergy) { energy = newEnergy; }
     void setLevel(int newLevel) { level = newLevel; }
-    void setBackpack(const vector<item> &newBackpack) { backpack = newBackpack; }
+    void setBackpack(const vector<Item> &newBackpack) { backpack = newBackpack; }
 };
 
-class mission
+class Mission
 {
 };
