@@ -3,16 +3,26 @@ using namespace std;
 
 class character; // Forward declaration
 
-class Items
+class Item
 {
-public:
+protected:
     string name;
     int price;
     character *owner;
     int level = 0;
     int stamina = 0;
 
-    virtual void useItem() {}
+public:
+    Item(string name, int price, character *owner, int level, int stamina)
+    {
+        this->name = name;
+        this->price = price;
+        this->owner = owner;
+        this->level = level;
+        this->stamina = stamina;
+    }
+    Item() = default;
+    virtual void useItem() = 0;
 
     // Getter for 'name'
     string getName() const
@@ -49,29 +59,21 @@ public:
     {
         owner = newOwner;
     }
-    Items(string name, int price, character *owner, int level, int stamina)
-    {
-        this->name = name;
-        this->price = price;
-        this->owner = owner;
-        this->level = level;
-        this->stamina = stamina;
-    }
-  Items() = default;
 };
 
-class Throwable : public Items
+class Throwable : public Item
 {
-public:
+protected:
     int damage;
 
-    void useItem() override {}
-
+public:
     // constructor:
-    Throwable(string name, int price, character *owner, int level, int stamina, int damage) : Items(name, price, owner, level, stamina)
+    Throwable(string name, int price, character *owner, int level, int stamina, int damage) : Item(name, price, owner, level, stamina)
     {
         this->damage = damage;
     }
+    void useItem() override {}
+
     // Getter for 'damage'
     int getDamage() const
     {
@@ -85,20 +87,29 @@ public:
     }
 };
 
-class Consumable : public virtual Items
+class Consumable : public Item
 {
 
-protected :
-     virtual void removeFromBackpack() {}
+protected:
+    virtual void removeFromBackpack() {}
 
+public:
+    Consumable(string name, int price, character *owner, int level, int stamina) : Item(name, price, owner, level, stamina) {}
 };
 
-class Permanent : public Items
+class Permanent : public Item
 {
-public:
+protected:
     int damage;
     string type;
 
+public:
+    // constructor:
+    Permanent(string name, int price, character *owner, int level, int stamina, int damage, string type) : Item(name, price, owner, level, stamina)
+    {
+        this->damage = damage;
+        this->type = type;
+    }
     void useItem() override {}
 
     // Getter for 'damage'
@@ -124,19 +135,19 @@ public:
     {
         type = newType;
     }
-    // constructor:
-    Permanent(string name, int price, character *owner, int level, int stamina, int damage, string type) : Items(name, price, owner, level, stamina)
-    {
-        this->damage = damage;
-        this->type = type;
-    }
 };
 
 class HpPotion : public Consumable
 {
-public:
+protected:
     int healingAmount;
 
+public:
+    HpPotion(string name, int price, character *owner, int level, int stamina, int healingAmount) : Consumable(name, price, owner, level, stamina)
+    {
+        this->healingAmount = healingAmount;
+    }
+    void useItem() override {}
     int heal(int hp)
     {
         // Implementation for healing logic
@@ -155,17 +166,19 @@ public:
     {
         healingAmount = newAmount;
     }
-    HpPotion(string name, int price, character *owner, int level, int stamina, int healingAmount) : Items(name, price, owner, level, stamina)
-    {
-        this->healingAmount = healingAmount;
-    }
 };
 
 class StaminaPotion : public Consumable
 {
-public:
+protected:
     int boostAmount;
 
+public:
+    StaminaPotion(string name, int price, character *owner, int level, int stamina, int boostAmount) : Consumable(name, price, owner, level, stamina)
+    {
+        this->boostAmount = boostAmount;
+    }
+    void useItem() override {}
     int boost()
     {
         // Implementation for stamina boost logic
@@ -184,18 +197,19 @@ public:
     {
         boostAmount = newAmount;
     }
-
-    StaminaPotion(string name, int price, character *owner, int level, int stamina, int boostAmount) : Items(name, price, owner, level, stamina)
-    {
-        this->boostAmount = boostAmount;
-    }
 };
 
 class PowerPotion : public Consumable
 {
-public:
+protected:
     double empowerment;
 
+public:
+    PowerPotion(string name, int price, character *owner, int level, int stamina, double empowerment) : Consumable(name, price, owner, level, stamina)
+    {
+        this->empowerment = empowerment;
+    }
+    void useItem() override {}
     double increaser()
     {
         // Implementation for power increase logic
@@ -214,24 +228,20 @@ public:
     {
         empowerment = newEmpowerment;
     }
-    PowerPotion(string name, int price, character *owner, int level, int stamina, double empowerment) : Items(name, price, owner, level, stamina)
-    {
-        this->empowerment = empowerment;
-    }
 };
 
 // objects of Throwable class
 
-Throwable Throwable1("Grenade", 5, nullptr, 0, 5, 5);
-Throwable Throwable2("Freezer Grenade", 10, nullptr, 1, 10, 10);
-Throwable Throwable3("acid Bottle", 20, nullptr, 15, 1, 15);
-Throwable Throwable4("Molotov Cocktails", 30, nullptr, 20, 2, 20);
-Throwable Throwable5("Taser Darts", 50, nullptr, 3, 25, 25);
-Throwable Throwable6("Drone", 100, nullptr, 3, 50, 150);
-Throwable Throwable7("Armored Personnel Carrier", 200, nullptr, 4, 100, 300);
-Throwable Throwable8("Attack Helicopter", 300, nullptr, 4, 200, 500);
-Throwable Throwable9("Fighter Jet", 400, nullptr, 5, 300, 600);
-Throwable Throwable10("Gunship", 500, nullptr, 5, 450, 900);
+Throwable throwable1("Grenade", 5, nullptr, 0, 5, 5);
+Throwable throwable2("Freezer Grenade", 10, nullptr, 1, 10, 10);
+Throwable throwable3("acid Bottle", 20, nullptr, 15, 1, 15);
+Throwable throwable4("Molotov Cocktails", 30, nullptr, 20, 2, 20);
+Throwable throwable5("Taser Darts", 50, nullptr, 3, 25, 25);
+Throwable throwable6("Drone", 100, nullptr, 3, 50, 150);
+Throwable throwable7("Armored Personnel Carrier", 200, nullptr, 4, 100, 300);
+Throwable throwable8("Attack Helicopter", 300, nullptr, 4, 200, 500);
+Throwable throwable9("Fighter Jet", 400, nullptr, 5, 300, 600);
+Throwable throwable10("Gunship", 500, nullptr, 5, 450, 900);
 
 // objects of permanant class
 // "melee"
@@ -246,37 +256,37 @@ Permanent melee8("Halberd", 40, nullptr, 4, 40, 80, "melee");
 Permanent melee9("Rapier", 45, nullptr, 4, 40, 80, "melee");
 Permanent melee10("Chainsaw", 50, nullptr, 5, 50, 100, "melee");
 
-//"firearm"
-Permanent firearm1("Desert Eagle", 10, nullptr, 1, 10, 20, "firearm");
-Permanent firearm2("Glock 17", 20, nullptr, 1, 20, 40, "firearm");
-Permanent firearm3("Shutgun", 30, nullptr, 2, 30, 60, "firearm");
-Permanent firearm4("Rifle", 40, nullptr, 2, 40, 80, "firearm");
-Permanent firearm5("Submachine gun", 50, nullptr, 3, 50, 100, "firearm");
-Permanent firearm6("Carbine", 60, nullptr, 3, 60, 120, "firearm");
-Permanent firearm7("Assault rifle", 70, nullptr, 4, 70, 140, "firearm");
-Permanent firearm8("Sniper rifle", 80, nullptr, 4, 80, 160, "firearm");
-Permanent firearm9("Machine gun", 90, nullptr, 5, 90, 180, "firearm");
-Permanent firearm10("FN SCAR", 100, nullptr, 5, 100, 200, "firearm");
+//"fireArm"
+Permanent fireArm1("Desert Eagle", 10, nullptr, 1, 10, 20, "fireArm");
+Permanent fireArm2("Glock 17", 20, nullptr, 1, 20, 40, "fireArm");
+Permanent fireArm3("Shutgun", 30, nullptr, 2, 30, 60, "fireArm");
+Permanent fireArm4("Rifle", 40, nullptr, 2, 40, 80, "fireArm");
+Permanent fireArm5("Submachine gun", 50, nullptr, 3, 50, 100, "fireArm");
+Permanent fireArm6("Carbine", 60, nullptr, 3, 60, 120, "fireArm");
+Permanent fireArm7("Assault rifle", 70, nullptr, 4, 70, 140, "fireArm");
+Permanent fireArm8("Sniper rifle", 80, nullptr, 4, 80, 160, "fireArm");
+Permanent fireArm9("Machine gun", 90, nullptr, 5, 90, 180, "fireArm");
+Permanent fireArm10("FN SCAR", 100, nullptr, 5, 100, 200, "fireArm");
 
 // object of consumable class
 // hp potion
-HpPotion hppotion1("First Aid Kits", 5, nullptr, 0, 0, 5);
-HpPotion hppotion2("Bandages", 10, nullptr, 1, 0, 10);
-HpPotion hppotion3("Medkits", 15, nullptr, 2, 0, 20);
-HpPotion hppotion4("Healing Salve", 20, nullptr, 3, 0, 40);
-HpPotion hppotion5("Potion of Vitality", 35, nullptr, 4, 0, 75);
-HpPotion hppotion6("Diamond Elixir", 50, nullptr, 5, 0, 100);
+HpPotion hpPotion1("First Aid Kits", 5, nullptr, 0, 0, 5);
+HpPotion hpPotion2("Bandages", 10, nullptr, 1, 0, 10);
+HpPotion hpPotion3("Medkits", 15, nullptr, 2, 0, 20);
+HpPotion hpPotion4("Healing Salve", 20, nullptr, 3, 0, 40);
+HpPotion hpPotion5("Potion of Vitality", 35, nullptr, 4, 0, 75);
+HpPotion hpPotion6("Diamond Elixir", 50, nullptr, 5, 0, 100);
 
 // stamina potion
-StaminaPotion staminapotion1("Vigor Rush", 5, nullptr, 1, 0, 10);
-StaminaPotion staminapotion2("Energy Surge", 10, nullptr, 2, 0, 20);
-StaminaPotion staminapotion3("Turbo Tonic", 20, nullptr, 3, 0, 30);
-StaminaPotion staminapotion4("Endurance Elixir", 35, nullptr, 4, 0, 40);
-StaminaPotion staminapotion5("Stamina Spark", 50, nullptr, 5, 0, 50);
+StaminaPotion staminaPotion1("Vigor Rush", 5, nullptr, 1, 0, 10);
+StaminaPotion staminaPotion2("Energy Surge", 10, nullptr, 2, 0, 20);
+StaminaPotion staminaPotion3("Turbo Tonic", 20, nullptr, 3, 0, 30);
+StaminaPotion staminaPotion4("Endurance Elixir", 35, nullptr, 4, 0, 40);
+StaminaPotion staminaPotion5("Stamina Spark", 50, nullptr, 5, 0, 50);
 
 // power potion
-PowerPotion powerpotion1("Savage Serum", 5, nullptr, 1, 0, 1.5);
-PowerPotion powerpotion2("Titan Tonic", 25, nullptr, 2, 0, 2);
-PowerPotion powerpotion3("Cataclysmic", 125, nullptr, 3, 0, 2.5);
-PowerPotion powerpotion4("Blitzkrieg Booster", 225, nullptr, 4, 0, 3);
-PowerPotion powerpotion5("Eternal Valor Elixir", 500, nullptr, 5, 0, 5);
+PowerPotion powerPotion1("Savage Serum", 5, nullptr, 1, 0, 1.5);
+PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 2, 0, 2);
+PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 3, 0, 2.5);
+PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 4, 0, 3);
+PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 5, 0, 5);
