@@ -1,6 +1,6 @@
 #include "Assets/nlohmann/json.hpp"
 // #include "classes.h"
-#include "helperfunctions.cpp"
+#include "funcsAndVars.cpp"
 #include <iostream>
 #include <windows.h>
 #include <ctype.h>
@@ -42,7 +42,7 @@ int main()
         getline(cin, name);
         cout << "nice " << name << "! now ";
         int age;
-        getinput(sinput, "enter your age: ", 1, 200);
+        getInput(sinput, "enter your age: ", 1, 200);
         age = stoi(sinput);
     }
     // Show Menu
