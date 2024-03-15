@@ -1,13 +1,5 @@
-#include "Assets/nlohmann/json.hpp"
-// #include "classes.h"
-#include "funcsAndVars.cpp"
-#include <iostream>
-#include <windows.h>
-#include <ctype.h>
-#include <fstream>
+#include "headers.h"
 using namespace std;
-
-
 
 int main()
 {

@@ -1,37 +1,8 @@
 #pragma once
-#include <iostream>
-#include <vector>
-#include <map>
+#include "headers.h"
 using namespace std;
 
-class Character;
-class Storage
-{
-protected:
-    map<string, int> items;
-    Character *owner;
-
-public:
-    virtual void addItem(string name)
-    {
-    }
-    void printStorage()
-    {
-    }
-    void removeItem(string)
-    {
-    }
-};
-class LimitedStorage : public Storage
-{
-protected:
-    int number;
-
-public:
-    void addItem()
-    {
-    }
-};
+class LimitedStorage;
 
 class Stat
 {
@@ -63,15 +34,6 @@ public:
     {
         currentPoint = newValue;
     }
-};
-
-class Item // passive, consumable and throwable items + skills
-{
-protected:
-    Character *owner = nullptr;
-
-public:
-    virtual void useItem();
 };
 
 class Character
@@ -124,15 +86,22 @@ public:
     // getters
     Storage *getInventory() { return inventory; }
     // others
-    virtual void turn(){}
-    virtual void death(){}
+    virtual void turn() {}
+    virtual void death() {}
 };
 
-class Enemy: public Character{
+class Enemy : public Character
+{
 public:
-    virtual void turn (){}
-    virtual void death(){}
+    virtual void turn() {}
+    virtual void death() {}
 };
-class HumanEnemy: public Enemy {};
-class ZombieEnemy: public Enemy {};
-class SpecialZombie: public ZombieEnemy {};
+class HumanEnemy : public Enemy
+{
+};
+class ZombieEnemy : public Enemy
+{
+};
+class SpecialZombie : public ZombieEnemy
+{
+};

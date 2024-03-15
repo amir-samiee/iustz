@@ -1,8 +1,5 @@
-#include "Assets/nlohmann/json.hpp"
-#include <iostream>
-#include <fstream>
-#include <windows.h>
-#include <ctype.h>
+#pragma once
+#include "headers.h"
 using namespace std;
 using json = nlohmann::json;
 

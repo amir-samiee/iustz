@@ -1,18 +1,19 @@
-#include <iostream>
+#pragma once
+#include "headers.h"
 using namespace std;
 
-class character; // Forward declaration
+class Character; // Forward declaration
 
 class Item
 {
 protected:
     string name;
     int price;
-    character *owner;
+    Character *owner;
     int stamina = 0;
 
 public:
-    Item(string name, int price, character *owner, int stamina)
+    Item(string name, int price, Character *owner, int stamina)
     {
         this->name = name;
         this->price = price;
@@ -31,7 +32,7 @@ public:
     {
         return price;
     }
-    character *getOwner() const
+    Character *getOwner() const
     {
         return owner;
     }
@@ -45,7 +46,7 @@ public:
     {
         price = newPrice;
     }
-    void setOwner(character *newOwner)
+    void setOwner(Character *newOwner)
     {
         owner = newOwner;
     }
@@ -58,7 +59,7 @@ protected:
 
 public:
     // constructor:
-    Throwable(string name, int price, character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
+    Throwable(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
     {
         this->damage = damage;
     }
@@ -83,7 +84,7 @@ protected:
     virtual void removeFromBackpack() {}
 
 public:
-    Consumable(string name, int price, character *owner, int stamina) : Item(name, price, owner, stamina) {}
+    Consumable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
 };
 
 class Permanent : public Item
@@ -93,7 +94,7 @@ protected:
 
 public:
     // constructor:
-    Permanent(string name, int price, character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
+    Permanent(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
     {
         this->damage = damage;
     }
@@ -116,7 +117,7 @@ class Melee : public Permanent
 {
 public:
     // constructor
-    Melee(string name, int price, character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
+    Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
     // others
     void useItem() override{};
 };
@@ -125,7 +126,7 @@ class Firearm : public Permanent
 {
 public:
     // constructor
-    Firearm(string name, int price, character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
+    Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
     // others
     void useItem() override{};
 };
@@ -137,7 +138,7 @@ protected:
 
 public:
     // constructor
-    HpPotion(string name, int price, character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
+    HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
     {
         this->healingAmount = healingAmount;
     }
@@ -168,7 +169,7 @@ protected:
 
 public:
     // constructor
-    StaminaPotion(string name, int price, character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
+    StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
     {
         this->boostAmount = boostAmount;
     }
@@ -198,7 +199,7 @@ protected:
     double empowerment;
 
 public:
-    PowerPotion(string name, int price, character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
+    PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
     {
         this->empowerment = empowerment;
     }
