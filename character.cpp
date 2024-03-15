@@ -72,27 +72,27 @@ public:
 
     // others
     virtual void turn() {}
-    virtual void death() {}
+    virtual void die() {}
 };
 
 class Player : public Character
 {
 protected:
-    Storage *inventory;
+    Storage inventory;
 
 public:
     // getters
-    Storage *getInventory() { return inventory; }
+    Storage getInventory() { return inventory; }
     // others
     virtual void turn() {}
-    virtual void death() {}
+    virtual void die() {}
 };
 
 class Enemy : public Character
 {
 public:
     virtual void turn() {}
-    virtual void death() {}
+    virtual void die() {}
 };
 class HumanEnemy : public Enemy
 {
