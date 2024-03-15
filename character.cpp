@@ -2,8 +2,6 @@
 #include "headers.h"
 using namespace std;
 
-class LimitedStorage;
-
 class Stat
 {
 protected:
