@@ -126,3 +126,12 @@ json loadData(string fileName)
     file.close();
     return j;
 }
+
+template <typename K>
+void print_vector(vector<K> vec)
+{
+    cout << '{';
+    for (int i = 0; i < vec.size(); i++)
+        cout << vec[i] << string(1 - (i == vec.size() - 1), ',') + string(1 - (i == vec.size() - 1), ' ');
+    cout << '}' << endl;
+}
