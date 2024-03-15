@@ -3,6 +3,12 @@
 using namespace std;
 
 class Character; // Forward declaration
+class Item;
+
+vector<Item *> throwablee;
+vector<Item *> consumablee;
+vector<Item *> permanentt;
+map<string, Item *> dictionary;
 
 class Item
 {
@@ -11,7 +17,6 @@ protected:
     int price;
     Character *owner;
     int stamina = 0;
-    static vector<Item*> createdItems;
 
 public:
     Item(string name, int price, Character *owner, int stamina)
@@ -20,8 +25,9 @@ public:
         this->price = price;
         this->owner = owner;
         this->stamina = stamina;
-        createdItems.push_back(this);
+        dictionary[name] = this;
     }
+
     Item() = default;
     virtual void useItem() = 0;
 
@@ -52,10 +58,6 @@ public:
     {
         owner = newOwner;
     }
-    
-    static vector<Item*>& getCreatedItems() {
-        return createdItems;
-    }
 };
 
 class Throwable : public Item
@@ -68,6 +70,8 @@ public:
     Throwable(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
     {
         this->damage = damage;
+        Item *basePtr = dynamic_cast<Item *>(this);
+        throwablee.push_back(basePtr);
     }
     virtual void useItem() {}
 
@@ -123,7 +127,11 @@ class Melee : public Permanent
 {
 public:
     // constructor
-    Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
+    Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
+    {
+        Item *basePtr = this;
+        permanentt.push_back(basePtr);
+    }
     // others
     void useItem() override{};
 };
@@ -132,7 +140,11 @@ class Firearm : public Permanent
 {
 public:
     // constructor
-    Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
+    Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
+    {
+        Item *basePtr = this;
+        permanentt.push_back(basePtr);
+    }
     // others
     void useItem() override{};
 };
@@ -147,6 +159,8 @@ public:
     HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
     {
         this->healingAmount = healingAmount;
+        Item *basePtr = dynamic_cast<Item *>(this);
+        consumablee.push_back(basePtr);
     }
 
     // getters
@@ -178,6 +192,8 @@ public:
     StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
     {
         this->boostAmount = boostAmount;
+        Item *basePtr = dynamic_cast<Item *>(this);
+        consumablee.push_back(basePtr);
     }
 
     // getters
@@ -208,6 +224,8 @@ public:
     PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
     {
         this->empowerment = empowerment;
+        Item *basePtr = dynamic_cast<Item *>(this);
+        consumablee.push_back(basePtr);
     }
     void useItem() override
     {

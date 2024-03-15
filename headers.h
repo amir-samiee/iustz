@@ -11,8 +11,8 @@
 
 #include "Assets/nlohmann/json.hpp"
 #include "helper.cpp"
+#include "item.cpp"
 #include "storage.cpp"
 #include "character.cpp"
-#include "item.cpp"
 
 #endif

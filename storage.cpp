@@ -21,16 +21,19 @@ public:
         int i = 1;
         for (auto item : items)
         {
-            cout<<i<<"-"<<dictionary[item.first].getName()<<" "<<dictionary[item.first];
+            cout << i << "-" << dictionary[item.first]->getName() << " " << dictionary[item.first];
         }
     }
     void removeItem(string name)
     {
-        while(true){
-            if (items[name] < 1){
-                cout<<"item does not exist.\n";
+        while (true)
+        {
+            if (items[name] < 1)
+            {
+                cout << "item does not exist.\n";
             }
-            else if(items[name] == 1){
+            else if (items[name] == 1)
+            {
                 items.erase(name);
                 break;
             }
