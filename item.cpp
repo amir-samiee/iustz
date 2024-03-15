@@ -44,6 +44,11 @@ public:
     {
         return owner;
     }
+    int getStamina() const
+    {
+        return stamina;
+    }
+    virtual int getSpecial() { return 0;}
 
     // setters
     void setName(const string &newName)
@@ -58,6 +63,11 @@ public:
     {
         owner = newOwner;
     }
+    void setStamina(int newStamina)
+    {
+        stamina = newStamina;
+    }
+    virtual void setSpecial(int newSpecial) {}
 };
 
 class Throwable : public Item
@@ -76,13 +86,13 @@ public:
     virtual void useItem() {}
 
     // getters
-    int getDamage() const
+    int getSpecial() override
     {
         return damage;
     }
 
     // setters
-    void setDamage(int newDamage)
+    void setSpecial(int newDamage) override
     {
         damage = newDamage;
     }
@@ -95,12 +105,14 @@ protected:
 
 public:
     Consumable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
+    virtual int getSpecial() { return 0; }
+    virtual void setSpecial() {}
 };
 
 class Permanent : public Item
 {
 protected:
-    int damage;
+    int damage = 0;
 
 public:
     // constructor:
@@ -111,13 +123,13 @@ public:
     virtual void useItem() {}
 
     // getters
-    int getDamage() const
+    int getSpecial () override
     {
         return damage;
     }
 
     // setters
-    void setDamage(int newdamage)
+    void setSpecial(int newdamage) override
     {
         damage = newdamage;
     }
@@ -164,13 +176,13 @@ public:
     }
 
     // getters
-    int getHealingAmount() const
+    int getSpecial() override
     {
         return healingAmount;
     }
 
     // setters
-    void setHealingAmount(int newAmount)
+    void setSpecial(int newAmount) override
     {
         healingAmount = newAmount;
     }
@@ -197,13 +209,13 @@ public:
     }
 
     // getters
-    int getBoostAmount() const
+    int getSpecial() override
     {
         return boostAmount;
     }
 
     // setters
-    void setBoostAmount(int newAmount)
+    void setSpecial(int newAmount) override
     {
         boostAmount = newAmount;
     }
@@ -233,13 +245,13 @@ public:
     }
 
     // getters
-    double getEmpowerment() const
+    int getSpecial() override
     {
         return empowerment;
     }
 
     // setters
-    void setEmpowerment(double newEmpowerment)
+    void setSpecial(int newEmpowerment) override
     {
         empowerment = newEmpowerment;
     }
@@ -260,9 +272,9 @@ Throwable throwable10("Gunship", 500, nullptr, 450, 900);
 
 // objects of permanant class
 // "melee"
-Melee melee1("Punch", 0, nullptr, 5, 0);
+Melee melee1("Punch", 0, nullptr, 0, 5);
 Melee melee2("Axe", 10, nullptr, 10, 20);
-Melee melee3("Nunchaku", 50, nullptr, 20, 10);
+Melee melee3("Nunchaku", 50, nullptr, 10, 20);
 Melee melee4("Sword", 20, nullptr, 20, 40);
 Melee melee5("Katana", 25, nullptr, 20, 40);
 Melee melee6("Dagger", 30, nullptr, 30, 60);
@@ -300,8 +312,8 @@ StaminaPotion staminaPotion4("Endurance Elixir", 35, nullptr, 0, 40);
 StaminaPotion staminaPotion5("Stamina Spark", 50, nullptr, 0, 50);
 
 // power potion
-PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 1.5);
-PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 2);
-PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 2.5);
-PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 0, 3);
-PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 0, 4);
+PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 2);
+PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 3);
+PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 4);
+PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 0, 5);
+PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 0, 6);

@@ -6,6 +6,12 @@ int main()
     clearScreen();
     cout << iustzTitle << string(3, '\n') << "Enter your usename: ";
     string username;
+    /*Storage storage;
+    storage.addItem("Axe");
+    storage.addItem("Punch");
+    storage.addItem("Grenade");
+    storage.addItem("Molotov Cocktails");
+    storage.printStorage();*/
     getline(cin, username);
     json users = loadData(usersFilePath);
     if (users[username].is_null())
