@@ -11,6 +11,7 @@ protected:
     int price;
     Character *owner;
     int stamina = 0;
+    static vector<Item*> createdItems;
 
 public:
     Item(string name, int price, Character *owner, int stamina)
@@ -19,6 +20,7 @@ public:
         this->price = price;
         this->owner = owner;
         this->stamina = stamina;
+        createdItems.push_back(this);
     }
     Item() = default;
     virtual void useItem() = 0;
@@ -49,6 +51,10 @@ public:
     void setOwner(Character *newOwner)
     {
         owner = newOwner;
+    }
+    
+    static vector<Item*>& getCreatedItems() {
+        return createdItems;
     }
 };
 
