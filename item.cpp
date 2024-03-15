@@ -1,38 +1,26 @@
 #pragma once
 #include "headers.h"
-#include <vector>
-#include <map>
-
 using namespace std;
 
 class Character; // Forward declaration
-class Item;
-
-static vector<Item*> throwablee;
-static vector<Item*> consumablee;
-static vector<Item*> permanentt;
-static map<string , Item*> itemmap;
 
 class Item
 {
 protected:
-
     string name;
     int price;
     Character *owner;
     int stamina = 0;
-    
-    
-public:
+    static vector<Item*> createdItems;
 
+public:
     Item(string name, int price, Character *owner, int stamina)
     {
         this->name = name;
         this->price = price;
         this->owner = owner;
         this->stamina = stamina;
-        
-        itemmap[name] = this;  
+        createdItems.push_back(this);
     }
     Item() = default;
     virtual void useItem() = 0;
@@ -64,9 +52,11 @@ public:
     {
         owner = newOwner;
     }
-  
+    
+    static vector<Item*>& getCreatedItems() {
+        return createdItems;
+    }
 };
-
 
 class Throwable : public Item
 {
@@ -78,7 +68,6 @@ public:
     Throwable(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
     {
         this->damage = damage;
-        throwablee.push_back(this);
     }
     virtual void useItem() {}
 
@@ -134,9 +123,7 @@ class Melee : public Permanent
 {
 public:
     // constructor
-    Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {
-        permanentt.push_back(this);
-    }
+    Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
     // others
     void useItem() override{};
 };
@@ -145,9 +132,7 @@ class Firearm : public Permanent
 {
 public:
     // constructor
-    Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {
-         permanentt.push_back(this);
-    }
+    Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage) {}
     // others
     void useItem() override{};
 };
@@ -162,7 +147,6 @@ public:
     HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
     {
         this->healingAmount = healingAmount;
-         consumablee.push_back(this);
     }
 
     // getters
@@ -194,7 +178,6 @@ public:
     StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
     {
         this->boostAmount = boostAmount;
-         consumablee.push_back(this);
     }
 
     // getters
@@ -225,8 +208,6 @@ public:
     PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
     {
         this->empowerment = empowerment;
-        consumablee.push_back(this);
-        
     }
     void useItem() override
     {
@@ -306,5 +287,3 @@ PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 2);
 PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 2.5);
 PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 0, 3);
 PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 0, 4);
-
-
