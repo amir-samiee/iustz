@@ -100,7 +100,3 @@ namespace menu
 
     }
 }
-
-int main(){
-    menu::mainMenu();
-}
