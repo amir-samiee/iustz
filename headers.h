@@ -2,6 +2,7 @@
 #ifndef HEADERS_H
 #define HEADERS_H
 
+using namespace std;
 #include <windows.h>
 #include <iostream>
 #include <fstream>

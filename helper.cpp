@@ -1,6 +1,5 @@
 #pragma once
 #include "headers.h"
-using namespace std;
 using json = nlohmann::json;
 
 const string red("\033[0;31m");

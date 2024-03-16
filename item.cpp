@@ -1,6 +1,5 @@
 #pragma once
 #include "headers.h"
-using namespace std;
 
 class Character; // Forward declaration
 class Item;
@@ -32,42 +31,18 @@ public:
     virtual void useItem() = 0;
 
     // getters
-    string getName() const
-    {
-        return name;
-    }
-    int getPrice() const
-    {
-        return price;
-    }
-    Character *getOwner() const
-    {
-        return owner;
-    }
-    int getStamina() const
-    {
-        return stamina;
-    }
-    virtual int getSpecial() { return 0;}
+    string getName() const { return name; }
+    int getPrice() const { return price; }
+    Character *getOwner() const { return owner; }
+    int getStamina() const { return stamina; }
+    virtual int getSpecial() const= 0;
 
     // setters
-    void setName(const string &newName)
-    {
-        name = newName;
-    }
-    void setPrice(int newPrice)
-    {
-        price = newPrice;
-    }
-    void setOwner(Character *newOwner)
-    {
-        owner = newOwner;
-    }
-    void setStamina(int newStamina)
-    {
-        stamina = newStamina;
-    }
-    virtual void setSpecial(int newSpecial) {}
+    void setName(const string &newName) { name = newName; }
+    void setPrice(int newPrice) { price = newPrice; }
+    void setOwner(Character *newOwner) { owner = newOwner; }
+    void setStamina(int newStamina) { stamina = newStamina; }
+    virtual void setSpecial(int newSpecial) = 0;
 };
 
 class Throwable : public Item
@@ -86,16 +61,10 @@ public:
     virtual void useItem() {}
 
     // getters
-    int getSpecial() override
-    {
-        return damage;
-    }
+    int getSpecial() const override { return damage; }
 
     // setters
-    void setSpecial(int newDamage) override
-    {
-        damage = newDamage;
-    }
+    void setSpecial(int newDamage) override { damage = newDamage; }
 };
 
 class Consumable : public Item
@@ -105,8 +74,6 @@ protected:
 
 public:
     Consumable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
-    virtual int getSpecial() { return 0; }
-    virtual void setSpecial() {}
 };
 
 class Permanent : public Item
@@ -123,16 +90,10 @@ public:
     virtual void useItem() {}
 
     // getters
-    int getSpecial () override
-    {
-        return damage;
-    }
+    int getSpecial() const override { return damage; }
 
     // setters
-    void setSpecial(int newdamage) override
-    {
-        damage = newdamage;
-    }
+    void setSpecial(int newdamage) override { damage = newdamage; }
 };
 
 class Melee : public Permanent
@@ -176,16 +137,10 @@ public:
     }
 
     // getters
-    int getSpecial() override
-    {
-        return healingAmount;
-    }
+    int getSpecial() const override { return healingAmount; }
 
     // setters
-    void setSpecial(int newAmount) override
-    {
-        healingAmount = newAmount;
-    }
+    void setSpecial(int newAmount) override { healingAmount = newAmount; }
 
     // others
     void useItem() override
@@ -209,16 +164,10 @@ public:
     }
 
     // getters
-    int getSpecial() override
-    {
-        return boostAmount;
-    }
+    int getSpecial() const override { return boostAmount; }
 
     // setters
-    void setSpecial(int newAmount) override
-    {
-        boostAmount = newAmount;
-    }
+    void setSpecial(int newAmount) override { boostAmount = newAmount; }
 
     // others
     void useItem() override
@@ -245,16 +194,10 @@ public:
     }
 
     // getters
-    int getSpecial() override
-    {
-        return empowerment;
-    }
+    int getSpecial() const override { return empowerment; }
 
     // setters
-    void setSpecial(int newEmpowerment) override
-    {
-        empowerment = newEmpowerment;
-    }
+    void setSpecial(int newEmpowerment) override { empowerment = newEmpowerment; }
 };
 
 // objects of Throwable class

@@ -1,6 +1,5 @@
 #pragma once
 #include "headers.h"
-using namespace std;
 
 class Stat
 {
@@ -10,27 +9,16 @@ protected:
 
 public:
     // getters:
-    int getMaxPoint() const
-    {
-        return maxPoint;
-    }
-    int getCurrentPoint() const
-    {
-        return currentPoint;
-    }
+    int getMaxPoint() const { return maxPoint; }
+    int getCurrentPoint() const { return currentPoint; }
+
+    // setters:
+    void setMaxPoint(int newValue) { maxPoint = newValue; }
+    void setCurrentPoint(int newValue) { currentPoint = newValue; }
+
     int level()
     {
         return (((maxPoint - 100) / 30) + 1);
-    }
-
-    // setters:
-    void setMaxPoint(int newValue)
-    {
-        maxPoint = newValue;
-    }
-    void setCurrentPoint(int newValue)
-    {
-        currentPoint = newValue;
     }
 };
 
@@ -53,12 +41,11 @@ public:
     string getName() const { return name; }
     int getAge() const { return age; }
     string getGender() const { return gender; }
-    int level() { return firearmLevel + meleeLevel + hp.level() + stamina.level(); }
     LimitedStorage getBackpack() const { return backpack; }
-    vector<Character *> getWave() { return currentWave; }
-    int getFirearmLevel() { return firearmLevel; }
-    int getMeleeLevel() { return meleeLevel; }
-    int getCoins() { return coins; }
+    vector<Character *> getWave() const { return currentWave; }
+    int getFirearmLevel() const { return firearmLevel; }
+    int getMeleeLevel() const { return meleeLevel; }
+    int getCoins() const { return coins; }
 
     // setters
     void setName(const string &newName) { name = newName; }
@@ -71,8 +58,9 @@ public:
     void setCoins(int newCoins) { coins = newCoins; }
 
     // others
-    virtual void turn() {}
-    virtual void die() {}
+    int level() { return firearmLevel + meleeLevel + hp.level() + stamina.level(); }
+    virtual void turn() = 0;
+    virtual void die() = 0;
 };
 
 class Player : public Character
@@ -82,17 +70,17 @@ protected:
 
 public:
     // getters
-    Storage getInventory() { return inventory; }
+    Storage getInventory() const { return inventory; }
     // others
-    virtual void turn() {}
-    virtual void die() {}
+    void turn() override {}
+    void die() override {}
 };
 
 class Enemy : public Character
 {
 public:
-    virtual void turn() {}
-    virtual void die() {}
+    void turn() override {}
+    void die() override {}
 };
 class HumanEnemy : public Enemy
 {
@@ -102,4 +90,6 @@ class ZombieEnemy : public Enemy
 };
 class SpecialZombie : public ZombieEnemy
 {
+public:
+    void turn() override {}
 };
