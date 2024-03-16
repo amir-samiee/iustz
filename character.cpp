@@ -42,6 +42,8 @@ public:
     int getAge() const { return age; }
     string getGender() const { return gender; }
     LimitedStorage getBackpack() const { return backpack; }
+    Stat getHp() const { return hp; }
+    Stat getStamina() const { return stamina; }
     vector<Character *> getWave() const { return currentWave; }
     int getFirearmLevel() const { return firearmLevel; }
     int getMeleeLevel() const { return meleeLevel; }
@@ -52,6 +54,8 @@ public:
     void setAge(int newAge) { age = newAge; }
     void setGender(const string &newGender) { gender = newGender; }
     void setBackpack(LimitedStorage newBackpack) { backpack = newBackpack; }
+    void setHp(Stat newHp) { hp = newHp; }
+    void setStamina(Stat newStamina) { stamina = newStamina; }
     void setWave(vector<Character *> newWave) { currentWave = newWave; }
     void setFirearmLevel(int newLevel) { firearmLevel = newLevel; }
     void setMeleeLevel(int newLevel) { meleeLevel = newLevel; }
