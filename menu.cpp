@@ -5,8 +5,8 @@ namespace menu
 {
     void zombies()
     {
-        string menu = "\n1. Missin1 \n2. Missin2 \n3. Missin3 \n4. Missin4\n5. Missin5\n6. Missin6 \n7. Missin7 \n8. Missin8 \n9. Missin9\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + menu, 1, 9, true, "invalid input");
+        string zombieMissions= "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n\nenter your choice: ";
+        int intInput = getInput(iustzTitle + zombieMissions, 1, 9, true, "invalid input");
 
         switch (intInput)
         {
@@ -15,8 +15,8 @@ namespace menu
 
     void humans()
     {
-        string menu = "\n1. Missin1 \n2. Missin2 \n3. Missin3 \n4. Missin4\n5. Missin5\n6. Missin6 \n7. Missin7 \n8. Missin8 \n9. Missin9\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + menu, 1, 9, true, "invalid input");
+        string humanMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n\nenter your choice: ";
+        int intInput = getInput(iustzTitle + humanMissions, 1, 9, true, "invalid input");
 
         switch (intInput)
         {
@@ -33,9 +33,11 @@ namespace menu
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void attack()
-    {
-        string menu = "\n1. Zombies \n2. Humans \n3. Final \n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + menu, 1, 3, true, "invalid input");
+    {   
+        int intInput;
+        do{
+        string attacksMenu = "\n1. Zombies \n2. Humans \n3. Final \n4. Back\nenter your choice: ";
+        intInput = getInput(iustzTitle + attacksMenu, 1, 4, true, "invalid input");
         switch (intInput)
         {
         case 1:
@@ -44,9 +46,14 @@ namespace menu
         case 2:
             humans();
             break;
-        default:
+        case 3:
             finale();
+            break;
+        default:
+            return;
+            
         }
+        }while(intInput!=4);
     }
 
     void shop()
@@ -54,11 +61,11 @@ namespace menu
         cout << "Shop" << endl;
     }
 
-    void Profile()
+    void profile()
     {
         cout << "Profile" << endl;
     }
-    void Configurations()
+    void configurations()
     {
         cout << "Configurations" << endl;
     }
@@ -66,8 +73,11 @@ namespace menu
 
     void mainMenu()
     {
-        string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Configurations\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + menu, 1, 4, true, "invalid input");
+        int intInput;
+        do
+        {
+        string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Configurations\n5. Exit\nenter your choice: ";
+        intInput = getInput(iustzTitle + menu, 1, 5, true, "invalid input");
 
         switch (intInput)
         {
@@ -80,9 +90,17 @@ namespace menu
         case 3:
             profile();
             break;
-        default:
+        case 4:
             configurations();
+            break;
+        default:
+            return;
         }
+        }while (intInput!=5);
+
     }
 }
 
+int main(){
+    menu::mainMenu();
+}
