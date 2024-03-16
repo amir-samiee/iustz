@@ -40,5 +40,5 @@ int main()
         cout << "nice " << name << "! now ";
         int age = getInput("enter your age: ", 1, 200);
     }
-    // Show Menu
+    menu::mainMenu();
 }
