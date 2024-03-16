@@ -61,9 +61,7 @@ public:
     virtual void useItem() {}
 
     // getters
-    int getSpecial() const override {
-        return damage;
-        }
+    int getSpecial() const override { return damage; }
 
     // setters
     void setSpecial(int newDamage) override { damage = newDamage; }

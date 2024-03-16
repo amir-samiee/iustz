@@ -39,6 +39,7 @@ protected:
     Stat stamina;
     int firearmLevel;
     int meleeLevel;
+    int powerBoost = 1;
     vector<Character *> currentWave;
     int coins;
 
@@ -53,6 +54,7 @@ public:
     vector<Character *> getWave() const { return currentWave; }
     int getFirearmLevel() const { return firearmLevel; }
     int getMeleeLevel() const { return meleeLevel; }
+    int getPowerBoost() const { return powerBoost; }
     int getCoins() const { return coins; }
 
     // setters
@@ -65,6 +67,7 @@ public:
     void setWave(vector<Character *> newWave) { currentWave = newWave; }
     void setFirearmLevel(int newLevel) { firearmLevel = newLevel; }
     void setMeleeLevel(int newLevel) { meleeLevel = newLevel; }
+    void setPowerBoost(int newPowerBoost) { powerBoost = newPowerBoost; }
     void setCoins(int newCoins) { coins = newCoins; }
 
     // others
