@@ -3,7 +3,7 @@ using namespace std;
 
 namespace menu
 {
-    void Zombies()
+    void zombies()
     {
         string menu = "\n1. Missin1 \n2. Missin2 \n3. Missin3 \n4. Missin4\n5. Missin5\n6. Missin6 \n7. Missin7 \n8. Missin8 \n9. Missin9\n\nenter your choice: ";
         int intInput = getInput(iustzTitle + menu, 1, 9, true, "invalid input");
@@ -13,7 +13,7 @@ namespace menu
         }
     }
 
-    void Humans()
+    void humans()
     {
         string menu = "\n1. Missin1 \n2. Missin2 \n3. Missin3 \n4. Missin4\n5. Missin5\n6. Missin6 \n7. Missin7 \n8. Missin8 \n9. Missin9\n\nenter your choice: ";
         int intInput = getInput(iustzTitle + menu, 1, 9, true, "invalid input");
@@ -25,31 +25,31 @@ namespace menu
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Finale()
+    void finale()
     {
-        cout << "Finale" << endl;
+        cout << "finale" << endl;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Attack()
+    void attack()
     {
         string menu = "\n1. Zombies \n2. Humans \n3. Final \n\nenter your choice: ";
         int intInput = getInput(iustzTitle + menu, 1, 3, true, "invalid input");
         switch (intInput)
         {
         case 1:
-            Zombies();
+            zombies();
             break;
         case 2:
-            Humans();
+            humans();
             break;
         default:
-            Finale();
+            finale();
         }
     }
 
-    void Shop()
+    void shop()
     {
         cout << "Shop" << endl;
     }
@@ -72,16 +72,16 @@ namespace menu
         switch (intInput)
         {
         case 1:
-            Attack();
+            attack();
             break;
         case 2:
-            Shop();
+            shop();
             break;
         case 3:
-            Profile();
+            profile();
             break;
         default:
-            Configurations();
+            configurations();
         }
     }
 }
