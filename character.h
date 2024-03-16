@@ -28,8 +28,8 @@ protected:
     LimitedStorage backpack;
     Stat hp;
     Stat stamina;
-    int firearmLevel;
-    int meleeLevel;
+    int firearmLevel = 1;
+    int meleeLevel = 1;
     int powerBoost = 1;
     vector<Character *> currentWave;
     int coins;
