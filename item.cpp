@@ -212,7 +212,7 @@ public:
     {
         this->boostAmount = boostAmount;
         Item *basePtr = dynamic_cast<Item *>(this);
-        consumablee.push_back(this);
+        consumablee.push_back(basePtr);
     }
 
     // getters
