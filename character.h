@@ -77,6 +77,8 @@ protected:
 public:
     // getters
     Storage getInventory() const { return inventory; }
+    // setters
+    void setInventory(Storage newInventory) { inventory = newInventory; }
     // others
     void turn() override;
     void die() override;
