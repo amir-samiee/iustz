@@ -80,7 +80,7 @@ public:
     Storage getInventory() const { return inventory; }
 
     // setters
-    Storage setInventory(Storage newInventory) { inventory = newInventory; }
+    void setInventory(Storage newInventory) { inventory = newInventory; }
 
     // others
     void turn() override;
