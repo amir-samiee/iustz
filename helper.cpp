@@ -21,7 +21,7 @@ const string iustzTitle =
     "!!:  !!:  !!!       !:!" + red + "   !!:  " + reset + "   !!:      \n" +
     ":!:  :!:  !:!      !:! " + red + "   :!:  " + reset + "  :!:       \n" +
     "::  ::::::::  :::: ::  " + red + "   ::   " + reset + "  :: ::::   \n" +
-    ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  ";
+    ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  \n";
 
 void clearScreen()
 {
@@ -77,8 +77,9 @@ void cleanIntString(string &s)
     }
 }
 
-void getInput(string &input, string options, int from, int to, bool cls = true, string errorMessage = "invalid input")
+int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input")
 {
+    string input;
     bool indexError = 0, typeError = 0, emptyString = 0;
     do
     {
@@ -105,6 +106,7 @@ void getInput(string &input, string options, int from, int to, bool cls = true, 
                 typeError = 1;
         }
     } while (indexError || typeError || emptyString);
+    return stoi(input);
 }
 
 template <typename element, typename list>

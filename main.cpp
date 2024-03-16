@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
     clearScreen();
-    cout << iustzTitle << string(3, '\n') << "Enter your usename: ";
+    cout << iustzTitle << string(2, '\n') << "Enter your usename: ";
     string username;
     /*Storage storage;
     storage.addItem("Axe");
@@ -39,9 +39,7 @@ int main()
         string sinput, name; // sinput stands for string input, we take it as input everytime and if it was proper we convert it to other types
         getline(cin, name);
         cout << "nice " << name << "! now ";
-        int age;
-        getInput(sinput, "enter your age: ", 1, 200);
-        age = stoi(sinput);
+        int age = getInput("enter your age: ", 1, 200);
     }
     // Show Menu
 }
