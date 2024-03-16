@@ -80,6 +80,8 @@ class Player : public Character
 {
 protected:
     Storage inventory;
+    int humanLevels = 0;
+    int zombieLevels = 0;
 
 public:
     // getters
