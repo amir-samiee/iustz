@@ -58,13 +58,17 @@ public:
         Item *basePtr = dynamic_cast<Item *>(this);
         throwablee.push_back(basePtr);
     }
-    virtual void useItem() {}
 
     // getters
     int getSpecial() const override { return damage; }
 
     // setters
     void setSpecial(int newDamage) override { damage = newDamage; }
+    
+    // others
+    virtual void useItem() {
+        owner.
+    }
 };
 
 class Consumable : public Item

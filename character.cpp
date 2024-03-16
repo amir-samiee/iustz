@@ -14,7 +14,13 @@ public:
 
     // setters:
     void setMaxPoint(int newValue) { maxPoint = newValue; }
-    void setCurrentPoint(int newValue) { currentPoint = newValue; }
+    void setCurrentPoint(int newValue)
+    {
+        if (newValue > maxPoint)
+            currentPoint = maxPoint;
+        else
+            currentPoint = newValue;
+    }
 
     int level()
     {
