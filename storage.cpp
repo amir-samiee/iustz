@@ -15,16 +15,12 @@ public:
         owner = newOwner;
     }
     // getters
-    Character *getOwner()
-    {
-        return owner;
-    }
+    map<string, int> getItems() { return items; }
+    Character *getOwner() { return owner; }
 
     // setters
-    void setOwner(Character *newOwner)
-    {
-        owner = newOwner;
-    }
+    void setItems(map<string, int> newItems) { items = newItems; }
+    void setOwner(Character *newOwner) { owner = newOwner; }
 
     // others
     virtual void addItem(string name)
@@ -87,19 +83,17 @@ public:
 class LimitedStorage : public Storage
 {
 protected:
-    const int capacity = 12;
+    int capacity = 12;
     int size = 0;
 
 public:
-    //constructor
-    LimitedStorage(Character* newOwner , int newSize) : Storage(newOwner){
+    // constructor
+    LimitedStorage(Character *newOwner, int newSize) : Storage(newOwner)
+    {
         size = newSize;
     }
     // getters
-    int getSize()
-    {
-        return size;
-    }
+    int getSize() { return size; }
     // setters
     void setSize(int newSize)
     {
