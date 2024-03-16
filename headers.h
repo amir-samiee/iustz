@@ -13,6 +13,10 @@ using namespace std;
 
 // the order of the following lines matters. make changes wisely!
 #include "Assets/nlohmann/json.hpp"
+#include "item.h"
+#include "storage.h"
+#include "character.h"
+
 #include "helper.cpp"
 #include "item.cpp"
 #include "storage.cpp"

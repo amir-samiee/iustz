@@ -23,8 +23,6 @@ namespace menu
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     void finale()
     {
         cout << "finale" << endl;
@@ -36,7 +34,7 @@ namespace menu
     {   
         int intInput;
         do{
-        string attacksMenu = "\n1. Zombies \n2. Humans \n3. Final \n4. Back\nenter your choice: ";
+        string attacksMenu = "\n1. Zombies \n2. Humans \n3. Finale \n4. Back\nenter your choice: ";
         intInput = getInput(iustzTitle + attacksMenu, 1, 4, true, "invalid input");
         switch (intInput)
         {

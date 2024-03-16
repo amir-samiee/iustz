@@ -1,132 +1,101 @@
 #pragma once
 #include "headers.h"
 
-class Character;
-class Storage
+Storage::Storage(Character *newOwner)
 {
-protected:
-    map<string, int> items;
-    Character *owner;
+    owner = newOwner;
+}
+void Storage::addItem(string name)
+{
+    if (items.find(name) == items.end())
+        items.insert({name, 1});
 
-public:
-    // constructor
-    Storage(Character *newOwner)
+    else if (dynamic_cast<Permanent *>(dictionary[name]) != nullptr)
+        cout << "you can only add a permanent item once!\n";
+
+    else
+        items[name]++;
+}
+
+void Storage::printStorage()
+{
+    int i = 1;
+    int maxNameLength = 0;
+    // Find the maximum length of names
+    for (auto &item : items)
     {
-        owner = newOwner;
+        int length = dictionary[item.first]->getName().length();
+        if (length > maxNameLength)
+            maxNameLength = length;
     }
-    // getters
-    map<string, int> getItems() { return items; }
-    Character *getOwner() { return owner; }
 
-    // setters
-    void setItems(map<string, int> newItems) { items = newItems; }
-    void setOwner(Character *newOwner) { owner = newOwner; }
+    cout << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
+    for (auto &item : items)
+    {
+        cout << i << "- " << setw(maxNameLength + 5) << dictionary[item.first]->getName()
+             << setw(15) << dictionary[item.first]->getSpecial()
+             << setw(10) << dictionary[item.first]->getStamina()
+             << setw(10) << item.second << endl;
+        i++;
+    }
+}
 
-    // others
-    virtual void addItem(string name)
+void Storage::removeItem(string name)
+{
+    while (true)
+    {
+        if (items[name] < 1)
+            cout << "item does not exist.\n";
+
+        else if (items[name] == 1)
+        {
+            items.erase(name);
+            break;
+        }
+
+        else
+        {
+            items[name]--;
+            break;
+        }
+    }
+}
+
+LimitedStorage::LimitedStorage(Character *newOwner, int newSize) : Storage(newOwner)
+{
+    size = newSize;
+}
+// setters
+void LimitedStorage::setSize(int newSize)
+{
+    if (newSize >= 0 && newSize <= capacity)
+    {
+        size = newSize;
+    }
+    else
+    {
+        cout << "Invalid size value. Size must be between 0 and " << capacity << endl;
+    }
+}
+void LimitedStorage::addItem(string name)
+{
+    if (size < capacity)
     {
         if (items.find(name) == items.end())
+        {
             items.insert({name, 1});
+            size++;
+        }
 
         else if (dynamic_cast<Permanent *>(dictionary[name]) != nullptr)
             cout << "you can only add a permanent item once!\n";
 
         else
+        {
             items[name]++;
-    }
-
-    void printStorage()
-    {
-        int i = 1;
-        int maxNameLength = 0;
-        // Find the maximum length of names
-        for (auto &item : items)
-        {
-            int length = dictionary[item.first]->getName().length();
-            if (length > maxNameLength)
-                maxNameLength = length;
-        }
-
-        cout << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
-        for (auto &item : items)
-        {
-            cout << i << "- " << setw(maxNameLength + 5) << dictionary[item.first]->getName()
-                 << setw(15) << dictionary[item.first]->getSpecial()
-                 << setw(10) << dictionary[item.first]->getStamina()
-                 << setw(10) << item.second << endl;
-            i++;
+            size++;
         }
     }
-
-    void removeItem(string name)
-    {
-        while (true)
-        {
-            if (items[name] < 1)
-                cout << "item does not exist.\n";
-
-            else if (items[name] == 1)
-            {
-                items.erase(name);
-                break;
-            }
-
-            else
-            {
-                items[name]--;
-                break;
-            }
-        }
-    }
-};
-
-class LimitedStorage : public Storage
-{
-protected:
-    int capacity = 12;
-    int size = 0;
-
-public:
-    // constructor
-    LimitedStorage(Character *newOwner, int newSize) : Storage(newOwner)
-    {
-        size = newSize;
-    }
-    // getters
-    int getSize() { return size; }
-    // setters
-    void setSize(int newSize)
-    {
-        if (newSize >= 0 && newSize <= capacity)
-        {
-            size = newSize;
-        }
-        else
-        {
-            cout << "Invalid size value. Size must be between 0 and " << capacity << endl;
-        }
-    }
-    // others
-    void addItem(string name) override
-    {
-        if (size < capacity)
-        {
-            if (items.find(name) == items.end())
-            {
-                items.insert({name, 1});
-                size++;
-            }
-
-            else if (dynamic_cast<Permanent *>(dictionary[name]) != nullptr)
-                cout << "you can only add a permanent item once!\n";
-
-            else
-            {
-                items[name]++;
-                size++;
-            }
-        }
-        else
-            cout << "your backpack is already full\n";
-    }
-};
+    else
+        cout << "your backpack is already full\n";
+}
