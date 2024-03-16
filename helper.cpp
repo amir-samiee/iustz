@@ -1,6 +1,5 @@
 #pragma once
 #include "headers.h"
-using namespace std;
 using json = nlohmann::json;
 
 const string red("\033[0;31m");
@@ -21,7 +20,7 @@ const string iustzTitle =
     "!!:  !!:  !!!       !:!" + red + "   !!:  " + reset + "   !!:      \n" +
     ":!:  :!:  !:!      !:! " + red + "   :!:  " + reset + "  :!:       \n" +
     "::  ::::::::  :::: ::  " + red + "   ::   " + reset + "  :: ::::   \n" +
-    ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  ";
+    ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  \n";
 
 void clearScreen()
 {
@@ -77,8 +76,9 @@ void cleanIntString(string &s)
     }
 }
 
-void getInput(string &input, string options, int from, int to, bool cls = true, string errorMessage = "invalid input")
+int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input")
 {
+    string input;
     bool indexError = 0, typeError = 0, emptyString = 0;
     do
     {
@@ -105,6 +105,7 @@ void getInput(string &input, string options, int from, int to, bool cls = true, 
                 typeError = 1;
         }
     } while (indexError || typeError || emptyString);
+    return stoi(input);
 }
 
 template <typename element, typename list>
@@ -125,4 +126,13 @@ json loadData(string fileName)
     file >> j;
     file.close();
     return j;
+}
+
+template <typename K>
+void print_vector(vector<K> vec)
+{
+    cout << '{';
+    for (int i = 0; i < vec.size(); i++)
+        cout << vec[i] << string(1 - (i == vec.size() - 1), ',') + string(1 - (i == vec.size() - 1), ' ');
+    cout << '}' << endl;
 }

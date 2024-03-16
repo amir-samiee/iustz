@@ -1,6 +1,5 @@
 #pragma once
 #include "headers.h"
-using namespace std;
 
 class Character; // Forward declaration
 class Item;
@@ -29,35 +28,34 @@ public:
     }
 
     Item() = default;
-    virtual void useItem() = 0;
 
     // getters
-    string getName() const
-    {
-        return name;
-    }
-    int getPrice() const
-    {
-        return price;
-    }
-    Character *getOwner() const
-    {
-        return owner;
-    }
+    string getName() const { return name; }
+    int getPrice() const { return price; }
+    Character *getOwner() const { return owner; }
+    int getStamina() const { return stamina; }
+    virtual int getSpecial() const = 0;
 
     // setters
-    void setName(const string &newName)
+    void setName(const string &newName) { name = newName; }
+    void setPrice(int newPrice) { price = newPrice; }
+    void setOwner(Character *newOwner) { owner = newOwner; }
+    void setStamina(int newStamina) { stamina = newStamina; }
+    virtual void setSpecial(int newSpecial) = 0;
+
+    // others
+    bool checkAndTakeStamina()
     {
-        name = newName;
+        if (owner->getStamina().getCurrentPoint() < this->getStamina())
+        {
+            cout << "not enough stamina\n";
+            return false;
+        }
+        int newPoint = owner->getStamina().getCurrentPoint() - this->getStamina();
+        owner->getStamina().setCurrentPoint(newPoint);
+        return true;
     }
-    void setPrice(int newPrice)
-    {
-        price = newPrice;
-    }
-    void setOwner(Character *newOwner)
-    {
-        owner = newOwner;
-    }
+    virtual void useItem() = 0;
 };
 
 class Throwable : public Item
@@ -73,18 +71,26 @@ public:
         Item *basePtr = this;
         throwablee.push_back(basePtr);
     }
-    virtual void useItem() {}
 
     // getters
-    int getDamage() const
-    {
-        return damage;
-    }
+    int getSpecial() const override { return damage; }
 
     // setters
-    void setDamage(int newDamage)
+    void setSpecial(int newDamage) override { damage = newDamage; }
+
+    // others
+    virtual void useItem()
     {
-        damage = newDamage;
+        if (this->checkAndTakeStamina())
+        {
+            for (int i = 0; i < owner->getWave().size(); i++)
+            {
+                int currentPoint = owner->getWave()[i]->getHp().getCurrentPoint();
+                int newPoint = currentPoint - ((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
+                owner->getWave()[i]->getHp().setCurrentPoint(newPoint);
+                owner->setPowerBoost(1);
+            }
+        }
     }
 };
 
@@ -100,7 +106,7 @@ public:
 class Permanent : public Item
 {
 protected:
-    int damage;
+    int damage = 0;
 
 public:
     // constructor:
@@ -108,19 +114,15 @@ public:
     {
         this->damage = damage;
     }
-    virtual void useItem() {}
 
     // getters
-    int getDamage() const
-    {
-        return damage;
-    }
+    int getSpecial() const override { return damage; }
 
     // setters
-    void setDamage(int newdamage)
-    {
-        damage = newdamage;
-    }
+    void setSpecial(int newdamage) override { damage = newdamage; }
+
+    // others
+    virtual void useItem() {}
 };
 
 class Melee : public Permanent
@@ -133,7 +135,16 @@ public:
         permanentt.push_back(basePtr);
     }
     // others
-    void useItem() override{};
+    void useItem() override
+    {
+        if (this->checkAndTakeStamina())
+        {
+            int currentPoint = owner->getWave()[0]->getHp().getCurrentPoint();
+            int newPoint = currentPoint - (this->getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
+            owner->getWave()[0]->getHp().setCurrentPoint(newPoint);
+            owner->setPowerBoost(1);
+        }
+    }
 };
 
 class Firearm : public Permanent
@@ -146,7 +157,16 @@ public:
         permanentt.push_back(basePtr);
     }
     // others
-    void useItem() override{};
+    void useItem() override
+    {
+        if (this->checkAndTakeStamina())
+        {
+            int currentPoint = owner->getWave()[0]->getHp().getCurrentPoint();
+            int newPoint = currentPoint - (this->getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
+            owner->getWave()[0]->getHp().setCurrentPoint(newPoint);
+            owner->setPowerBoost(1);
+        }
+    };
 };
 
 class HpPotion : public Consumable
@@ -164,21 +184,20 @@ public:
     }
 
     // getters
-    int getHealingAmount() const
-    {
-        return healingAmount;
-    }
+    int getSpecial() const override { return healingAmount; }
 
     // setters
-    void setHealingAmount(int newAmount)
-    {
-        healingAmount = newAmount;
-    }
+    void setSpecial(int newAmount) override { healingAmount = newAmount; }
 
     // others
     void useItem() override
     {
-        // Implementation for healing logic
+        if (this->checkAndTakeStamina())
+        {
+            int newPoint = owner->getHp().getCurrentPoint() + this->getSpecial();
+            owner->getHp().setCurrentPoint(newPoint);
+            
+        }
     }
 };
 
@@ -197,21 +216,20 @@ public:
     }
 
     // getters
-    int getBoostAmount() const
-    {
-        return boostAmount;
-    }
+    int getSpecial() const override { return boostAmount; }
 
     // setters
-    void setBoostAmount(int newAmount)
-    {
-        boostAmount = newAmount;
-    }
+    void setSpecial(int newAmount) override { boostAmount = newAmount; }
 
     // others
     void useItem() override
     {
-        // Implementation for stamina boost logic
+        if (this->checkAndTakeStamina())
+        {
+            int newPoint = owner->getStamina().getCurrentPoint() + this->getSpecial();
+            owner->getStamina().setCurrentPoint(newPoint);
+            
+        }
     }
 };
 
@@ -227,21 +245,20 @@ public:
         Item *basePtr = this;
         consumablee.push_back(basePtr);
     }
-    void useItem() override
-    {
-        // Implementation for power increase logic
-    }
 
     // getters
-    double getEmpowerment() const
-    {
-        return empowerment;
-    }
+    int getSpecial() const override { return empowerment; }
 
     // setters
-    void setEmpowerment(double newEmpowerment)
+    void setSpecial(int newEmpowerment) override { empowerment = newEmpowerment; }
+
+    // others
+    void useItem() override
     {
-        empowerment = newEmpowerment;
+        if (this->checkAndTakeStamina())
+        {
+            owner->setPowerBoost(this->getSpecial());
+        }
     }
 };
 
@@ -260,9 +277,9 @@ Throwable throwable10("Gunship", 500, nullptr, 450, 900);
 
 // objects of permanant class
 // "melee"
-Melee melee1("Punch", 0, nullptr, 5, 0);
+Melee melee1("Punch", 0, nullptr, 0, 5);
 Melee melee2("Axe", 10, nullptr, 10, 20);
-Melee melee3("Nunchaku", 50, nullptr, 20, 10);
+Melee melee3("Nunchaku", 50, nullptr, 10, 20);
 Melee melee4("Sword", 20, nullptr, 20, 40);
 Melee melee5("Katana", 25, nullptr, 20, 40);
 Melee melee6("Dagger", 30, nullptr, 30, 60);
@@ -300,8 +317,8 @@ StaminaPotion staminaPotion4("Endurance Elixir", 35, nullptr, 0, 40);
 StaminaPotion staminaPotion5("Stamina Spark", 50, nullptr, 0, 50);
 
 // power potion
-PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 1.5);
-PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 2);
-PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 2.5);
-PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 0, 3);
-PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 0, 4);
+PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 2);
+PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 3);
+PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 4);
+PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 0, 5);
+PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 0, 6);
