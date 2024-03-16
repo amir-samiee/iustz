@@ -17,5 +17,6 @@ using namespace std;
 #include "item.cpp"
 #include "storage.cpp"
 #include "character.cpp"
+#include "menu.cpp"
 
 #endif
