@@ -70,7 +70,7 @@ public:
     Throwable(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
     {
         this->damage = damage;
-        Item *basePtr = dynamic_cast<Item *>(this);
+        Item *basePtr = this;
         throwablee.push_back(basePtr);
     }
     virtual void useItem() {}
@@ -159,7 +159,7 @@ public:
     HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
     {
         this->healingAmount = healingAmount;
-        Item *basePtr = dynamic_cast<Item *>(this);
+        Item *basePtr = this;
         consumablee.push_back(basePtr);
     }
 
@@ -192,7 +192,7 @@ public:
     StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
     {
         this->boostAmount = boostAmount;
-        Item *basePtr = dynamic_cast<Item *>(this);
+        Item *basePtr = this;
         consumablee.push_back(basePtr);
     }
 
@@ -224,7 +224,7 @@ public:
     PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
     {
         this->empowerment = empowerment;
-        Item *basePtr = dynamic_cast<Item *>(this);
+        Item *basePtr = this;
         consumablee.push_back(basePtr);
     }
     void useItem() override
