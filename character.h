@@ -65,6 +65,7 @@ public:
     int level();
     virtual void turn() = 0;
     virtual void die() = 0;
+    void takeDamage(int newPoint);
 };
 
 class Player : public Character
@@ -77,8 +78,6 @@ protected:
 public:
     // getters
     Storage getInventory() const { return inventory; }
-    // setters
-    void setInventory(Storage newInventory) { inventory = newInventory; }
     // others
     void turn() override;
     void die() override;
