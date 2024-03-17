@@ -42,6 +42,9 @@ public:
 
 class Removeable : public Item
 {
+public:
+    Removeable(string name, int price, Character *owner, int stamina);
+
 protected:
     virtual void removeFromBackpack();
 }
