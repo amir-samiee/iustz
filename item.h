@@ -47,7 +47,8 @@ public:
 
 protected:
     virtual void removeFromBackpack();
-}
+};
+
 
 class Throwable : public Removeable
 {
