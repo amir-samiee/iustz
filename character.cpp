@@ -20,7 +20,7 @@ int Stat::level()
 
 int Character::level() { return firearmLevel + meleeLevel + hp.level() + stamina.level(); }
 void Character::takeDamage(int newPoint){
-    if(newPoint == 0)
+    if(newPoint <= 0)
         this->die();
     else
         this->getHp().setCurrentPoint(newPoint);
