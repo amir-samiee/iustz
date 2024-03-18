@@ -19,9 +19,18 @@ class Mission {
     public:
 
     // getters:
+string getMissionName() const {return missionName;}
+int getMissionNum() const {return missionNum;}
+int getCasualEnemyNum() const {return casualEnemyNum;}
+int getSpecialEnemyNum() const {return specialEnemyNum;}
+string getStory() const {return story;}
+Factory* getEnemyBank() const {return enemyBank;}
+Storage getInventory() const {return inventory;}
+Player* getPlayer() const {return player;}
 
 
     // setters :
+
 
 
     //methods:
