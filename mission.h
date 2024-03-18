@@ -42,8 +42,6 @@ public:
     vector<vector<Character *>> createEnemy() override;
 };
 
-HumanFactory humanBuilder();
-ZombieFactory zombieBuilder();
 /// @brief ///////////////////////////////////////////////
 class Mission;
 
