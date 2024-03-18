@@ -30,11 +30,11 @@ Player* getPlayer() const {return player;}
 
 
     // setters :
-void setMissionName(string newMissionName) {missionName = newMissionName; }
-void setMissionNum(int newMissionNum) {missionNum = newMissionNum; }
+void setMissionName(const string &newMissionName) {missionName = newMissionName; }
+void setMissionNum(const int &newMissionNum) {missionNum = newMissionNum; }
 void setCasualEnemyNum(int newCasualEnemyNum) {casualEnemyNum = newCasualEnemyNum; }
 void setSpecialEnemyNum(int newSpecialEnemyNum) {specialEnemyNum = newSpecialEnemyNum; }
-void setStory(string newStory) {story = newStory; }
+void setStory(const string &newStory) {story = newStory; }
 void setEnemyBank(Factory* newEnemyBank) {enemyBank = newEnemyBank; }
 void setInventory(Storage newInventory) {inventory = newInventory; }
 void setPlayer(Player* newPlayer) {player = newPlayer; }
