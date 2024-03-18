@@ -21,7 +21,7 @@ bool Item::checkAndTakeStamina()
     owner->getStamina().setCurrentPoint(newPoint);
     return true;
 }
-Removable::Removeable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
+Removable::Removable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
 
 void Removable::removeFromBackpack() {}
 
