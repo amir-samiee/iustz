@@ -1,42 +1,101 @@
 #pragma once
 #include "headers.h"
 
-void Mission :: playerTurn(){
-
+Factory::Factory(int level, int casualEnemy, int specialEnemy, Storage *inventory)
+{
+    this->level = level;
+    this->casualEnemy = casualEnemy;
+    this->specialEnemy = specialEnemy;
+    this->inventory = inventory;
 }
 
-bool Mission :: endTurn(){
-
-return true ;
+vector<int> Factory::getWave()
+{
+    vector<int> waves;
+    return waves;
 }
 
-void Mission :: enemyTurn(){
+/// @brief ////////////////////////////////////
 
+HumanFactory::HumanFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory):
+Factory(level, casualEnemy, specialEnemy, inventory){}
+
+vector<vector<Character *>> HumanFactory ::createEnemy()
+{
+    vector<vector<Character *>> enemies;
+    return enemies;
 }
 
-void Mission :: endWave() {
+/// @brief //////////////////////////////
 
-}
-void Mission :: removeDead() {
+ZombieFactory::ZombieFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory):
+Factory(level, casualEnemy, specialEnemy, inventory){}
 
-}
-void Mission :: playerDeath() {
-
-}
-void Mission :: endMission() {
-
+vector<vector<Character *>> ZombieFactory ::createEnemy()
+{
+    vector<vector<Character *>> enemies;
+    return enemies;
 }
 
+/// @brief ///////////////////////////////////////////////
 
-vector<int>  Factory :: getWave(){
-
-return vector<int>();
+Mission ::Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum, Storage *newInventory)
+{
+    this->name = newName;
+    this->missionNum = newMissionNum;
+    this->casualEnemyNum = newCasualEnemyNum;
+    this->specialEnemyNum = newSpecialEnemyNum;
+    this->inventory = newInventory;
+}
+void Mission ::playerTurn()
+{
 }
 
-void HumanFactory :: createEnemy(){
+void Mission ::enemyTurn()
+{
+}
 
-} 
+void Mission ::endWave()
+{
+}
+void Mission ::removeDead()
+{
+}
 
-void ZombieFactory :: createEnemy(){
+void Mission ::playerDeath()
+{
+}
 
+void Mission ::end()
+{
+}
+
+void Mission::start()
+{
+}
+
+ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
+                             int newSpecialEnemyNum, Storage *newInventory, vector<vector<Character *>> newEnemies)
+    : Mission(newName, newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory)
+{
+    // setting the id:
+    string id = "z" + newMissionNum;
+    missionMap[id] = this;
+
+    // feeding data to factory:
+    ZombieFactory factory(newMissionNum , newCasualEnemyNum , newSpecialEnemyNum , newInventory);
+    this->enemies = factory.createEnemy();
+}
+
+HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
+                           int newSpecialEnemyNum, Storage *newInventory, vector<vector<Character *>> newEnemies)
+    : Mission(newName, newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory)
+{
+    // setting the id:
+    string id = "h" + newMissionNum;
+    missionMap[id] = this;
+
+    // feeding data to factory:
+    HumanFactory factory(newMissionNum , newCasualEnemyNum , newSpecialEnemyNum , newInventory);
+    this->enemies = factory.createEnemy();
 }

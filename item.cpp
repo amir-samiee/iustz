@@ -7,7 +7,7 @@ Item::Item(string name, int price, Character *owner, int stamina)
     this->price = price;
     this->owner = owner;
     this->stamina = stamina;
-    dictionary[name] = this;
+    itemsMap[name] = this;
 }
 
 bool Item::checkAndTakeStamina()
@@ -27,9 +27,10 @@ void Removable::removeFromBackpack() {}
 
 Throwable::Throwable(string name, int price, Character *owner, int stamina, int damage) : Removable(name, price, owner, stamina)
 {
+
     this->damage = damage;
     Item *basePtr = this;
-    throwablee.push_back(basePtr);
+    throwables.push_back(basePtr);
 }
 void Throwable::useItem()
 {
@@ -56,7 +57,7 @@ void Permanent::useItem() {}
 Melee::Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
     Item *basePtr = this;
-    permanentt.push_back(basePtr);
+    permanents.push_back(basePtr);
 }
 void Melee::useItem()
 {
@@ -72,7 +73,7 @@ void Melee::useItem()
 Firearm::Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
     Item *basePtr = this;
-    permanentt.push_back(basePtr);
+    permanents.push_back(basePtr);
 }
 void Firearm::useItem()
 {
@@ -89,7 +90,7 @@ HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int he
 {
     this->healingAmount = healingAmount;
     Item *basePtr = this;
-    consumablee.push_back(basePtr);
+    consumables.push_back(basePtr);
 }
 
 void HpPotion::useItem()
@@ -105,7 +106,7 @@ StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stami
 {
     this->boostAmount = boostAmount;
     Item *basePtr = this;
-    consumablee.push_back(basePtr);
+    consumables.push_back(basePtr);
 }
 void StaminaPotion::useItem()
 {
@@ -120,7 +121,7 @@ PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, 
 {
     this->empowerment = empowerment;
     Item *basePtr = this;
-    consumablee.push_back(basePtr);
+    consumables.push_back(basePtr);
 }
 void PowerPotion::useItem()
 {

@@ -4,10 +4,11 @@
 class Character; // Forward declaration
 class Item;
 
-vector<Item *> throwablee;
-vector<Item *> consumablee;
-vector<Item *> permanentt;
-map<string, Item *> dictionary;
+// this partition will be used in the shop as the user will select which type of items they are going to buy
+vector<Item *> throwables;
+vector<Item *> consumables;
+vector<Item *> permanents;
+map<string, Item *> itemsMap;
 
 class Item
 {
@@ -39,13 +40,16 @@ public:
     bool checkAndTakeStamina();
     virtual void useItem() = 0;
 };
+
 class Removable : public Item
 {
 public:
-    Removable(string name, int price, Character *owner, int stamina, int damage);
+    Removable(string name, int price, Character *owner, int stamina);
+
 protected:
     virtual void removeFromBackpack();
 };
+
 
 class Throwable : public Removable
 {
