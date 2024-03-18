@@ -11,6 +11,7 @@ protected:
 public:
     // constructor
     Storage(Character *newOwner);
+    
     // getters
     map<string, int> getItems() { return items; }
     Character *getOwner() { return owner; }
@@ -35,6 +36,7 @@ protected:
 
 public:
     // constructor
+    LimitedStorage() ;
     LimitedStorage(Character *newOwner, int newSize);
     // getters
     int getSize() { return size; }

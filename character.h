@@ -35,6 +35,8 @@ protected:
     int coins;
 
 public:
+
+    Character (string name , int age , string gender , LimitedStorage backpack , Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins);
     // getters
     string getName() const { return name; }
     int getAge() const { return age; }
@@ -62,6 +64,17 @@ public:
     void setCoins(int newCoins) { coins = newCoins; }
 
     // others
+    string name;
+    int age;
+    string gender; // -male -female -other
+    LimitedStorage backpack;
+    Stat hp;
+    Stat stamina;
+    int firearmLevel = 1;
+    int meleeLevel = 1;
+    int powerBoost = 1;
+    vector<Character *> currentWave;
+    int coins;
     int level();
     virtual void turn() = 0;
     virtual void die() = 0;
@@ -93,12 +106,15 @@ public:
     void turn() override;
     void die() override;
 };
+
 class HumanEnemy : public Enemy
 {
 };
+
 class ZombieEnemy : public Enemy
 {
 };
+
 class SpecialZombie : public ZombieEnemy
 {
 public:

@@ -25,6 +25,21 @@ void Character::takeDamage(int newPoint){
     else
         this->getHp().setCurrentPoint(newPoint);
 }
+Character :: Character(string name , int age , string gender , LimitedStorage backpack , Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins){
+   
+    this-> name = name;
+    this->age = age;
+    this->gender = gender;
+    this->backpack = backpack;
+    this->hp = hp;
+    this->stamina = stamina;
+    this->firearmLevel = firearmLevel;
+    this->meleeLevel = meleeLevel;
+    this->powerBoost = powerBoost;
+    this->currentWave = currentWave;
+    this-> coins = coins;
+
+}
 
 /// @brief /////////////////////////////////////////////////////
 
