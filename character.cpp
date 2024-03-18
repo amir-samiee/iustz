@@ -41,6 +41,26 @@ Character :: Character(string name , int age , string gender , LimitedStorage ba
 
 }
 
+//player
+
+Enemy::Enemy (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins) : Character( name ,  age ,  gender ,  backpack ,  hp ,
+      stamina , firearmLevel , meleeLevel ,  powerBoost , currentWave , coins) {}
+
+HumanEnemy::HumanEnemy (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins) : Enemy( name ,  age ,  gender ,  backpack ,  hp ,
+      stamina , firearmLevel , meleeLevel ,  powerBoost , currentWave , coins) {}
+
+ZombieEnemy::ZombieEnemy (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins) : Enemy( name ,  age ,  gender ,  backpack ,  hp ,
+      stamina , firearmLevel , meleeLevel ,  powerBoost , currentWave , coins) {}
+
+SpecialZombie::SpecialZombie (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins) : ZombieEnemy( name ,  age ,  gender ,  backpack ,  hp ,
+      stamina , firearmLevel , meleeLevel ,  powerBoost , currentWave , coins) {}
+
+
+
 /// @brief /////////////////////////////////////////////////////
 
 void Player::turn() {}
