@@ -42,7 +42,7 @@ public:
 class Removable : public Item
 {
 public:
-    Removable(string name, int price, Character *owner, int stamina, int damage);
+    Removable(string name, int price, Character *owner, int stamina);
 protected:
     virtual void removeFromBackpack();
 };

@@ -1,42 +1,61 @@
 #pragma once
 #include "headers.h"
 
-void Mission :: playerTurn(){
-
+Factory::Factory(int level , int casualEnemy , int specialEnemy , Storage *inventory){
+    this->level = level;
+    this->casualEnemy = casualEnemy;
+    this->specialEnemy = specialEnemy;
+    this->inventory = inventory;
 }
 
-bool Mission :: endTurn(){
-
-return true ;
+vector<int> Factory::getWave()
+{
+    vector<int> waves;
+    return waves;
 }
 
-void Mission :: enemyTurn(){
-
+vector<vector<Character *>> HumanFactory ::createEnemy()
+{
+    vector<vector<Character *>> enemies;
+    return enemies;
 }
 
-void Mission :: endWave() {
-
-}
-void Mission :: removeDead() {
-
-}
-void Mission :: playerDeath() {
-
-}
-void Mission :: endMission() {
-
+vector<vector<Character *>> ZombieFactory ::createEnemy()
+{
+    vector<vector<Character *>> enemies;
+    return enemies;
 }
 
-
-vector<int>  Factory :: getWave(){
-
-return vector<int>();
+void Factory::setFactory(int level , int casualEnemy , int specialEnemy , Storage *inventory){
+    this->setLevel(level);
+    this->setCasualEnemy(casualEnemy);
+    this->setSpecialEnemy(specialEnemy);
+    this->setInventory(inventory);
 }
 
-void HumanFactory :: createEnemy(){
+void Mission ::playerTurn()
+{
+}
 
-} 
+void Mission ::enemyTurn()
+{
+}
 
-void ZombieFactory :: createEnemy(){
+void Mission ::endWave()
+{
+}
+void Mission ::removeDead()
+{
+}
+
+void Mission ::playerDeath(){
+    
+}
+
+void Mission ::end()
+{
+}
+
+void Mission::start(){
 
 }

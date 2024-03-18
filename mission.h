@@ -11,7 +11,7 @@ protected:
 
 public:
     // constructor:
-    Factory();
+    Factory(int level , int casualEnemy , int specialEnemy , Storage *inventory);
 
     // getters:
     int getLevel() const { return level; }
@@ -23,12 +23,12 @@ public:
     void setLevel(int newLevel) { level = newLevel; }
     void setCasualEnemy(int newCasualEnemy) { casualEnemy = newCasualEnemy; }
     void setSpecialEnemy(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
-    void setInventort(Storage *newInventory) { inventory = newInventory; }
+    void setInventory(Storage *newInventory) { inventory = newInventory; }
     void setFactory(int newLevel, int newCasualEnemy, int newSpecialEnemy, Storage *newInventory);
 
     // methodes:
     vector<int> getWave();
-    virtual vector<vector<Character *>> createEnemy();
+    virtual vector<vector<Character *>> createEnemy() = 0;
 };
 
 class ZombieFactory : public Factory
@@ -44,6 +44,7 @@ public:
 };
 
 /// @brief ///////////////////////////////////////////////
+
 class Mission
 {
 
@@ -76,7 +77,7 @@ public:
     void enemyTurn();
     void endWave();
     void removeDead();
-    void PlayerDeath();
+    void playerDeath();
     void end();
     void start();
 };
