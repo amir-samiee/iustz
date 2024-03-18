@@ -6,19 +6,16 @@ class Storage
 {
 protected:
     map<string, int> items;
-    Character *owner;
 
 public:
     // constructor
-    Storage(Character *newOwner);
-    
+    Storage() = default;
+
     // getters
     map<string, int> getItems() { return items; }
-    Character *getOwner() { return owner; }
 
     // setters
     void setItems(map<string, int> newItems) { items = newItems; }
-    void setOwner(Character *newOwner) { owner = newOwner; }
 
     // others
     virtual void addItem(string name);
@@ -36,8 +33,8 @@ protected:
 
 public:
     // constructor
-    LimitedStorage() ;
-    LimitedStorage(Character *newOwner, int newSize);
+    LimitedStorage() = default;
+    LimitedStorage(int newSize);
     // getters
     int getSize() { return size; }
     // setters

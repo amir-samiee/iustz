@@ -1,10 +1,6 @@
 #pragma once
 #include "headers.h"
 
-Storage::Storage(Character *newOwner)
-{
-    owner = newOwner;
-}
 void Storage::addItem(string name)
 {
     if (items.find(name) == items.end())
@@ -61,7 +57,7 @@ void Storage::removeItem(string name)
     }
 }
 
-LimitedStorage::LimitedStorage(Character *newOwner, int newSize) : Storage(newOwner)
+LimitedStorage::LimitedStorage(int newSize)
 {
     size = newSize;
 }
