@@ -4,10 +4,10 @@
 class Character; // Forward declaration
 class Item;
 
-vector<Item *> throwablee;
-vector<Item *> consumablee;
-vector<Item *> permanentt;
-map<string, Item *> dictionary;
+vector<Item *> throwables;
+vector<Item *> consumables;
+vector<Item *> permanents;
+map<string, Item *> itemsMap;
 
 class Item
 {
