@@ -65,17 +65,6 @@ public:
     void setCoins(int newCoins) { coins = newCoins; }
 
     // others
-    string name;
-    int age;
-    string gender; // -male -female -other
-    LimitedStorage backpack;
-    Stat hp;
-    Stat stamina;
-    int firearmLevel = 1;
-    int meleeLevel = 1;
-    int powerBoost = 1;
-    vector<Character *> currentWave;
-    int coins;
     int level();
     virtual void turn() = 0;
     virtual void die() = 0;
