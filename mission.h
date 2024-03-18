@@ -33,12 +33,14 @@ public:
 class ZombieFactory : public Factory
 {
 public:
+    ZombieFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory);
     vector<vector<Character *>> createEnemy() override;
 };
 
 class HumanFactory : public Factory
 {
 public:
+    HumanFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory);
     vector<vector<Character *>> createEnemy() override;
 };
 

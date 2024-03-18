@@ -15,11 +15,21 @@ vector<int> Factory::getWave()
     return waves;
 }
 
+/// @brief ////////////////////////////////////
+
+HumanFactory::HumanFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory):
+Factory(level, casualEnemy, specialEnemy, inventory){}
+
 vector<vector<Character *>> HumanFactory ::createEnemy()
 {
     vector<vector<Character *>> enemies;
     return enemies;
 }
+
+/// @brief //////////////////////////////
+
+ZombieFactory::ZombieFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory):
+Factory(level, casualEnemy, specialEnemy, inventory){}
 
 vector<vector<Character *>> ZombieFactory ::createEnemy()
 {
