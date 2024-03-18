@@ -24,7 +24,6 @@ public:
     void setCasualEnemy(int newCasualEnemy) { casualEnemy = newCasualEnemy; }
     void setSpecialEnemy(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
     void setInventory(Storage *newInventory) { inventory = newInventory; }
-    void setFactory(int newLevel, int newCasualEnemy, int newSpecialEnemy, Storage *newInventory);
 
     // methodes:
     vector<int> getWave();
@@ -43,6 +42,8 @@ public:
     vector<vector<Character *>> createEnemy() override;
 };
 
+HumanFactory humanBuilder();
+ZombieFactory zombieBuilder();
 /// @brief ///////////////////////////////////////////////
 class Mission;
 

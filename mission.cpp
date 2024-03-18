@@ -27,14 +27,6 @@ vector<vector<Character *>> ZombieFactory ::createEnemy()
     return enemies;
 }
 
-void Factory::setFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory)
-{
-    this->setLevel(level);
-    this->setCasualEnemy(casualEnemy);
-    this->setSpecialEnemy(specialEnemy);
-    this->setInventory(inventory);
-}
-
 /// @brief ///////////////////////////////////////////////
 
 Mission ::Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum, Storage *newInventory)
