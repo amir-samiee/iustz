@@ -47,8 +47,25 @@ Mission ::Mission(string newName, int newMissionNum, int newCasualEnemyNum, int 
     this->specialEnemyNum = newSpecialEnemyNum;
     this->inventory = newInventory;
 }
+void Mission :: story(){
+        ifstream file("Stories/" + name + ".txt");
+        if (file.is_open()) {
+            string line ;
+            cout << "Mission " << missionNum << " - " << name << ":\n" ;
+            while (getline(file, line)) {
+                cout << line << endl ;
+                Sleep(2000) ; 
+            }
+            file.close() ;
+        } 
+        else 
+            cerr << "Unable to open file! " << endl ;
+        
+    }
+
 void Mission ::playerTurn()
 {
+   
 }
 
 void Mission ::enemyTurn()
@@ -73,6 +90,7 @@ void Mission ::end()
 void Mission::start()
 {
 }
+
 
 ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
                              int newSpecialEnemyNum, Storage *newInventory, vector<vector<Character *>> newEnemies)
