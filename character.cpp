@@ -29,7 +29,10 @@ Character :: Character(string name , int age , string gender , LimitedStorage ba
 int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins) : name(name) , age(age) ,gender(gender) , backpack(backpack) ,
 hp(hp) , stamina(stamina) , firearmLevel(firearmLevel) , meleeLevel(meleeLevel) , powerBoost(powerBoost) , currentWave(currentWave) , coins(coins) {}
 
-//player
+Player :: Player (string name , int age , string gender , LimitedStorage backpack , Stat hp , Stat stamina ,int firearmLevel ,
+    int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins , Storage inventory ,int humanLevels , int zombieLevels) : 
+      Character( name ,  age ,  gender ,  backpack ,  hp ,stamina , firearmLevel , meleeLevel ,  powerBoost , currentWave , coins)
+      ,inventory(inventory) , humanLevels(humanLevels) , zombieLevels(zombieLevels){}
 
 Enemy::Enemy (string name , int age , string gender , LimitedStorage backpack ,
      Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins) : Character( name ,  age ,  gender ,  backpack ,  hp ,
