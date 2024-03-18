@@ -27,3 +27,4 @@
 
 - Complete the mission with all components.
 - Complete the factory.
+- Implementation of VCM structure
