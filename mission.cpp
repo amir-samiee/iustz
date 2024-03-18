@@ -83,6 +83,8 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEne
     missionMap[id] = this;
 
     // feeding data to factory:
+    ZombieFactory factory(newMissionNum , newCasualEnemyNum , newSpecialEnemyNum , newInventory);
+    this->enemies = factory.createEnemy();
 }
 
 HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
@@ -94,4 +96,6 @@ HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemy
     missionMap[id] = this;
 
     // feeding data to factory:
+    HumanFactory factory(newMissionNum , newCasualEnemyNum , newSpecialEnemyNum , newInventory);
+    this->enemies = factory.createEnemy();
 }
