@@ -47,7 +47,7 @@ public:
 class Mission;
 
 //a map for conecting missioins to their id:
-map<string, Mission *> missionsID;
+map<string, Mission*> missionMap;
 
 class Mission
 {
