@@ -78,7 +78,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEne
 {
     // setting the id:
     string id = "z" + newMissionNum;
-    missionId[id] = this;
+    missionsID[id] = this;
 
     // feeding data to factory:
 }
@@ -89,7 +89,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemy
 {
     // setting the id:
     string id = "h" + newMissionNum;
-    missionId[id] = this;
+    missionsID[id] = this;
 
     // feeding data to factory:
 }

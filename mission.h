@@ -46,6 +46,7 @@ public:
 /// @brief ///////////////////////////////////////////////
 class Mission;
 
+//a map for conecting missioins to their id:
 map<string, Mission *> missionsID;
 
 class Mission
@@ -62,7 +63,7 @@ protected:
 public:
     // constructor:
     Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum, Storage *newInventory);
-    
+
     // getters:
     string getName() const { return name; }
     int getMissionNum() const { return missionNum; }
@@ -90,8 +91,16 @@ public:
 
 class ZombieMission : public Mission
 {
+public:
+    // constructor:
+    ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
+                int newSpecialEnemyNum, Storage *newInventory , vector<vector<Character *>> newEnemies);
 };
 
 class HumanMission : public Mission
 {
+public:
+    // constructor:
+    HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
+                int newSpecialEnemyNum, Storage *newInventory , vector<vector<Character *>> newEnemies);
 };
