@@ -1,7 +1,8 @@
 #pragma once
 #include "headers.h"
 
-Factory::Factory(int level , int casualEnemy , int specialEnemy , Storage *inventory){
+Factory::Factory(int level, int casualEnemy, int specialEnemy, Storage *inventory)
+{
     this->level = level;
     this->casualEnemy = casualEnemy;
     this->specialEnemy = specialEnemy;
@@ -26,13 +27,24 @@ vector<vector<Character *>> ZombieFactory ::createEnemy()
     return enemies;
 }
 
-void Factory::setFactory(int level , int casualEnemy , int specialEnemy , Storage *inventory){
+void Factory::setFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory)
+{
     this->setLevel(level);
     this->setCasualEnemy(casualEnemy);
     this->setSpecialEnemy(specialEnemy);
     this->setInventory(inventory);
 }
 
+/// @brief ///////////////////////////////////////////////
+
+Mission ::Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum, Storage *newInventory)
+{
+    this->name = newName;
+    this->missionNum = newMissionNum;
+    this->casualEnemyNum = newCasualEnemyNum;
+    this->specialEnemyNum = newSpecialEnemyNum;
+    this->inventory = newInventory;
+}
 void Mission ::playerTurn()
 {
 }
@@ -48,14 +60,36 @@ void Mission ::removeDead()
 {
 }
 
-void Mission ::playerDeath(){
-    
+void Mission ::playerDeath()
+{
 }
 
 void Mission ::end()
 {
 }
 
-void Mission::start(){
+void Mission::start()
+{
+}
 
+ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
+                             int newSpecialEnemyNum, Storage *newInventory, vector<vector<Character *>> newEnemies)
+    : Mission(newName, newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory)
+{
+    // setting the id:
+    string id = "z" + newMissionNum;
+    missionId[id] = this;
+
+    // feeding data to factory:
+}
+
+HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
+                           int newSpecialEnemyNum, Storage *newInventory, vector<vector<Character *>> newEnemies)
+    : Mission(newName, newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory)
+{
+    // setting the id:
+    string id = "h" + newMissionNum;
+    missionId[id] = this;
+
+    // feeding data to factory:
 }

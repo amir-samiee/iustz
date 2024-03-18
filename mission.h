@@ -11,7 +11,7 @@ protected:
 
 public:
     // constructor:
-    Factory(int level , int casualEnemy , int specialEnemy , Storage *inventory);
+    Factory(int level, int casualEnemy, int specialEnemy, Storage *inventory);
 
     // getters:
     int getLevel() const { return level; }
@@ -44,6 +44,9 @@ public:
 };
 
 /// @brief ///////////////////////////////////////////////
+class Mission;
+
+map<string, Mission *> missionsID;
 
 class Mission
 {
@@ -57,20 +60,23 @@ protected:
     vector<vector<Character *>> enemies;
 
 public:
+    // constructor:
+    Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum, Storage *newInventory);
+    
     // getters:
     string getName() const { return name; }
     int getMissionNum() const { return missionNum; }
     int getCasualEnemyNum() const { return casualEnemyNum; }
     int getSpecialEnemyNum() const { return specialEnemyNum; }
-    Storage* getInventory() const { return inventory; }
+    Storage *getInventory() const { return inventory; }
 
     // setters :
     void setName(const string &newName) { name = newName; }
     void setMissionNum(const int &newMissionNum) { missionNum = newMissionNum; }
     void setCasualEnemyNum(int newCasualEnemyNum) { casualEnemyNum = newCasualEnemyNum; }
     void setSpecialEnemyNum(int newSpecialEnemyNum) { specialEnemyNum = newSpecialEnemyNum; }
-    void setInventory(Storage* newInventory) { inventory = newInventory; }
-    
+    void setInventory(Storage *newInventory) { inventory = newInventory; }
+
     // methods:
     void story();
     void playerTurn();
