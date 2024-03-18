@@ -30,6 +30,14 @@ Player* getPlayer() const {return player;}
 
 
     // setters :
+void setMissionName(string newMissionName) {missionName = newMissionName; }
+void setMissionNum(int newMissionNum) {missionNum = newMissionNum; }
+void setCasualEnemyNum(int newCasualEnemyNum) {casualEnemyNum = newCasualEnemyNum; }
+void setSpecialEnemyNum(int newSpecialEnemyNum) {specialEnemyNum = newSpecialEnemyNum; }
+void setStory(string newStory) {story = newStory; }
+void setEnemyBank(Factory* newEnemyBank) {enemyBank = newEnemyBank; }
+void setInventory(Storage newInventory) {inventory = newInventory; }
+void setPlayer(Player* newPlayer) {player = newPlayer; }
 
 
 
@@ -60,9 +68,11 @@ class Factory {
 
     public:
     // getters:
-
+vector<vector<Character*>> getEnemies() const { return enemies; }
+Mission getMission() const { return mission; }
     // setters:
-
+void setMission(Mission newMission) {mission = newMission; }
+void setEnemies(vector<vector<Character*>> newEnemies) {enemies = newEnemies; }
     //methods:
 
        vector<int> getWave();
