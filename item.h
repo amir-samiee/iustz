@@ -40,17 +40,17 @@ public:
     virtual void useItem() = 0;
 };
 
-class Removeable : public Item
+class Removable : public Item
 {
 public:
-    Removeable(string name, int price, Character *owner, int stamina);
+    Removable(string name, int price, Character *owner, int stamina);
 
 protected:
     virtual void removeFromBackpack();
 };
 
 
-class Throwable : public Removeable
+class Throwable : public Removable
 {
 protected:
     int damage;
@@ -69,7 +69,7 @@ public:
     virtual void useItem();
 };
 
-class Consumable : public Removeable
+class Consumable : public Removable
 {
 
 public:
