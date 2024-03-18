@@ -39,8 +39,15 @@ public:
     bool checkAndTakeStamina();
     virtual void useItem() = 0;
 };
+class Removable : public Item
+{
+public:
+    Removable(string name, int price, Character *owner, int stamina, int damage);
+protected:
+    virtual void removeFromBackpack();
+};
 
-class Throwable : public Item
+class Throwable : public Removable
 {
 protected:
     int damage;
@@ -59,11 +66,8 @@ public:
     virtual void useItem();
 };
 
-class Consumable : public Item
+class Consumable : public Removable
 {
-protected:
-    virtual void removeFromBackpack();
-
 public:
     Consumable(string name, int price, Character *owner, int stamina);
 };

@@ -21,8 +21,11 @@ bool Item::checkAndTakeStamina()
     owner->getStamina().setCurrentPoint(newPoint);
     return true;
 }
+Removable::Removable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
 
-Throwable::Throwable(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
+void Removable::removeFromBackpack() {}
+
+Throwable::Throwable(string name, int price, Character *owner, int stamina, int damage) : Removable(name, price, owner, stamina)
 {
     this->damage = damage;
     Item *basePtr = this;
@@ -41,9 +44,8 @@ void Throwable::useItem()
         }
     }
 }
-void Consumable::removeFromBackpack() {}
 
-Consumable::Consumable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
+Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
 
 Permanent::Permanent(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
 {
