@@ -90,6 +90,10 @@ protected:
     int zombieLevels = 0;
 
 public:
+    Player (string name , int age , string gender , LimitedStorage backpack , Stat hp , Stat stamina 
+    ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,
+    int coins , Storage inventory ,int humanLevels , int zombieLevels);
+
     // getters
     Storage getInventory() const { return inventory; }
 
@@ -104,20 +108,32 @@ public:
 class Enemy : public Character
 {
 public:
+    Enemy (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins);
     void turn() override;
     void die() override;
 };
 
 class HumanEnemy : public Enemy
 {
+public:
+    HumanEnemy (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins);
 };
 
 class ZombieEnemy : public Enemy
 {
+public:
+    ZombieEnemy (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins);
+
 };
 
 class SpecialZombie : public ZombieEnemy
 {
 public:
+    SpecialZombie (string name , int age , string gender , LimitedStorage backpack ,
+     Stat hp , Stat stamina ,int firearmLevel ,int meleeLevel , int powerBoost ,vector<Character *> currentWave ,int coins);
+
     void turn() override;
 };
