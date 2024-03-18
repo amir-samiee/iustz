@@ -1,92 +1,90 @@
 #pragma once
 #include "headers.h"
 
-class Factory ;
+class Factory
+{
+protected:
+    int level;
+    int casualEnemy;
+    int specialEnemy;
+    Storage *inventory;
 
-class Mission {
-
-    protected:
-
-        string missionName ;
-        int missionNum ;
-        int casualEnemyNum ;
-        int specialEnemyNum ;
-        string story ;
-        Factory* enemyBank ;
-        Storage inventory ;
-        Player* player ;
-    
-    public:
+public:
+    // constructor:
+    Factory();
 
     // getters:
-string getMissionName() const {return missionName;}
-int getMissionNum() const {return missionNum;}
-int getCasualEnemyNum() const {return casualEnemyNum;}
-int getSpecialEnemyNum() const {return specialEnemyNum;}
-string getStory() const {return story;}
-Factory* getEnemyBank() const {return enemyBank;}
-Storage getInventory() const {return inventory;}
-Player* getPlayer() const {return player;}
+    int getLevel() const { return level; }
+    int getCasualEnemy() const { return casualEnemy; }
+    int getSpecialEnemy() const { return specialEnemy; }
+    Storage *getInventory() const { return inventory; }
 
+    // seters:
+    void setLevel(int newLevel) { level = newLevel; }
+    void setCasualEnemy(int newCasualEnemy) { casualEnemy = newCasualEnemy; }
+    void setSpecialEnemy(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
+    void setInventort(Storage *newInventory) { inventory = newInventory; }
+    void setFactory(int newLevel, int newCasualEnemy, int newSpecialEnemy, Storage *newInventory);
+
+    // methodes:
+    vector<int> getWave();
+    virtual vector<vector<Character *>> createEnemy();
+};
+
+class ZombieFactory : public Factory
+{
+public:
+    vector<vector<Character *>> createEnemy() override;
+};
+
+class HumanFactory : public Factory
+{
+public:
+    vector<vector<Character *>> createEnemy() override;
+};
+
+/// @brief ///////////////////////////////////////////////
+class Mission
+{
+
+protected:
+    string name;
+    int missionNum;
+    int casualEnemyNum;
+    int specialEnemyNum;
+    Storage *inventory;
+    vector<vector<Character *>> enemies;
+
+public:
+    // getters:
+    string getName() const { return name; }
+    int getMissionNum() const { return missionNum; }
+    int getCasualEnemyNum() const { return casualEnemyNum; }
+    int getSpecialEnemyNum() const { return specialEnemyNum; }
+    Storage* getInventory() const { return inventory; }
 
     // setters :
-void setMissionName(const string &newMissionName) {missionName = newMissionName; }
-void setMissionNum(const int &newMissionNum) {missionNum = newMissionNum; }
-void setCasualEnemyNum(int newCasualEnemyNum) {casualEnemyNum = newCasualEnemyNum; }
-void setSpecialEnemyNum(int newSpecialEnemyNum) {specialEnemyNum = newSpecialEnemyNum; }
-void setStory(const string &newStory) {story = newStory; }
-void setEnemyBank(Factory* newEnemyBank) {enemyBank = newEnemyBank; }
-void setInventory(Storage newInventory) {inventory = newInventory; }
-void setPlayer(Player* newPlayer) {player = newPlayer; }
-
-
-
-    //methods:
-        void playerTurn();
-        bool endTurn();
-        void enemyTurn();
-        void endWave();
-        void removeDead();
-        void playerDeath();
-        void endMission();
-
+    void setName(const string &newName) { name = newName; }
+    void setMissionNum(const int &newMissionNum) { missionNum = newMissionNum; }
+    void setCasualEnemyNum(int newCasualEnemyNum) { casualEnemyNum = newCasualEnemyNum; }
+    void setSpecialEnemyNum(int newSpecialEnemyNum) { specialEnemyNum = newSpecialEnemyNum; }
+    void setInventory(Storage* newInventory) { inventory = newInventory; }
+    
+    // methods:
+    void story();
+    void playerTurn();
+    void enemyTurn();
+    void endWave();
+    void removeDead();
+    void PlayerDeath();
+    void end();
+    void start();
 };
 
-
-class ZombieMission : public Mission {
-
+class ZombieMission : public Mission
+{
 };
 
-class HumanMission : public Mission{
-
+class HumanMission : public Mission
+{
 };
-
-class Factory {
-    protected:
-        vector<vector<Character*>> enemies ;
-        Mission mission ;
-
-    public:
-    // getters:
-vector<vector<Character*>> getEnemies() const { return enemies; }
-Mission getMission() const { return mission; }
-    // setters:
-void setMission(Mission newMission) {mission = newMission; }
-void setEnemies(vector<vector<Character*>> newEnemies) {enemies = newEnemies; }
-    //methods:
-
-       vector<int> getWave();
-       virtual void createEnemy() = 0 ;
-
-};
-
-class ZombieFactory : public Factory{
-    public:
-        void createEnemy() override ;
-};
-
-class HumanFactory : public Factory {
-    public:
-    void createEnemy() override ;
-};
-
