@@ -31,8 +31,9 @@ protected:
     int firearmLevel = 1;
     int meleeLevel = 1;
     int powerBoost = 1;
-    vector<Character *> currentWave;
     int coins;
+    string currentMission;
+    vector<Character *> currentWave;
 
 public:
     // getters
