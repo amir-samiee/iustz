@@ -10,7 +10,7 @@ void Storage::addItem(string name)
     if (items.find(name) == items.end())
         items.insert({name, 1});
 
-    else if (dynamic_cast<Permanent *>(dictionary[name]) != nullptr)
+    else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
         cout << "you can only add a permanent item once!\n";
 
     else
@@ -24,7 +24,7 @@ void Storage::printStorage()
     // Find the maximum length of names
     for (auto &item : items)
     {
-        int length = dictionary[item.first]->getName().length();
+        int length = itemsMap[item.first]->getName().length();
         if (length > maxNameLength)
             maxNameLength = length;
     }
@@ -32,9 +32,9 @@ void Storage::printStorage()
     cout << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
     for (auto &item : items)
     {
-        cout << i << "- " << setw(maxNameLength + 5) << dictionary[item.first]->getName()
-             << setw(15) << dictionary[item.first]->getSpecial()
-             << setw(10) << dictionary[item.first]->getStamina()
+        cout << i << "- " << setw(maxNameLength + 5) << itemsMap[item.first]->getName()
+             << setw(15) << itemsMap[item.first]->getSpecial()
+             << setw(10) << itemsMap[item.first]->getStamina()
              << setw(10) << item.second << endl;
         i++;
     }
@@ -87,7 +87,7 @@ void LimitedStorage::addItem(string name)
             size++;
         }
 
-        else if (dynamic_cast<Permanent *>(dictionary[name]) != nullptr)
+        else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
             cout << "you can only add a permanent item once!\n";
 
         else

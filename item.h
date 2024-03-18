@@ -4,10 +4,10 @@
 class Character; // Forward declaration
 class Item;
 
-vector<Item *> throwablee;
-vector<Item *> consumablee;
-vector<Item *> permanentt;
-map<string, Item *> dictionary;
+vector<Item *> throwables;
+vector<Item *> consumables;
+vector<Item *> permanents;
+map<string, Item *> itemsMap;
 
 class Item
 {
@@ -46,6 +46,16 @@ public:
 protected:
     virtual void removeFromBackpack();
 };
+
+class Removable : public Item
+{
+public:
+    Removable(string name, int price, Character *owner, int stamina);
+
+protected:
+    virtual void removeFromBackpack();
+};
+
 
 class Throwable : public Removable
 {
