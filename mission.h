@@ -45,10 +45,6 @@ public:
 };
 
 /// @brief ///////////////////////////////////////////////
-class Mission;
-
-//a map for conecting missioins to their id:
-map<string, Mission*> missionMap;
 
 class Mission
 {
@@ -105,3 +101,10 @@ public:
     HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
                 int newSpecialEnemyNum, Storage *newInventory , vector<vector<Character *>> newEnemies);
 };
+
+//a map for conecting missioins to their id:
+map<string, Mission*> missionMap;
+
+//vectors for saving missions:
+vector<ZombieMission*> zombieMissions;
+vector<HumanMission*> humanMissions;

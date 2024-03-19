@@ -36,7 +36,7 @@ void Throwable::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        for (int i = 0; i < owner->getWave().size(); i++)
+        for (int i = owner->getWave().size() - 1; i >= 0 ; i--)
         {
             int currentPoint = owner->getWave()[i]->getHp()->getCurrentPoint();
             int newPoint = currentPoint - ((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
