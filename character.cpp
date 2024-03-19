@@ -19,15 +19,12 @@ int Stat::level()
 /// @brief ////////////////////////////////////////////////////
 
 int Character::level() { return (firearmLevel + meleeLevel + hp.level() + stamina.level()) / 4; }
-void Character::takeDamage(int newPoint)
+void Character::takeDamage(int takenDamage)
 {
+    int newPoint = this->getHp()->getCurrentPoint() - takenDamage;
+    this->getHp()->setCurrentPoint(newPoint);
     if (newPoint <= 0)
-    {
-        this->getHp()->setCurrentPoint(0);
         this->die();
-    }
-    else
-        this->getHp()->setCurrentPoint(newPoint);
 }
 Character ::Character(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                       int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : name(name), age(age), gender(gender), backpack(backpack),

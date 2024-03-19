@@ -36,11 +36,9 @@ void Throwable::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        for (int i = owner->getWave().size() - 1; i >= 0 ; i--)
+        for (int i = owner->getWave().size() - 1; i >= 0; i--)
         {
-            int currentPoint = owner->getWave()[i]->getHp()->getCurrentPoint();
-            int newPoint = currentPoint - ((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
-            owner->getWave()[i]->takeDamage(newPoint);
+            owner->getWave()[i]->takeDamage((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
             owner->setPowerBoost(1);
         }
     }
@@ -63,9 +61,7 @@ void Melee::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        int currentPoint = owner->getWave()[0]->getHp()->getCurrentPoint();
-        int newPoint = currentPoint - (this->getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
-        owner->getWave()[0]->takeDamage(newPoint);
+        owner->getWave()[0]->takeDamage(this->getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
     }
 }
@@ -79,9 +75,7 @@ void Firearm::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        int currentPoint = owner->getWave()[0]->getHp()->getCurrentPoint();
-        int newPoint = currentPoint - (this->getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
-        owner->getWave()[0]->takeDamage(newPoint);
+        owner->getWave()[0]->takeDamage(this->getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
     }
 };
