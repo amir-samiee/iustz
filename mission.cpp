@@ -99,7 +99,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEne
     missionMap[id] = this;
 
     // building inventory:
-    Storage *newInventory = initInventory();
+    Storage *newInventory/* = initInventory()*/;
 
     // feeding data to factory:
     ZombieFactory factory(newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory);
@@ -116,7 +116,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemy
     missionMap[id] = this;
 
     // building inventory:
-    Storage *newInventory = initInventory();
+    Storage *newInventory/* = initInventory()*/;
 
     // feeding data to factory:
     HumanFactory factory(newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory);
