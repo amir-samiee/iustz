@@ -22,7 +22,10 @@ int Character::level() { return firearmLevel + meleeLevel + hp.level() + stamina
 void Character::takeDamage(int newPoint)
 {
     if (newPoint <= 0)
+    {
+        this->getHp()->setCurrentPoint(0);
         this->die();
+    }
     else
         this->getHp()->setCurrentPoint(newPoint);
 }
