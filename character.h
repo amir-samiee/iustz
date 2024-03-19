@@ -42,7 +42,7 @@ public:
     string getName() const { return name; }
     int getAge() const { return age; }
     string getGender() const { return gender; }
-    LimitedStorage getBackpack() const { return backpack; }
+    LimitedStorage *getBackpack() { return &backpack; }
     Stat *getHp() { return &hp; }
     Stat *getStamina() { return &stamina; }
     vector<Character *> getWave() const { return currentWave; }
@@ -83,7 +83,7 @@ public:
            int coins, Storage inventory, int humanLevels, int zombieLevels);
 
     // getters
-    Storage getInventory() const { return inventory; }
+    Storage* getInventory() { return &inventory; }
 
     // setters
     void setInventory(Storage newInventory) { inventory = newInventory; }

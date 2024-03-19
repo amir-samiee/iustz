@@ -102,7 +102,7 @@ public:
                 int newSpecialEnemyNum, Storage *newInventory , vector<vector<Character *>> newEnemies);
 };
 
-//a map for conecting missioins to their id:
+//a map for connecting missioins to their id:
 map<string, Mission*> missionMap;
 
 //vectors for saving missions:
