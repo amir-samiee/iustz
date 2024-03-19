@@ -18,7 +18,7 @@ int Stat::level()
 
 /// @brief ////////////////////////////////////////////////////
 
-int Character::level() { return firearmLevel + meleeLevel + hp.level() + stamina.level(); }
+int Character::level() { return (firearmLevel + meleeLevel + hp.level() + stamina.level()) / 4; }
 void Character::takeDamage(int newPoint)
 {
     if (newPoint <= 0)
