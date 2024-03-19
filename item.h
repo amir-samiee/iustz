@@ -6,8 +6,11 @@ class Item;
 
 // this partition will be used in the shop as the user will select which type of items they are going to buy
 vector<Item *> throwables;
-vector<Item *> consumables;
-vector<Item *> permanents;
+vector<Item *> hpPotions;
+vector<Item *> staminaPotions;
+vector<Item *> powerPotions;
+vector<Item *> melees;
+vector<Item *> firearms;
 map<string, Item *> itemsMap;
 
 class Item
