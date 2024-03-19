@@ -12,13 +12,13 @@ Item::Item(string name, int price, Character *owner, int stamina)
 
 bool Item::checkAndTakeStamina()
 {
-    if (owner->getStamina().getCurrentPoint() < this->getStamina())
+    if (owner->getStamina()->getCurrentPoint() < this->getStamina())
     {
         cout << "not enough stamina\n";
         return false;
     }
-    int newPoint = owner->getStamina().getCurrentPoint() - this->getStamina();
-    owner->getStamina().setCurrentPoint(newPoint);
+    int newPoint = owner->getStamina()->getCurrentPoint() - this->getStamina();
+    owner->getStamina()->setCurrentPoint(newPoint);
     return true;
 }
 Removable::Removable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
@@ -38,7 +38,7 @@ void Throwable::useItem()
     {
         for (int i = 0; i < owner->getWave().size(); i++)
         {
-            int currentPoint = owner->getWave()[i]->getHp().getCurrentPoint();
+            int currentPoint = owner->getWave()[i]->getHp()->getCurrentPoint();
             int newPoint = currentPoint - ((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
             owner->getWave()[i]->takeDamage(newPoint);
             owner->setPowerBoost(1);
@@ -63,7 +63,7 @@ void Melee::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        int currentPoint = owner->getWave()[0]->getHp().getCurrentPoint();
+        int currentPoint = owner->getWave()[0]->getHp()->getCurrentPoint();
         int newPoint = currentPoint - (this->getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
         owner->getWave()[0]->takeDamage(newPoint);
         owner->setPowerBoost(1);
@@ -79,7 +79,7 @@ void Firearm::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        int currentPoint = owner->getWave()[0]->getHp().getCurrentPoint();
+        int currentPoint = owner->getWave()[0]->getHp()->getCurrentPoint();
         int newPoint = currentPoint - (this->getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
         owner->getWave()[0]->takeDamage(newPoint);
         owner->setPowerBoost(1);
@@ -97,8 +97,8 @@ void HpPotion::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        int newPoint = owner->getHp().getCurrentPoint() + this->getSpecial();
-        owner->getHp().setCurrentPoint(newPoint);
+        int newPoint = owner->getHp()->getCurrentPoint() + this->getSpecial();
+        owner->getHp()->setCurrentPoint(newPoint);
     }
 }
 
@@ -112,8 +112,8 @@ void StaminaPotion::useItem()
 {
     if (this->checkAndTakeStamina())
     {
-        int newPoint = owner->getStamina().getCurrentPoint() + this->getSpecial();
-        owner->getStamina().setCurrentPoint(newPoint);
+        int newPoint = owner->getStamina()->getCurrentPoint() + this->getSpecial();
+        owner->getStamina()->setCurrentPoint(newPoint);
     }
 }
 

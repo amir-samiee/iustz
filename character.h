@@ -43,8 +43,8 @@ public:
     int getAge() const { return age; }
     string getGender() const { return gender; }
     LimitedStorage getBackpack() const { return backpack; }
-    Stat getHp() const { return hp; }
-    Stat getStamina() const { return stamina; }
+    Stat *getHp() { return &hp; }
+    Stat *getStamina() { return &stamina; }
     vector<Character *> getWave() const { return currentWave; }
     int getFirearmLevel() const { return firearmLevel; }
     int getMeleeLevel() const { return meleeLevel; }
