@@ -184,15 +184,16 @@ Throwable throwable10("Gunship", 500, nullptr, 450, 900);
 
 // objects of permanant class
 // "melee"
-Melee melee1("Punch", 0, nullptr, 0, 5);
+Melee melee0("Punch", 0, nullptr, 0, 5);
+Melee meele1("Knife" , 10 , nullptr , 5 , 15);
 Melee melee2("Axe", 10, nullptr, 10, 20);
-Melee melee3("Nunchaku", 50, nullptr, 10, 20);
+Melee melee3("Nunchaku", 20, nullptr, 20, 40);
 Melee melee4("Sword", 20, nullptr, 20, 40);
-Melee melee5("Katana", 25, nullptr, 20, 40);
+Melee melee5("Katana", 30, nullptr, 30, 60);
 Melee melee6("Dagger", 30, nullptr, 30, 60);
-Melee melee7("Spear", 35, nullptr, 30, 60);
+Melee melee7("Spear", 40, nullptr, 40, 80);
 Melee melee8("Halberd", 40, nullptr, 40, 80);
-Melee melee9("Rapier", 45, nullptr, 40, 80);
+Melee melee9("Rapier", 45, nullptr, 45, 90);
 Melee melee10("Chainsaw", 50, nullptr, 50, 100);
 
 //"fireArm"

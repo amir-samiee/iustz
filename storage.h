@@ -5,7 +5,7 @@ class Character;
 class Storage
 {
 protected:
-    map<string, int> items;
+    map<string, int> items = {};
 
 public:
     // constructor

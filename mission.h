@@ -59,7 +59,7 @@ protected:
 
 public:
     // constructor:
-    Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum, Storage *newInventory);
+    Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum);
 
     // getters:
     string getName() const { return name; }
@@ -76,6 +76,7 @@ public:
     void setInventory(Storage *newInventory) { inventory = newInventory; }
 
     // methods:
+    virtual Storage* initInventory();
     void story();
     void playerTurn();
     void enemyTurn();
@@ -91,7 +92,10 @@ class ZombieMission : public Mission
 public:
     // constructor:
     ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
-                int newSpecialEnemyNum, Storage *newInventory , vector<vector<Character *>> newEnemies);
+                  int newSpecialEnemyNum, vector<vector<Character *>> newEnemies);
+
+    // methodes:
+    Storage* initInventory() override;
 };
 
 class HumanMission : public Mission
@@ -99,12 +103,15 @@ class HumanMission : public Mission
 public:
     // constructor:
     HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
-                int newSpecialEnemyNum, Storage *newInventory , vector<vector<Character *>> newEnemies);
+                 int newSpecialEnemyNum, vector<vector<Character *>> newEnemies);
+
+    // methodes:
+    Storage* initInventory() override;
 };
 
-//a map for connecting missioins to their id:
-map<string, Mission*> missionMap;
+// a map for connecting missioins to their id:
+map<string, Mission *> missionMap;
 
-//vectors for saving missions:
-vector<ZombieMission*> zombieMissions;
-vector<HumanMission*> humanMissions;
+// vectors for saving missions:
+vector<ZombieMission *> zombieMissions;
+vector<HumanMission *> humanMissions;
