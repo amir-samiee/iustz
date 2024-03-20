@@ -99,12 +99,31 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEne
     missionMap[id] = this;
 
     // building inventory:
-    Storage *newInventory/* = initInventory()*/;
+    initInventory();
 
     // feeding data to factory:
-    ZombieFactory factory(newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory);
+    ZombieFactory factory(newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, this->getInventory());
     this->enemies = factory.createEnemy();
     zombieMissions.push_back(this);
+}
+void ZombieMission::initInventory()
+{
+    if (missionNum < melees.size())
+    {
+        inventory->addItem(melees[missionNum]->getName());
+        if (missionNum != 1)
+        {
+            inventory->addItem(melees[missionNum - 1]->getName());
+        }
+    }
+    else
+    {
+        inventory->addItem(melees[melees.size() - 1]->getName());
+        inventory->addItem(melees[melees.size() - 2]->getName());
+    }
+    addPotion(hpPotions , this);
+    addPotion(staminaPotions , this);
+    addPotion(powerPotions , this);
 }
 
 HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
@@ -116,10 +135,29 @@ HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemy
     missionMap[id] = this;
 
     // building inventory:
-    Storage *newInventory/* = initInventory()*/;
+    initInventory();
 
     // feeding data to factory:
-    HumanFactory factory(newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, newInventory);
+    HumanFactory factory(newMissionNum, newCasualEnemyNum, newSpecialEnemyNum, this->getInventory());
     this->enemies = factory.createEnemy();
     humanMissions.push_back(this);
+}
+void HumanMission::initInventory()
+{
+    if (missionNum < firearms.size())
+    {
+        inventory->addItem(firearms[missionNum-1]->getName());
+        if (missionNum != 1)
+        {
+            inventory->addItem(firearms[missionNum - 2]->getName());
+        }
+    }
+    else
+    {
+        inventory->addItem(firearms[firearms.size() - 1]->getName());
+        inventory->addItem(firearms[firearms.size() - 2]->getName());
+    }
+    addPotion(hpPotions , this);
+    addPotion(staminaPotions , this);
+    addPotion(powerPotions , this);
 }

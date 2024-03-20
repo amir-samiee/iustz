@@ -76,7 +76,7 @@ public:
     void setInventory(Storage *newInventory) { inventory = newInventory; }
 
     // methods:
-    //virtual Storage* initInventory();
+    //virtual void initInventory();
     void story();
     void playerTurn();
     void enemyTurn();
@@ -95,7 +95,7 @@ public:
                   int newSpecialEnemyNum, vector<vector<Character *>> newEnemies);
 
     // methodes:
-    //Storage* initInventory() override;
+    void initInventory();
 };
 
 class HumanMission : public Mission
@@ -106,7 +106,7 @@ public:
                  int newSpecialEnemyNum, vector<vector<Character *>> newEnemies);
 
     // methodes:
-    //Storage* initInventory() override;
+    void initInventory();
 };
 
 // a map for connecting missioins to their id:
