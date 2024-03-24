@@ -6,23 +6,25 @@ class Factory
 protected:
     int level;
     int casualEnemy;
-    int specialEnemy;
+    bool specialEnemy;
     Storage *inventory;
+    int** waveInfo;
 
 public:
     // constructor:
-    Factory(int level, int casualEnemy, int specialEnemy, Storage *inventory);
+    Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
+    Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo);
 
     // getters:
     int getLevel() const { return level; }
     int getCasualEnemy() const { return casualEnemy; }
-    int getSpecialEnemy() const { return specialEnemy; }
+    bool getSpecialEnemy() const { return specialEnemy; }
     Storage *getInventory() const { return inventory; }
 
     // seters:
     void setLevel(int newLevel) { level = newLevel; }
     void setCasualEnemy(int newCasualEnemy) { casualEnemy = newCasualEnemy; }
-    void setSpecialEnemy(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
+    void setSpecialEnemy(bool newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
     void setInventory(Storage *newInventory) { inventory = newInventory; }
 
     // methodes:
@@ -33,14 +35,16 @@ public:
 class ZombieFactory : public Factory
 {
 public:
-    ZombieFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory);
+    ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
+    ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo);
     vector<vector<Character *>> createEnemy() override;
 };
 
 class HumanFactory : public Factory
 {
 public:
-    HumanFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory);
+    HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
+    HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo);
     vector<vector<Character *>> createEnemy() override;
 };
 
@@ -53,30 +57,31 @@ protected:
     string name;
     int missionNum;
     int casualEnemyNum;
-    int specialEnemyNum;
+    bool specialEnemy;
     Storage *inventory;
     vector<vector<Character *>> enemies;
 
 public:
-    // constructor:
-    Mission(string newName, int newMissionNum, int newCasualEnemyNum, int newSpecialEnemyNum);
+    // constructors:
+    Mission(string newName, int newMissionNum, bool specialEnemy);
+    Mission(string newName, int newMissionNum, int newCasualEnemyNum, bool specialEnemy, Storage *newInventory);
 
     // getters:
     string getName() const { return name; }
     int getMissionNum() const { return missionNum; }
     int getCasualEnemyNum() const { return casualEnemyNum; }
-    int getSpecialEnemyNum() const { return specialEnemyNum; }
+    bool getSpecialEnemy() const { return specialEnemy; }
     Storage *getInventory() const { return inventory; }
 
     // setters :
     void setName(const string &newName) { name = newName; }
     void setMissionNum(const int &newMissionNum) { missionNum = newMissionNum; }
     void setCasualEnemyNum(int newCasualEnemyNum) { casualEnemyNum = newCasualEnemyNum; }
-    void setSpecialEnemyNum(int newSpecialEnemyNum) { specialEnemyNum = newSpecialEnemyNum; }
+    void setSpecialEnemyNum(bool newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
     void setInventory(Storage *newInventory) { inventory = newInventory; }
 
     // methods:
-    //virtual void initInventory();
+    // virtual void initInventory();
     void story();
     void playerTurn();
     void enemyTurn();
@@ -90,9 +95,10 @@ public:
 class ZombieMission : public Mission
 {
 public:
-    // constructor:
+    // constructors:
+    ZombieMission(string newName, int newMissionNum, bool newSpecialEnemy);
     ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
-                  int newSpecialEnemyNum, vector<vector<Character *>> newEnemies);
+                  bool newSpecialEnemy, Storage *newInventory, int** waveInfo);
 
     // methodes:
     void initInventory();
@@ -102,8 +108,9 @@ class HumanMission : public Mission
 {
 public:
     // constructor:
+    HumanMission(string newName, int newMissionNum, bool newSpecialEnemy);
     HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
-                 int newSpecialEnemyNum, vector<vector<Character *>> newEnemies);
+                 bool newSpecialEnemy, Storage *newInventory, int** waveInfo);
 
     // methodes:
     void initInventory();

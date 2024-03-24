@@ -10,6 +10,8 @@ using namespace std;
 #include <ctype.h>
 #include <vector>
 #include <map>
+#include <ctime>
+#include <cstdlib>
 
 // the order of the following lines matters. make changes wisely!
 #include "Assets/nlohmann/json.hpp"
