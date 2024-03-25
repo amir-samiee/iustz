@@ -8,12 +8,12 @@ protected:
     int casualEnemy;
     bool specialEnemy;
     Storage *inventory;
-    int** waveInfo;
+    int **waveInfo;
 
 public:
     // constructor:
     Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
-    Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo);
+    Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo);
 
     // getters:
     int getLevel() const { return level; }
@@ -36,7 +36,7 @@ class ZombieFactory : public Factory
 {
 public:
     ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
-    ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo);
+    ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo);
     vector<vector<Character *>> createEnemy() override;
 };
 
@@ -44,7 +44,7 @@ class HumanFactory : public Factory
 {
 public:
     HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
-    HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo);
+    HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo);
     vector<vector<Character *>> createEnemy() override;
 };
 
@@ -82,6 +82,7 @@ public:
 
     // methods:
     // virtual void initInventory();
+    void addPotion(vector<Item*> addingItem);
     void story();
     void playerTurn();
     void enemyTurn();
@@ -98,7 +99,7 @@ public:
     // constructors:
     ZombieMission(string newName, int newMissionNum, bool newSpecialEnemy);
     ZombieMission(string newName, int newMissionNum, int newCasualEnemyNum,
-                  bool newSpecialEnemy, Storage *newInventory, int** waveInfo);
+                  bool newSpecialEnemy, Storage *newInventory, int **waveInfo);
 
     // methodes:
     void initInventory();
@@ -110,7 +111,7 @@ public:
     // constructor:
     HumanMission(string newName, int newMissionNum, bool newSpecialEnemy);
     HumanMission(string newName, int newMissionNum, int newCasualEnemyNum,
-                 bool newSpecialEnemy, Storage *newInventory, int** waveInfo);
+                 bool newSpecialEnemy, Storage *newInventory, int **waveInfo);
 
     // methodes:
     void initInventory();

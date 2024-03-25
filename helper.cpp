@@ -136,18 +136,3 @@ void print_vector(vector<K> vec)
         cout << vec[i] << string(1 - (i == vec.size() - 1), ',') + string(1 - (i == vec.size() - 1), ' ');
     cout << '}' << endl;
 }
-
-void addPotion(vector<Item*> addingItem , Mission* mission){
-    int index = 0 , number;
-    Storage* inventory = mission->getInventory();
-    
-    if ((mission->getMissionNum()) / (2.0) <= addingItem.size())
-        index = (mission->getMissionNum() - 1) / 2;
-    else
-        index = addingItem.size()-1;
-
-    for (int i = 0; i < number; i++)
-        inventory->addItem(addingItem[(mission->getMissionNum() - 1) / 2]->getName());
-    
-    mission->setInventory(inventory);
-}

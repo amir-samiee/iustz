@@ -8,7 +8,8 @@ Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *invento
     this->specialEnemy = specialEnemy;
     this->inventory = inventory;
 }
-Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo)
+
+Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo)
 {
     this->level = level;
     this->casualEnemy = casualEnemy;
@@ -26,7 +27,7 @@ vector<int> Factory::getWave()
 /// @brief ////////////////////////////////////
 
 HumanFactory::HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory) : Factory(level, casualEnemy, specialEnemy, inventory) {}
-HumanFactory::HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
+HumanFactory::HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
 
 vector<vector<Character *>> HumanFactory ::createEnemy()
 {
@@ -37,7 +38,7 @@ vector<vector<Character *>> HumanFactory ::createEnemy()
 /// @brief //////////////////////////////
 
 ZombieFactory::ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory) : Factory(level, casualEnemy, specialEnemy, inventory) {}
-ZombieFactory::ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int** waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
+ZombieFactory::ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
 
 vector<vector<Character *>> ZombieFactory ::createEnemy()
 {
@@ -81,6 +82,20 @@ void Mission ::story()
         cerr << "Unable to open file! " << endl;
 }
 
+void Mission::addPotion(vector<Item*> addingItem){
+    int index = 0 , number;
+    Storage* inventory = this->getInventory();
+    
+    if ((this->getMissionNum()) / (2.0) <= addingItem.size())
+        index = (this->getMissionNum() - 1) / 2;
+    else
+        index = addingItem.size()-1;
+
+    for (int i = 0; i < number; i++)
+        inventory->addItem(addingItem[(this->getMissionNum() - 1) / 2]->getName());
+    
+    this->setInventory(inventory);
+}
 void Mission ::playerTurn()
 {
 }
@@ -127,7 +142,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, bool specialEnem
 }
 
 ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEnemy,
-                             bool specialEnemy, Storage *newInventory , int** waveInfo)
+                             bool specialEnemy, Storage *newInventory, int **waveInfo)
     : Mission(newName, newMissionNum, newCasualEnemy, specialEnemy, newInventory)
 {
     // setting the id:
@@ -156,9 +171,9 @@ void ZombieMission::initInventory()
         inventory->addItem(melees[melees.size() - 1]->getName());
         inventory->addItem(melees[melees.size() - 2]->getName());
     }
-    addPotion(hpPotions, this);
-    addPotion(staminaPotions, this);
-    addPotion(powerPotions, this);
+    addPotion(hpPotions);
+    addPotion(staminaPotions);
+    addPotion(powerPotions);
 }
 
 HumanMission::HumanMission(string newName, int newMissionNum, bool specialEnemy)
@@ -180,7 +195,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, bool specialEnemy)
 }
 
 HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemy,
-                           bool specialEnemy, Storage *newInventory, int** waveInfo)
+                           bool specialEnemy, Storage *newInventory, int **waveInfo)
     : Mission(newName, newMissionNum, newCasualEnemy, specialEnemy, newInventory)
 {
     // setting the id:
@@ -210,7 +225,7 @@ void HumanMission::initInventory()
         inventory->addItem(firearms[firearms.size() - 1]->getName());
         inventory->addItem(firearms[firearms.size() - 2]->getName());
     }
-    addPotion(hpPotions, this);
-    addPotion(staminaPotions, this);
-    addPotion(powerPotions, this);
+    addPotion(hpPotions);
+    addPotion(staminaPotions);
+    addPotion(powerPotions);
 }
