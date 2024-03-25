@@ -1,7 +1,7 @@
 #pragma once
 #include "headers.h"
 
-Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory)
+Factory::Factory(int level, int casualEnemy, int specialEnemy, Storage *inventory)
 {
     this->level = level;
     this->casualEnemy = casualEnemy;
@@ -9,7 +9,7 @@ Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *invento
     this->inventory = inventory;
 }
 
-Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo)
+Factory::Factory(int level, int casualEnemy, int specialEnemy, Storage *inventory, int **waveInfo)
 {
     this->level = level;
     this->casualEnemy = casualEnemy;
@@ -40,8 +40,8 @@ vector<int> Factory::getWave()
 
 /// @brief ////////////////////////////////////
 
-HumanFactory::HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory) : Factory(level, casualEnemy, specialEnemy, inventory) {}
-HumanFactory::HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
+HumanFactory::HumanFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory) : Factory(level, casualEnemy, specialEnemy, inventory) {}
+HumanFactory::HumanFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory, int **waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
 
 vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
 {
@@ -51,8 +51,8 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
 
 /// @brief //////////////////////////////
 
-ZombieFactory::ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory) : Factory(level, casualEnemy, specialEnemy, inventory) {}
-ZombieFactory::ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
+ZombieFactory::ZombieFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory) : Factory(level, casualEnemy, specialEnemy, inventory) {}
+ZombieFactory::ZombieFactory(int level, int casualEnemy, int specialEnemy, Storage *inventory, int **waveInfo) : Factory(level, casualEnemy, specialEnemy, inventory, waveInfo) {}
 
 vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
 {
@@ -62,14 +62,14 @@ vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
 
 /// @brief ///////////////////////////////////////////////
 
-Mission ::Mission(string newName, int newMissionNum, bool specialEnemy)
+Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
 {
     this->name = newName;
     this->missionNum = newMissionNum;
     casualEnemyNum = (rand() % 4) + missionNum + 2;
     this->specialEnemy = specialEnemy;
 }
-Mission ::Mission(string newName, int newMissionNum, int newCasualEnemyNum, bool specialEnemy, Storage *newInventory)
+Mission ::Mission(string newName, int newMissionNum, int newCasualEnemyNum, int specialEnemy, Storage *newInventory)
 {
     this->name = newName;
     this->missionNum = newMissionNum;
@@ -138,7 +138,7 @@ void Mission::start()
 {
 }
 
-ZombieMission::ZombieMission(string newName, int newMissionNum, bool specialEnemy)
+ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy)
     : Mission(newName, newMissionNum, specialEnemy)
 {
     // setting the id:
@@ -157,7 +157,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, bool specialEnem
 }
 
 ZombieMission::ZombieMission(string newName, int newMissionNum, int newCasualEnemy,
-                             bool specialEnemy, Storage *newInventory, int **waveInfo)
+                             int specialEnemy, Storage *newInventory, int **waveInfo)
     : Mission(newName, newMissionNum, newCasualEnemy, specialEnemy, newInventory)
 {
     // setting the id:
@@ -192,7 +192,7 @@ void ZombieMission::initInventory()
     addPotion(powerPotions);
 }
 
-HumanMission::HumanMission(string newName, int newMissionNum, bool specialEnemy)
+HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
     : Mission(newName, newMissionNum, specialEnemy)
 {
     // setting the id:
@@ -211,7 +211,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, bool specialEnemy)
 }
 
 HumanMission::HumanMission(string newName, int newMissionNum, int newCasualEnemy,
-                           bool specialEnemy, Storage *newInventory, int **waveInfo)
+                           int specialEnemy, Storage *newInventory, int **waveInfo)
     : Mission(newName, newMissionNum, newCasualEnemy, specialEnemy, newInventory)
 {
     // setting the id:
