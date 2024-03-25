@@ -7,13 +7,13 @@ protected:
     int level;
     int casualEnemy;
     int specialEnemy;
-    vector<string> misssionPermanents;
+    vector<string> missionPermanents;
     vector<string> missionThrowables;
     vector<string> missionHpPotions;
     vector<string> missionStaminaPotions;
     vector<string> missionPowerPotions;
     map<string, vector<string>> missionItemTypes = {
-        {"per", misssionPermanents},
+        {"per", missionPermanents},
         {"thr", missionThrowables},
         {"hp", missionHpPotions},
         {"sta", missionStaminaPotions},
@@ -30,7 +30,7 @@ public:
             const vector<string> &staminaPotions,
             const vector<string> &powerPotions)
         : level(lvl), casualEnemy(casualEn), specialEnemy(specialEn),
-          misssionPermanents(permanents), missionThrowables(throwables),
+          missionPermanents(permanents), missionThrowables(throwables),
           missionHpPotions(hpPotions), missionStaminaPotions(staminaPotions),
           missionPowerPotions(powerPotions) {}
     Factory(int lvl, int casualEn, int specialEn,
@@ -40,7 +40,7 @@ public:
             const vector<string> &staminaPotions,
             const vector<string> &powerPotions, vector<int> wavesInfo)
         : level(lvl), casualEnemy(casualEn), specialEnemy(specialEn),
-          misssionPermanents(permanents), missionThrowables(throwables),
+          missionPermanents(permanents), missionThrowables(throwables),
           missionHpPotions(hpPotions), missionStaminaPotions(staminaPotions),
           missionPowerPotions(powerPotions), waveInfo(wavesInfo) {}
 
@@ -48,7 +48,7 @@ public:
     int getLevel() const { return level; }
     int getCasualEnemy() const { return casualEnemy; }
     int getSpecialEnemy() const { return specialEnemy; }
-    const vector<string> &getMissionPermanents() const { return misssionPermanents; }
+    const vector<string> &getMissionPermanents() const { return missionPermanents; }
     const vector<string> &getMissionThrowables() const { return missionThrowables; }
     const vector<string> &getMissionHpPotions() const { return missionHpPotions; }
     const vector<string> &getMissionStaminaPotions() const { return missionStaminaPotions; }
@@ -58,7 +58,7 @@ public:
     void setLevel(int newLevel) { level = newLevel; }
     void setCasualEnemy(int newCasualEnemy) { casualEnemy = newCasualEnemy; }
     void setSpecialEnemy(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
-    void setMissionPermanents(const vector<string> &newPermanents) { misssionPermanents = newPermanents; }
+    void setMissionPermanents(const vector<string> &newPermanents) { missionPermanents = newPermanents; }
     void setMissionThrowables(const vector<string> &newThrowables) { missionThrowables = newThrowables; }
     void setMissionHpPotions(const vector<string> &newHpPotions) { missionHpPotions = newHpPotions; }
     void setMissionStaminaPotions(const vector<string> &newStaminaPotions) { missionStaminaPotions = newStaminaPotions; }
@@ -66,6 +66,7 @@ public:
 
     // methodes:
     vector<int> getWave();
+    void addConsumable(vector<Character *> unorderedEn , vector<string> addingItem);
     virtual vector<vector<Character *>> createEnemy(vector<int> waves) = 0;
 };
 
@@ -112,7 +113,7 @@ public:
                  const vector<string> &powerPotions, vector<int> wavesInfo)
         : Factory(lvl, casualEn, specialEn, permanents, throwables,
                   hpPotions, staminaPotions, powerPotions, wavesInfo) {}
-                  
+
     vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
@@ -126,13 +127,13 @@ protected:
     int missionNum;
     int casualEnemyNum;
     int specialEnemy;
-    vector<string> misssionPermanents;
+    vector<string> missionPermanents;
     vector<string> missionThrowables;
     vector<string> missionHpPotions;
     vector<string> missionStaminaPotions;
     vector<string> missionPowerPotions;
     map<string, vector<string>> missionItemTypes = {
-        {"per", misssionPermanents},
+        {"per", missionPermanents},
         {"thr", missionThrowables},
         {"hp", missionHpPotions},
         {"sta", missionStaminaPotions},
@@ -144,13 +145,13 @@ public:
     // constructors:
     Mission(string newName, int newMissionNum, int specialEnemy);
     Mission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
-            const vector<string> &misssionPermanents,
+            const vector<string> &missionPermanents,
             const vector<string> &missionThrowables,
             const vector<string> &missionHpPotions,
             const vector<string> &missionStaminaPotions,
             const vector<string> &missionPowerPotions)
         : name(name), missionNum(missionNum), casualEnemyNum(casualEnemyNum), specialEnemy(specialEnemy),
-          misssionPermanents(misssionPermanents), missionThrowables(missionThrowables),
+          missionPermanents(missionPermanents), missionThrowables(missionThrowables),
           missionHpPotions(missionHpPotions), missionStaminaPotions(missionStaminaPotions),
           missionPowerPotions(missionPowerPotions) {}
 
@@ -159,7 +160,7 @@ public:
     int getMissionNum() const { return missionNum; }
     int getCasualEnemyNum() const { return casualEnemyNum; }
     int getSpecialEnemy() const { return specialEnemy; }
-    const vector<string> &getMissionPermanents() const { return misssionPermanents; }
+    const vector<string> &getMissionPermanents() const { return missionPermanents; }
     const vector<string> &getMissionThrowables() const { return missionThrowables; }
     const vector<string> &getMissionHpPotions() const { return missionHpPotions; }
     const vector<string> &getMissionStaminaPotions() const { return missionStaminaPotions; }
@@ -170,7 +171,7 @@ public:
     void setMissionNum(const int &newMissionNum) { missionNum = newMissionNum; }
     void setCasualEnemyNum(int newCasualEnemyNum) { casualEnemyNum = newCasualEnemyNum; }
     void setSpecialEnemyNum(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
-    void setMissionPermanents(const vector<string> &newPermanents) { misssionPermanents = newPermanents; }
+    void setMissionPermanents(const vector<string> &newPermanents) { missionPermanents = newPermanents; }
     void setMissionThrowables(const vector<string> &newThrowables) { missionThrowables = newThrowables; }
     void setMissionHpPotions(const vector<string> &newHpPotions) { missionHpPotions = newHpPotions; }
     void setMissionStaminaPotions(const vector<string> &newStaminaPotions) { missionStaminaPotions = newStaminaPotions; }
@@ -195,7 +196,7 @@ public:
     // constructors:
     ZombieMission(string newName, int newMissionNum, int newSpecialEnemy);
     ZombieMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
-                  const vector<string> &misssionPermanents,
+                  const vector<string> &missionPermanents,
                   const vector<string> &missionThrowables,
                   const vector<string> &missionHpPotions,
                   const vector<string> &missionStaminaPotions,
@@ -212,7 +213,7 @@ public:
     // constructor:
     HumanMission(string newName, int newMissionNum, int newSpecialEnemy);
     HumanMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
-                 const vector<string> &misssionPermanents,
+                 const vector<string> &missionPermanents,
                  const vector<string> &missionThrowables,
                  const vector<string> &missionHpPotions,
                  const vector<string> &missionStaminaPotions,

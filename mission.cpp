@@ -21,6 +21,20 @@ vector<int> Factory::getWave()
     return waves;
 }
 
+void Factory::addConsumable(vector<Character *> unorderedEn, vector<string> addingItem)
+{
+    int i = 0;
+    while (!addingItem.empty())
+    {
+        int randomPotion = rand() % (addingItem.size());
+        unorderedEn[i]->getBackpack()->addItem(addingItem[randomPotion]);
+        addingItem.erase(addingItem.begin() + randomPotion);
+        i++;
+        if (i == casualEnemy)
+            i = 0;
+    }
+}
+
 /// @brief ////////////////////////////////////
 
 vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
@@ -34,6 +48,46 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
 vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
 {
     vector<vector<Character *>> enemies;
+    vector<Character *> unorderedEn;
+    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
+
+    for (int i = 0; i < casualEnemy; i++)
+    {
+        LimitedStorage *backpack = new LimitedStorage;
+        if (i < randomPermanentNum && missionPermanents.size() != 0)
+        {
+            int randomWeapon = (rand() % missionPermanents.size());
+            backpack->addItem(missionPermanents[randomWeapon]);
+        }
+        Stat hp;
+        Stat stamina;
+        int firearmLvl;
+        int meleeLvl;
+        int coins;
+        ZombieEnemy zombie("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
+                           firearmLvl, meleeLvl, 1, {player1}, coins);
+        unorderedEn.push_back(&zombie);
+    }
+
+    shuffle(unorderedEn.begin(), unorderedEn.end(), rand());
+
+    addConsumable(unorderedEn, missionHpPotions);
+    addConsumable(unorderedEn, missionStaminaPotions);
+    addConsumable(unorderedEn, missionPowerPotions);
+
+    shuffle(unorderedEn.begin(), unorderedEn.end(), rand());
+    
+    for (int i = 0; i < waves.size(); i++)
+    {
+        vector<Character* > addingChars;
+        for (int j = 0; j < waves[i]; j++)
+        {
+            addingChars.push_back(unorderedEn[0]);
+            unorderedEn.erase(unorderedEn.begin());
+        }
+        enemies.push_back(addingChars);
+    }
+
     return enemies;
 }
 
@@ -68,12 +122,13 @@ void Mission ::story()
 void Mission::addPotion(vector<Item *> addingItem, string type)
 {
     int index = 0;
+    int potionNums = (casualEnemyNum * 2) + rand() % ((casualEnemyNum / 4) - (casualEnemyNum / 8));
     if ((this->getMissionNum()) / (2.0) <= addingItem.size())
         index = (this->getMissionNum() - 1) / 2;
     else
         index = addingItem.size() - 1;
 
-    for (int i = 0; i < (casualEnemyNum * 2); i++)
+    for (int i = 0; i < potionNums; i++)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
 
@@ -116,7 +171,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
 
     // feeding data to factory:
     ZombieFactory factory(newMissionNum, casualEnemyNum, specialEnemy,
-                          misssionPermanents, missionThrowables, missionHpPotions,
+                          missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions);
 
     this->enemies = factory.createEnemy(factory.getWave());
@@ -126,13 +181,13 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
 }
 
 ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
-                             const vector<string> &misssionPermanents,
+                             const vector<string> &missionPermanents,
                              const vector<string> &missionThrowables,
                              const vector<string> &missionHpPotions,
                              const vector<string> &missionStaminaPotions,
                              const vector<string> &missionPowerPotions,
                              const vector<int> wavesInfo)
-    : Mission(name, missionNum, casualEnemyNum, specialEnemy, misssionPermanents,
+    : Mission(name, missionNum, casualEnemyNum, specialEnemy, missionPermanents,
               missionThrowables, missionHpPotions, missionStaminaPotions, missionPowerPotions)
 {
     // setting the id:
@@ -141,8 +196,8 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
 
     // feeding data to factory:
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
-                          misssionPermanents, missionThrowables, missionHpPotions,
-                          missionStaminaPotions, missionPowerPotions , wavesInfo);
+                          missionPermanents, missionThrowables, missionHpPotions,
+                          missionStaminaPotions, missionPowerPotions, wavesInfo);
     this->enemies = factory.createEnemy(wavesInfo);
 
     // saving mission:
@@ -152,16 +207,16 @@ void ZombieMission::initInventory()
 {
     if (missionNum < melees.size())
     {
-        this->misssionPermanents.push_back(melees[missionNum]->getName());
+        this->missionPermanents.push_back(melees[missionNum]->getName());
         if (missionNum != 1)
         {
-            this->misssionPermanents.push_back(melees[missionNum - 1]->getName());
+            this->missionPermanents.push_back(melees[missionNum - 1]->getName());
         }
     }
     else
     {
-        this->misssionPermanents.push_back(melees[melees.size() - 1]->getName());
-        this->misssionPermanents.push_back(melees[melees.size() - 2]->getName());
+        this->missionPermanents.push_back(melees[melees.size() - 1]->getName());
+        this->missionPermanents.push_back(melees[melees.size() - 2]->getName());
     }
     addPotion(hpPotions, "hp");
     addPotion(staminaPotions, "sta");
@@ -180,9 +235,9 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
 
     // feeding data to factory:
     HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy,
-                          misssionPermanents, missionThrowables, missionHpPotions,
-                          missionStaminaPotions, missionPowerPotions);
-    
+                         missionPermanents, missionThrowables, missionHpPotions,
+                         missionStaminaPotions, missionPowerPotions);
+
     this->enemies = factory.createEnemy(factory.getWave());
 
     // saving mission:
@@ -190,13 +245,13 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
 }
 
 HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
-                           const vector<string> &misssionPermanents,
+                           const vector<string> &missionPermanents,
                            const vector<string> &missionThrowables,
                            const vector<string> &missionHpPotions,
                            const vector<string> &missionStaminaPotions,
                            const vector<string> &missionPowerPotions,
                            const vector<int> wavesInfo)
-    : Mission(name, missionNum, casualEnemyNum, specialEnemy, misssionPermanents,
+    : Mission(name, missionNum, casualEnemyNum, specialEnemy, missionPermanents,
               missionThrowables, missionHpPotions, missionStaminaPotions, missionPowerPotions)
 {
     // setting the id:
@@ -205,8 +260,8 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
 
     // feeding data to factory:
     HumanFactory factory(missionNum, casualEnemyNum, specialEnemy,
-                          misssionPermanents, missionThrowables, missionHpPotions,
-                          missionStaminaPotions, missionPowerPotions , wavesInfo);
+                         missionPermanents, missionThrowables, missionHpPotions,
+                         missionStaminaPotions, missionPowerPotions, wavesInfo);
     vector<int> waves; // give the customized waves
     this->enemies = factory.createEnemy(waves);
 
@@ -218,16 +273,16 @@ void HumanMission::initInventory()
 {
     if (missionNum < firearms.size())
     {
-        this->misssionPermanents.push_back(firearms[missionNum - 1]->getName());
+        this->missionPermanents.push_back(firearms[missionNum - 1]->getName());
         if (missionNum != 1)
         {
-            this->misssionPermanents.push_back(firearms[missionNum - 2]->getName());
+            this->missionPermanents.push_back(firearms[missionNum - 2]->getName());
         }
     }
     else
     {
-        this->misssionPermanents.push_back(firearms[firearms.size() - 1]->getName());
-        this->misssionPermanents.push_back(firearms[firearms.size() - 2]->getName());
+        this->missionPermanents.push_back(firearms[firearms.size() - 1]->getName());
+        this->missionPermanents.push_back(firearms[firearms.size() - 2]->getName());
     }
     addPotion(hpPotions, "hp");
     addPotion(staminaPotions, "sta");
