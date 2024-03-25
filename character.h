@@ -52,9 +52,9 @@ public:
     int getCoins() const { return coins; }
 
     // setters
-    void setName(const string &newName) { name = newName; }
+    void setName(const string newName) { name = newName; }
     void setAge(int newAge) { age = newAge; }
-    void setGender(const string &newGender) { gender = newGender; }
+    void setGender(const string newGender) { gender = newGender; }
     void setBackpack(LimitedStorage newBackpack) { backpack = newBackpack; }
     void setHp(Stat newHp) { hp = newHp; }
     void setStamina(Stat newStamina) { stamina = newStamina; }
