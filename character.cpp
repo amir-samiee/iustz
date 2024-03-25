@@ -50,8 +50,49 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
                                                                                                                                                                 stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 /// @brief /////////////////////////////////////////////////////
+void Player::turn() 
+{
+    
+    int from = 1,to = backpack.getSize();
+    bool cls = true;
+    string errorMessage = "invalid input";
+    string input;
+    bool indexError = 0, typeError = 0, emptyString = 0;
+    do
+    {
+        if (cls)
+            clearScreen();
+        if (indexError || typeError || emptyString)
+            cout << red << errorMessage << reset;
+        cout << endl;
+        backpack.printStorage();
+        indexError = typeError = 0;
+        getline(cin, input);
+        if (input == "")
+            emptyString = 1;
+        else
+        {
+            emptyString = 0;
+            if (isInteger(input))
+            {
+                cleanIntString(input);
+                if (input.size() > max(to_string(to).size(), to_string(from).size()) || stoi(input) > to || stoi(input) < from)
+                    indexError = 1;
+            }
+            else
+                typeError = 1;
+        }
+    } while (indexError || typeError || emptyString);
+    auto it = backpack.getItems().begin();
+    advance ( it , (stoi(input)-1));
+    string itemString = it->first;
+    auto itemsMapIt = itemsMap.find(itemString);
+    if(itemsMapIt != itemsMap.end())
+    {
+        itemsMapIt->second->useItem();
+    }
 
-void Player::turn() {}
+}
 void Player::die() {}
 void Enemy::turn() {}
 void Enemy::die() {}
