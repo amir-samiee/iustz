@@ -68,8 +68,10 @@ vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
                            firearmLvl, meleeLvl, 1, {player1}, coins);
         unorderedEn.push_back(&zombie);
     }
-
-    shuffle(unorderedEn.begin(), unorderedEn.end(), rand());
+    
+    random_device rd;
+    mt19937 gen(rd()); 
+    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
 
     addConsumable(unorderedEn, missionHpPotions);
     addConsumable(unorderedEn, missionStaminaPotions);
