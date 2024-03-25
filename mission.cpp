@@ -21,6 +21,20 @@ Factory::Factory(int level, int casualEnemy, bool specialEnemy, Storage *invento
 vector<int> Factory::getWave()
 {
     vector<int> waves;
+    int waveNum = casualEnemy / 3;
+    int remaining = casualEnemy % waveNum;
+    for (int i = 0; i < waveNum; i++)
+        waves.push_back(3);
+
+    int index = waveNum - 1;
+
+    while (remaining != 0)
+    {
+        waves[index]++;
+        index--;
+        remaining--;
+    }
+
     return waves;
 }
 
