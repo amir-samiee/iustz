@@ -83,7 +83,7 @@ public:
            int coins, Storage inventory, int humanLevels, int zombieLevels);
 
     // getters
-    Storage* getInventory() { return &inventory; }
+    Storage *getInventory() { return &inventory; }
 
     // setters
     void setInventory(Storage newInventory) { inventory = newInventory; }
@@ -92,6 +92,8 @@ public:
     void turn() override;
     void die() override;
 };
+
+Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(12), Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
 
 class Enemy : public Character
 {

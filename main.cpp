@@ -35,4 +35,5 @@ int main()
         int age = getInput("enter your age: ", 1, 200);
     }
     menu::mainMenu();
+    delete player1;
 }
