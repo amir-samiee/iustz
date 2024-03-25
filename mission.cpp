@@ -77,7 +77,7 @@ vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
     addConsumable(unorderedEn, missionStaminaPotions);
     addConsumable(unorderedEn, missionPowerPotions);
 
-    shuffle(unorderedEn.begin(), unorderedEn.end(), rand());
+    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
     
     for (int i = 0; i < waves.size(); i++)
     {
