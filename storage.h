@@ -6,7 +6,7 @@ class Storage
 {
 protected:
     map<string, int> items = {};
-
+    vector<string> names;
 public:
     // constructor
     Storage() = default;

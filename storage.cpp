@@ -26,9 +26,11 @@ void Storage::printStorage()
     }
 
     cout << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
+    names.clear();
     for (auto &item : items)
     {
-        cout << i << "- " << setw(maxNameLength + 5) << itemsMap[item.first]->getName()
+        names.push_back(item.first);
+        cout << i << "- " << setw(maxNameLength + 5) << item.first
              << setw(15) << itemsMap[item.first]->getSpecial()
              << setw(10) << itemsMap[item.first]->getStamina()
              << setw(10) << item.second << endl;
