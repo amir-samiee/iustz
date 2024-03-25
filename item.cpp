@@ -41,6 +41,7 @@ void Throwable::useItem()
             owner->getWave()[i]->takeDamage((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
             owner->setPowerBoost(1);
         }
+        owner->getBackpack()->removeItem(this->name);
     }
 }
 
@@ -63,6 +64,7 @@ void Melee::useItem()
     {
         owner->getWave()[0]->takeDamage(this->getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
+        owner->getBackpack()->removeItem(this->name);
     }
 }
 
@@ -77,6 +79,7 @@ void Firearm::useItem()
     {
         owner->getWave()[0]->takeDamage(this->getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
+        owner->getBackpack()->removeItem(this->name);
     }
 };
 
@@ -93,6 +96,7 @@ void HpPotion::useItem()
     {
         int newPoint = owner->getHp()->getCurrentPoint() + this->getSpecial();
         owner->getHp()->setCurrentPoint(newPoint);
+        owner->getBackpack()->removeItem(this->name);
     }
 }
 
@@ -108,6 +112,7 @@ void StaminaPotion::useItem()
     {
         int newPoint = owner->getStamina()->getCurrentPoint() + this->getSpecial();
         owner->getStamina()->setCurrentPoint(newPoint);
+        owner->getBackpack()->removeItem(this->name);
     }
 }
 
@@ -122,5 +127,6 @@ void PowerPotion::useItem()
     if (this->checkAndTakeStamina())
     {
         owner->setPowerBoost(this->getSpecial());
+        owner->getBackpack()->removeItem(this->name);
     }
 }

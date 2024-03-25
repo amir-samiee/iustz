@@ -50,9 +50,9 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
                                                                                                                                                                 stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 /// @brief /////////////////////////////////////////////////////
+
 void Player::turn() 
 {
-    
     int from = 1,to = backpack.getSize();
     bool cls = true;
     string errorMessage = "invalid input";
@@ -83,16 +83,12 @@ void Player::turn()
                 typeError = 1;
         }
     } while (indexError || typeError || emptyString);
+    
     auto it = backpack.getItems().begin();
     advance ( it , (stoi(input)-1));
-    string itemString = it->first;
-    auto itemsMapIt = itemsMap.find(itemString);
-    if(itemsMapIt != itemsMap.end())
-    {
-        itemsMapIt->second->useItem();
-    }
-
+    itemsMap[it->first]->useItem();
 }
+
 void Player::die() {}
 void Enemy::turn() {}
 void Enemy::die() {}
