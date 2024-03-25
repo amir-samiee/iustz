@@ -12,6 +12,8 @@ using namespace std;
 #include <map>
 #include <ctime>
 #include <cstdlib>
+#include<algorithm>
+#include<random>
 
 // the order of the following lines matters. make changes wisely!
 #include "Assets/nlohmann/json.hpp"

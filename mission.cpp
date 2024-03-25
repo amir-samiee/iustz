@@ -40,6 +40,49 @@ void Factory::addConsumable(vector<Character *> unorderedEn, vector<string> addi
 vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
 {
     vector<vector<Character *>> enemies;
+    vector<Character *> unorderedEn;
+    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
+
+    for (int i = 0; i < casualEnemy; i++)
+    {
+        LimitedStorage *backpack = new LimitedStorage;
+        if (i < randomPermanentNum && missionPermanents.size() != 0)
+        {
+            int randomWeapon = (rand() % missionPermanents.size());
+            backpack->addItem(missionPermanents[randomWeapon]);
+        }
+        Stat hp;
+        Stat stamina;
+        int firearmLvl;
+        int meleeLvl;
+        int coins;
+        HumanEnemy human("human" + 1 + i, 9, "female", *backpack, hp, stamina,
+                           firearmLvl, meleeLvl, 1, {player1}, coins);
+        unorderedEn.push_back(&human);
+    }
+    
+    random_device rd;
+    mt19937 gen(rd()); 
+    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
+
+    addConsumable(unorderedEn, missionHpPotions);
+    addConsumable(unorderedEn, missionStaminaPotions);
+    addConsumable(unorderedEn, missionPowerPotions);
+    addConsumable(unorderedEn , missionThrowables);
+
+    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
+    
+    for (int i = 0; i < waves.size(); i++)
+    {
+        vector<Character* > addingChars;
+        for (int j = 0; j < waves[i]; j++)
+        {
+            addingChars.push_back(unorderedEn[0]);
+            unorderedEn.erase(unorderedEn.begin());
+        }
+        enemies.push_back(addingChars);
+    }
+
     return enemies;
 }
 
@@ -121,7 +164,7 @@ void Mission ::story()
         cerr << "Unable to open file! " << endl;
 }
 
-void Mission::addPotion(vector<Item *> addingItem, string type)
+void Mission::initCon(vector<Item *> addingItem, string type)
 {
     int index = 0;
     int potionNums = (casualEnemyNum * 2) + rand() % ((casualEnemyNum / 4) - (casualEnemyNum / 8));
@@ -220,9 +263,9 @@ void ZombieMission::initInventory()
         this->missionPermanents.push_back(melees[melees.size() - 1]->getName());
         this->missionPermanents.push_back(melees[melees.size() - 2]->getName());
     }
-    addPotion(hpPotions, "hp");
-    addPotion(staminaPotions, "sta");
-    addPotion(powerPotions, "pow");
+    initCon(hpPotions, "hp");
+    initCon(staminaPotions, "sta");
+    initCon(powerPotions, "pow");
 }
 
 HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
@@ -286,7 +329,8 @@ void HumanMission::initInventory()
         this->missionPermanents.push_back(firearms[firearms.size() - 1]->getName());
         this->missionPermanents.push_back(firearms[firearms.size() - 2]->getName());
     }
-    addPotion(hpPotions, "hp");
-    addPotion(staminaPotions, "sta");
-    addPotion(powerPotions, "pow");
+    initCon(hpPotions, "hp");
+    initCon(staminaPotions, "sta");
+    initCon(powerPotions, "pow");
+    initCon(throwables, "thr");
 }

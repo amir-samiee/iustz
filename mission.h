@@ -179,7 +179,7 @@ public:
 
     // methods:
     // virtual void initInventory();
-    void addPotion(vector<Item *> addingItem, string type);
+    void initCon(vector<Item *> addingItem, string type);
     void story();
     void playerTurn();
     void enemyTurn();
