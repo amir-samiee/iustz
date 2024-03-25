@@ -84,9 +84,7 @@ void Player::turn()
         }
     } while (indexError || typeError || emptyString);
     
-    auto it = backpack.getItems().begin();
-    advance ( it , (stoi(input)-1));
-    itemsMap[it->first]->useItem();
+    itemsMap[backpack.getNames()[stoi(input)-1]]->useItem();
 }
 
 void Player::die() {}

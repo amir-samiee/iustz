@@ -7,15 +7,18 @@ class Storage
 protected:
     map<string, int> items = {};
     vector<string> names;
+
 public:
     // constructor
     Storage() = default;
 
     // getters
     map<string, int> getItems() { return items; }
+    vector<string> getNames() { return names; }
 
     // setters
     void setItems(map<string, int> newItems) { items = newItems; }
+    void setNames(vector<string> newNames) { names = newNames; }
 
     // others
     virtual void addItem(string name);
