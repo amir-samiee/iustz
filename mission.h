@@ -29,7 +29,7 @@ public:
 
     // methodes:
     vector<int> getWave();
-    virtual vector<vector<Character *>> createEnemy() = 0;
+    virtual vector<vector<Character *>> createEnemy(vector<int> waves) = 0;
 };
 
 class ZombieFactory : public Factory
@@ -37,7 +37,7 @@ class ZombieFactory : public Factory
 public:
     ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
     ZombieFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo);
-    vector<vector<Character *>> createEnemy() override;
+    vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
 class HumanFactory : public Factory
@@ -45,7 +45,7 @@ class HumanFactory : public Factory
 public:
     HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory);
     HumanFactory(int level, int casualEnemy, bool specialEnemy, Storage *inventory, int **waveInfo);
-    vector<vector<Character *>> createEnemy() override;
+    vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
 /// @brief ///////////////////////////////////////////////
