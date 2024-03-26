@@ -183,9 +183,7 @@ private:
 
 public:
     Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-                   int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
-    // Enemy(string name, int age, string gender, LimitedStorage backpack,
-    //       Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+          int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
 
     // getters
     string getName() const override { return model.name; };
