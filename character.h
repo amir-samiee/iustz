@@ -69,7 +69,6 @@ protected:
     int meleeLevel = 1;
     int powerBoost = 1;
     int coins;
-    string lastPlayedMission;
     vector<Character *> currentWave;
 
     Storage inventory;
@@ -91,7 +90,6 @@ public:
     int getMeleeLevel() const override { return meleeLevel; }
     int getPowerBoost() const override { return powerBoost; }
     int getCoins() const override { return coins; }
-    string getLastPlayedMission() const { return lastPlayedMission; }
     vector<Character *> getWave() const override { return currentWave; }
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
@@ -108,7 +106,6 @@ public:
     void setMeleeLevel(int newLevel) override { meleeLevel = newLevel; }
     void setPowerBoost(int newPowerBoost) override { powerBoost = newPowerBoost; }
     void setCoins(int newCoins) override { coins = newCoins; }
-    void setLastPlayedMission(string newMission) { lastPlayedMission = newMission; }
     void setWave(vector<Character *> newWave) override { currentWave = newWave; }
     void setInventory(Storage newInventory) { inventory = newInventory; }
     void setHumanLevels(int newLevel) { humanLevels = newLevel; }
