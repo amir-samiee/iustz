@@ -33,7 +33,7 @@ public:
     virtual int getSpecial() const = 0;
 
     // setters
-    void setName(const string &newName) { name = newName; }
+    void setName(const string newName) { name = newName; }
     void setPrice(int newPrice) { price = newPrice; }
     void setOwner(Character *newOwner) { owner = newOwner; }
     void setStamina(int newStamina) { stamina = newStamina; }
