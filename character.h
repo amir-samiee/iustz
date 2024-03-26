@@ -164,6 +164,8 @@ namespace MVC
 
     public:
         EnemyController(EnemyModel &model, EnemyView &view) : model(model), view(view) {}
+        void takeDamage(int damage);
+        void die();
     };
 
 }
@@ -209,7 +211,7 @@ public:
 
     // others
     int level() override;
-    void takeDamage(int newPoint);
+    void takeDamage(int damage) override;
     void turn() override;
     void die() override;
 };

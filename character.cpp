@@ -29,15 +29,17 @@ void Player::takeDamage(int takenDamage)
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                 int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
                                                                                                                                                     hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
-
-int Enemy::level() { return (model.firearmLevel + model.meleeLevel + model.hp.level() + model.stamina.level()) / 4; }
-void Enemy::takeDamage(int takenDamage)
+void MVC::EnemyController::takeDamage(int takenDamage)
 {
     int newPoint = model.hp.getCurrentPoint() - takenDamage;
-    this->getHp()->setCurrentPoint(newPoint);
+    model.hp.setCurrentPoint(newPoint);
     if (newPoint <= 0)
         this->die();
 }
+void MVC::EnemyController::die() {}
+int Enemy::level() { return (model.firearmLevel + model.meleeLevel + model.hp.level() + model.stamina.level()) / 4; }
+void Enemy::takeDamage(int damage) { controller.takeDamage(damage); }
+
 // HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
 //                        Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
 //                                                                                                                                                     stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
@@ -55,5 +57,5 @@ void Enemy::takeDamage(int takenDamage)
 void Player::turn() {}
 void Player::die() {}
 void Enemy::turn() {}
-void Enemy::die() {}
+void Enemy::die() { controller.die(); }
 void SpecialZombie::turn() {}
