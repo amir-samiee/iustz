@@ -22,20 +22,6 @@ public:
 
 class Character
 {
-protected:
-    string name;
-    int age;
-    string gender; // -male -female -other
-    LimitedStorage backpack;
-    Stat hp;
-    Stat stamina;
-    int firearmLevel = 1;
-    int meleeLevel = 1;
-    int powerBoost = 1;
-    int coins;
-    string currentMission;
-    vector<Character *> currentWave;
-
 public:
     // getters
     virtual string getName() const = 0;
@@ -52,10 +38,10 @@ public:
 
     // setters
     virtual void setName(const string newName) = 0;
-    virtual void setAge(int newAge) { age = newAge; }
+    virtual void setAge(int newAge) = 0;
     virtual void setGender(const string newGender) = 0;
     virtual void setBackpack(LimitedStorage newBackpack) = 0;
-    virtual void setHp(Stat newHp) { hp = newHp; }
+    virtual void setHp(Stat newHp) = 0;
     virtual void setStamina(Stat newStamina) = 0;
     virtual void setWave(vector<Character *> newWave) = 0;
     virtual void setFirearmLevel(int newLevel) = 0;
@@ -83,7 +69,7 @@ protected:
     int meleeLevel = 1;
     int powerBoost = 1;
     int coins;
-    string currentMission;
+    string lastPlayedMission;
     vector<Character *> currentWave;
 
     Storage inventory;
@@ -106,6 +92,7 @@ public:
     int getMeleeLevel() const override { return meleeLevel; }
     int getPowerBoost() const override { return powerBoost; }
     int getCoins() const override { return coins; }
+    string getLastPlayedMission() const { return lastPlayedMission; }
     Storage *getInventory() { return &inventory; }
 
     // setters
@@ -120,6 +107,7 @@ public:
     void setMeleeLevel(int newLevel) override { meleeLevel = newLevel; }
     void setPowerBoost(int newPowerBoost) override { powerBoost = newPowerBoost; }
     void setCoins(int newCoins) override { coins = newCoins; }
+    void setLastPlayedMission(string newMission) { lastPlayedMission = newMission; }
     void setInventory(Storage newInventory) { inventory = newInventory; }
 
     // others
