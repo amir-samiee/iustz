@@ -87,28 +87,32 @@ public:
     LimitedStorage *getBackpack() override { return &backpack; }
     Stat *getHp() override { return &hp; }
     Stat *getStamina() override { return &stamina; }
-    vector<Character *> getWave() const override { return currentWave; }
     int getFirearmLevel() const override { return firearmLevel; }
     int getMeleeLevel() const override { return meleeLevel; }
     int getPowerBoost() const override { return powerBoost; }
     int getCoins() const override { return coins; }
     string getLastPlayedMission() const { return lastPlayedMission; }
+    vector<Character *> getWave() const override { return currentWave; }
     Storage *getInventory() { return &inventory; }
+    int getHumanLevels() { return humanLevels; }
+    int getZombieLevels() { return zombieLevels; }
 
     // setters
-    void setName(const string newName) override { name = newName; }
+    void setName(string newName) override { name = newName; }
     void setAge(int newAge) override { age = newAge; }
-    void setGender(const string newGender) override { gender = newGender; }
+    void setGender(string newGender) override { gender = newGender; }
     void setBackpack(LimitedStorage newBackpack) override { backpack = newBackpack; }
     void setHp(Stat newHp) override { hp = newHp; }
     void setStamina(Stat newStamina) override { stamina = newStamina; }
-    void setWave(vector<Character *> newWave) override { currentWave = newWave; }
     void setFirearmLevel(int newLevel) override { firearmLevel = newLevel; }
     void setMeleeLevel(int newLevel) override { meleeLevel = newLevel; }
     void setPowerBoost(int newPowerBoost) override { powerBoost = newPowerBoost; }
     void setCoins(int newCoins) override { coins = newCoins; }
     void setLastPlayedMission(string newMission) { lastPlayedMission = newMission; }
+    void setWave(vector<Character *> newWave) override { currentWave = newWave; }
     void setInventory(Storage newInventory) { inventory = newInventory; }
+    void setHumanLevels(int newLevel) { humanLevels = newLevel; }
+    void setZombieLevels(int newLevel) { zombieLevels = newLevel; }
 
     // others
     int level() override;
@@ -117,7 +121,8 @@ public:
     void takeDamage(int newPoint) override;
 };
 
-Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(12), Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
+Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(12),
+                             Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
 
 // Enemies
 
@@ -150,11 +155,11 @@ namespace MVC
     class EnemyController
     {
     private:
-        EnemyModel &model;
-        EnemyView &view;
+        EnemyModel *model;
+        EnemyView *view;
 
     public:
-        EnemyController(EnemyModel &model, EnemyView &view) : model(model), view(view) {}
+        EnemyController(EnemyModel *model, EnemyView *view) : model(model), view(view) {}
         void takeDamage(int damage);
         void die();
     };
@@ -165,39 +170,40 @@ class Enemy : public Character
 {
 
 private:
-    MVC::EnemyModel model;
-    MVC::EnemyView view;
-    MVC::EnemyController controller;
+    MVC::EnemyModel *model;
+    MVC::EnemyView *view;
+    MVC::EnemyController *controller;
 
 public:
     Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
           int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+    ~Enemy();
 
     // getters
-    string getName() const override { return model.name; };
-    int getAge() const override { return model.age; };
-    string getGender() const override { return model.gender; };
-    LimitedStorage *getBackpack() override { return &model.backpack; };
-    Stat *getHp() override { return &model.hp; };
-    Stat *getStamina() override { return &model.stamina; };
-    int getFirearmLevel() const override { return model.firearmLevel; };
-    int getMeleeLevel() const override { return model.meleeLevel; };
-    int getPowerBoost() const override { return model.powerBoost; };
-    int getCoins() const override { return model.coins; };
-    vector<Character *> getWave() const override { return model.currentWave; };
+    string getName() const override { return model->name; };
+    int getAge() const override { return model->age; };
+    string getGender() const override { return model->gender; };
+    LimitedStorage *getBackpack() override { return &model->backpack; };
+    Stat *getHp() override { return &model->hp; };
+    Stat *getStamina() override { return &model->stamina; };
+    int getFirearmLevel() const override { return model->firearmLevel; };
+    int getMeleeLevel() const override { return model->meleeLevel; };
+    int getPowerBoost() const override { return model->powerBoost; };
+    int getCoins() const override { return model->coins; };
+    vector<Character *> getWave() const override { return model->currentWave; };
 
     // setters
-    void setName(const string newName) override { model.name = newName; }
-    void setAge(int newAge) override { model.age = newAge; }
-    void setGender(const string newGender) override { model.gender = newGender; }
-    void setBackpack(LimitedStorage newBackpack) override { model.backpack = newBackpack; }
-    void setHp(Stat newHp) override { model.hp = newHp; }
-    void setStamina(Stat newStamina) override { model.stamina = newStamina; }
-    void setWave(vector<Character *> newWave) override { model.currentWave = newWave; }
-    void setFirearmLevel(int newLevel) override { model.firearmLevel = newLevel; }
-    void setMeleeLevel(int newLevel) override { model.meleeLevel = newLevel; }
-    void setPowerBoost(int newPowerBoost) override { model.powerBoost = newPowerBoost; }
-    void setCoins(int newCoins) override { model.coins = newCoins; }
+    void setName(const string newName) override { model->name = newName; }
+    void setAge(int newAge) override { model->age = newAge; }
+    void setGender(const string newGender) override { model->gender = newGender; }
+    void setBackpack(LimitedStorage newBackpack) override { model->backpack = newBackpack; }
+    void setHp(Stat newHp) override { model->hp = newHp; }
+    void setStamina(Stat newStamina) override { model->stamina = newStamina; }
+    void setWave(vector<Character *> newWave) override { model->currentWave = newWave; }
+    void setFirearmLevel(int newLevel) override { model->firearmLevel = newLevel; }
+    void setMeleeLevel(int newLevel) override { model->meleeLevel = newLevel; }
+    void setPowerBoost(int newPowerBoost) override { model->powerBoost = newPowerBoost; }
+    void setCoins(int newCoins) override { model->coins = newCoins; }
 
     // others
     int level() override;
