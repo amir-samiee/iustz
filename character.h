@@ -25,7 +25,6 @@ class Character
 protected:
     string name;
     int age;
-    bool isAlive = 1;
     string gender; // -male -female -other
     LimitedStorage backpack;
     Stat hp;
@@ -52,7 +51,6 @@ public:
     int getMeleeLevel() const { return meleeLevel; }
     int getPowerBoost() const { return powerBoost; }
     int getCoins() const { return coins; }
-    bool getAlive() const { return isAlive; }
 
     // setters
     void setName(const string newName) { name = newName; }
@@ -66,13 +64,13 @@ public:
     void setMeleeLevel(int newLevel) { meleeLevel = newLevel; }
     void setPowerBoost(int newPowerBoost) { powerBoost = newPowerBoost; }
     void setCoins(int newCoins) { coins = newCoins; }
-    void setALive(bool newIsAlive) { isAlive = newIsAlive; }
 
     // others
     int level();
     virtual void turn() = 0;
     virtual void die() = 0;
     void takeDamage(int newPoint);
+    bool isAlive() { return hp.getCurrentPoint() > 0; };
 };
 
 class Player : public Character

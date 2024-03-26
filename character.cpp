@@ -29,7 +29,7 @@ void Character::takeDamage(int takenDamage)
 Character ::Character(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                       int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins)
     : name(name), age(age), gender(gender), backpack(backpack), hp(hp), stamina(stamina), firearmLevel(firearmLevel),
-      meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins) { isAlive = 1; }
+      meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins) {}
 
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                 int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels)
