@@ -150,6 +150,9 @@ namespace MVC
         int coins;
         string currentMission;
         vector<Character *> currentWave;
+
+        EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
+                   int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
     };
 
     class EnemyView
@@ -179,7 +182,8 @@ private:
     MVC::EnemyController controller;
 
 public:
-    Enemy() : controller(model, view) {}
+    Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
+                   int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
     // Enemy(string name, int age, string gender, LimitedStorage backpack,
     //       Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
 
@@ -219,22 +223,22 @@ public:
 class HumanEnemy : public Enemy
 {
 public:
-    // HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
-    //            Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+    HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
+               Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
 };
 
 class ZombieEnemy : public Enemy
 {
 public:
-    // ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
-    //             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+    ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
+                Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
 };
 
 class SpecialZombie : public ZombieEnemy
 {
 public:
-    // SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
-    //               Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+    SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
+                  Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
 
     void turn() override;
 };
