@@ -27,11 +27,13 @@ void Character::takeDamage(int takenDamage)
         this->die();
 }
 Character ::Character(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-                      int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : name(name), age(age), gender(gender), backpack(backpack),
-                                                                                                    hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins) {}
+                      int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins)
+    : name(name), age(age), gender(gender), backpack(backpack), hp(hp), stamina(stamina), firearmLevel(firearmLevel),
+      meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins) { isAlive = 1; }
 
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-                int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : Character(name, age, gender, backpack, hp, stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
+                int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels)
+    : Character(name, age, gender, backpack, hp, stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
 
 Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack,
              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : Character(name, age, gender, backpack, hp,
@@ -51,9 +53,9 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
 
 /// @brief /////////////////////////////////////////////////////
 
-void Player::turn() 
+void Player::turn()
 {
-    int from = 1,to = backpack.getSize();
+    int from = 1, to = backpack.getSize();
     bool cls = true;
     string errorMessage = "invalid input";
     string input;
@@ -83,8 +85,8 @@ void Player::turn()
                 typeError = 1;
         }
     } while (indexError || typeError || emptyString);
-    
-    itemsMap[backpack.getNames()[stoi(input)-1]]->useItem();
+
+    itemsMap[backpack.getNames()[stoi(input) - 1]]->useItem();
 }
 
 void Player::die() {}
