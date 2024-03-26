@@ -1,3 +1,4 @@
+// this tester is no longer working since we replaced consumables and permanents vectors with their subclasses
 #include "../headers.h"
 
 int main()
