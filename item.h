@@ -169,9 +169,9 @@ public:
     void useItem() override;
 };
 
-// do not change the orders of items declarations
-// do not change the orders of items declarations
-// do not change the orders of items declarations
+// do not change the order of items declarations
+// do not change the order of items declarations
+// do not change the order of items declarations
 
 // objects of Throwable class
 Throwable throwable1("Grenade", 5, nullptr, 5, 5);

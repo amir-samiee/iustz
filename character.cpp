@@ -75,14 +75,20 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
 
 void Player::turn()
 {
-    int choice;
-    do
+    while (1)
     {
-        choice = getInput(backpack.getStorageData(), 1, backpack.getSize(), 0);
-        if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
+        int choice;
+        do
+        {
+            choice = getInput(backpack.getStorageData(), 1, backpack.getSize(), 0);
+            if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
+                break;
+        } while (1);
+        itemsMap[backpack.getNames()[choice - 1]]->useItem();
+        
+        if(dynamic_cast<Permanent *> (itemsMap[backpack.getNames()[choice - 1]]) != nullptr || dynamic_cast<Throwable *>(itemsMap[backpack.getNames()[choice - 1]])!=nullptr)
             break;
-    } while (1);
-    itemsMap[backpack.getNames()[choice - 1]]->useItem();
+    }
 }
 
 void Player::die() {}
