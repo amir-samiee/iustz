@@ -3,7 +3,7 @@
 
 void Storage::addItem(string name)
 {
-    if (itemsMap.find(name)==itemsMap.end())
+    if (itemsMap.find(name) == itemsMap.end())
         throw invalid_argument("Invalid item name!");
     if (items.find(name) == items.end())
         items.insert({name, 1});
@@ -49,23 +49,14 @@ void Storage::printStorage()
 
 void Storage::removeItem(string name)
 {
-    while (true)
-    {
-        if (items[name] < 1)
-            cout << "item does not exist.\n";
+    if (items[name] < 1)
+        cout << "item does not exist.\n";
 
-        else if (items[name] == 1)
-        {
-            items.erase(name);
-            break;
-        }
+    else if (items[name] == 1)
+        items.erase(name);
 
-        else
-        {
-            items[name]--;
-            break;
-        }
-    }
+    else
+        items[name]--;
 }
 
 LimitedStorage::LimitedStorage(int newSize)
