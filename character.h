@@ -68,7 +68,7 @@ protected:
     Stat stamina;
     int firearmLevel = 1;
     int meleeLevel = 1;
-    int powerBoost = 1;
+    double powerBoost = 1;
     int coins;
     vector<Character *> currentWave;
 
@@ -77,7 +77,7 @@ protected:
     int zombieLevels = 0;
 
 public:
-    Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave,
+    Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave,
            int coins, Storage inventory, int humanLevels, int zombieLevels);
 
     // getters
@@ -138,13 +138,13 @@ namespace MVC
         Stat stamina;
         int firearmLevel = 1;
         int meleeLevel = 1;
-        int powerBoost = 1;
+        double powerBoost = 1;
         int coins;
         string currentMission;
         vector<Character *> currentWave;
 
         EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-                   int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+                   int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
         bool isAlive();
     };
 
@@ -175,7 +175,7 @@ private:
 
 public:
     Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-          int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+          int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
     ~Enemy();
 
     // getters
@@ -216,21 +216,21 @@ class HumanEnemy : public Enemy
 {
 public:
     HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
-               Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+               Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
 };
 
 class ZombieEnemy : public Enemy
 {
 public:
     ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
-                Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+                Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
 };
 
 class SpecialZombie : public ZombieEnemy
 {
 public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
-                  Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+                  Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
 
     void turn() override;
 };

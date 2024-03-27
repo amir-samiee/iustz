@@ -188,7 +188,7 @@ Throwable throwable10("Gunship", 500, nullptr, 450, 900);
 // objects of permanant class
 // "melee"
 Melee melee0("Punch", 0, nullptr, 0, 5);
-Melee meele1("Knife", 10, nullptr, 5, 15);
+Melee melee1("Knife", 10, nullptr, 5, 15);
 Melee melee2("Axe", 10, nullptr, 10, 20);
 Melee melee3("Nunchaku", 20, nullptr, 20, 40);
 Melee melee4("Sword", 20, nullptr, 20, 40);

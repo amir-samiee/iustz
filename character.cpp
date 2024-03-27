@@ -27,11 +27,11 @@ void Player::takeDamage(int takenDamage)
         this->die();
 }
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-                int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
+                int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
                                                                                                                                                     hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
 
 MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-                            int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins)
+                            int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : name(name), age(age), gender(gender), backpack(backpack), hp(hp), stamina(stamina), firearmLevel(firearmLevel),
       meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins) {}
 
@@ -47,7 +47,7 @@ void MVC::EnemyController::takeDamage(int takenDamage)
 void MVC::EnemyController::die() {}
 
 Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
-             int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins)
+             int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : model(new MVC::EnemyModel(name, age, gender, backpack, hp, stamina, firearmLevel,
                                 meleeLevel, powerBoost, currentWave, coins)),
       view(new MVC::EnemyView),
@@ -63,15 +63,15 @@ int Enemy::level() { return (model->firearmLevel + model->meleeLevel + model->hp
 void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
-                       Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
+                       Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
                                                                                                                                                     stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
-                         Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
+                         Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
-                             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
+                             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
                                                                                                                                                                 stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 /// @brief /////////////////////////////////////////////////////
