@@ -49,11 +49,12 @@ void MVC::EnemyController::die()
 {
     //setting rewards:
     map<string, int> bpck = self->getBackpack()->getItems();
-    Storage mystg = self->getWave()[0]->getReward();
+    Player* myplayer=dynamic_cast<Player *>(self->getWave()[0]); 
+    Storage mystg = myplayer->getReward();
     for (auto item : bpck)
         for (int i = 0; i < item.second; i++)
             mystg.addItem(item.first);
-    self->getWave()[0]->setReward(mystg);
+    myplayer->setReward(mystg);
 
     //removing enemy from wave:
     vector<Character *> newvec = this->self->getWave()[0]->getWave();
