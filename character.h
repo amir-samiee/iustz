@@ -95,7 +95,7 @@ public:
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
     int getZombieLevels() { return zombieLevels; }
-    Storage getReward() const { return reward; }
+    Storage *getReward() { return &reward; }
 
     // setters
     void setName(string newName) override { name = newName; }

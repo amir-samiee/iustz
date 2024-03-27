@@ -47,15 +47,9 @@ void MVC::EnemyController::takeDamage(int takenDamage)
 
 void MVC::EnemyController::die()
 {
-    //setting rewards:
-    map<string, int> bpck = self->getBackpack()->getItems();
     Player* myplayer=dynamic_cast<Player *>(self->getWave()[0]); 
-    Storage mystg = myplayer->getReward();
-    for (auto item : bpck)
-        for (int i = 0; i < item.second; i++)
-            mystg.addItem(item.first);
-    myplayer->setReward(mystg);
-
+    //setting rewards:
+    transfer(self->getBackpack() , myplayer->getReward());
     //removing enemy from wave:
     vector<Character *> newvec = this->self->getWave()[0]->getWave();
     for (int i = 0; i < newvec.size(); i++)

@@ -86,7 +86,7 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
     return enemies;
 }
 
-/// @brief //////////////////////////////
+/// @brief ////////////////////////////////////////
 
 vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
 {
@@ -196,6 +196,7 @@ void Mission ::playerDeath()
 
 void Mission ::end()
 {
+    transfer(player1->getReward() , player1->getInventory());
 }
 
 void Mission::start()
