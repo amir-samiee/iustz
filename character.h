@@ -35,6 +35,7 @@ public:
     virtual int getMeleeLevel() const = 0;
     virtual int getPowerBoost() const = 0;
     virtual int getCoins() const = 0;
+    virtual const Storage getReward() const;
 
     // setters
     virtual void setName(const string newName) = 0;
@@ -48,6 +49,7 @@ public:
     virtual void setMeleeLevel(int newLevel) = 0;
     virtual void setPowerBoost(int newPowerBoost) = 0;
     virtual void setCoins(int newCoins) = 0;
+    virtual void setReward(const Storage newReward);
 
     // others
     virtual bool isAlive() = 0;
@@ -95,7 +97,7 @@ public:
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
     int getZombieLevels() { return zombieLevels; }
-    const Storage getReward() const { return reward; }
+    const Storage getReward() const override { return reward; }
 
     // setters
     void setName(string newName) override { name = newName; }
@@ -112,7 +114,7 @@ public:
     void setInventory(Storage newInventory) { inventory = newInventory; }
     void setHumanLevels(int newLevel) { humanLevels = newLevel; }
     void setZombieLevels(int newLevel) { zombieLevels = newLevel; }
-    void setReward(const Storage newReward) { reward = newReward; }
+    void setReward(const Storage newReward) override { reward = newReward; }
 
     // others
     bool isAlive() override;
