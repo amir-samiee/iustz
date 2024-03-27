@@ -146,6 +146,21 @@ Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
     this->specialEnemy = specialEnemy;
 }
 
+
+void Mission::initCon(vector<Item *> addingItem, string type)
+{
+    int index = 0;
+    int potionNums = (casualEnemyNum * 2) + rand() % ((casualEnemyNum / 4) - (casualEnemyNum / 8));
+    if ((this->getMissionNum()) / (2.0) <= addingItem.size())
+        index = (this->getMissionNum() - 1) / 2;
+    else
+        index = addingItem.size() - 1;
+
+    for (int i = 0; i < potionNums; i++)
+        missionItemTypes[type].push_back(addingItem[index]->getName());
+}
+
+
 void Mission ::story()
 {
     ifstream file("Stories/" + name + ".txt");
@@ -162,25 +177,14 @@ void Mission ::story()
     }
     else
         cerr << "Unable to open file! " << endl;
+    
+    cout<<"Press any key to start\n";
+    getchar();
+    clearScreen();
 }
-
-void Mission::initCon(vector<Item *> addingItem, string type)
-{
-    int index = 0;
-    int potionNums = (casualEnemyNum * 2) + rand() % ((casualEnemyNum / 4) - (casualEnemyNum / 8));
-    if ((this->getMissionNum()) / (2.0) <= addingItem.size())
-        index = (this->getMissionNum() - 1) / 2;
-    else
-        index = addingItem.size() - 1;
-
-    for (int i = 0; i < potionNums; i++)
-        missionItemTypes[type].push_back(addingItem[index]->getName());
-}
-
 void Mission ::enemyTurn()
 {
 }
-
 void Mission ::endWave()
 {
 }
@@ -198,6 +202,7 @@ void Mission ::end()
 
 void Mission::start()
 {
+    story();
     while (!enemies.empty() && player1->isAlive())
     {
         while (!enemies[0].empty() && player1->isAlive())
