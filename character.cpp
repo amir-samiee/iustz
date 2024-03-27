@@ -105,16 +105,18 @@ void Player::turn()
     while (1)
     {
         int choice;
+        Item *selectedItem;
         do
         {
             choice = getInput(backpack.getStorageData()+"\nenter your choice: ", 1, backpack.getNames().size(), 0);
-            if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
+            selectedItem = itemsMap[backpack.getNames()[choice - 1]];
+            selectedItem->setOwner(this);
+            if (selectedItem->checkForUse())
                 break;
         } while (1);
-        itemsMap[backpack.getNames()[choice - 1]]->setOwner(this);
-        itemsMap[backpack.getNames()[choice - 1]]->useItem();
+        selectedItem->useItem();
 
-        if (dynamic_cast<Permanent *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr || dynamic_cast<Throwable *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr)
+        if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
             break;
     }
 }

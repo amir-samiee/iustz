@@ -10,11 +10,17 @@ Item::Item(string name, int price, Character *owner, int stamina)
     itemsMap[name] = this;
 }
 
-bool Item::checkStamina()
+bool Item::checkForUse()
 {
     if (owner->getStamina()->getCurrentPoint() < stamina)
     {
         cout << red << "insufficient stamina\n"
+             << reset;
+        return false;
+    }
+    if (owner->getBackpack()->getItems()[name] == 0)
+    {
+        cout << red << "user doesn't own the item\n"
              << reset;
         return false;
     }
@@ -40,7 +46,7 @@ Throwable::Throwable(string name, int price, Character *owner, int stamina, int 
 }
 void Throwable::useItem()
 {
-    if (checkStamina())
+    if (checkForUse())
     {
         for (int i = owner->getWave().size() - 1; i >= 0; i--)
         {
@@ -66,7 +72,7 @@ Melee::Melee(string name, int price, Character *owner, int stamina, int damage) 
 }
 void Melee::useItem()
 {
-    if (checkStamina())
+    if (checkForUse())
     {
         owner->getWave()[0]->takeDamage(getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
@@ -81,7 +87,7 @@ Firearm::Firearm(string name, int price, Character *owner, int stamina, int dama
 }
 void Firearm::useItem()
 {
-    if (checkStamina())
+    if (checkForUse())
     {
         owner->getWave()[0]->takeDamage(getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
@@ -98,7 +104,7 @@ HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int he
 
 void HpPotion::useItem()
 {
-    if (checkStamina())
+    if (checkForUse())
     {
         int newPoint = owner->getHp()->getCurrentPoint() + getSpecial();
         owner->getHp()->setCurrentPoint(newPoint);
@@ -128,7 +134,7 @@ PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, 
 }
 void PowerPotion::useItem()
 {
-    if (checkStamina())
+    if (checkForUse())
     {
         owner->setPowerBoost(getSpecial());
         takeStamina();

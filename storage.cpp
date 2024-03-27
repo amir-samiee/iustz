@@ -9,7 +9,8 @@ void Storage::addItem(string name)
         items.insert({name, 1});
 
     else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
-        cout << "you can only add a permanent item once!\n";
+        cout << yellow << "you can only add a permanent item once!\n"
+             << reset;
 
     else
         items[name]++;
@@ -50,7 +51,8 @@ void Storage::printStorage()
 void Storage::removeItem(string name)
 {
     if (items[name] < 1)
-        cout << "item does not exist.\n";
+        cout << yellow << "item does not exist to remove!\n"
+             << reset;
 
     else if (items[name] == 1)
         items.erase(name);
@@ -62,16 +64,16 @@ void Storage::removeItem(string name)
 // setters
 void LimitedStorage::setItems(map<string, int> newItems)
 {
-    int remainedSpace = capacity - size;
-    int addedSize = 0;
+    int newSize = 0;
     for (auto i : newItems)
-        addedSize += i.second;
-    if (addedSize > remainedSpace)
+        newSize += i.second;
+    if (newSize > capacity)
     {
-        cout << yellow << "not enough remaining space!\n"
+        cout << yellow << "insufficient space!\n"
              << reset;
         return;
     }
+
     for (auto item : newItems)
         for (int i = 0; i < item.second; i++)
             addItem(item.first);
@@ -88,7 +90,8 @@ void LimitedStorage::addItem(string name)
         }
 
         else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
-            cout << "you can only add a permanent item once!\n";
+            cout << yellow << "you can only add a permanent item once!\n"
+                 << reset;
 
         else
         {
@@ -97,12 +100,13 @@ void LimitedStorage::addItem(string name)
         }
     }
     else
-        cout << "your backpack is already full\n";
+        cout << yellow << "your backpack is already full!\n"
+             << reset;
 }
 
 void LimitedStorage::removeItem(string name)
 {
-    Storage::removeItem(name);
     if (items[name] > 0)
         size--;
+    Storage::removeItem(name);
 }
