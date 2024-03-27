@@ -71,7 +71,7 @@ protected:
     double powerBoost = 1;
     int coins;
     vector<Character *> currentWave;
-
+    Storage reward;
     Storage inventory;
     int humanLevels = 0;
     int zombieLevels = 0;
@@ -95,6 +95,7 @@ public:
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
     int getZombieLevels() { return zombieLevels; }
+    const Storage getReward() const { return reward; }
 
     // setters
     void setName(string newName) override { name = newName; }
@@ -111,6 +112,7 @@ public:
     void setInventory(Storage newInventory) { inventory = newInventory; }
     void setHumanLevels(int newLevel) { humanLevels = newLevel; }
     void setZombieLevels(int newLevel) { zombieLevels = newLevel; }
+    void setReward(const Storage newReward) { reward = newReward; }
 
     // others
     bool isAlive() override;
