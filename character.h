@@ -124,6 +124,7 @@ Player *player1 = new Player("default name", 18, "default gender", LimitedStorag
                              Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
 
 // Enemies
+class Enemy;
 
 namespace MVC
 {
@@ -157,9 +158,10 @@ namespace MVC
     private:
         EnemyModel *model;
         EnemyView *view;
+        Enemy *self;
 
     public:
-        EnemyController(EnemyModel *model, EnemyView *view) : model(model), view(view) {}
+        EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
         void takeDamage(int damage);
         void die();
     };

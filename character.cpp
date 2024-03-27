@@ -50,8 +50,9 @@ Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat 
              int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : model(new MVC::EnemyModel(name, age, gender, backpack, hp, stamina, firearmLevel,
                                 meleeLevel, powerBoost, currentWave, coins)),
-      view(new MVC::EnemyView),
-      controller(new MVC::EnemyController(model, view)){};
+      view(new MVC::EnemyView){
+        this->controller = new MVC::EnemyController(model, view , this);
+      }
 Enemy::~Enemy()
 {
     delete model;
