@@ -203,13 +203,13 @@ void Mission ::end()
 void Mission::start()
 {
     story();
-    while (!enemies.empty() && player1->isAlive())
+    while (!waves.empty() && player1->isAlive())
     {
-        while (!enemies[0].empty() && player1->isAlive())
+        while (!waves[0].empty() && player1->isAlive())
         {
             player1->turn();
 
-            if (!enemies[0].empty())
+            if (!waves[0].empty())
                 enemyTurn();
         }
         endWave();
@@ -232,7 +232,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions);
 
-    this->enemies = factory.createEnemy(factory.getWave());
+    this->waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     zombieMissions.push_back(this);
@@ -256,7 +256,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions, wavesInfo);
-    this->enemies = factory.createEnemy(wavesInfo);
+    this->waves = factory.createEnemy(wavesInfo);
 
     // saving mission:
     zombieMissions.push_back(this);
@@ -296,7 +296,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions);
 
-    this->enemies = factory.createEnemy(factory.getWave());
+    this->waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     humanMissions.push_back(this);
@@ -321,7 +321,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions, wavesInfo);
     vector<int> waves; // give the customized waves
-    this->enemies = factory.createEnemy(waves);
+    this->waves = factory.createEnemy(waves);
 
     // saving mission:
     humanMissions.push_back(this);
