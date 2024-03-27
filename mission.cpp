@@ -57,24 +57,24 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
         int meleeLvl;
         int coins;
         HumanEnemy human("human" + 1 + i, 9, "female", *backpack, hp, stamina,
-                           firearmLvl, meleeLvl, 1, {player1}, coins);
+                         firearmLvl, meleeLvl, 1, {player1}, coins);
         unorderedEn.push_back(&human);
     }
-    
+
     random_device rd;
-    mt19937 gen(rd()); 
+    mt19937 gen(rd());
     shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
 
     addConsumable(unorderedEn, missionHpPotions);
     addConsumable(unorderedEn, missionStaminaPotions);
     addConsumable(unorderedEn, missionPowerPotions);
-    addConsumable(unorderedEn , missionThrowables);
+    addConsumable(unorderedEn, missionThrowables);
 
     shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
-    
+
     for (int i = 0; i < waves.size(); i++)
     {
-        vector<Character* > addingChars;
+        vector<Character *> addingChars;
         for (int j = 0; j < waves[i]; j++)
         {
             addingChars.push_back(unorderedEn[0]);
@@ -111,9 +111,9 @@ vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
                            firearmLvl, meleeLvl, 1, {player1}, coins);
         unorderedEn.push_back(&zombie);
     }
-    
+
     random_device rd;
-    mt19937 gen(rd()); 
+    mt19937 gen(rd());
     shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
 
     addConsumable(unorderedEn, missionHpPotions);
@@ -121,10 +121,10 @@ vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
     addConsumable(unorderedEn, missionPowerPotions);
 
     shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
-    
+
     for (int i = 0; i < waves.size(); i++)
     {
-        vector<Character* > addingChars;
+        vector<Character *> addingChars;
         for (int j = 0; j < waves[i]; j++)
         {
             addingChars.push_back(unorderedEn[0]);
@@ -202,6 +202,18 @@ void Mission ::end()
 
 void Mission::start()
 {
+    while (!enemies.empty() && player1->isAlive())
+    {
+        while (!enemies[0].empty() && player1->isAlive())
+        {
+            player1->turn();
+
+            if (!enemies[0].empty())
+                enemyTurn();
+        }
+        endWave();
+    }
+    end();
 }
 
 ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy)
