@@ -40,7 +40,8 @@ public:
     virtual void setSpecial(int newSpecial) = 0;
 
     // others
-    bool checkAndTakeStamina();
+    bool checkStamina();
+    void takeStamina();
     virtual void useItem() = 0;
 };
 

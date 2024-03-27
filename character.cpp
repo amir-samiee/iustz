@@ -105,7 +105,6 @@ void Player::turn()
                 typeError = 1;
         }
     } while (indexError || typeError || emptyString);
-
     itemsMap[backpack.getNames()[stoi(input) - 1]]->useItem();
 }
 
