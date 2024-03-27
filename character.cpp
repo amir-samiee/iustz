@@ -47,16 +47,16 @@ void MVC::EnemyController::takeDamage(int takenDamage)
 
 void MVC::EnemyController::die()
 {
-    //setting rewards:
+    // setting rewards:
     map<string, int> bpck = self->getBackpack()->getItems();
-    Player* myplayer=dynamic_cast<Player *>(self->getWave()[0]); 
+    Player *myplayer = dynamic_cast<Player *>(self->getWave()[0]);
     Storage mystg = myplayer->getReward();
     for (auto item : bpck)
         for (int i = 0; i < item.second; i++)
             mystg.addItem(item.first);
     myplayer->setReward(mystg);
 
-    //removing enemy from wave:
+    // removing enemy from wave:
     vector<Character *> newvec = this->self->getWave()[0]->getWave();
     for (int i = 0; i < newvec.size(); i++)
     {
@@ -109,7 +109,8 @@ void Player::turn()
         Item *selectedItem;
         do
         {
-            choice = getInput(backpack.getStorageData()+"\nenter your choice: ", 1, backpack.getNames().size(), 0);
+            string options = backpack.getStorageData() + "\nenter your choice: ";
+            choice = getInput(options, 1, backpack.getNames().size(), 0);
             selectedItem = itemsMap[backpack.getNames()[choice - 1]];
             selectedItem->setOwner(this);
             if (selectedItem->checkForUse())
