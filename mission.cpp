@@ -177,7 +177,7 @@ void Mission ::story()
         cerr << "Unable to open file! " << endl;
 
     cout << "Press any key to start\n";
-    getchar();
+    _getch();
     clearScreen();
 }
 void Mission ::enemyTurn()
