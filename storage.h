@@ -17,7 +17,6 @@ public:
     vector<string> getNames() { return names; }
 
     // setters
-    void setNames(vector<string> newNames) { names = newNames; }
     virtual void setItems(map<string, int> newItems) { items = newItems; }
 
     // others

@@ -107,7 +107,7 @@ void Player::turn()
         int choice;
         do
         {
-            choice = getInput(backpack.getStorageData(), 1, backpack.getSize(), 0);
+            choice = getInput(backpack.getStorageData()+"\nenter your choice: ", 1, backpack.getNames().size(), 0);
             if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
                 break;
         } while (1);
