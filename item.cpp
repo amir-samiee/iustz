@@ -12,18 +12,18 @@ Item::Item(string name, int price, Character *owner, int stamina)
 
 bool Item::checkAndTakeStamina()
 {
-    if (owner->getStamina()->getCurrentPoint() < this->getStamina())
+    if (owner->getStamina()->getCurrentPoint() < stamina)
     {
         cout << "not enough stamina\n";
         return false;
     }
-    int newPoint = owner->getStamina()->getCurrentPoint() - this->getStamina();
+    int newPoint = owner->getStamina()->getCurrentPoint() - stamina;
     owner->getStamina()->setCurrentPoint(newPoint);
     return true;
 }
 Removable::Removable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
 
-void Removable::removeFromBackpack() {}
+void Removable::removeFromBackpack() { owner->getBackpack()->removeItem(name); }
 
 Throwable::Throwable(string name, int price, Character *owner, int stamina, int damage) : Removable(name, price, owner, stamina)
 {
@@ -34,14 +34,14 @@ Throwable::Throwable(string name, int price, Character *owner, int stamina, int 
 }
 void Throwable::useItem()
 {
-    if (this->checkAndTakeStamina())
+    if (checkAndTakeStamina())
     {
         for (int i = owner->getWave().size() - 1; i >= 0; i--)
         {
-            owner->getWave()[i]->takeDamage((this->getSpecial() * owner->getPowerBoost()) / (i + 1));
+            owner->getWave()[i]->takeDamage((getSpecial() * owner->getPowerBoost()) / (i + 1));
             owner->setPowerBoost(1);
         }
-        owner->getBackpack()->removeItem(this->name);
+        removeFromBackpack();
     }
 }
 
@@ -51,7 +51,6 @@ Permanent::Permanent(string name, int price, Character *owner, int stamina, int 
 {
     this->damage = damage;
 }
-void Permanent::useItem() {}
 
 Melee::Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
@@ -60,11 +59,10 @@ Melee::Melee(string name, int price, Character *owner, int stamina, int damage) 
 }
 void Melee::useItem()
 {
-    if (this->checkAndTakeStamina())
+    if (checkAndTakeStamina())
     {
-        owner->getWave()[0]->takeDamage(this->getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
+        owner->getWave()[0]->takeDamage(getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
-        owner->getBackpack()->removeItem(this->name);
     }
 }
 
@@ -75,11 +73,10 @@ Firearm::Firearm(string name, int price, Character *owner, int stamina, int dama
 }
 void Firearm::useItem()
 {
-    if (this->checkAndTakeStamina())
+    if (checkAndTakeStamina())
     {
-        owner->getWave()[0]->takeDamage(this->getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
+        owner->getWave()[0]->takeDamage(getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
         owner->setPowerBoost(1);
-        owner->getBackpack()->removeItem(this->name);
     }
 };
 
@@ -92,11 +89,11 @@ HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int he
 
 void HpPotion::useItem()
 {
-    if (this->checkAndTakeStamina())
+    if (checkAndTakeStamina())
     {
-        int newPoint = owner->getHp()->getCurrentPoint() + this->getSpecial();
+        int newPoint = owner->getHp()->getCurrentPoint() + getSpecial();
         owner->getHp()->setCurrentPoint(newPoint);
-        owner->getBackpack()->removeItem(this->name);
+        removeFromBackpack();
     }
 }
 
@@ -108,11 +105,11 @@ StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stami
 }
 void StaminaPotion::useItem()
 {
-    if (this->checkAndTakeStamina())
+    if (checkAndTakeStamina())
     {
-        int newPoint = owner->getStamina()->getCurrentPoint() + this->getSpecial();
+        int newPoint = owner->getStamina()->getCurrentPoint() + getSpecial();
         owner->getStamina()->setCurrentPoint(newPoint);
-        owner->getBackpack()->removeItem(this->name);
+        removeFromBackpack();
     }
 }
 
@@ -124,9 +121,9 @@ PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, 
 }
 void PowerPotion::useItem()
 {
-    if (this->checkAndTakeStamina())
+    if (checkAndTakeStamina())
     {
-        owner->setPowerBoost(this->getSpecial());
-        owner->getBackpack()->removeItem(this->name);
+        owner->setPowerBoost(getSpecial());
+        removeFromBackpack();
     }
 }

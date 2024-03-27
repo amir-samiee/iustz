@@ -30,7 +30,7 @@ public:
     int getPrice() const { return price; }
     Character *getOwner() const { return owner; }
     int getStamina() const { return stamina; }
-    virtual int getSpecial() const = 0;
+    virtual double getSpecial() const = 0;
 
     // setters
     void setName(const string newName) { name = newName; }
@@ -50,9 +50,8 @@ public:
     Removable(string name, int price, Character *owner, int stamina);
 
 protected:
-    virtual void removeFromBackpack();
+    void removeFromBackpack();
 };
-
 
 class Throwable : public Removable
 {
@@ -64,19 +63,75 @@ public:
     Throwable(string name, int price, Character *owner, int stamina, int damage);
 
     // getters
-    int getSpecial() const override { return damage; }
+    double getSpecial() const override { return damage; }
 
     // setters
     void setSpecial(int newDamage) override { damage = newDamage; }
 
     // others
-    virtual void useItem();
+    void useItem();
 };
 
 class Consumable : public Removable
 {
 public:
     Consumable(string name, int price, Character *owner, int stamina);
+};
+
+class HpPotion : public Consumable
+{
+protected:
+    int healingAmount;
+
+public:
+    // constructor
+    HpPotion(string name, int price, Character *owner, int stamina, int healingAmount);
+
+    // getters
+    double getSpecial() const override { return healingAmount; }
+
+    // setters
+    void setSpecial(int newAmount) override { healingAmount = newAmount; }
+
+    // others
+    void useItem() override;
+};
+
+class StaminaPotion : public Consumable
+{
+protected:
+    int boostAmount;
+
+public:
+    // constructor
+    StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount);
+
+    // getters
+    double getSpecial() const override { return boostAmount; }
+
+    // setters
+    void setSpecial(int newAmount) override { boostAmount = newAmount; }
+
+    // others
+    void useItem() override;
+};
+
+class PowerPotion : public Consumable
+{
+protected:
+    double empowerment;
+
+public:
+    PowerPotion(string name, int price, Character *owner, int stamina, double empowerment);
+
+    // getters
+    double getSpecial() const override { return empowerment; }
+
+    // setters
+    void setSpecial(int newEmpowerment) override { empowerment = newEmpowerment; }
+
+    // others
+    void useItem() override;
 };
 
 class Permanent : public Item
@@ -89,13 +144,10 @@ public:
     Permanent(string name, int price, Character *owner, int stamina, int damage);
 
     // getters
-    int getSpecial() const override { return damage; }
+    double getSpecial() const override { return damage; }
 
     // setters
     void setSpecial(int newdamage) override { damage = newdamage; }
-
-    // others
-    virtual void useItem();
 };
 
 class Melee : public Permanent
@@ -116,66 +168,9 @@ public:
     void useItem() override;
 };
 
-class HpPotion : public Consumable
-{
-protected:
-    int healingAmount;
-
-public:
-    // constructor
-    HpPotion(string name, int price, Character *owner, int stamina, int healingAmount);
-
-    // getters
-    int getSpecial() const override { return healingAmount; }
-
-    // setters
-    void setSpecial(int newAmount) override { healingAmount = newAmount; }
-
-    // others
-    void useItem() override;
-};
-
-class StaminaPotion : public Consumable
-{
-protected:
-    int boostAmount;
-
-public:
-    // constructor
-    StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount);
-
-    // getters
-    int getSpecial() const override { return boostAmount; }
-
-    // setters
-    void setSpecial(int newAmount) override { boostAmount = newAmount; }
-
-    // others
-    void useItem() override;
-};
-
-class PowerPotion : public Consumable
-{
-protected:
-    double empowerment;
-
-public:
-    PowerPotion(string name, int price, Character *owner, int stamina, double empowerment);
-
-    // getters
-    int getSpecial() const override { return empowerment; }
-
-    // setters
-    void setSpecial(int newEmpowerment) override { empowerment = newEmpowerment; }
-
-    // others
-    void useItem() override;
-};
-
-
-//do not change the orders of items declarations
-//do not change the orders of items declarations
-//do not change the orders of items declarations
+// do not change the orders of items declarations
+// do not change the orders of items declarations
+// do not change the orders of items declarations
 
 // objects of Throwable class
 Throwable throwable1("Grenade", 5, nullptr, 5, 5);
@@ -192,7 +187,7 @@ Throwable throwable10("Gunship", 500, nullptr, 450, 900);
 // objects of permanant class
 // "melee"
 Melee melee0("Punch", 0, nullptr, 0, 5);
-Melee meele1("Knife" , 10 , nullptr , 5 , 15);
+Melee meele1("Knife", 10, nullptr, 5, 15);
 Melee melee2("Axe", 10, nullptr, 10, 20);
 Melee melee3("Nunchaku", 20, nullptr, 20, 40);
 Melee melee4("Sword", 20, nullptr, 20, 40);
