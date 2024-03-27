@@ -177,10 +177,6 @@ void Mission::initCon(vector<Item *> addingItem, string type)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
 
-void Mission ::playerTurn()
-{
-}
-
 void Mission ::enemyTurn()
 {
 }

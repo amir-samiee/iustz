@@ -181,7 +181,6 @@ public:
     // virtual void initInventory();
     void initCon(vector<Item *> addingItem, string type);
     void story();
-    void playerTurn();
     void enemyTurn();
     void endWave();
     void removeDead();
