@@ -22,7 +22,7 @@ public:
 
     // others
     virtual void addItem(string name);
-
+    string getStorageData();
     void printStorage();
 
     void removeItem(string name);

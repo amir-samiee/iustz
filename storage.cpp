@@ -3,6 +3,8 @@
 
 void Storage::addItem(string name)
 {
+    if (itemsMap.find(name)==itemsMap.end())
+        throw invalid_argument("Invalid item name!");
     if (items.find(name) == items.end())
         items.insert({name, 1});
 
@@ -13,8 +15,9 @@ void Storage::addItem(string name)
         items[name]++;
 }
 
-void Storage::printStorage()
+string Storage::getStorageData()
 {
+    stringstream result;
     int i = 1;
     int maxNameLength = 0;
     // Find the maximum length of names
@@ -25,17 +28,23 @@ void Storage::printStorage()
             maxNameLength = length;
     }
 
-    cout << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
+    result << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
     names.clear();
     for (auto &item : items)
     {
         names.push_back(item.first);
-        cout << i << "- " << setw(maxNameLength + 5) << item.first
-             << setw(15) << itemsMap[item.first]->getSpecial()
-             << setw(10) << itemsMap[item.first]->getStamina()
-             << setw(10) << item.second << endl;
+        result << i << "- " << setw(maxNameLength + 5) << item.first
+               << setw(15) << itemsMap[item.first]->getSpecial()
+               << setw(10) << itemsMap[item.first]->getStamina()
+               << setw(10) << item.second << endl;
         i++;
     }
+    return result.str();
+}
+
+void Storage::printStorage()
+{
+    cout << getStorageData();
 }
 
 void Storage::removeItem(string name)
