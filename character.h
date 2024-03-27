@@ -120,7 +120,7 @@ public:
     void takeDamage(int newPoint) override;
 };
 
-Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(12),
+Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(),
                              Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
 
 // Enemies

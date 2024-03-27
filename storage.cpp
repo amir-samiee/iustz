@@ -59,22 +59,24 @@ void Storage::removeItem(string name)
         items[name]--;
 }
 
-LimitedStorage::LimitedStorage(int newSize)
-{
-    size = newSize;
-}
 // setters
-void LimitedStorage::setSize(int newSize)
+void LimitedStorage::setItems(map<string, int> newItems)
 {
-    if (newSize >= 0 && newSize <= capacity)
+    int remainedSpace = capacity - size;
+    int addedSize = 0;
+    for (auto i : newItems)
+        addedSize += i.second;
+    if (addedSize > remainedSpace)
     {
-        size = newSize;
+        cout << yellow << "not enough remaining space!\n"
+             << reset;
+        return;
     }
-    else
-    {
-        cout << "Invalid size value. Size must be between 0 and " << capacity << endl;
-    }
+    for (auto item : newItems)
+        for (int i = 0; i < item.second; i++)
+            addItem(item.first);
 }
+
 void LimitedStorage::addItem(string name)
 {
     if (size < capacity)
@@ -96,4 +98,11 @@ void LimitedStorage::addItem(string name)
     }
     else
         cout << "your backpack is already full\n";
+}
+
+void LimitedStorage::removeItem(string name)
+{
+    Storage::removeItem(name);
+    if (items[name] > 0)
+        size--;
 }

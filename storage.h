@@ -17,15 +17,15 @@ public:
     vector<string> getNames() { return names; }
 
     // setters
-    void setItems(map<string, int> newItems) { items = newItems; }
     void setNames(vector<string> newNames) { names = newNames; }
+    virtual void setItems(map<string, int> newItems) { items = newItems; }
 
     // others
     virtual void addItem(string name);
     string getStorageData();
     void printStorage();
 
-    void removeItem(string name);
+    virtual void removeItem(string name);
 };
 
 class LimitedStorage : public Storage
@@ -35,13 +35,13 @@ protected:
     int size = 0;
 
 public:
-    // constructor
-    LimitedStorage() = default;
-    LimitedStorage(int newSize);
     // getters
+    int getCapacity() { return capacity; }
     int getSize() { return size; }
     // setters
-    void setSize(int newSize);
+    void setCapacity(int newCapacity) { capacity = newCapacity; }
+    void setItems(map<string, int> newItems) override;
     // others
     void addItem(string name) override;
+    void removeItem(string name) override;
 };
