@@ -17,7 +17,7 @@ int Stat::level()
 }
 
 /// @brief ////////////////////////////////////////////////////
-
+bool Player::isAlive() { return hp.getCurrentPoint() > 0; }
 int Player::level() { return (firearmLevel + meleeLevel + hp.level() + stamina.level()) / 4; }
 void Player::takeDamage(int takenDamage)
 {
@@ -34,6 +34,8 @@ MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage 
                             int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins)
     : name(name), age(age), gender(gender), backpack(backpack), hp(hp), stamina(stamina), firearmLevel(firearmLevel),
       meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins) {}
+
+bool MVC::EnemyModel::isAlive() { return hp.getCurrentPoint() > 0; }
 
 void MVC::EnemyController::takeDamage(int takenDamage)
 {
@@ -56,6 +58,7 @@ Enemy::~Enemy()
     delete view;
     delete controller;
 }
+bool Enemy::isAlive() { return model->isAlive(); }
 int Enemy::level() { return (model->firearmLevel + model->meleeLevel + model->hp.level() + model->stamina.level()) / 4; }
 void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
@@ -85,8 +88,8 @@ void Player::turn()
                 break;
         } while (1);
         itemsMap[backpack.getNames()[choice - 1]]->useItem();
-        
-        if(dynamic_cast<Permanent *> (itemsMap[backpack.getNames()[choice - 1]]) != nullptr || dynamic_cast<Throwable *>(itemsMap[backpack.getNames()[choice - 1]])!=nullptr)
+
+        if (dynamic_cast<Permanent *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr || dynamic_cast<Throwable *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr)
             break;
     }
 }

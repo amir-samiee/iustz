@@ -50,6 +50,7 @@ public:
     virtual void setCoins(int newCoins) = 0;
 
     // others
+    virtual bool isAlive() = 0;
     virtual int level() = 0;
     virtual void turn() = 0;
     virtual void die() = 0;
@@ -112,6 +113,7 @@ public:
     void setZombieLevels(int newLevel) { zombieLevels = newLevel; }
 
     // others
+    bool isAlive() override;
     int level() override;
     void turn() override;
     void die() override;
@@ -143,6 +145,7 @@ namespace MVC
 
         EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                    int meleeLevel, int powerBoost, vector<Character *> currentWave, int coins);
+        bool isAlive();
     };
 
     class EnemyView
@@ -202,6 +205,7 @@ public:
     void setCoins(int newCoins) override { model->coins = newCoins; }
 
     // others
+    bool isAlive() override;
     int level() override;
     void takeDamage(int damage) override;
     void turn() override;
