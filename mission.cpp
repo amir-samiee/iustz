@@ -146,7 +146,6 @@ Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
     this->specialEnemy = specialEnemy;
 }
 
-
 void Mission::initCon(vector<Item *> addingItem, string type)
 {
     int index = 0;
@@ -159,7 +158,6 @@ void Mission::initCon(vector<Item *> addingItem, string type)
     for (int i = 0; i < potionNums; i++)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
-
 
 void Mission ::story()
 {
@@ -177,8 +175,8 @@ void Mission ::story()
     }
     else
         cerr << "Unable to open file! " << endl;
-    
-    cout<<"Press any key to start\n";
+
+    cout << "Press any key to start\n";
     getchar();
     clearScreen();
 }
@@ -203,15 +201,21 @@ void Mission ::end()
 void Mission::start()
 {
     story();
-    while (!waves.empty() && player1->isAlive())
+    for (int i = 0; i < waves.size(); i++)
     {
-        while (!waves[0].empty() && player1->isAlive())
+        player1->setWave(waves[i]);
+
+        while (!player1->getWave().empty() && player1->isAlive())
         {
             player1->turn();
 
-            if (!waves[0].empty())
+            if (!player1->getWave().empty())
                 enemyTurn();
         }
+
+        if (!player1->isAlive())
+            break;
+
         endWave();
     }
     end();
