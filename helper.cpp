@@ -99,6 +99,11 @@ int getInput(string options, int from, int to, bool cls = true, string errorMess
             {
                 cleanIntString(input);
                 if (input.size() > max(to_string(to).size(), to_string(from).size()) || stoi(input) > to || stoi(input) < from)
+                {
+                    indexError = 1;
+                    continue;
+                }
+                if (stoll(input) > to || stoll(input) < from)
                     indexError = 1;
             }
             else
