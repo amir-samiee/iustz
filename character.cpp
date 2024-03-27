@@ -79,7 +79,7 @@ void Player::turn()
     bool cls = true;
     string errorMessage = "invalid input";
     string input;
-    bool indexError = 0, typeError = 0, emptyString = 0;
+    bool indexError = 0, typeError = 0, emptyString = 0, lowStamina = 0;
     do
     {
         if (cls)
@@ -88,7 +88,7 @@ void Player::turn()
             cout << red << errorMessage << reset;
         cout << endl;
         backpack.printStorage();
-        indexError = typeError = 0;
+        indexError = typeError = lowStamina = 0;
         getline(cin, input);
         if (input == "")
             emptyString = 1;
@@ -100,11 +100,15 @@ void Player::turn()
                 cleanIntString(input);
                 if (input.size() > max(to_string(to).size(), to_string(from).size()) || stoi(input) > to || stoi(input) < from)
                     indexError = 1;
+                else{
+                    if(!itemsMap[backpack.getNames()[stoi(input) - 1]]->checkStamina())
+                        lowStamina = 1;
+                }
             }
             else
                 typeError = 1;
         }
-    } while (indexError || typeError || emptyString);
+    } while (indexError || typeError || emptyString || lowStamina);
     itemsMap[backpack.getNames()[stoi(input) - 1]]->useItem();
 }
 
