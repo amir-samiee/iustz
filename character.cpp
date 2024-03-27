@@ -75,41 +75,14 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
 
 void Player::turn()
 {
-    int from = 1, to = backpack.getSize();
-    bool cls = true;
-    string errorMessage = "invalid input";
-    string input;
-    bool indexError = 0, typeError = 0, emptyString = 0, lowStamina = 0;
+    int choice;
     do
     {
-        if (cls)
-            clearScreen();
-        if (indexError || typeError || emptyString)
-            cout << red << errorMessage << reset;
-        cout << endl;
-        backpack.printStorage();
-        indexError = typeError = lowStamina = 0;
-        getline(cin, input);
-        if (input == "")
-            emptyString = 1;
-        else
-        {
-            emptyString = 0;
-            if (isInteger(input))
-            {
-                cleanIntString(input);
-                if (input.size() > max(to_string(to).size(), to_string(from).size()) || stoi(input) > to || stoi(input) < from)
-                    indexError = 1;
-                else{
-                    if(!itemsMap[backpack.getNames()[stoi(input) - 1]]->checkStamina())
-                        lowStamina = 1;
-                }
-            }
-            else
-                typeError = 1;
-        }
-    } while (indexError || typeError || emptyString || lowStamina);
-    itemsMap[backpack.getNames()[stoi(input) - 1]]->useItem();
+        choice = getInput(backpack.getStorageData(), 1, backpack.getSize(), 0);
+        if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
+            break;
+    } while (1);
+    itemsMap[backpack.getNames()[choice - 1]]->useItem();
 }
 
 void Player::die() {}

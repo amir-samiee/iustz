@@ -14,7 +14,8 @@ bool Item::checkStamina()
 {
     if (owner->getStamina()->getCurrentPoint() < stamina)
     {
-        cout << "insufficient stamina\n";
+        cout << red << "insufficient stamina\n"
+             << reset;
         return false;
     }
     return true;

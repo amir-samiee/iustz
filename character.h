@@ -165,7 +165,6 @@ namespace MVC
 
 class Enemy : public Character
 {
-
 private:
     MVC::EnemyModel *model;
     MVC::EnemyView *view;
