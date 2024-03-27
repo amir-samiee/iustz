@@ -139,7 +139,7 @@ protected:
         {"sta", missionStaminaPotions},
         {"pow", missionPowerPotions}};
 
-    vector<vector<Character *>> enemies;
+    vector<vector<Character *>> waves;
 
 public:
     // constructors:
