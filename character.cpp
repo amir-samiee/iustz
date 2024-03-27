@@ -87,6 +87,7 @@ void Player::turn()
             if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
                 break;
         } while (1);
+        itemsMap[backpack.getNames()[choice - 1]]->setOwner(this);
         itemsMap[backpack.getNames()[choice - 1]]->useItem();
 
         if (dynamic_cast<Permanent *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr || dynamic_cast<Throwable *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr)
