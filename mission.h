@@ -69,8 +69,7 @@ class ZombieFactory : public Factory
 {
 public:
     // Constructors:
-    ZombieFactory(int lvl, int casualEn, int specialEn)
-        : Factory(lvl, casualEn, specialEn) {}
+    ZombieFactory(int lvl, int casualEn, int specialEn);
 
     ZombieFactory(int lvl, int casualEn, int specialEn,
                   const vector<string> &permanents,
@@ -88,8 +87,7 @@ public:
 class HumanFactory : public Factory
 {
 public:
-    HumanFactory(int lvl, int casualEn, int specialEn)
-        : Factory(lvl, casualEn, specialEn) {}
+    HumanFactory(int lvl, int casualEn, int specialEn);
     HumanFactory(int lvl, int casualEn, int specialEn,
                  const vector<string> &permanents,
                  const vector<string> &throwables,

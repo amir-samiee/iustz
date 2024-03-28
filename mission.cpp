@@ -56,7 +56,7 @@ void Factory::initRemovable(vector<Item *> addingItem, string type)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
 
-// Intializing items for a mission:
+// Intializing items for a ZombieMission:
 void ZombieFactory::initInventory()
 {
     if (level < melees.size())
@@ -77,7 +77,7 @@ void ZombieFactory::initInventory()
     initRemovable(powerPotions, "pow");
 }
 
-// Intializing items for a mission:
+// Intializing items for a HumanMission:
 void HumanFactory::initInventory()
 {
     if (level < firearms.size())
@@ -99,6 +99,7 @@ void HumanFactory::initInventory()
     initRemovable(throwables, "thr");
 }
 
+// Main body of creating enemies:
 vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
 {
     vector<vector<Character *>> enemies;
@@ -141,7 +142,7 @@ vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
     mt19937 gen(rd());
     shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
-    // Adding generated removables to the created enemies:
+    // Adding missions removables to the created enemies:
     addRemoveable(unshuffeledEn, missionHpPotions);
     addRemoveable(unshuffeledEn, missionStaminaPotions);
     addRemoveable(unshuffeledEn, missionPowerPotions);
@@ -163,6 +164,12 @@ vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
 
     return enemies;
 }
+
+ZombieFactory::ZombieFactory(int lvl, int casualEn, int specialEn)
+    : Factory(lvl, casualEn, specialEn) { initInventory(); }
+
+HumanFactory::HumanFactory(int lvl, int casualEn, int specialEn)
+    : Factory(lvl, casualEn, specialEn) { initInventory(); }
 
 /// @brief ///////////////////////////////////////////////
 
