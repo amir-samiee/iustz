@@ -12,13 +12,6 @@ protected:
     vector<string> missionHpPotions;
     vector<string> missionStaminaPotions;
     vector<string> missionPowerPotions;
-    map<string, vector<string>> missionItemTypes = {
-        {"per", missionPermanents},
-        {"thr", missionThrowables},
-        {"hp", missionHpPotions},
-        {"sta", missionStaminaPotions},
-        {"pow", missionPowerPotions}};
-
     vector<int> waveInfo;
 
 public:
@@ -58,7 +51,7 @@ public:
     void setMissionPowerPotions(const vector<string> &newPowerPotions) { missionPowerPotions = newPowerPotions; }
 
     // methodes:
-    void initRemovable(vector<Item *> addingItem, string type);
+    void initRemovable(vector<Item *> adding, vector<string>);
     virtual void initInventory() = 0;
     vector<int> getWave();
     void addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem);

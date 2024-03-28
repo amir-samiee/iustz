@@ -43,17 +43,17 @@ void Factory::addRemoveable(vector<Character *> unshuffeledEn, vector<string> ad
 }
 
 // initializing removable items for a mission:
-void Factory::initRemovable(vector<Item *> addingItem, string type)
+void Factory::initRemovable(vector<Item *> adding, vector<string> to)
 {
     int index = 0;
     int potionNums = (casualEnemy * 2) + (rand() % (casualEnemy / 2)) - (casualEnemy / 4);
-    if (level / (2.0) <= addingItem.size())
+    if (level / (2.0) <= adding.size())
         index = (level - 1) / 2;
     else
-        index = addingItem.size() - 1;
+        index = adding.size() - 1;
 
     for (int i = 0; i < potionNums; i++)
-        missionItemTypes[type].push_back(addingItem[index]->getName());
+        to.push_back(adding[index]->getName());
 }
 
 // Intializing items for a ZombieMission:
@@ -72,9 +72,9 @@ void ZombieFactory::initInventory()
         missionPermanents.push_back(melees[melees.size() - 1]->getName());
         missionPermanents.push_back(melees[melees.size() - 2]->getName());
     }
-    initRemovable(hpPotions, "hp");
-    initRemovable(staminaPotions, "sta");
-    initRemovable(powerPotions, "pow");
+    initRemovable(hpPotions, missionHpPotions);
+    initRemovable(staminaPotions, missionStaminaPotions);
+    initRemovable(powerPotions, missionPowerPotions);
 }
 
 // Intializing items for a HumanMission:
@@ -93,10 +93,10 @@ void HumanFactory::initInventory()
         this->missionPermanents.push_back(firearms[firearms.size() - 1]->getName());
         this->missionPermanents.push_back(firearms[firearms.size() - 2]->getName());
     }
-    initRemovable(hpPotions, "hp");
-    initRemovable(staminaPotions, "sta");
-    initRemovable(powerPotions, "pow");
-    initRemovable(throwables, "thr");
+    initRemovable(hpPotions, missionHpPotions);
+    initRemovable(staminaPotions, missionStaminaPotions);
+    initRemovable(powerPotions, missionPowerPotions);
+    initRemovable(throwables, missionThrowables);
 }
 
 // Main body of creating enemies:
