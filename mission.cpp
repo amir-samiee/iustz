@@ -99,8 +99,8 @@ void HumanFactory::initInventory()
     initRemovable(throwables, missionThrowables);
 }
 
-// Main body of creating enemies:
-vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
+// Main body of creating HumanEnemies:
+vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
 {
     vector<vector<Character *>> enemies;
     vector<Character *> unshuffeledEn;
@@ -127,12 +127,8 @@ vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
 
         // Creating the enemy based on type:
         Character *enemy;
-        if (type == "human")
-            enemy = new HumanEnemy("human" + 1 + i, 9, "female", *backpack, hp, stamina,
-                                   firearmLvl, meleeLvl, 1, {player1}, coins);
-        else if (type == "zombie")
-            enemy = new ZombieEnemy("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                    firearmLvl, meleeLvl, 1, {player1}, coins);
+        enemy = new HumanEnemy("human" + 1 + i, 9, "female", *backpack, hp, stamina,
+                               firearmLvl, meleeLvl, 1, {player1}, coins);
 
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
@@ -161,6 +157,93 @@ vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
         }
         enemies.push_back(addingChars);
     }
+
+    return enemies;
+}
+
+// Main body of creating ZombieEnemies:
+vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
+{
+    vector<vector<Character *>> enemies;
+    vector<Character *> mixedEn;
+    vector<Character *> casualEn;
+    vector<Character *> specialEn;
+    Character *enemy;
+
+    // Generating enemies backpacks with randomly generated number of permanents inside:
+    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
+
+    for (int i = 0; i < casualEnemy; i++)
+    {
+        LimitedStorage *backpack = new LimitedStorage;
+        if (i < randomPermanentNum && missionPermanents.size() != 0)
+        {
+            int randomWeapon = (rand() % missionPermanents.size());
+            backpack->addItem(missionPermanents[randomWeapon]);
+        }
+        Stat hp;
+        Stat stamina;
+
+        // The value is not decided yet:
+        int firearmLvl;
+        int meleeLvl;
+        int coins;
+
+        // Creating the enemy based on type:
+        enemy = new ZombieEnemy("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
+                                firearmLvl, meleeLvl, 1, {player1}, coins);
+
+        // Saving enemy in a primary vector:
+        casualEn.push_back(enemy);
+        mixedEn.push_back(enemy);
+    }
+
+    random_device rd;
+    mt19937 gen(rd());
+    shuffle(mixedEn.begin(), mixedEn.end(), gen);
+    shuffle(casualEn.begin(), casualEn.end(), gen);
+
+    // Generating special enemies:
+    for (int i = 0; i < specialEnemy; i++)
+    {
+        LimitedStorage *backpack = new LimitedStorage;
+        int bestWeapon = (missionPermanents.size()-1);
+        backpack->addItem(missionPermanents[bestWeapon]);
+        
+        Stat hp;
+        Stat stamina;
+        // The value is not decided yet:
+        int firearmLvl;
+        int meleeLvl;
+        int coins;
+
+        enemy = new SpecialZombie("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
+                                  firearmLvl, meleeLvl, 1, {player1}, coins);
+        specialEn.push_back(enemy);
+        mixedEn.push_back(enemy);
+    }
+
+    // Adding missions removables to the created enemies:
+    addRemoveable(mixedEn, missionHpPotions);
+    addRemoveable(mixedEn, missionStaminaPotions);
+    addRemoveable(mixedEn, missionPowerPotions);
+    addRemoveable(mixedEn, missionThrowables);
+
+    shuffle(casualEn.begin(), casualEn.end(), gen);
+
+    // Saving enemies in a usable format:
+    for (int i = 0; i < waves.size(); i++)
+    {
+        vector<Character *> addingChars;
+        for (int j = 0; j < waves[i]; j++)
+        {
+            addingChars.push_back(casualEn[0]);
+            casualEn.erase(casualEn.begin());
+        }
+        enemies.push_back(addingChars);
+    }
+
+    enemies.push_back(specialEn);
 
     return enemies;
 }
@@ -252,7 +335,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
 
     // Feeding data to factory:
     ZombieFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-    waves = factory.createEnemy(factory.getWave(), "zombie");
+    waves = factory.createEnemy(factory.getWave());
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -275,7 +358,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions, wavesInfo);
-    waves = factory.createEnemy(wavesInfo, "zombie");
+    waves = factory.createEnemy(wavesInfo);
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -290,7 +373,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
 
     // Feeding data to factory:
     HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-    this->waves = factory.createEnemy(factory.getWave(), "human");
+    this->waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     humanMissions.push_back(this);
@@ -314,7 +397,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions, wavesInfo);
 
-    waves = factory.createEnemy(wavesInfo, "human");
+    waves = factory.createEnemy(wavesInfo);
 
     // Saving mission:
     humanMissions.push_back(this);
