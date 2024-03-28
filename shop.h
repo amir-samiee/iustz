@@ -3,6 +3,7 @@
 
 
 class Shop {
+    void shopsItem(int choice);
     public:
     //methods
     void displayShop();

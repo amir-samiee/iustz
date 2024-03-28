@@ -10,28 +10,15 @@ void Shop :: displayShop() {
     int firstInput = getInput(options , 1 , 4 , true , "invalid input") ;
     cout << "-------------------------------------------------------------\n";
     
-    int firstInput = getInput(options , 1 , 4 , true , "invalid input") ;
-    int lastInput ;
-    string option2 ;
-    string backOption = "0-Back\n";
      switch (firstInput) {
         case 1:
-            // Handle Throwables menu
-            cout << "Throwables Items : \n";
-            for (int i = 0; i <throwables.size(); ++i)
-            cout << i + 1 << "- Name: " << throwables[i]->getName() << " Price: " << throwables[i]->getPrice() << " Stamina: " << throwables[i]->getStamina() << " Damage: " << throwables[i]->getSpecial() << endl;
-            cout << backOption;
-            lastInput = getInput(backOption, 0, throwables.size(), true, "Invalid input");
-            if (lastInput == 0) {
-                displayShop(); // Go back to main menu
-            }
-            else if (lastInput > 0 && lastInput <= throwables.size()) {
-               player1->getBackpack()->addItem(throwables[lastInput - 1]->getName());
-                cout << "Item added to your backpack!\n";
-            }
+        shopsItem(1);
+           
             break;
         case 2:
+        
           // Handle Potions menu
+           
         case 3:
             // Handle Weapon menu
             cout << "Permenet weapons Items\n";
@@ -42,9 +29,35 @@ void Shop :: displayShop() {
             break;
         default:
             cout << "Invalid input\n Please choose again ";
-            
+            displayShop();
             break;
     }
-    
-
 }
+void Shop ::shopsItem(int choice){
+    int lastInput ;
+    string option2 ;
+    string backOption = "0-Back\n";
+    string message = "Item added to your backpack!\n";
+    switch (choice)
+    {
+    case 1: 
+     cout << "Throwables Items : \n";
+            for (int i = 0; i <throwables.size(); ++i)
+            cout << i + 1 << "- Name: " << throwables[i]->getName() << " Price: " << throwables[i]->getPrice() << " Stamina: " << throwables[i]->getStamina() << " Damage: " << throwables[i]->getSpecial() << endl;
+            lastInput = getInput(backOption, 0, throwables.size(), true, "Invalid input");
+            if (lastInput == 0) {
+                displayShop(); // Go back to main menu
+            }
+            else if (lastInput > 0 && lastInput <= throwables.size()) {
+               player1->getBackpack()->addItem(throwables[lastInput - 1]->getName());
+                cout << message ;
+            }
+        break;
+    case 2:
+    break;
+
+    default:
+        break;
+    }
+}
+
