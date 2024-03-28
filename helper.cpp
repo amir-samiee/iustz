@@ -1,5 +1,6 @@
 #pragma once
 #include "headers.h"
+using json = nlohmann::json;
 
 void clearScreen()
 {
@@ -91,6 +92,7 @@ int getInput(string options, int from, int to, bool cls = true, string errorMess
     } while (indexError || typeError || emptyString);
     return stoi(input);
 }
+
 
 template <typename element, typename list>
 bool isIn(element x, list A)

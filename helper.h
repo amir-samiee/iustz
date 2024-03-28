@@ -33,5 +33,10 @@ void cleanIntString(string &s);
 int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input");
 void transfer(Storage *adding , Storage *to);
 
+template <typename element, typename list>
+bool isIn(element x, list A);
 
+json loadData(string fileName);
 
+template <typename K>
+void print_vector(vector<K> vec);
