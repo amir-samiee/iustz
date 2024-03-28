@@ -186,13 +186,6 @@ void Mission ::enemyTurn()
 void Mission ::endWave()
 {
 }
-void Mission ::removeDead()
-{
-}
-
-void Mission ::playerDeath()
-{
-}
 
 void Mission ::end()
 {
