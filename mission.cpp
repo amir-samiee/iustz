@@ -207,9 +207,9 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
     for (int i = 0; i < specialEnemy; i++)
     {
         LimitedStorage *backpack = new LimitedStorage;
-        int bestWeapon = (missionPermanents.size()-1);
+        int bestWeapon = (missionPermanents.size() - 1);
         backpack->addItem(missionPermanents[bestWeapon]);
-        
+
         Stat hp;
         Stat stamina;
         // The value is not decided yet:
@@ -291,6 +291,13 @@ void Mission ::enemyTurn()
 }
 void Mission ::endWave()
 {
+    // Adding hp:
+    int currentHp = player1->getHp()->getCurrentPoint();
+    player1->getHp()->setCurrentPoint((currentHp * 5) / 4);
+    
+    //Refilling stamina:
+    int newStamina = player1->getStamina()->getMaxPoint();
+    player1->getStamina()->setCurrentPoint(newStamina);
 }
 
 void Mission ::end()
