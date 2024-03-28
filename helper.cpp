@@ -7,7 +7,7 @@ void clearScreen()
     system("cls");
 }
 
-void pprint(string text, int milliseconds = -1, bool goNextLine = 1)
+void pprint(string text, int milliseconds, bool goNextLine)
 {
     cout << text << ((goNextLine) ? "\n" : "");
     if (milliseconds == -1)
@@ -56,7 +56,7 @@ void cleanIntString(string &s)
     }
 }
 
-int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input")
+int getInput(string options, int from, int to, bool cls, string errorMessage)
 {
     string input;
     bool indexError = 0, typeError = 0, emptyString = 0;

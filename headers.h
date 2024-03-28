@@ -19,9 +19,9 @@ using namespace std;
 
 // the order of the following lines matters. make changes wisely!
 #include "Assets/nlohmann/json.hpp"
-#include "helper.h"
 #include "item.h"
 #include "storage.h"
+#include "helper.h"
 #include "character.h"
 #include "mission.h"
 #include "shop.h"
