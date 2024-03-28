@@ -31,6 +31,6 @@ using namespace std;
 #include "character.cpp"
 #include "menu.cpp"
 #include "mission.cpp"
-
+#include "shop.h"
 
 #endif
