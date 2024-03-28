@@ -29,4 +29,9 @@ void pprint(string text, int milliseconds = -1, bool goNextLine = 1);
 bool isInteger(string s);
 bool isZero(string s);
 
+void cleanIntString(string &s);
+int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input");
+void transfer(Storage *adding , Storage *to);
+
+
 
