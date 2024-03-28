@@ -38,5 +38,6 @@ const string reset("\033[0m");
 #include "character.cpp"
 #include "menu.cpp"
 #include "mission.cpp"
+#include "helper.h"
 
 #endif
