@@ -24,6 +24,7 @@ using namespace std;
 #include "storage.h"
 #include "character.h"
 #include "mission.h"
+#include "shop.h"
 
 #include "item.cpp"
 #include "storage.cpp"
@@ -31,6 +32,6 @@ using namespace std;
 #include "character.cpp"
 #include "menu.cpp"
 #include "mission.cpp"
-#include "shop.h"
+
 
 #endif
