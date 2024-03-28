@@ -161,22 +161,32 @@ namespace MVC
 
     class EnemyController
     {
-    private:
+    protected:
         EnemyModel *model;
         EnemyView *view;
         Enemy *self;
 
     public:
         EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
-        void takeDamage(int damage);
+        virtual void takeDamage(int damage);
         void die();
     };
 
+    class SpecialEnemyController : public EnemyController
+    {
+    public:
+        // constructor:
+        SpecialEnemyController(EnemyModel *model, EnemyView *view, Enemy *self)
+            : EnemyController(model, view, self) {}
+
+        // methodes:
+        void takeDamage(int damage) override;
+    };
 }
 
 class Enemy : public Character
 {
-private:
+protected:
     MVC::EnemyModel *model;
     MVC::EnemyView *view;
     MVC::EnemyController *controller;
@@ -215,7 +225,7 @@ public:
     // others
     bool isAlive() override;
     int level() override;
-    void takeDamage(int damage) override;
+    virtual void takeDamage(int damage) override;
     void turn() override;
     void die() override;
     void display() override;
@@ -233,6 +243,7 @@ class ZombieEnemy : public Enemy
 public:
     ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                 Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
+    virtual void takeDamage(int damage);
 };
 
 class SpecialZombie : public ZombieEnemy
@@ -241,5 +252,6 @@ public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
 
+    void takeDamage(int damage) override;
     void turn() override;
 };

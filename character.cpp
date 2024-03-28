@@ -74,6 +74,14 @@ void MVC::EnemyController::die()
     this->self->getWave()[0]->setWave(newvec);
 }
 
+void MVC::SpecialEnemyController::takeDamage(int takenDamage)
+{
+    int newPoint = model->hp.getCurrentPoint() - (takenDamage / ((rand() % 3) + 1));
+    model->hp.setCurrentPoint(newPoint);
+    if (newPoint <= 0)
+        this->die();
+}
+
 Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
              int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : model(new MVC::EnemyModel(name, age, gender, backpack, hp, stamina, firearmLevel,
@@ -99,10 +107,16 @@ HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backp
 ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                          Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
                                                                                                                                                          stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+void ZombieEnemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
-                                                                                                                                                                   stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                                                                                                                                                                   stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
+{
+    this->controller = new MVC::SpecialEnemyController(model, view, this);
+}
+
+void SpecialZombie::takeDamage(int damage){this->controller->takeDamage(damage);}
 
 /// @brief /////////////////////////////////////////////////////
 
