@@ -4,7 +4,11 @@
 vector<int> Factory::getWave()
 {
     vector<int> waves;
+
+    // Calculating the number of waves :
     int waveNum = casualEnemy / 3;
+
+    // Calculating the number of enemies in each wave:
     int remaining = casualEnemy % waveNum;
     for (int i = 0; i < waveNum; i++)
         waves.push_back(3);
@@ -34,6 +38,7 @@ void Factory::addRemoveable(vector<Character *> unshuffeledEn, vector<string> ad
             i = 0;
     }
 }
+
 vector<vector<Character *>> Factory::createEnemy(vector<int> waves, string type)
 {
     vector<vector<Character *>> enemies;
@@ -105,6 +110,7 @@ Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
 {
     this->name = newName;
     this->missionNum = newMissionNum;
+    // Random number of enemies based on level:
     this->casualEnemyNum = (rand() % 4) + missionNum + 2;
     this->specialEnemy = specialEnemy;
 }
@@ -112,12 +118,17 @@ Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
 void Mission::initCon(vector<Item *> addingItem, string type)
 {
     int index = 0;
-    int potionNums = (casualEnemyNum * 2) + rand() % ((casualEnemyNum / 4) - (casualEnemyNum / 8));
+
+    // Setting a random number of potions to add:
+    int potionNums = (casualEnemyNum * 2) + (rand() % (casualEnemyNum / 2)) - (casualEnemyNum / 4);
+
+    // Selecting the type of potion to add based on level:
     if ((this->getMissionNum()) / (2.0) <= addingItem.size())
         index = (this->getMissionNum() - 1) / 2;
     else
         index = addingItem.size() - 1;
 
+    // Saving the added potions to mission object:
     for (int i = 0; i < potionNums; i++)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
@@ -186,19 +197,19 @@ void Mission::start()
 ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy)
     : Mission(newName, newMissionNum, specialEnemy)
 {
-    // setting the id:
+    // Setting the ID:
     string id = "z" + newMissionNum;
     missionMap[id] = this;
 
-    // building inventory:
+    // Setting an inventory:
     initInventory();
 
-    // feeding data to factory:
+    // Feeding data to factory:
     ZombieFactory factory(newMissionNum, casualEnemyNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions);
 
-    this->waves = factory.createEnemy(factory.getWave() , "zombie");
+    this->waves = factory.createEnemy(factory.getWave(), "zombie");
 
     // saving mission:
     zombieMissions.push_back(this);
@@ -222,7 +233,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions, wavesInfo);
-    this->waves = factory.createEnemy(wavesInfo , "zombie");
+    this->waves = factory.createEnemy(wavesInfo, "zombie");
 
     // saving mission:
     zombieMissions.push_back(this);
@@ -262,7 +273,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions);
 
-    this->waves = factory.createEnemy(factory.getWave() , "human");
+    this->waves = factory.createEnemy(factory.getWave(), "human");
 
     // saving mission:
     humanMissions.push_back(this);
@@ -287,7 +298,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions, wavesInfo);
     vector<int> waves; // give the customized waves
-    this->waves = factory.createEnemy(waves , "human");
+    this->waves = factory.createEnemy(waves, "human");
 
     // saving mission:
     humanMissions.push_back(this);
