@@ -66,7 +66,7 @@ public:
 
     // methodes:
     vector<int> getWave();
-    void addConsumable(vector<Character *> unorderedEn , vector<string> addingItem);
+    void addConsumable(vector<Character *> unorderedEn, vector<string> addingItem);
     virtual vector<vector<Character *>> createEnemy(vector<int> waves) = 0;
 };
 
@@ -139,7 +139,7 @@ protected:
         {"sta", missionStaminaPotions},
         {"pow", missionPowerPotions}};
 
-    vector<vector<Character *>> enemies;
+    vector<vector<Character *>> waves;
 
 public:
     // constructors:

@@ -71,7 +71,7 @@ protected:
     double powerBoost = 1;
     int coins;
     vector<Character *> currentWave;
-
+    Storage reward;
     Storage inventory;
     int humanLevels = 0;
     int zombieLevels = 0;
@@ -95,6 +95,7 @@ public:
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
     int getZombieLevels() { return zombieLevels; }
+    Storage *getReward() { return &reward; }
 
     // setters
     void setName(string newName) override { name = newName; }
@@ -111,6 +112,7 @@ public:
     void setInventory(Storage newInventory) { inventory = newInventory; }
     void setHumanLevels(int newLevel) { humanLevels = newLevel; }
     void setZombieLevels(int newLevel) { zombieLevels = newLevel; }
+    void setReward(Storage newReward) { reward = newReward; }
 
     // others
     bool isAlive() override;
@@ -120,10 +122,11 @@ public:
     void takeDamage(int newPoint) override;
 };
 
-Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(12),
+Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(),
                              Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
 
 // Enemies
+class Enemy;
 
 namespace MVC
 {
@@ -157,9 +160,10 @@ namespace MVC
     private:
         EnemyModel *model;
         EnemyView *view;
+        Enemy *self;
 
     public:
-        EnemyController(EnemyModel *model, EnemyView *view) : model(model), view(view) {}
+        EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
         void takeDamage(int damage);
         void die();
     };

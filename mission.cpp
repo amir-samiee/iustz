@@ -86,7 +86,7 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
     return enemies;
 }
 
-/// @brief //////////////////////////////
+/// @brief ////////////////////////////////////////
 
 vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
 {
@@ -146,7 +146,6 @@ Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
     this->specialEnemy = specialEnemy;
 }
 
-
 void Mission::initCon(vector<Item *> addingItem, string type)
 {
     int index = 0;
@@ -159,7 +158,6 @@ void Mission::initCon(vector<Item *> addingItem, string type)
     for (int i = 0; i < potionNums; i++)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
-
 
 void Mission ::story()
 {
@@ -177,9 +175,9 @@ void Mission ::story()
     }
     else
         cerr << "Unable to open file! " << endl;
-    
-    cout<<"Press any key to start\n";
-    getchar();
+
+    cout << "Press any key to start\n";
+    _getch();
     clearScreen();
 }
 void Mission ::enemyTurn()
@@ -198,20 +196,27 @@ void Mission ::playerDeath()
 
 void Mission ::end()
 {
+    transfer(player1->getReward() , player1->getInventory());
 }
 
 void Mission::start()
 {
     story();
-    while (!enemies.empty() && player1->isAlive())
+    for (int i = 0; i < waves.size(); i++)
     {
-        while (!enemies[0].empty() && player1->isAlive())
+        player1->setWave(waves[i]);
+
+        while (!player1->getWave().empty() && player1->isAlive())
         {
             player1->turn();
 
-            if (!enemies[0].empty())
+            if (!player1->getWave().empty())
                 enemyTurn();
         }
+
+        if (!player1->isAlive())
+            break;
+
         endWave();
     }
     end();
@@ -232,7 +237,7 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions);
 
-    this->enemies = factory.createEnemy(factory.getWave());
+    this->waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     zombieMissions.push_back(this);
@@ -256,7 +261,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions, wavesInfo);
-    this->enemies = factory.createEnemy(wavesInfo);
+    this->waves = factory.createEnemy(wavesInfo);
 
     // saving mission:
     zombieMissions.push_back(this);
@@ -296,7 +301,7 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions);
 
-    this->enemies = factory.createEnemy(factory.getWave());
+    this->waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     humanMissions.push_back(this);
@@ -321,7 +326,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
                          missionPermanents, missionThrowables, missionHpPotions,
                          missionStaminaPotions, missionPowerPotions, wavesInfo);
     vector<int> waves; // give the customized waves
-    this->enemies = factory.createEnemy(waves);
+    this->waves = factory.createEnemy(waves);
 
     // saving mission:
     humanMissions.push_back(this);

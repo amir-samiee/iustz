@@ -28,7 +28,7 @@ void Player::takeDamage(int takenDamage)
 }
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                 int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
-                                                                                                                                                    hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
+                                                                                                                                                       hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
 
 MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                             int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
@@ -44,14 +44,34 @@ void MVC::EnemyController::takeDamage(int takenDamage)
     if (newPoint <= 0)
         this->die();
 }
-void MVC::EnemyController::die() {}
+
+void MVC::EnemyController::die()
+{
+    Player* myplayer=dynamic_cast<Player *>(self->getWave()[0]); 
+    //setting rewards:
+    transfer(self->getBackpack() , myplayer->getReward());
+
+    // removing enemy from wave:
+    vector<Character *> newvec = this->self->getWave()[0]->getWave();
+    for (int i = 0; i < newvec.size(); i++)
+    {
+        if (newvec[i] == dynamic_cast<Character *>(self))
+        {
+            newvec.erase(newvec.begin() + i);
+            break;
+        }
+    }
+    this->self->getWave()[0]->setWave(newvec);
+}
 
 Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
              int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : model(new MVC::EnemyModel(name, age, gender, backpack, hp, stamina, firearmLevel,
                                 meleeLevel, powerBoost, currentWave, coins)),
-      view(new MVC::EnemyView),
-      controller(new MVC::EnemyController(model, view)){};
+      view(new MVC::EnemyView)
+{
+    this->controller = new MVC::EnemyController(model, view, this);
+}
 Enemy::~Enemy()
 {
     delete model;
@@ -64,15 +84,15 @@ void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
                        Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
-                                                                                                                                                    stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                          Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
-                                                                                                                                                      stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                                                                                                                                                         stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
-                                                                                                                                                                stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                                                                                                                                                                   stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 /// @brief /////////////////////////////////////////////////////
 
@@ -81,16 +101,19 @@ void Player::turn()
     while (1)
     {
         int choice;
+        Item *selectedItem;
         do
         {
-            choice = getInput(backpack.getStorageData(), 1, backpack.getSize(), 0);
-            if (itemsMap[backpack.getNames()[choice - 1]]->checkStamina())
+            string options = backpack.getStorageData() + "\nenter your choice: ";
+            choice = getInput(options, 1, backpack.getNames().size(), 0);
+            selectedItem = itemsMap[backpack.getNames()[choice - 1]];
+            selectedItem->setOwner(this);
+            if (selectedItem->checkForUse())
                 break;
         } while (1);
-        itemsMap[backpack.getNames()[choice - 1]]->setOwner(this);
-        itemsMap[backpack.getNames()[choice - 1]]->useItem();
+        selectedItem->useItem();
 
-        if (dynamic_cast<Permanent *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr || dynamic_cast<Throwable *>(itemsMap[backpack.getNames()[choice - 1]]) != nullptr)
+        if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
             break;
     }
 }
