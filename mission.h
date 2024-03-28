@@ -55,7 +55,7 @@ public:
     virtual void initInventory() = 0;
     vector<int> getWave();
     void addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem);
-    virtual vector<vector<Character *>> createEnemy(vector<int> waves);
+    vector<vector<Character *>> createEnemy(vector<int> waves);
 };
 
 class ZombieFactory : public Factory
@@ -75,7 +75,7 @@ public:
 
     // Methodes:
     void initInventory() override;
-    vector<vector<Character *>> createEnemy(vector<int> waves) override;
+    vector<vector<Character *>> createEnemy(vector<int> waves);
 };
 
 class HumanFactory : public Factory
@@ -93,7 +93,7 @@ public:
 
     // Methodes:
     void initInventory() override;
-    vector<vector<Character *>> createEnemy(vector<int> waves) override;
+    vector<vector<Character *>> createEnemy(vector<int> waves);
 };
 
 /// @brief ///////////////////////////////////////////////
