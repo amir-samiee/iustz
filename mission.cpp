@@ -1,15 +1,13 @@
 #pragma once
 #include "headers.h"
 
+// Calculating the number of waves and enemies in each:
 vector<int> Factory::getWave()
 {
     vector<int> waves;
-
-    // Calculating the number of waves :
     int waveNum = casualEnemy / 3;
-
-    // Calculating the number of enemies in each wave:
     int remaining = casualEnemy % waveNum;
+
     for (int i = 0; i < waveNum; i++)
         waves.push_back(3);
 
@@ -22,9 +20,14 @@ vector<int> Factory::getWave()
         remaining--;
     }
 
+    random_device rd;
+    mt19937 gen(rd());
+    shuffle(waves.begin(), waves.end(), gen);
+
     return waves;
 }
 
+// Adding removable items to a vector of enemies:
 void Factory::addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
     int i = 0;
@@ -39,15 +42,11 @@ void Factory::addRemoveable(vector<Character *> unshuffeledEn, vector<string> ad
     }
 }
 
-// initializing removables:
+// initializing removable items for a mission:
 void Factory::initRemovable(vector<Item *> addingItem, string type)
 {
     int index = 0;
-
-    // Setting a random number of potions to add:
     int potionNums = (casualEnemy * 2) + (rand() % (casualEnemy / 2)) - (casualEnemy / 4);
-
-    // Selecting the type of potion to add based on level:
     if (level / (2.0) <= addingItem.size())
         index = (level - 1) / 2;
     else
@@ -57,6 +56,7 @@ void Factory::initRemovable(vector<Item *> addingItem, string type)
         missionItemTypes[type].push_back(addingItem[index]->getName());
 }
 
+// Intializing items for a mission:
 void ZombieFactory::initInventory()
 {
     if (level < melees.size())
@@ -77,6 +77,7 @@ void ZombieFactory::initInventory()
     initRemovable(powerPotions, "pow");
 }
 
+// Intializing items for a mission:
 void HumanFactory::initInventory()
 {
     if (level < firearms.size())
@@ -298,18 +299,18 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
                            const vector<string> &missionPowerPotions,
                            const vector<int> wavesInfo)
     : Mission(name, missionNum, casualEnemyNum, specialEnemy)
-    {
-        // Setting the id:
-        string id = "h" + missionNum;
-        missionMap[id] = this;
+{
+    // Setting the id:
+    string id = "h" + missionNum;
+    missionMap[id] = this;
 
-        // Feeding data to factory:
-        HumanFactory factory(missionNum, casualEnemyNum, specialEnemy,
-                             missionPermanents, missionThrowables, missionHpPotions,
-                             missionStaminaPotions, missionPowerPotions, wavesInfo);
+    // Feeding data to factory:
+    HumanFactory factory(missionNum, casualEnemyNum, specialEnemy,
+                         missionPermanents, missionThrowables, missionHpPotions,
+                         missionStaminaPotions, missionPowerPotions, wavesInfo);
 
-        waves = factory.createEnemy(wavesInfo, "human");
+    waves = factory.createEnemy(wavesInfo, "human");
 
-        // Saving mission:
-        humanMissions.push_back(this);
-    }
+    // Saving mission:
+    humanMissions.push_back(this);
+}
