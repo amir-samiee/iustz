@@ -67,7 +67,7 @@ public:
     // methodes:
     vector<int> getWave();
     void addRemoveable(vector<Character *> unorderedEn, vector<string> addingItem);
-    virtual vector<vector<Character *>> createEnemy(vector<int> waves) = 0;
+    virtual vector<vector<Character *>> createEnemy(vector<int> waves , string type);
 };
 
 class ZombieFactory : public Factory
@@ -91,7 +91,6 @@ public:
         : Factory(lvl, casualEn, specialEn, permanents, throwables,
                   hpPotions, staminaPotions, powerPotions, wavesInfo) {}
 
-    vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
 class HumanFactory : public Factory
@@ -114,7 +113,6 @@ public:
         : Factory(lvl, casualEn, specialEn, permanents, throwables,
                   hpPotions, staminaPotions, powerPotions, wavesInfo) {}
 
-    vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
 /// @brief ///////////////////////////////////////////////
