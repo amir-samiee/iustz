@@ -56,7 +56,7 @@ void Factory::initRemovable(vector<Item *> adding, vector<string> to)
         to.push_back(adding[index]->getName());
 }
 
-// Intializing items for a ZombieMission:
+// Intializing all items for a ZombieMission:
 void ZombieFactory::initInventory()
 {
     if (level < melees.size())
@@ -77,7 +77,7 @@ void ZombieFactory::initInventory()
     initRemovable(powerPotions, missionPowerPotions);
 }
 
-// Intializing items for a HumanMission:
+// Intializing all items for a HumanMission:
 void HumanFactory::initInventory()
 {
     if (level < firearms.size())
@@ -252,7 +252,6 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
 
     // Feeding data to factory:
     ZombieFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-
     waves = factory.createEnemy(factory.getWave(), "zombie");
 
     // Saving mission:
@@ -291,7 +290,6 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
 
     // Feeding data to factory:
     HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-
     this->waves = factory.createEnemy(factory.getWave(), "human");
 
     // saving mission:
