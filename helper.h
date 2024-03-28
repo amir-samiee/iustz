@@ -26,3 +26,7 @@ const string iustzTitle =
 void clearScreen();
 void pprint(string text, int milliseconds = -1, bool goNextLine = 1);
 
+bool isInteger(string s);
+bool isZero(string s);
+
+
