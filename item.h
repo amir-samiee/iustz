@@ -202,14 +202,14 @@ Melee melee10("Chainsaw", 50, nullptr, 30, 60);
 //"fireArm"
 Firearm fireArm1("Desert Eagle", 10, nullptr, 10, 20);
 Firearm fireArm2("Glock 17", 20, nullptr, 20, 40);
-Firearm fireArm3("Shutgun", 30, nullptr, 30, 60);
-Firearm fireArm4("Rifle", 40, nullptr, 40, 80);
-Firearm fireArm5("Submachine gun", 50, nullptr, 50, 100);
-Firearm fireArm6("Carbine", 60, nullptr, 60, 120);
-Firearm fireArm7("Assault rifle", 70, nullptr, 70, 140);
-Firearm fireArm8("Sniper rifle", 80, nullptr, 80, 160);
-Firearm fireArm9("Machine gun", 90, nullptr, 90, 180);
-Firearm fireArm10("FN SCAR", 100, nullptr, 100, 200);
+Firearm fireArm3("Shutgun", 30, nullptr, 25, 50);
+Firearm fireArm4("Rifle", 40, nullptr, 25, 50);
+Firearm fireArm5("Submachine gun", 50, nullptr, 30, 60);
+Firearm fireArm6("Carbine", 60, nullptr, 30, 60);
+Firearm fireArm7("Assault rifle", 70, nullptr, 35, 70);
+Firearm fireArm8("Sniper rifle", 80, nullptr, 40, 80);
+Firearm fireArm9("Machine gun", 90, nullptr, 40, 80);
+Firearm fireArm10("FN SCAR", 100, nullptr, 45, 90);
 
 // object of consumable class
 // hp potion
