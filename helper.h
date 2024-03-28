@@ -31,6 +31,8 @@ bool isZero(string s);
 
 void cleanIntString(string &s);
 int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input");
+
+class Storage ;
 void transfer(Storage *adding , Storage *to);
 
 template <typename element, typename list>
