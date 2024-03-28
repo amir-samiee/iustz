@@ -36,7 +36,11 @@ void Player::display()
 }
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                 int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
-                                                                                                                                                       hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
+
+                                                                                                                                                       hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) 
+{
+    backpack.addItem("Punch");
+}
 
 MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                             int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
@@ -102,18 +106,20 @@ void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
                        Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
-                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
-
+                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) 
+{
+    backpack.addItem("Punch");
+}
 ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                          Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
                                                                                                                                                          stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 void ZombieEnemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
-                             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
-                                                                                                                                                                   stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
+                             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
 {
     this->controller = new MVC::SpecialEnemyController(model, view, this);
+    backpack.addItem("Punch");
 }
 
 void SpecialZombie::takeDamage(int damage){this->controller->takeDamage(damage);}

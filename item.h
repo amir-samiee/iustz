@@ -181,35 +181,35 @@ Throwable throwable4("Molotov Cocktails", 30, nullptr, 20, 20);
 Throwable throwable5("Taser Darts", 50, nullptr, 25, 25);
 Throwable throwable6("Drone", 100, nullptr, 50, 150);
 Throwable throwable7("Armored Personnel Carrier", 200, nullptr, 100, 300);
-Throwable throwable8("Attack Helicopter", 300, nullptr, 200, 500);
-Throwable throwable9("Fighter Jet", 400, nullptr, 300, 600);
-Throwable throwable10("Gunship", 500, nullptr, 450, 900);
+Throwable throwable8("Attack Helicopter", 300, nullptr, 100, 250);
+Throwable throwable9("Fighter Jet", 400, nullptr, 150, 300);
+Throwable throwable10("Gunship", 500, nullptr, 200, 400);
 
 // objects of permanant class
 // "melee"
 Melee melee0("Punch", 0, nullptr, 0, 5);
 Melee melee1("Knife", 10, nullptr, 5, 15);
 Melee melee2("Axe", 10, nullptr, 10, 20);
-Melee melee3("Nunchaku", 20, nullptr, 20, 40);
-Melee melee4("Sword", 20, nullptr, 20, 40);
-Melee melee5("Katana", 30, nullptr, 30, 60);
-Melee melee6("Dagger", 30, nullptr, 30, 60);
-Melee melee7("Spear", 40, nullptr, 40, 80);
-Melee melee8("Halberd", 40, nullptr, 40, 80);
-Melee melee9("Rapier", 45, nullptr, 45, 90);
-Melee melee10("Chainsaw", 50, nullptr, 50, 100);
+Melee melee3("Nunchaku", 20, nullptr, 15, 30);
+Melee melee4("Sword", 20, nullptr, 15, 30);
+Melee melee5("Katana", 30, nullptr, 20, 40);
+Melee melee6("Dagger", 30, nullptr, 20, 40);
+Melee melee7("Spear", 40, nullptr, 25, 50);
+Melee melee8("Halberd", 40, nullptr, 25, 50);
+Melee melee9("Rapier", 45, nullptr, 25, 50);
+Melee melee10("Chainsaw", 50, nullptr, 30, 60);
 
 //"fireArm"
 Firearm fireArm1("Desert Eagle", 10, nullptr, 10, 20);
 Firearm fireArm2("Glock 17", 20, nullptr, 20, 40);
-Firearm fireArm3("Shutgun", 30, nullptr, 30, 60);
-Firearm fireArm4("Rifle", 40, nullptr, 40, 80);
-Firearm fireArm5("Submachine gun", 50, nullptr, 50, 100);
-Firearm fireArm6("Carbine", 60, nullptr, 60, 120);
-Firearm fireArm7("Assault rifle", 70, nullptr, 70, 140);
-Firearm fireArm8("Sniper rifle", 80, nullptr, 80, 160);
-Firearm fireArm9("Machine gun", 90, nullptr, 90, 180);
-Firearm fireArm10("FN SCAR", 100, nullptr, 100, 200);
+Firearm fireArm3("Shutgun", 30, nullptr, 25, 50);
+Firearm fireArm4("Rifle", 40, nullptr, 25, 50);
+Firearm fireArm5("Submachine gun", 50, nullptr, 30, 60);
+Firearm fireArm6("Carbine", 60, nullptr, 30, 60);
+Firearm fireArm7("Assault rifle", 70, nullptr, 35, 70);
+Firearm fireArm8("Sniper rifle", 80, nullptr, 40, 80);
+Firearm fireArm9("Machine gun", 90, nullptr, 40, 80);
+Firearm fireArm10("FN SCAR", 100, nullptr, 45, 90);
 
 // object of consumable class
 // hp potion
