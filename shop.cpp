@@ -12,13 +12,11 @@ void Shop :: displayShop() {
     
      switch (firstInput) {
         case 1:
-        shopsItem(1);
-           
-            break;
+        shopsItem(1);   
+        break;
         case 2:
-        
-          // Handle Potions menu
-           
+        shopsItem(2);
+        break;
         case 3:
             // Handle Weapon menu
             cout << "Permenet weapons Items\n";
@@ -33,6 +31,9 @@ void Shop :: displayShop() {
             break;
     }
 }
+
+
+
 void Shop ::shopsItem(int choice){
     int lastInput ;
     string option2 ;
@@ -53,11 +54,61 @@ void Shop ::shopsItem(int choice){
                 cout << message ;
             }
         break;
-    case 2:
+    case 2: 
+            cout << "Potions Items :\n";
+            option2 = "1-Hp Potions\n2-Stamina Potions\n3-Power Potions\n4-Back\n";
+            int secondInput=getInput(option2 , 1 ,4 ,true,"invalid input");
+            switch (secondInput)
+            {
+                case 1 :
+                cout << "Hp Potions : \n" ;
+                    for (int i = 0; i < hpPotions.size(); i++)
+                    {
+                        cout << i + 1 << "- Name: " << hpPotions[i]->getName() << " Price: " << hpPotions[i]->getPrice() << " Stamina: " << hpPotions[i]->getStamina() << " HealingAmount: " << hpPotions[i]->getSpecial() << endl;
+                    }
+                    lastInput = getInput(backOption , 0 , hpPotions.size() , true , "Invalid input");
+                        if(lastInput == 0)
+                            shopsItem(2);
+                        else if(lastInput > 0 && lastInput <= hpPotions.size()){
+                            player1->getBackpack()->addItem(hpPotions[lastInput-1]->getName());
+                            cout << message ;
+                        }
+                        break;
+                case 2:
+                cout << "Stamina Potions : \n";
+                    for(int i = 0; i < staminaPotions.size() ; i++){
+                    cout << i + 1 << "- Name: " << staminaPotions[i]->getName() << " Price: " << staminaPotions[i]->getPrice() << " Stamina: " << staminaPotions[i]->getStamina() << " BoostAmount: " << staminaPotions[i]->getSpecial() << endl;
+                }
+                    lastInput = getInput(backOption , 0 , staminaPotions.size() ,true , "invalid input");
+                        if(lastInput == 0)
+                            shopsItem(2);
+                        else if(lastInput > 0 && lastInput <= hpPotions.size()){
+                            player1->getBackpack()->addItem(staminaPotions[lastInput-1]->getName());
+                            cout << message ;
+                        }
+                            break;
+                case 3:
+                cout << "Power potions : \n";
+                    for (int i = 0; i < powerPotions.size(); i++)
+                    {
+                    cout << i + 1 << "- Name: " << powerPotions[i]->getName() << " Price: " << powerPotions[i]->getPrice() << " Stamina: " << powerPotions[i]->getStamina() << " empowerment: " << powerPotions[i]->getSpecial() << endl;
+                    }
+                    lastInput = getInput(backOption , 0 , powerPotions.size() , true , "invalid input");
+                        if(lastInput == 0)
+                            shopsItem(2);
+                        else if(lastInput > 0 && lastInput <= hpPotions.size()) {
+                            player1->getBackpack()->addItem(staminaPotions[lastInput-1]->getName());
+                            cout << message ;
+                        }
+                        break;
+                case 4:
+                    displayShop();
+                    break;
+            
     break;
 
     default:
         break;
     }
-}
+}}
 
