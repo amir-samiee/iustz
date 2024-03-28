@@ -3,7 +3,7 @@
 
 void Shop :: displayShop() {
     int input ;
-    string options = "1-Throwables\n2-Potions\n3-Weapon\n" ; 
+    string options = "1-Throwables\n2-Potions\n3-Weapon\n\n4-Back" ; 
     
     cout << "-------------------------------------------------------------\n";
     cout << "Welcome to the shop! Here are the items available for purchase:\n";
@@ -18,16 +18,10 @@ void Shop :: displayShop() {
         shopsItem(2);
         break;
         case 3:
-            // Handle Weapon menu
-            cout << "Permenet weapons Items\n";
-           
-            break;
+        shopsItem(3);
+        break;
         case 4:
             menu::mainMenu();
-            break;
-        default:
-            cout << "Invalid input\n Please choose again ";
-            displayShop();
             break;
     }
 }
@@ -37,6 +31,7 @@ void Shop :: displayShop() {
 void Shop ::shopsItem(int choice){
     int lastInput ;
     string option2 ;
+    string option3 ;
     string backOption = "0-Back\n";
     string message = "Item added to your backpack!\n";
     switch (choice)
@@ -103,12 +98,50 @@ void Shop ::shopsItem(int choice){
                         break;
                 case 4:
                     displayShop();
-                    break;
+                    break;}
             
     break;
-
-    default:
-        break;
+    case 3:
+            cout << "Permenet Weapons Items\n";
+            option3 ="1-Melee \n 2-Firearm \n 3-Back";
+            int thirdInput = getInput(option3 , 1 , 3 , true , "invalid input");
+            switch (thirdInput)
+            {
+            case 1:
+                cout << "Melees : \n";
+                    for (int i = 0; i < melees.size(); i++)
+                    {
+                        cout << i + 1 << "- Name: " << melees[i]->getName() << " Price: " << melees[i]->getPrice() << " Stamina: " << melees[i]->getStamina() << " Damage: " << melees[i]->getSpecial() << endl;
+                    }
+                    lastInput = getInput(backOption , 0 , melees.size() , true , "invalid input");
+                        if (lastInput == 0)
+                            shopsItem(3);
+                        else if (lastInput > 0 && lastInput <= melees.size())
+                        {
+                            player1->getBackpack()->addItem(melees[lastInput-1]->getName());
+                            cout << message ;
+                        }
+                        break;
+            case 2:
+            cout << "Firearms : \n" ;
+                for (int i = 0; i < firearms.size(); i++)
+                {
+                    cout << i + 1 << "- Name: " << firearms[i]->getName() << " Price: " << firearms[i]->getPrice() << " Stamina: " << firearms[i]->getStamina() << " Damage: " << firearms[i]->getSpecial() << endl;
+                }
+                lastInput = getInput(backOption , 0 , firearms.size() , true , "invalid input");
+                    if (lastInput == 0)
+                    shopsItem(3);
+                    else if (lastInput > 0 && lastInput <= firearms.size())
+                    {
+                    player1->getBackpack()->addItem(firearms[lastInput-1]->getName());
+                    cout << message ;
+                    }
+                    break;
+            
+            case 3:
+            displayShop();
+        
+            }
+        }
     }
-}}
 
