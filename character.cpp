@@ -109,8 +109,9 @@ ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage bac
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
                                                                                                                                                                    stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) 
-{}
-
+{
+    backpack.addItem("Punch");
+}
 /// @brief /////////////////////////////////////////////////////
 
 void Player::turn()
