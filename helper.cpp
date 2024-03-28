@@ -1,19 +1,5 @@
 #pragma once
 #include "headers.h"
-using json = nlohmann::json;
-
-const string usersFilePath = "Data/users.json";
-const string iustzTitle =
-    "@@@  @@@  @@@   @@@@@@ " + red + " @@@@@@#" + reset + "  @@@@@@@@  \n" +
-    "@@@  @@@  @@@  @@@@@@@ " + red + " @@@@@@@" + reset + "  @@@@@@@@  \n" +
-    "@@!  @@!  @@@  !@@     " + red + "   @#!  " + reset + "       @@!  \n" +
-    "!@!  !@!  @!@  !@!     " + red + "   @@!  " + reset + "      !@!   \n" +
-    "!!@  @!@  !@!  !!@@!!  " + red + "   @!!  " + reset + "     @!!    \n" +
-    "!!!  !@!  !!!   !!@!!! " + red + "   !!!  " + reset + "    !!!     \n" +
-    "!!:  !!:  !!!       !:!" + red + "   !!:  " + reset + "   !!:      \n" +
-    ":!:  :!:  !:!      !:! " + red + "   :!:  " + reset + "  :!:       \n" +
-    "::  ::::::::  :::: ::  " + red + "   ::   " + reset + "  :: ::::   \n" +
-    ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  \n";
 
 void clearScreen()
 {

@@ -22,3 +22,7 @@ const string iustzTitle =
     ":!:  :!:  !:!      !:! " + red + "   :!:  " + reset + "  :!:       \n" +
     "::  ::::::::  :::: ::  " + red + "   ::   " + reset + "  :: ::::   \n" +
     ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  \n";
+
+void clearScreen();
+void pprint(string text, int milliseconds = -1, bool goNextLine = 1);
+
