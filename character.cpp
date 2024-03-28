@@ -26,6 +26,14 @@ void Player::takeDamage(int takenDamage)
     if (newPoint <= 0)
         this->die();
 }
+void Player::display()
+{
+    cout << "Player: " << name << endl
+         << "HP: " << hp.getCurrentPoint() << endl
+         << "Stamina: " << stamina.getCurrentPoint() << endl
+         << "Power Boost: " << powerBoost << endl
+         << "Current Enemies Count: " << currentWave.size() << endl;
+}
 Player ::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                 int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
                                                                                                                                                        hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels) {}
@@ -37,6 +45,8 @@ MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage 
 
 bool MVC::EnemyModel::isAlive() { return hp.getCurrentPoint() > 0; }
 
+void MVC::EnemyView::display(const EnemyModel &model) {}
+
 void MVC::EnemyController::takeDamage(int takenDamage)
 {
     int newPoint = model->hp.getCurrentPoint() - takenDamage;
@@ -47,9 +57,9 @@ void MVC::EnemyController::takeDamage(int takenDamage)
 
 void MVC::EnemyController::die()
 {
-    Player* myplayer=dynamic_cast<Player *>(self->getWave()[0]); 
-    //setting rewards:
-    transfer(self->getBackpack() , myplayer->getReward());
+    Player *myplayer = dynamic_cast<Player *>(self->getWave()[0]);
+    // setting rewards:
+    transfer(self->getBackpack(), myplayer->getReward());
 
     // removing enemy from wave:
     vector<Character *> newvec = this->self->getWave()[0]->getWave();
@@ -112,7 +122,6 @@ void Player::turn()
                 break;
         } while (1);
         selectedItem->useItem();
-
         if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
             break;
     }
@@ -121,4 +130,5 @@ void Player::turn()
 void Player::die() {}
 void Enemy::turn() {}
 void Enemy::die() { controller->die(); }
+void Enemy::display(){};
 void SpecialZombie::turn() {}

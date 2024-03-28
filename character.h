@@ -55,6 +55,7 @@ public:
     virtual void turn() = 0;
     virtual void die() = 0;
     virtual void takeDamage(int newPoint) = 0;
+    virtual void display() = 0;
 };
 
 class Player : public Character
@@ -120,6 +121,7 @@ public:
     void turn() override;
     void die() override;
     void takeDamage(int newPoint) override;
+    void display() override;
 };
 
 Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(),
@@ -153,6 +155,8 @@ namespace MVC
 
     class EnemyView
     {
+    public:
+        void display(const EnemyModel &model);
     };
 
     class EnemyController
@@ -214,6 +218,7 @@ public:
     void takeDamage(int damage) override;
     void turn() override;
     void die() override;
+    void display() override;
 };
 
 class HumanEnemy : public Enemy
