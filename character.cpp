@@ -98,15 +98,18 @@ void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
                        Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
-                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
-
+                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) 
+{
+    backpack.addItem("Punch");
+}
 ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                          Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
                                                                                                                                                          stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp,
-                                                                                                                                                                   stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                                                                                                                                                                   stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) 
+{}
 
 /// @brief /////////////////////////////////////////////////////
 
