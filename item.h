@@ -181,9 +181,9 @@ Throwable throwable4("Molotov Cocktails", 30, nullptr, 20, 20);
 Throwable throwable5("Taser Darts", 50, nullptr, 25, 25);
 Throwable throwable6("Drone", 100, nullptr, 50, 150);
 Throwable throwable7("Armored Personnel Carrier", 200, nullptr, 100, 300);
-Throwable throwable8("Attack Helicopter", 300, nullptr, 200, 500);
-Throwable throwable9("Fighter Jet", 400, nullptr, 300, 600);
-Throwable throwable10("Gunship", 500, nullptr, 450, 900);
+Throwable throwable8("Attack Helicopter", 300, nullptr, 100, 250);
+Throwable throwable9("Fighter Jet", 400, nullptr, 150, 300);
+Throwable throwable10("Gunship", 500, nullptr, 200, 400);
 
 // objects of permanant class
 // "melee"
