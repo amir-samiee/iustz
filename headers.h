@@ -4,21 +4,22 @@
 
 using namespace std;
 #include <windows.h>
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <ctype.h>
-#include <vector>
-#include <map>
-#include <ctime>
 #include <cstdlib>
-#include <algorithm>
-#include <random>
 #include <sstream>
-#include<conio.h>
+#include <ctype.h>
+#include <conio.h>
+#include <vector>
+#include <random>
+#include <ctime>
+#include <map>
+
+#include "Assets/nlohmann/json.hpp"
 
 // the order of the following lines matters. make changes wisely!
-#include "Assets/nlohmann/json.hpp"
 #include "helper.h"
 #include "item.h"
 #include "storage.h"
@@ -26,12 +27,11 @@ using namespace std;
 #include "mission.h"
 #include "shop.h"
 
+#include "helper.cpp"
 #include "item.cpp"
 #include "storage.cpp"
-#include "helper.cpp"
 #include "character.cpp"
-#include "menu.cpp"
 #include "mission.cpp"
-
+#include "menu.cpp"
 
 #endif
