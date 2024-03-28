@@ -66,7 +66,7 @@ public:
 
     // methodes:
     vector<int> getWave();
-    void addConsumable(vector<Character *> unorderedEn, vector<string> addingItem);
+    void addRemoveable(vector<Character *> unorderedEn, vector<string> addingItem);
     virtual vector<vector<Character *>> createEnemy(vector<int> waves) = 0;
 };
 

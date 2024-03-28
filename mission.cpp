@@ -21,13 +21,13 @@ vector<int> Factory::getWave()
     return waves;
 }
 
-void Factory::addConsumable(vector<Character *> unorderedEn, vector<string> addingItem)
+void Factory::addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
     int i = 0;
     while (!addingItem.empty())
     {
         int randomPotion = rand() % (addingItem.size());
-        unorderedEn[i]->getBackpack()->addItem(addingItem[randomPotion]);
+        unshuffeledEn[i]->getBackpack()->addItem(addingItem[randomPotion]);
         addingItem.erase(addingItem.begin() + randomPotion);
         i++;
         if (i == casualEnemy)
@@ -40,9 +40,12 @@ void Factory::addConsumable(vector<Character *> unorderedEn, vector<string> addi
 vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
 {
     vector<vector<Character *>> enemies;
-    vector<Character *> unorderedEn;
+    vector<Character *> unshuffeledEn;
+
+    // Generating a random number of permanents:
     int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
 
+    // Generating enemies backpacks with randomly generated number of permanents inside:
     for (int i = 0; i < casualEnemy; i++)
     {
         LimitedStorage *backpack = new LimitedStorage;
@@ -53,32 +56,40 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
         }
         Stat hp;
         Stat stamina;
+
+        // The value is not decided yet:
         int firearmLvl;
         int meleeLvl;
         int coins;
+
+        // Creating the enemy:
         HumanEnemy human("human" + 1 + i, 9, "female", *backpack, hp, stamina,
                          firearmLvl, meleeLvl, 1, {player1}, coins);
-        unorderedEn.push_back(&human);
+
+        // Saving enemy in a primary vector:
+        unshuffeledEn.push_back(&human);
     }
 
     random_device rd;
     mt19937 gen(rd());
-    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
+    shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
-    addConsumable(unorderedEn, missionHpPotions);
-    addConsumable(unorderedEn, missionStaminaPotions);
-    addConsumable(unorderedEn, missionPowerPotions);
-    addConsumable(unorderedEn, missionThrowables);
+    // Adding generated removables to the created enemies:
+    addRemoveable(unshuffeledEn, missionHpPotions);
+    addRemoveable(unshuffeledEn, missionStaminaPotions);
+    addRemoveable(unshuffeledEn, missionPowerPotions);
+    addRemoveable(unshuffeledEn, missionThrowables);
 
-    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
+    shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
+    // Saving enemies in a usable format:
     for (int i = 0; i < waves.size(); i++)
     {
         vector<Character *> addingChars;
         for (int j = 0; j < waves[i]; j++)
         {
-            addingChars.push_back(unorderedEn[0]);
-            unorderedEn.erase(unorderedEn.begin());
+            addingChars.push_back(unshuffeledEn[0]);
+            unshuffeledEn.erase(unshuffeledEn.begin());
         }
         enemies.push_back(addingChars);
     }
@@ -91,9 +102,12 @@ vector<vector<Character *>> HumanFactory ::createEnemy(vector<int> waves)
 vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
 {
     vector<vector<Character *>> enemies;
-    vector<Character *> unorderedEn;
+    vector<Character *> unshuffeledEn;
+
+    // Generating a random number of permanents:
     int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
 
+    // Generating enemies backpacks with randomly generated number of permanents inside:
     for (int i = 0; i < casualEnemy; i++)
     {
         LimitedStorage *backpack = new LimitedStorage;
@@ -104,31 +118,36 @@ vector<vector<Character *>> ZombieFactory ::createEnemy(vector<int> waves)
         }
         Stat hp;
         Stat stamina;
+        
+        // The value is not decided yet:
         int firearmLvl;
         int meleeLvl;
         int coins;
         ZombieEnemy zombie("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
                            firearmLvl, meleeLvl, 1, {player1}, coins);
-        unorderedEn.push_back(&zombie);
+        // Saving enemy in a primary vector:
+        unshuffeledEn.push_back(&zombie);
     }
 
     random_device rd;
     mt19937 gen(rd());
-    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
+    shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
-    addConsumable(unorderedEn, missionHpPotions);
-    addConsumable(unorderedEn, missionStaminaPotions);
-    addConsumable(unorderedEn, missionPowerPotions);
+    // Adding generated removables to the created enemies:
+    addRemoveable(unshuffeledEn, missionHpPotions);
+    addRemoveable(unshuffeledEn, missionStaminaPotions);
+    addRemoveable(unshuffeledEn, missionPowerPotions);
 
-    shuffle(unorderedEn.begin(), unorderedEn.end(), gen);
+    shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
+    // Saving enemies in a usable format:
     for (int i = 0; i < waves.size(); i++)
     {
         vector<Character *> addingChars;
         for (int j = 0; j < waves[i]; j++)
         {
-            addingChars.push_back(unorderedEn[0]);
-            unorderedEn.erase(unorderedEn.begin());
+            addingChars.push_back(unshuffeledEn[0]);
+            unshuffeledEn.erase(unshuffeledEn.begin());
         }
         enemies.push_back(addingChars);
     }
@@ -189,9 +208,10 @@ void Mission ::endWave()
 
 void Mission ::end()
 {
-    if(player1->isAlive())
-        transfer(player1->getReward() , player1->getInventory());
-    else{
+    if (player1->isAlive())
+        transfer(player1->getReward(), player1->getInventory());
+    else
+    {
         player1->getReward()->setItems({});
     }
 }
