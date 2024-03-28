@@ -183,8 +183,6 @@ public:
     void story();
     void enemyTurn();
     void endWave();
-    void removeDead();
-    void playerDeath();
     void end();
     void start();
 };
