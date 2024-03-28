@@ -196,7 +196,11 @@ void Mission ::playerDeath()
 
 void Mission ::end()
 {
-    transfer(player1->getReward() , player1->getInventory());
+    if(player1->isAlive())
+        transfer(player1->getReward() , player1->getInventory());
+    else{
+        player1->getReward()->setItems({});
+    }
 }
 
 void Mission::start()
