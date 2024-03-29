@@ -12,7 +12,6 @@ protected:
     vector<string> missionHpPotions;
     vector<string> missionStaminaPotions;
     vector<string> missionPowerPotions;
-    vector<int> waveInfo;
     
     //methode:
     void initRemovable(vector<Item *> adding, vector<string>); // initializing removable items for a mission
@@ -28,11 +27,11 @@ public:
             const vector<string> &throwables,
             const vector<string> &hpPotions,
             const vector<string> &staminaPotions,
-            const vector<string> &powerPotions, vector<int> wavesInfo)
+            const vector<string> &powerPotions)
         : level(lvl), casualEnemy(casualEn), specialEnemy(specialEn),
           missionPermanents(permanents), missionThrowables(throwables),
           missionHpPotions(hpPotions), missionStaminaPotions(staminaPotions),
-          missionPowerPotions(powerPotions), waveInfo(wavesInfo) {}
+          missionPowerPotions(powerPotions) {}
 
     // getters:
     int getLevel() const { return level; }
@@ -71,9 +70,9 @@ public:
                   const vector<string> &throwables,
                   const vector<string> &hpPotions,
                   const vector<string> &staminaPotions,
-                  const vector<string> &powerPotions, vector<int> wavesInfo)
+                  const vector<string> &powerPotions)
         : Factory(lvl, casualEn, specialEn, permanents, throwables,
-                  hpPotions, staminaPotions, powerPotions, wavesInfo) {}
+                  hpPotions, staminaPotions, powerPotions) {}
 
     // Methodes:
     void initInventory() override;
@@ -89,9 +88,9 @@ public:
                  const vector<string> &throwables,
                  const vector<string> &hpPotions,
                  const vector<string> &staminaPotions,
-                 const vector<string> &powerPotions, vector<int> wavesInfo)
+                 const vector<string> &powerPotions)
         : Factory(lvl, casualEn, specialEn, permanents, throwables,
-                  hpPotions, staminaPotions, powerPotions, wavesInfo) {}
+                  hpPotions, staminaPotions, powerPotions) {}
 
     // Methodes:
     void initInventory() override;

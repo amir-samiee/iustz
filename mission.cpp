@@ -364,7 +364,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
     // Feeding data to factory:
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
-                          missionStaminaPotions, missionPowerPotions, wavesInfo);
+                          missionStaminaPotions, missionPowerPotions);
     waves = factory.createEnemy(wavesInfo);
 
     // Saving mission:
@@ -402,7 +402,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
     // Feeding data to factory:
     HumanFactory factory(missionNum, casualEnemyNum, specialEnemy,
                          missionPermanents, missionThrowables, missionHpPotions,
-                         missionStaminaPotions, missionPowerPotions, wavesInfo);
+                         missionStaminaPotions, missionPowerPotions);
 
     waves = factory.createEnemy(wavesInfo);
 
