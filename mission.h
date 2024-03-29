@@ -13,6 +13,10 @@ protected:
     vector<string> missionStaminaPotions;
     vector<string> missionPowerPotions;
     vector<int> waveInfo;
+    
+    //methode:
+    void initRemovable(vector<Item *> adding, vector<string>); // initializing removable items for a mission
+    void addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem);
 
 public:
     // constructors:
@@ -51,10 +55,8 @@ public:
     void setMissionPowerPotions(const vector<string> &newPowerPotions) { missionPowerPotions = newPowerPotions; }
 
     // methodes:
-    void initRemovable(vector<Item *> adding, vector<string>);
     virtual void initInventory() = 0;
-    vector<int> getWave();
-    void addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem);
+    vector<int> getWave(); // Calculating the number of waves and enemies in each
     vector<vector<Character *>> createEnemy(vector<int> waves);
 };
 
