@@ -57,7 +57,7 @@ public:
     // methodes:
     virtual void initInventory() = 0;
     vector<int> getWave(); // Calculating the number of waves and enemies in each
-    vector<vector<Character *>> createEnemy(vector<int> waves);
+    virtual vector<vector<Character *>> createEnemy(vector<int> waves) = 0;
 };
 
 class ZombieFactory : public Factory
@@ -77,7 +77,7 @@ public:
 
     // Methodes:
     void initInventory() override;
-    vector<vector<Character *>> createEnemy(vector<int> waves);
+    vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
 class HumanFactory : public Factory
@@ -95,7 +95,7 @@ public:
 
     // Methodes:
     void initInventory() override;
-    vector<vector<Character *>> createEnemy(vector<int> waves);
+    vector<vector<Character *>> createEnemy(vector<int> waves) override;
 };
 
 /// @brief ///////////////////////////////////////////////
