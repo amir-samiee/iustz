@@ -44,7 +44,7 @@ vector<int> Factory::getWave()
 }
 
 // Adding removable items to a vector of enemies:
-void Factory::addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem)
+void Factory::addRemovable(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
     int i = 0;
     while (!addingItem.empty())
@@ -155,10 +155,10 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
     // Adding missions removables to the created enemies:
-    addRemoveable(unshuffeledEn, missionHpPotions);
-    addRemoveable(unshuffeledEn, missionStaminaPotions);
-    addRemoveable(unshuffeledEn, missionPowerPotions);
-    addRemoveable(unshuffeledEn, missionThrowables);
+    addRemovable(unshuffeledEn, missionHpPotions);
+    addRemovable(unshuffeledEn, missionStaminaPotions);
+    addRemovable(unshuffeledEn, missionPowerPotions);
+    addRemovable(unshuffeledEn, missionThrowables);
 
     shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
 
@@ -240,10 +240,10 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
     }
 
     // Adding missions removables to the created enemies:
-    addRemoveable(mixedEn, missionHpPotions);
-    addRemoveable(mixedEn, missionStaminaPotions);
-    addRemoveable(mixedEn, missionPowerPotions);
-    addRemoveable(mixedEn, missionThrowables);
+    addRemovable(mixedEn, missionHpPotions);
+    addRemovable(mixedEn, missionStaminaPotions);
+    addRemovable(mixedEn, missionPowerPotions);
+    addRemovable(mixedEn, missionThrowables);
 
     shuffle(casualEn.begin(), casualEn.end(), gen);
 
@@ -382,7 +382,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions, wavesInfo);
     waves = factory.createEnemy(wavesInfo);
-    casualEnemyNum = factory.getCasualEnemy();//no real point to this
+    casualEnemyNum = factory.getCasualEnemy();
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -422,7 +422,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
                          missionStaminaPotions, missionPowerPotions, wavesInfo);
 
     waves = factory.createEnemy(wavesInfo);
-    casualEnemyNum = factory.getCasualEnemy();//no real point to this
+    casualEnemyNum = factory.getCasualEnemy();
 
     // Saving mission:
     humanMissions.push_back(this);
