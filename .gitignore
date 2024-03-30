@@ -2,3 +2,4 @@
 /.vscode
 tester.cpp
 fsm.cpp
+shoptester.cpp
