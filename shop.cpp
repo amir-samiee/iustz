@@ -3,229 +3,95 @@
 
 void Shop::displayShop()
 {
-    int input;
-    string options = "";
-    options += "Welcome to the shop! Here are the items available for purchase:\n";
-    options += "1- Throwables\n2- Potions\n3- Weapon\n\n0- Back\n";
-    int firstInput = getInput(options, 0, 3);
-
-    if (firstInput == 0)
-        menu::mainMenu();
-    else
-        shopsItem(firstInput);
-}
-
-void Shop::shopsItem(int choice)
-{
-    int lastInput;
-    int secondInput;
-    int thirdInput;
-    string option2;
-    string option3;
-    string backOption = "0-Back\n";
-    string message = "Item added to your backpack!\n";
-    stringstream result;
-
-    switch (choice)
+    while (1)
     {
-    case 1:
-        result << "Throwables Items : \n";
-        result << setw(20) << left << setw(20) << "  NAME"
-               << setw(20) << "PRICE"
-               << setw(20) << "STAMINA"
-               << setw(20) << "DAMAGE" << endl;
-        for (int i = 0; i < throwables.size(); ++i)
+        string options1 = "Welcome to the shop! Here are the items available for purchase:\n";
+        options1 += "1- Throwables\n2- Potions\n3- Weapons\n\n0- Back\nenter your choice: ";
+        int firstInput = getInput(options1, 0, 3);
+        int secondInput;
+        string options2;
+
+        bool breakFlag = 0;
+        switch (firstInput)
         {
-            int index = i + 1;
-            result << left << index << "-" << setw(20) << throwables[i]->getName()
-                   << setw(20) << throwables[i]->getPrice()
-                   << setw(20) << throwables[i]->getStamina()
-                   << setw(20) << throwables[i]->getSpecial() << endl;
-        }
-        result << backOption;
-        lastInput = getInput(result.str(), 0, throwables.size());
-        result.str("");
-
-        if (lastInput == 0)
-        {
-            displayShop(); // Go back to Shops main menu
+        case 1: // Throwables
+            subShop(throwables, "Throwable Items:");
             break;
-        }
-        player1->getInventory()->addItem(throwables[lastInput - 1]->getName());
-        cout << message << endl;
-        break;
-
-    case 2:
-
-        result << "Potions Items :\n1- Hp Potions\n2- Stamina Potions\n3- Power Potions\n0- Back\n";
-
-        secondInput = getInput(result.str(), 0, 3);
-        result.str("");
-        cout << secondInput;
-        switch (secondInput)
-        {
-        case 1:
-            result << "Hp Potions : \n";
-            result << setw(20) << left << setw(20) << "  NAME"
-                   << setw(20) << "PRICE"
-                   << setw(20) << "STAMINA"
-                   << setw(20) << "HEALING AMOUNT" << endl;
-            for (int i = 0; i < hpPotions.size(); i++)
+        case 2: // Potions
+            while (!breakFlag)
             {
-                int index = i + 1;
-                result << left << index << "-" << setw(20) << hpPotions[i]->getName()
-                       << setw(20) << hpPotions[i]->getPrice()
-                       << setw(20) << hpPotions[i]->getStamina()
-                       << setw(20) << hpPotions[i]->getSpecial() << endl;
+                options2 = "Potions Items :\n1- Hp Potions\n2- Stamina Potions\n3- Power Potions\n0- Back\n\nenter your choice: ";
+                secondInput = getInput(options2, 0, 3);
+                switch (secondInput)
+                {
+                case 1:
+                    subShop(hpPotions, "HP Potions:");
+                    break;
+                case 2:
+                    subShop(staminaPotions, "Stamina Potions:");
+                    break;
+                case 3:
+                    subShop(powerPotions, "Power potions:");
+                    break;
+                case 0:
+                    breakFlag = 1;
+                    break;
+                }
             }
-            result << backOption;
-            lastInput = getInput(result.str(), 0, hpPotions.size());
-            result.str("");
-
-            if (lastInput == 0)
-            {
-                shopsItem(2);
-                break;
-            }
-
-            player1->getInventory()->addItem(hpPotions[lastInput - 1]->getName());
-            cout << message;
             break;
-
-        case 2:
-            result << "Stamina Potions : \n";
-            result << setw(20) << left << setw(20) << "  NAME"
-                   << setw(20) << "PRICE"
-                   << setw(20) << "STAMINA"
-                   << setw(20) << "BOOST AMOUNT" << endl;
-            for (int i = 0; i < staminaPotions.size(); i++)
+        case 3: // Weapons
+            while (!breakFlag)
             {
-                int index = i + 1;
-                result << left << index << "-" << setw(20) << staminaPotions[i]->getName()
-                       << setw(20) << staminaPotions[i]->getPrice()
-                       << setw(20) << staminaPotions[i]->getStamina()
-                       << setw(20) << staminaPotions[i]->getSpecial() << endl;
+                options2 = "Permenet Weapons Items\n1-Melee\n2-Firearm\n0-Back\n\nenter your choice: ";
+                secondInput = getInput(options2, 0, 2);
+                switch (secondInput)
+                {
+                case 1:
+                    subShop(melees, "Melees:");
+                    break;
+                case 2:
+                    subShop(firearms, "Firearms:");
+                    break;
+                case 0:
+                    breakFlag = 1;
+                    break;
+                }
             }
-
-            result << backOption;
-            lastInput = getInput(result.str(), 0, staminaPotions.size());
-            result.str("");
-
-            if (lastInput == 0)
-            {
-                shopsItem(2);
-                break;
-            }
-
-            player1->getInventory()->addItem(staminaPotions[lastInput - 1]->getName());
-            cout << message;
             break;
-
-        case 3:
-            result << "Power potions : \n";
-            result << setw(20) << left << setw(20) << "  NAME"
-                   << setw(20) << "PRICE"
-                   << setw(20) << "STAMINA"
-                   << setw(20) << "BOOST AMOUNT" << endl;
-            for (int i = 0; i < powerPotions.size(); i++)
-            {
-                int index = i + 1;
-                result << left << index << "-" << setw(20) << powerPotions[i]->getName()
-                       << setw(20) << powerPotions[i]->getPrice()
-                       << setw(20) << powerPotions[i]->getStamina()
-                       << setw(20) << powerPotions[i]->getSpecial() << endl;
-            }
-
-            result << backOption;
-            lastInput = getInput(result.str(), 0, powerPotions.size());
-            result.str("");
-
-            if (lastInput == 0)
-            {
-                shopsItem(2);
-                break;
-            }
-
-            player1->getInventory()->addItem(powerPotions[lastInput - 1]->getName());
-            cout << message;
-            break;
-
-        case 0:
-            displayShop();
-            break;
-        }
-
-        break;
-
-    case 3:
-
-        result << "Permenet Weapons Items\n1-Melee\n2-Firearm\n0-Back\n";
-        thirdInput = getInput(result.str(), 0, 2);
-        result.str("");
-
-        switch (thirdInput)
-        {
-        case 1:
-            result << "Melees : \n";
-            result << setw(20) << left << setw(20) << "  NAME"
-                   << setw(20) << "PRICE"
-                   << setw(20) << "STAMINA"
-                   << setw(20) << "DAMAGE" << endl;
-            for (int i = 0; i < melees.size(); i++)
-            {
-                int index = i + 1;
-                result << left << index << "-" << setw(20) << melees[i]->getName()
-                       << setw(20) << melees[i]->getPrice()
-                       << setw(20) << melees[i]->getStamina()
-                       << setw(20) << melees[i]->getSpecial() << endl;
-            }
-
-            result << backOption;
-            lastInput = getInput(result.str(), 0, melees.size());
-            result.str("");
-
-            if (lastInput == 0)
-            {
-                shopsItem(3);
-                break;
-            }
-
-            player1->getInventory()->addItem(melees[lastInput - 1]->getName());
-            cout << message;
-            break;
-
-        case 2:
-            result << "Firearms : \n";
-            result << setw(20) << left << setw(20) << "  NAME"
-                   << setw(20) << "PRICE"
-                   << setw(20) << "STAMINA"
-                   << setw(20) << "DAMAGE" << endl;
-
-            for (int i = 0; i < firearms.size(); i++)
-            {
-                int index = i + 1;
-                result << left << index << "-" << setw(20) << firearms[i]->getName()
-                       << setw(20) << firearms[i]->getPrice()
-                       << setw(20) << firearms[i]->getStamina()
-                       << setw(20) << firearms[i]->getSpecial() << endl;
-            }
-
-            result << backOption;
-            lastInput = getInput(result.str(), 0, firearms.size());
-            result.str("");
-
-            if (lastInput == 0)
-            {
-                shopsItem(3);
-                break;
-            }
-
-            player1->getInventory()->addItem(firearms[lastInput - 1]->getName());
-            cout << message;
-            break;
-
-        case 0:
-            displayShop();
+        case 0: // Back
+            return;
         }
     }
+}
+
+void Shop::buy() {}
+
+template <class K>
+void Shop::subShop(vector<K> items, string title)
+{
+    string backOption = "0- Back\n";
+    string message = "Item added to your backpack!\n";
+    stringstream result;
+    result << title << endl;
+    result << left
+           << setw(30) << "  NAME"
+           << setw(20) << "PRICE"
+           << setw(20) << "STAMINA"
+           << setw(20) << "DAMAGE" << endl;
+    for (int i = 0; i < items.size(); ++i)
+    {
+        int index = i + 1;
+        result << left << index << "-" << setw(20) << items[i]->getName()
+               << setw(20) << items[i]->getPrice()
+               << setw(20) << items[i]->getStamina()
+               << setw(20) << items[i]->getSpecial() << endl;
+    }
+    result << backOption << endl
+           << "enetr your choice: ";
+    int input = getInput(result.str(), 0, items.size());
+
+    if (input == 0)
+        return;
+    player1->getInventory()->addItem(items[input - 1]->getName());
+    cout << message << endl;
 }

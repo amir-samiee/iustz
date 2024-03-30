@@ -8,6 +8,8 @@ protected:
 
 public:
     // methods
+    template <class K>
+    static void subShop(vector<K> items, string title);
     void displayShop();
     void buy();
 };
