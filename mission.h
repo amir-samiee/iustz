@@ -16,6 +16,8 @@ protected:
     // methode:
     void initRemovable(vector<Item *> adding, vector<string>); // initializing removable items for a mission
     void addRemovable(vector<Character *> unshuffeledEn, vector<string> addingItem);
+    void addPermanent(vector<Character *> unshuffeledEn, vector<string> addingItem);
+    vector<vector<Character *>> saveEnemies(vector<int> waves, vector<Character *> unshuffeledEn);
 
 public:
     // constructors:

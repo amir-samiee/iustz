@@ -1,7 +1,9 @@
-
 #pragma once
 #include "headers.h"
 using json = nlohmann::json;
+
+random_device rd;
+mt19937 gen(rd());
 
 const string red("\033[0;31m");
 const string green("\033[1;32m");
