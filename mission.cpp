@@ -364,14 +364,14 @@ ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy
     zombieMissions.push_back(this);
 }
 
-ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
+ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnemy,
                              const vector<string> &missionPermanents,
                              const vector<string> &missionThrowables,
                              const vector<string> &missionHpPotions,
                              const vector<string> &missionStaminaPotions,
                              const vector<string> &missionPowerPotions,
                              const vector<int> wavesInfo)
-    : Mission(name, missionNum, casualEnemyNum, specialEnemy)
+    : Mission(name, missionNum, 0, specialEnemy)
 {
     // Setting the ID:
     string id = "z" + missionNum;
@@ -382,6 +382,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
                           missionPermanents, missionThrowables, missionHpPotions,
                           missionStaminaPotions, missionPowerPotions, wavesInfo);
     waves = factory.createEnemy(wavesInfo);
+    casualEnemyNum = factory.getCasualEnemy();//no real point to this
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -396,20 +397,20 @@ HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
 
     // Feeding data to factory:
     HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-    this->waves = factory.createEnemy(factory.getWave());
+    waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     humanMissions.push_back(this);
 }
 
-HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
+HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
                            const vector<string> &missionPermanents,
                            const vector<string> &missionThrowables,
                            const vector<string> &missionHpPotions,
                            const vector<string> &missionStaminaPotions,
                            const vector<string> &missionPowerPotions,
                            const vector<int> wavesInfo)
-    : Mission(name, missionNum, casualEnemyNum, specialEnemy)
+    : Mission(name, missionNum, 0, specialEnemy)
 {
     // Setting the id:
     string id = "h" + missionNum;
@@ -421,6 +422,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
                          missionStaminaPotions, missionPowerPotions, wavesInfo);
 
     waves = factory.createEnemy(wavesInfo);
+    casualEnemyNum = factory.getCasualEnemy();//no real point to this
 
     // Saving mission:
     humanMissions.push_back(this);

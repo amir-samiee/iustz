@@ -139,7 +139,7 @@ class ZombieMission : public Mission
 public:
     // constructors:
     ZombieMission(string newName, int newMissionNum, int newSpecialEnemy);
-    ZombieMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
+    ZombieMission(const string &name, int missionNum, int specialEnemy,
                   const vector<string> &missionPermanents,
                   const vector<string> &missionThrowables,
                   const vector<string> &missionHpPotions,
@@ -153,7 +153,7 @@ class HumanMission : public Mission
 public:
     // constructor:
     HumanMission(string newName, int newMissionNum, int newSpecialEnemy);
-    HumanMission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy,
+    HumanMission(const string &name, int missionNum, int specialEnemy,
                  const vector<string> &missionPermanents,
                  const vector<string> &missionThrowables,
                  const vector<string> &missionHpPotions,
