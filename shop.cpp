@@ -3,11 +3,11 @@
 
 void Shop :: displayShop() {
     int input ;
-    string options = "1-Throwables\n2-Potions\n3-Weapon\n\n4-Back" ; 
+    string options = "1-Throwables\n2-Potions\n3-Weapon\n\n0-Back" ; 
     
     cout << "-------------------------------------------------------------\n";
     cout << "Welcome to the shop! Here are the items available for purchase:\n";
-    int firstInput = getInput(options , 1 , 4 , true , "invalid input") ;
+    int firstInput = getInput(options , 0 , 3 , false , "invalid input") ;
     cout << "-------------------------------------------------------------\n";
     
      switch (firstInput) {
@@ -20,7 +20,7 @@ void Shop :: displayShop() {
         case 3:
         shopsItem(3);
         break;
-        case 4:
+        case 0:
             menu::mainMenu();
             break;
     }
@@ -41,13 +41,13 @@ void Shop ::shopsItem(int choice){
             for (int i = 0; i <throwables.size(); ++i)
             cout << i + 1 << "- Name: " << throwables[i]->getName() << " Price: " << throwables[i]->getPrice() << " Stamina: " << throwables[i]->getStamina() << " Damage: " << throwables[i]->getSpecial() << endl;
             lastInput = getInput(backOption, 0, throwables.size(), true, "Invalid input");
-            if (lastInput == 0) {
+            if (lastInput == 0) 
                 displayShop(); // Go back to main menu
-            }
-            else if (lastInput > 0 && lastInput <= throwables.size()) {
-               player1->getBackpack()->addItem(throwables[lastInput - 1]->getName());
+            
+            
+               player1->getInventory()->addItem(throwables[lastInput - 1]->getName());
                 cout << message ;
-            }
+            
         break;
     case 2: 
             cout << "Potions Items :\n";
@@ -64,10 +64,10 @@ void Shop ::shopsItem(int choice){
                     lastInput = getInput(backOption , 0 , hpPotions.size() , true , "Invalid input");
                         if(lastInput == 0)
                             shopsItem(2);
-                        else if(lastInput > 0 && lastInput <= hpPotions.size()){
-                            player1->getBackpack()->addItem(hpPotions[lastInput-1]->getName());
+                        
+                            player1->getInventory()->addItem(hpPotions[lastInput-1]->getName());
                             cout << message ;
-                        }
+                        
                         break;
                 case 2:
                 cout << "Stamina Potions : \n";
@@ -77,10 +77,10 @@ void Shop ::shopsItem(int choice){
                     lastInput = getInput(backOption , 0 , staminaPotions.size() ,true , "invalid input");
                         if(lastInput == 0)
                             shopsItem(2);
-                        else if(lastInput > 0 && lastInput <= hpPotions.size()){
-                            player1->getBackpack()->addItem(staminaPotions[lastInput-1]->getName());
+                        
+                            player1->getInventory()->addItem(staminaPotions[lastInput-1]->getName());
                             cout << message ;
-                        }
+                        
                             break;
                 case 3:
                 cout << "Power potions : \n";
@@ -91,10 +91,10 @@ void Shop ::shopsItem(int choice){
                     lastInput = getInput(backOption , 0 , powerPotions.size() , true , "invalid input");
                         if(lastInput == 0)
                             shopsItem(2);
-                        else if(lastInput > 0 && lastInput <= hpPotions.size()) {
-                            player1->getBackpack()->addItem(staminaPotions[lastInput-1]->getName());
+                        
+                            player1->getInventory()->addItem(staminaPotions[lastInput-1]->getName());
                             cout << message ;
-                        }
+                        
                         break;
                 case 4:
                     displayShop();
@@ -116,11 +116,10 @@ void Shop ::shopsItem(int choice){
                     lastInput = getInput(backOption , 0 , melees.size() , true , "invalid input");
                         if (lastInput == 0)
                             shopsItem(3);
-                        else if (lastInput > 0 && lastInput <= melees.size())
-                        {
-                            player1->getBackpack()->addItem(melees[lastInput-1]->getName());
+                        
+                            player1->getInventory()->addItem(melees[lastInput-1]->getName());
                             cout << message ;
-                        }
+                        
                         break;
             case 2:
             cout << "Firearms : \n" ;
@@ -131,11 +130,10 @@ void Shop ::shopsItem(int choice){
                 lastInput = getInput(backOption , 0 , firearms.size() , true , "invalid input");
                     if (lastInput == 0)
                     shopsItem(3);
-                    else if (lastInput > 0 && lastInput <= firearms.size())
-                    {
-                    player1->getBackpack()->addItem(firearms[lastInput-1]->getName());
+                    
+                    player1->getInventory()->addItem(firearms[lastInput-1]->getName());
                     cout << message ;
-                    }
+                    
                     break;
             
             case 3:
