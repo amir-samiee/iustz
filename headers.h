@@ -33,5 +33,6 @@ using namespace std;
 #include "character.cpp"
 #include "mission.cpp"
 #include "menu.cpp"
+#include "shop.cpp"
 
 #endif
