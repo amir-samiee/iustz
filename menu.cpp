@@ -5,7 +5,7 @@ namespace menu
 {
     void zombies()
     {
-        string zombieMissions= "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n\nenter your choice: ";
+        string zombieMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n\nenter your choice: ";
         int intInput = getInput(iustzTitle + zombieMissions, 1, 9, true, "invalid input");
 
         switch (intInput)
@@ -31,27 +31,27 @@ namespace menu
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void attack()
-    {   
+    {
         int intInput;
-        do{
-        string attacksMenu = "\n1. Zombies \n2. Humans \n3. Finale \n4. Back\nenter your choice: ";
-        intInput = getInput(iustzTitle + attacksMenu, 1, 4, true, "invalid input");
-        switch (intInput)
+        do
         {
-        case 1:
-            zombies();
-            break;
-        case 2:
-            humans();
-            break;
-        case 3:
-            finale();
-            break;
-        default:
-            return;
-            
-        }
-        }while(intInput!=4);
+            string attacksMenu = "\n1. Zombies \n2. Humans \n3. Finale \n4. Back\nenter your choice: ";
+            intInput = getInput(iustzTitle + attacksMenu, 1, 4, true, "invalid input");
+            switch (intInput)
+            {
+            case 1:
+                zombies();
+                break;
+            case 2:
+                humans();
+                break;
+            case 3:
+                finale();
+                break;
+            default:
+                return;
+            }
+        } while (intInput != 4);
     }
 
     void shop()
@@ -74,27 +74,26 @@ namespace menu
         int intInput;
         do
         {
-        string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Configurations\n5. Exit\nenter your choice: ";
-        intInput = getInput(iustzTitle + menu, 1, 5, true, "invalid input");
+            string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Configurations\n5. Exit\nenter your choice: ";
+            intInput = getInput(iustzTitle + menu, 1, 5, true, "invalid input");
 
-        switch (intInput)
-        {
-        case 1:
-            attack();
-            break;
-        case 2:
-            shop();
-            break;
-        case 3:
-            profile();
-            break;
-        case 4:
-            configurations();
-            break;
-        default:
-            return;
-        }
-        }while (intInput!=5);
-
+            switch (intInput)
+            {
+            case 1:
+                attack();
+                break;
+            case 2:
+                shop();
+                break;
+            case 3:
+                profile();
+                break;
+            case 4:
+                configurations();
+                break;
+            default:
+                return;
+            }
+        } while (intInput != 5);
     }
 }

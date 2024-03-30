@@ -1,11 +1,13 @@
 #pragma once
 #include "headers.h"
 
-
-class Shop {
+class Shop
+{
+protected:
     void shopsItem(int choice);
-    public:
-    //methods
+
+public:
+    // methods
     void displayShop();
     void buy();
 };

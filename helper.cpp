@@ -93,7 +93,6 @@ int getInput(string options, int from, int to, bool cls, string errorMessage)
     return stoi(input);
 }
 
-
 template <typename element, typename list>
 bool isIn(element x, list A)
 {
@@ -123,9 +122,9 @@ void print_vector(vector<K> vec)
     cout << '}' << endl;
 }
 
-void transfer(Storage *adding , Storage *to)
+void transfer(Storage *adding, Storage *to)
 {
     for (auto item : adding->getItems())
-        for(int i=0; i<item.second; i++)
+        for (int i = 0; i < item.second; i++)
             to->addItem(item.first);
 }

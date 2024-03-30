@@ -1,12 +1,12 @@
 #pragma once
 #include "headers.h"
 
-void Shop ::displayShop()
+void Shop::displayShop()
 {
     int input;
     string options = "";
     options += "Welcome to the shop! Here are the items available for purchase:\n";
-    options += "1-Throwables\n2-Potions\n3-Weapon\n\n0-Back\n";
+    options += "1- Throwables\n2- Potions\n3- Weapon\n\n0- Back\n";
     int firstInput = getInput(options, 0, 3);
 
     if (firstInput == 0)
@@ -15,7 +15,7 @@ void Shop ::displayShop()
         shopsItem(firstInput);
 }
 
-void Shop ::shopsItem(int choice)
+void Shop::shopsItem(int choice)
 {
     int lastInput;
     int secondInput;
@@ -57,7 +57,7 @@ void Shop ::shopsItem(int choice)
 
     case 2:
 
-        result << "Potions Items :\n1-Hp Potions\n2-Stamina Potions\n3-Power Potions\n0-Back\n";
+        result << "Potions Items :\n1- Hp Potions\n2- Stamina Potions\n3- Power Potions\n0- Back\n";
 
         secondInput = getInput(result.str(), 0, 3);
         result.str("");

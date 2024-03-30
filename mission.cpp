@@ -13,8 +13,8 @@ Factory::Factory(int lvl, int specialEn,
       missionHpPotions(hpPotions), missionStaminaPotions(staminaPotions),
       missionPowerPotions(powerPotions)
 {
-    for(int i=0; i<wavesInfo.size(); i++)
-        casualEnemy =+ i;
+    for (int i = 0; i < wavesInfo.size(); i++)
+        casualEnemy = +i;
 }
 
 // Calculating the number of waves and enemies in each:
@@ -272,7 +272,7 @@ HumanFactory::HumanFactory(int lvl, int casualEn, int specialEn)
 
 /// @brief ///////////////////////////////////////////////
 
-Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
+Mission::Mission(string newName, int newMissionNum, int specialEnemy)
 {
     this->name = newName;
     this->missionNum = newMissionNum;
@@ -281,7 +281,7 @@ Mission ::Mission(string newName, int newMissionNum, int specialEnemy)
     this->specialEnemy = specialEnemy;
 }
 
-void Mission ::story()
+void Mission::story()
 {
     ifstream file("Stories/" + name + ".txt");
     if (file.is_open())
@@ -302,10 +302,10 @@ void Mission ::story()
     _getch();
     clearScreen();
 }
-void Mission ::enemyTurn()
+void Mission::enemyTurn()
 {
 }
-void Mission ::endWave()
+void Mission::endWave()
 {
     // Adding hp:
     int currentHp = player1->getHp()->getCurrentPoint();
@@ -316,7 +316,7 @@ void Mission ::endWave()
     player1->getStamina()->setCurrentPoint(newStamina);
 }
 
-void Mission ::end()
+void Mission::end()
 {
     if (player1->isAlive())
         transfer(player1->getReward(), player1->getInventory());
