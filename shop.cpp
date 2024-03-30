@@ -143,9 +143,17 @@ void Shop ::shopsItem(int choice){
             {
             case 1:
                 cout << "Melees : \n";
+                cout << setw(20) << left <<setw(20)<<"  NAME" 
+                    << setw(20) << "PRICE" 
+                    << setw(20) << "STAMINA" 
+                    << setw(20) << "DAMAGE" << endl;
                     for (int i = 0; i < melees.size(); i++)
                     {
-                        cout << i + 1 << "- Name: " << melees[i]->getName() << " Price: " << melees[i]->getPrice() << " Stamina: " << melees[i]->getStamina() << " Damage: " << melees[i]->getSpecial() << endl;
+                    int index =i+1;
+                    std::cout << std::left <<index<<"-"<<setw(20)<<melees[i]->getName() 
+                    << std::setw(20) << melees[i]->getPrice() 
+                    << std::setw(20) << melees[i]->getStamina() 
+                    << std::setw(20) << melees[i]->getSpecial() << std::endl;
                     }
                     lastInput = getInput(backOption , 0 , melees.size() , false , "invalid input");
                         if (lastInput == 0)
@@ -157,10 +165,19 @@ void Shop ::shopsItem(int choice){
                         break;
             case 2:
             cout << "Firearms : \n" ;
+            cout << setw(20) << left <<setw(20)<<"  NAME" 
+                    << setw(20) << "PRICE" 
+                    << setw(20) << "STAMINA" 
+                    << setw(20) << "DAMAGE" << endl;
+                  
                 for (int i = 0; i < firearms.size(); i++)
-                {
-                    cout << i + 1 << "- Name: " << firearms[i]->getName() << " Price: " << firearms[i]->getPrice() << " Stamina: " << firearms[i]->getStamina() << " Damage: " << firearms[i]->getSpecial() << endl;
-                }
+                { 
+                    int index =i+1;
+                    std::cout << std::left <<index<<"-"<<setw(20)<<firearms[i]->getName() 
+                    << std::setw(20) << firearms[i]->getPrice() 
+                    << std::setw(20) << firearms[i]->getStamina() 
+                    << std::setw(20) << firearms[i]->getSpecial() << std::endl;
+                    }
                 lastInput = getInput(backOption , 0 , firearms.size() , false , "invalid input");
                     if (lastInput == 0)
                     shopsItem(3);
