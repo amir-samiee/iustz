@@ -7,7 +7,7 @@ void Shop :: displayShop() {
     
     cout << "-------------------------------------------------------------\n";
     cout << "Welcome to the shop! Here are the items available for purchase:\n";
-    int firstInput = getInput(options , 0 , 3 , false , "invalid input") ;
+    int firstInput = getInput(options , 0 , 3 , false , "Invalid input") ;
     cout << "-------------------------------------------------------------\n";
     
      switch (firstInput) {
@@ -36,6 +36,8 @@ void Shop :: displayShop() {
 
 void Shop ::shopsItem(int choice){
     int lastInput ;
+    int secondInput ;
+    int thirdInput ;
     string option2 ;
     string option3 ;
     string backOption = "0-Back\n";
@@ -60,8 +62,8 @@ void Shop ::shopsItem(int choice){
         break;
     case 2: 
             cout << "Potions Items :\n";
-            option2 = "1-Hp Potions\n2-Stamina Potions\n3-Power Potions\n4-Back\n";
-            int secondInput=getInput(option2 , 1 ,4 ,false,"invalid input");
+            option2 = "1-Hp Potions\n2-Stamina Potions\n3-Power Potions\n0-Back\n";
+            secondInput=getInput(option2 , 0 ,3 ,false,"Invalid input");
             switch (secondInput)
             {
                 case 1 :
@@ -98,8 +100,8 @@ void Shop ::shopsItem(int choice){
                     << std::setw(20) << staminaPotions[i]->getPrice() 
                     << std::setw(20) << staminaPotions[i]->getStamina() 
                     << std::setw(20) << staminaPotions[i]->getSpecial() << std::endl;
-                    
-                    lastInput = getInput(backOption , 0 , staminaPotions.size() ,false , "invalid input");
+                    }
+                    lastInput = getInput(backOption , 0 , staminaPotions.size() ,false , "Invalid input");
                         if(lastInput == 0)
                             shopsItem(2);
                         
@@ -121,7 +123,7 @@ void Shop ::shopsItem(int choice){
                     << std::setw(20) << powerPotions[i]->getStamina() 
                     << std::setw(20) << powerPotions[i]->getSpecial() << std::endl;
                     }
-                    lastInput = getInput(backOption , 0 , powerPotions.size() , false, "invalid input");
+                    lastInput = getInput(backOption , 0 , powerPotions.size() , false, "Invalid input");
                         if(lastInput == 0)
                             shopsItem(2);
                         
@@ -134,11 +136,11 @@ void Shop ::shopsItem(int choice){
                     break;}
             
     break;
-    }
+    
     case 3:
             cout << "Permenet Weapons Items\n";
-            option3 ="1-Melee \n 2-Firearm \n 3-Back";
-            int thirdInput = getInput(option3 , 1 , 3 , false , "invalid input");
+            option3 ="1-Melee\n2-Firearm\n0-Back";
+            thirdInput = getInput(option3 , 0 , 2 , false , "Invalid input");
             switch (thirdInput)
             {
             case 1:
@@ -155,7 +157,7 @@ void Shop ::shopsItem(int choice){
                     << std::setw(20) << melees[i]->getStamina() 
                     << std::setw(20) << melees[i]->getSpecial() << std::endl;
                     }
-                    lastInput = getInput(backOption , 0 , melees.size() , false , "invalid input");
+                    lastInput = getInput(backOption , 0 , melees.size() , false , "Invalid input");
                         if (lastInput == 0)
                             shopsItem(3);
                         
@@ -178,7 +180,7 @@ void Shop ::shopsItem(int choice){
                     << std::setw(20) << firearms[i]->getStamina() 
                     << std::setw(20) << firearms[i]->getSpecial() << std::endl;
                     }
-                lastInput = getInput(backOption , 0 , firearms.size() , false , "invalid input");
+                lastInput = getInput(backOption , 0 , firearms.size() , false , "Invalid input");
                     if (lastInput == 0)
                     shopsItem(3);
                     
