@@ -1,6 +1,22 @@
 #pragma once
 #include "headers.h"
 
+Factory::Factory(int lvl, int specialEn,
+                 const vector<string> &permanents,
+                 const vector<string> &throwables,
+                 const vector<string> &hpPotions,
+                 const vector<string> &staminaPotions,
+                 const vector<string> &powerPotions,
+                 vector<int> wavesInfo)
+    : level(lvl), specialEnemy(specialEn),
+      missionPermanents(permanents), missionThrowables(throwables),
+      missionHpPotions(hpPotions), missionStaminaPotions(staminaPotions),
+      missionPowerPotions(powerPotions)
+{
+    for(int i=0; i<wavesInfo.size(); i++)
+        casualEnemy =+ i;
+}
+
 // Calculating the number of waves and enemies in each:
 vector<int> Factory::getWave()
 {
@@ -294,8 +310,8 @@ void Mission ::endWave()
     // Adding hp:
     int currentHp = player1->getHp()->getCurrentPoint();
     player1->getHp()->setCurrentPoint((currentHp * 5) / 4);
-    
-    //Refilling stamina:
+
+    // Refilling stamina:
     int newStamina = player1->getStamina()->getMaxPoint();
     player1->getStamina()->setCurrentPoint(newStamina);
 }
@@ -362,9 +378,9 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int casualEnemy
     missionMap[id] = this;
 
     // Feeding data to factory:
-    ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy,
+    ZombieFactory factory(missionNum, specialEnemy,
                           missionPermanents, missionThrowables, missionHpPotions,
-                          missionStaminaPotions, missionPowerPotions);
+                          missionStaminaPotions, missionPowerPotions, wavesInfo);
     waves = factory.createEnemy(wavesInfo);
 
     // Saving mission:
@@ -400,9 +416,9 @@ HumanMission::HumanMission(const string &name, int missionNum, int casualEnemyNu
     missionMap[id] = this;
 
     // Feeding data to factory:
-    HumanFactory factory(missionNum, casualEnemyNum, specialEnemy,
+    HumanFactory factory(missionNum, specialEnemy,
                          missionPermanents, missionThrowables, missionHpPotions,
-                         missionStaminaPotions, missionPowerPotions);
+                         missionStaminaPotions, missionPowerPotions, wavesInfo);
 
     waves = factory.createEnemy(wavesInfo);
 

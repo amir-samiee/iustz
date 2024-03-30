@@ -12,8 +12,8 @@ protected:
     vector<string> missionHpPotions;
     vector<string> missionStaminaPotions;
     vector<string> missionPowerPotions;
-    
-    //methode:
+
+    // methode:
     void initRemovable(vector<Item *> adding, vector<string>); // initializing removable items for a mission
     void addRemoveable(vector<Character *> unshuffeledEn, vector<string> addingItem);
 
@@ -22,16 +22,13 @@ public:
     Factory(int lvl, int casualEn, int specialEn)
         : level(lvl), casualEnemy(casualEn), specialEnemy(specialEn) {}
 
-    Factory(int lvl, int casualEn, int specialEn,
+    Factory(int lvl, int specialEn,
             const vector<string> &permanents,
             const vector<string> &throwables,
             const vector<string> &hpPotions,
             const vector<string> &staminaPotions,
-            const vector<string> &powerPotions)
-        : level(lvl), casualEnemy(casualEn), specialEnemy(specialEn),
-          missionPermanents(permanents), missionThrowables(throwables),
-          missionHpPotions(hpPotions), missionStaminaPotions(staminaPotions),
-          missionPowerPotions(powerPotions) {}
+            const vector<string> &powerPotions,
+            vector<int> wavesInfo);
 
     // getters:
     int getLevel() const { return level; }
@@ -65,14 +62,15 @@ public:
     // Constructors:
     ZombieFactory(int lvl, int casualEn, int specialEn);
 
-    ZombieFactory(int lvl, int casualEn, int specialEn,
+    ZombieFactory(int lvl, int specialEn,
                   const vector<string> &permanents,
                   const vector<string> &throwables,
                   const vector<string> &hpPotions,
                   const vector<string> &staminaPotions,
-                  const vector<string> &powerPotions)
-        : Factory(lvl, casualEn, specialEn, permanents, throwables,
-                  hpPotions, staminaPotions, powerPotions) {}
+                  const vector<string> &powerPotions,
+                  vector<int> wavesInfo)
+        : Factory(lvl, specialEn, permanents, throwables,
+                  hpPotions, staminaPotions, powerPotions, wavesInfo) {}
 
     // Methodes:
     void initInventory() override;
@@ -83,14 +81,15 @@ class HumanFactory : public Factory
 {
 public:
     HumanFactory(int lvl, int casualEn, int specialEn);
-    HumanFactory(int lvl, int casualEn, int specialEn,
+    HumanFactory(int lvl, int specialEn,
                  const vector<string> &permanents,
                  const vector<string> &throwables,
                  const vector<string> &hpPotions,
                  const vector<string> &staminaPotions,
-                 const vector<string> &powerPotions)
-        : Factory(lvl, casualEn, specialEn, permanents, throwables,
-                  hpPotions, staminaPotions, powerPotions) {}
+                 const vector<string> &powerPotions,
+                 vector<int> wavesInfo)
+        : Factory(lvl, specialEn, permanents, throwables,
+                  hpPotions, staminaPotions, powerPotions, wavesInfo) {}
 
     // Methodes:
     void initInventory() override;
