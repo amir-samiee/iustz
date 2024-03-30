@@ -15,7 +15,7 @@ void Shop::displayShop()
         switch (firstInput)
         {
         case 1: // Throwables
-            subShop(throwables, "Throwable Items:");
+            subShop(throwables, "Throwable Items:", "DAMAGE");
             break;
         case 2: // Potions
             while (!breakFlag)
@@ -25,13 +25,13 @@ void Shop::displayShop()
                 switch (secondInput)
                 {
                 case 1:
-                    subShop(hpPotions, "HP Potions:");
+                    subShop(hpPotions, "HP Potions:", "BOOST");
                     break;
                 case 2:
-                    subShop(staminaPotions, "Stamina Potions:");
+                    subShop(staminaPotions, "Stamina Potions:", "BOOST");
                     break;
                 case 3:
-                    subShop(powerPotions, "Power potions:");
+                    subShop(powerPotions, "Power potions:", "BOOST");
                     break;
                 case 0:
                     breakFlag = 1;
@@ -47,10 +47,10 @@ void Shop::displayShop()
                 switch (secondInput)
                 {
                 case 1:
-                    subShop(melees, "Melees:");
+                    subShop(melees, "Melees:", "DAMAGE");
                     break;
                 case 2:
-                    subShop(firearms, "Firearms:");
+                    subShop(firearms, "Firearms:", "DAMAGE");
                     break;
                 case 0:
                     breakFlag = 1;
@@ -67,7 +67,7 @@ void Shop::displayShop()
 void Shop::buy() {}
 
 template <class K>
-void Shop::subShop(vector<K> items, string title)
+void Shop::subShop(vector<K> items, string title, string special)
 {
     string backOption = "0- Back\n";
     string message = "Item added to your backpack!\n";
@@ -77,7 +77,7 @@ void Shop::subShop(vector<K> items, string title)
            << setw(30) << "  NAME"
            << setw(20) << "PRICE"
            << setw(20) << "STAMINA"
-           << setw(20) << "DAMAGE" << endl;
+           << setw(20) << special << endl;
     for (int i = 0; i < items.size(); ++i)
     {
         int index = i + 1;
