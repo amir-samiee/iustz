@@ -48,10 +48,11 @@ public:
     // setters
     void setCapacity(int newCapacity) { capacity = newCapacity; }
     void setItems(map<string, int> newItems) override;
-    
+
     // others
     static void sortItems(vector<string> items);
     void addItem(string name) override;
     void removeItem(string name) override;
-    bool isFull() { return size == capacity; }
+    inline int remainedSpace() { return capacity - size; }
+    inline bool isFull() { return remainedSpace() == 0; }
 };

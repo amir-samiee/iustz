@@ -26,6 +26,8 @@ void Storage::addItem(string name)
 
 string Storage::getStorageData(string beforeNumber, string afterNumber, int leftMargin)
 {
+    if (items.empty())
+        return "Storage is Empty!";
     stringstream result;
     int i = 1;
     int maxNameLength = 0;

@@ -4,7 +4,6 @@
 class Shop
 {
 protected:
-    void shopsItem(int choice);
 
 public:
     // methods

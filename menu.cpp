@@ -5,22 +5,20 @@ namespace menu
 {
     void zombies()
     {
-        string zombieMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + zombieMissions, 1, 9, true, "invalid input");
+        string zombieMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n0. Back\n\nenter your choice: ";
+        int intInput = getInput(iustzTitle + zombieMissions, 0, 9, true, "invalid input");
 
-        switch (intInput)
-        {
-        }
+        if (intInput == 0)
+            return;
     }
 
     void humans()
     {
-        string humanMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + humanMissions, 1, 9, true, "invalid input");
+        string humanMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n0. Back\n\nenter your choice: ";
+        int intInput = getInput(iustzTitle + humanMissions, 0, 9, true, "invalid input");
 
-        switch (intInput)
-        {
-        }
+        if (intInput == 0)
+            return;
     }
 
     void finale()
@@ -35,8 +33,8 @@ namespace menu
         int intInput;
         do
         {
-            string attacksMenu = "\n1. Zombies \n2. Humans \n3. Finale \n4. Back\nenter your choice: ";
-            intInput = getInput(iustzTitle + attacksMenu, 1, 4, true, "invalid input");
+            string attacksMenu = "\n1. Zombies \n2. Humans \n3. Finale \n0. Back\nenter your choice: ";
+            intInput = getInput(iustzTitle + attacksMenu, 0, 3, true, "invalid input");
             switch (intInput)
             {
             case 1:
@@ -68,9 +66,11 @@ namespace menu
             data << player1->getInventory()->getStorageData(green + "+", reset + "   ", 5);
             data << "\nBackpack:" << endl;
             data << player1->getBackpack()->getStorageData(red + "-", reset + "   ", 5);
-            data << "\n 0   Back\n";
             if (player1->getBackpack()->isFull())
                 data << yellow << "backpack is full!" << reset;
+            else
+                data << "Remained Space: " << player1->getBackpack()->remainedSpace();
+            data << "\n\n 0   Back\n";
             data << "\nenter your choice: ";
             int choice = getInput(data.str(), -player1->getBackpack()->getNames().size(),
                                   player1->getInventory()->getNames().size());
@@ -101,7 +101,7 @@ namespace menu
         while (1)
         {
             string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Invnetory\n0. Exit\nenter your choice: ";
-            int intInput = getInput(iustzTitle + menu, 1, 5, true, "invalid input");
+            int intInput = getInput(iustzTitle + menu, 0, 4, true, "invalid input");
 
             switch (intInput)
             {
@@ -117,7 +117,7 @@ namespace menu
             case 4:
                 inventory();
                 break;
-            default:
+            case 0:
                 return;
             }
         }
