@@ -40,17 +40,20 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
     }
     if (leftMargin == -1)
         leftMargin = (beforeNumber + afterNumber).size() + 3;
-    result << left << setw(leftMargin) << "No." << setw(maxNameLength + 5) << "Name" << right
+    result << left << setw(leftMargin) << "No." << setw(maxNameLength + 5) << "Name"
+           << setw(15) << "Type" << right
            << setw(15) << "Effectivity"
            << setw(10) << "Stamina"
            << setw(10) << "Count" << endl;
     names.clear();
     for (auto &item : items)
     {
-        names.push_back(item.first);
-        result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber << setw(maxNameLength + 5) << item.first << right
-               << setw(11) << itemsMap[item.first]->getSpecial() << string(4, ' ')
-               << setw(8) << itemsMap[item.first]->getStamina() << string(2, ' ')
+        string itemName = item.first;
+        names.push_back(itemName);
+        result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber << setw(maxNameLength + 5) << itemName
+               << setw(15) << itemsMap[itemName]->getType() << right
+               << setw(11) << itemsMap[itemName]->getSpecial() << string(4, ' ')
+               << setw(8) << itemsMap[itemName]->getStamina() << string(2, ' ')
                << setw(8) << item.second << endl;
         i++;
     }

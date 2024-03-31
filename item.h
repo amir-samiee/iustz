@@ -74,7 +74,7 @@ public:
 
     // getters
     double getSpecial() const override { return damage; }
-    virtual string getType() const override{ return throwableType; }
+    virtual string getType() const override { return throwableType; }
 
     // setters
     void setSpecial(int newDamage) override { damage = newDamage; }
@@ -101,7 +101,7 @@ public:
 
     // getters
     double getSpecial() const override { return healingAmount; }
-    virtual string getType() const override{ return hpType; }
+    virtual string getType() const override { return hpType; }
 
     // setters
     void setSpecial(int newAmount) override { healingAmount = newAmount; }
@@ -121,7 +121,7 @@ public:
 
     // getters
     double getSpecial() const override { return boostAmount; }
-    virtual string getType() const override{ return staminaType; }
+    virtual string getType() const override { return staminaType; }
 
     // setters
     void setSpecial(int newAmount) override { boostAmount = newAmount; }
@@ -140,7 +140,7 @@ public:
 
     // getters
     double getSpecial() const override { return empowerment; }
-    virtual string getType() const override{ return powerType; }
+    virtual string getType() const override { return powerType; }
 
     // setters
     void setSpecial(int newEmpowerment) override { empowerment = newEmpowerment; }
@@ -172,7 +172,7 @@ public:
     // constructor
     Melee(string name, int price, Character *owner, int stamina, int damage);
     // getters
-    virtual string getType() const override{ return meleeType; }
+    virtual string getType() const override { return meleeType; }
     // others
     void useItem() override;
 };
@@ -183,7 +183,7 @@ public:
     // constructor
     Firearm(string name, int price, Character *owner, int stamina, int damage);
     // getters
-    virtual string getType() const override{ return firearmType; }
+    virtual string getType() const override { return firearmType; }
     // others
     void useItem() override;
 };
