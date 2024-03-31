@@ -35,7 +35,7 @@ protected:
     vector<string> myPowerPotions;
     int capacity = 12;
     int size = 0;
-
+    static void sortItems(vector<string> items);
 public:
     // getters
     int getCapacity() { return capacity; }
@@ -50,7 +50,7 @@ public:
     void setItems(map<string, int> newItems) override;
 
     // others
-    static void sortItems(vector<string> items);
+    
     void addItem(string name) override;
     void removeItem(string name) override;
     inline int remainedSpace() { return capacity - size; }
