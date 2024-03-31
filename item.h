@@ -176,7 +176,7 @@ public:
 // objects of Throwable class
 Throwable throwable1("Grenade", 5, nullptr, 5, 5);
 Throwable throwable2("Freezer Grenade", 10, nullptr, 10, 10);
-Throwable throwable3("acid Bottle", 20, nullptr, 15, 15);
+Throwable throwable3("Acid Bottle", 20, nullptr, 15, 15);
 Throwable throwable4("Molotov Cocktails", 30, nullptr, 20, 20);
 Throwable throwable5("Taser Darts", 50, nullptr, 25, 25);
 Throwable throwable6("Drone", 100, nullptr, 50, 150);

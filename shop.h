@@ -13,3 +13,5 @@ public:
     void displayShop();
     void buy();
 };
+
+Shop shop;

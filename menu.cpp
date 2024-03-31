@@ -54,28 +54,54 @@ namespace menu
         } while (intInput != 4);
     }
 
-    void shop()
-    {
-        cout << "Shop" << endl;
-    }
-
     void profile()
     {
         cout << "Profile" << endl;
     }
-    void configurations()
+    void inventory()
     {
-        cout << "Configurations" << endl;
+        clearScreen();
+        while (1)
+        {
+            stringstream data;
+            data << "Inventory:" << endl;
+            data << player1->getInventory()->getStorageData(green + "+", reset + "   ", 5);
+            data << "\nBackpack:" << endl;
+            data << player1->getBackpack()->getStorageData(red + "-", reset + "   ", 5);
+            data << "\n 0   Back\n";
+            if (player1->getBackpack()->isFull())
+                data << yellow << "backpack is full!" << reset;
+            data << "\nenter your choice: ";
+            int choice = getInput(data.str(), -player1->getBackpack()->getNames().size(),
+                                  player1->getInventory()->getNames().size());
+
+            if (choice == 0)
+                return;
+            else if (choice > 0) // add item from inventroy to backpack
+            {
+                if (!player1->getBackpack()->isFull())
+                {
+                    string itemName = player1->getInventory()->getNames()[choice - 1];
+                    player1->getInventory()->removeItem(itemName);
+                    player1->getBackpack()->addItem(itemName);
+                }
+            }
+            else if (choice < 0) // remove item from backpack and add to inventory
+            {
+                string itemName = player1->getBackpack()->getNames()[-choice - 1];
+                player1->getInventory()->addItem(itemName);
+                player1->getBackpack()->removeItem(itemName);
+            }
+        }
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void mainMenu()
     {
-        int intInput;
-        do
+        while (1)
         {
-            string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Configurations\n5. Exit\nenter your choice: ";
-            intInput = getInput(iustzTitle + menu, 1, 5, true, "invalid input");
+            string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Invnetory\n0. Exit\nenter your choice: ";
+            int intInput = getInput(iustzTitle + menu, 1, 5, true, "invalid input");
 
             switch (intInput)
             {
@@ -83,17 +109,17 @@ namespace menu
                 attack();
                 break;
             case 2:
-                shop();
+                shop.displayShop();
                 break;
             case 3:
                 profile();
                 break;
             case 4:
-                configurations();
+                inventory();
                 break;
             default:
                 return;
             }
-        } while (intInput != 5);
+        }
     }
 }

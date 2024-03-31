@@ -16,7 +16,7 @@ void Storage::addItem(string name)
         items[name]++;
 }
 
-string Storage::getStorageData()
+string Storage::getStorageData(string beforeNumber, string afterNumber, int leftMargin)
 {
     stringstream result;
     int i = 1;
@@ -28,24 +28,28 @@ string Storage::getStorageData()
         if (length > maxNameLength)
             maxNameLength = length;
     }
-
-    result << "No." << setw(maxNameLength + 5) << "Name" << setw(15) << "Effectivity" << setw(10) << "Stamina" << setw(10) << "Count\n";
+    if (leftMargin == -1)
+        leftMargin = (beforeNumber + afterNumber).size() + 3;
+    result << left << setw(leftMargin) << "No." << setw(maxNameLength + 5) << "Name" << right
+           << setw(15) << "Effectivity"
+           << setw(10) << "Stamina"
+           << setw(10) << "Count" << endl;
     names.clear();
     for (auto &item : items)
     {
         names.push_back(item.first);
-        result << i << "- " << setw(maxNameLength + 5) << item.first
-               << setw(15) << itemsMap[item.first]->getSpecial()
-               << setw(10) << itemsMap[item.first]->getStamina()
-               << setw(10) << item.second << endl;
+        result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber << setw(maxNameLength + 5) << item.first << right
+               << setw(11) << itemsMap[item.first]->getSpecial() << string(4, ' ')
+               << setw(8) << itemsMap[item.first]->getStamina() << string(2, ' ')
+               << setw(8) << item.second << endl;
         i++;
     }
     return result.str();
 }
 
-void Storage::printStorage()
+void Storage::printStorage(string beforeNumber, string afterNumber, int leftMargin)
 {
-    cout << getStorageData();
+    cout << getStorageData(beforeNumber, afterNumber, leftMargin);
 }
 
 void Storage::removeItem(string name)
@@ -101,25 +105,13 @@ void LimitedStorage::addItem(string name)
         {
             items.insert({name, 1});
             if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr || dynamic_cast<Throwable *>(itemsMap[name]) != nullptr)
-            {
                 myWeapons.push_back(name);
-                sortItems(myWeapons);
-            }
             else if (dynamic_cast<HpPotion *>(itemsMap[name]) != nullptr)
-            {
                 myHpPotions.push_back(name);
-                sortItems(myHpPotions);
-            }
             else if (dynamic_cast<StaminaPotion *>(itemsMap[name]) != nullptr)
-            {
                 myStaminaPotions.push_back(name);
-                sortItems(myStaminaPotions);
-            }
             else
-            {
                 myPowerPotions.push_back(name);
-                sortItems(myPowerPotions);
-            }
             size++;
         }
 

@@ -14,14 +14,15 @@ public:
 
     // getters
     map<string, int> getItems() { return items; }
+    vector<string> getNames() { return names; }
 
     // setters
     virtual void setItems(map<string, int> newItems) { items = newItems; }
 
     // others
     virtual void addItem(string name);
-    string getStorageData();
-    void printStorage();
+    string getStorageData(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
+    void printStorage(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     virtual void removeItem(string name);
 };
 
@@ -39,7 +40,6 @@ public:
     // getters
     int getCapacity() { return capacity; }
     int getSize() { return size; }
-    vector<string> getNames() { return names; }
     vector<string> getPermanents() const { return myWeapons; }
     vector<string> getHpPotions() const { return myHpPotions; }
     vector<string> getStaminaPotions() const { return myStaminaPotions; }
@@ -52,9 +52,10 @@ public:
     void setHpPotions(vector<string> items) { myHpPotions = items; }
     void setStaminaPotions(vector<string> items) { myStaminaPotions = items; }
     void setPowerPotions(vector<string> items) { myPowerPotions = items; }
-    
+
     // others
     void sortItems(vector<string> items);
     void addItem(string name) override;
     void removeItem(string name) override;
+    bool isFull() { return size == capacity; }
 };
