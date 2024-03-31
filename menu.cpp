@@ -79,9 +79,9 @@ namespace menu
                 return;
             else if (choice > 0) // add item from inventroy to backpack
             {
+                string itemName = player1->getInventory()->getNames()[choice - 1];
                 if (!player1->getBackpack()->isFull())
                 {
-                    string itemName = player1->getInventory()->getNames()[choice - 1];
                     player1->getInventory()->removeItem(itemName);
                     player1->getBackpack()->addItem(itemName);
                 }
@@ -89,6 +89,14 @@ namespace menu
             else if (choice < 0) // remove item from backpack and add to inventory
             {
                 string itemName = player1->getBackpack()->getNames()[-choice - 1];
+                if (itemName == "Punch")
+                {
+                    clearScreen();
+                    cout << red << "you can't remove Punch from your backpack!" << reset << endl;
+                    cout << "enter any key to continue: ";
+                    getch();
+                    continue;
+                }
                 player1->getInventory()->addItem(itemName);
                 player1->getBackpack()->removeItem(itemName);
             }
