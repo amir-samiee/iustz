@@ -61,7 +61,6 @@ void Storage::removeItem(string name)
         items[name]--;
 }
 
-// setters
 void LimitedStorage::setItems(map<string, int> newItems)
 {
     int newSize = 0;
@@ -86,6 +85,14 @@ void LimitedStorage::addItem(string name)
         if (items.find(name) == items.end())
         {
             items.insert({name, 1});
+            if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr || dynamic_cast<Throwable *>(itemsMap[name]) != nullptr)
+                myWeapons.push_back(name);
+            else if (dynamic_cast<HpPotion *>(itemsMap[name]) != nullptr)
+                myHpPotions.push_back(name);
+            else if (dynamic_cast<StaminaPotion *>(itemsMap[name]) != nullptr)
+                myStaminaPotions.push_back(name);
+            else
+                myPowerPotions.push_back(name);
             size++;
         }
 
