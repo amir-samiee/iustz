@@ -142,5 +142,16 @@ void LimitedStorage::removeItem(string name)
 {
     if (items[name] > 0)
         size--;
+    if (items[name] == 1)
+    {
+        if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr || dynamic_cast<Throwable *>(itemsMap[name]) != nullptr)
+            myWeapons.erase(remove(myWeapons.begin(), myWeapons.end(), name), myWeapons.end());
+        else if (dynamic_cast<HpPotion *>(itemsMap[name]) != nullptr)
+            myHpPotions.erase(remove(myHpPotions.begin(), myHpPotions.end(), name), myHpPotions.end());
+        else if (dynamic_cast<StaminaPotion *>(itemsMap[name]) != nullptr)
+            myStaminaPotions.erase(remove(myStaminaPotions.begin(), myStaminaPotions.end(), name), myStaminaPotions.end());
+        else
+            myPowerPotions.erase(remove(myPowerPotions.begin(), myPowerPotions.end(), name), myPowerPotions.end());
+    }
     Storage::removeItem(name);
 }
