@@ -1,6 +1,14 @@
 #pragma once
 #include "headers.h"
 
+void Storage::setItems(map<string, int> newItems)
+{
+    items = {};
+    for (auto item : newItems)
+        for (int i = 0; i < item.second; i++)
+            addItem(item.first);
+}
+
 void Storage::addItem(string name)
 {
     if (itemsMap.find(name) == itemsMap.end())
@@ -77,9 +85,7 @@ void LimitedStorage::setItems(map<string, int> newItems)
         return;
     }
 
-    for (auto item : newItems)
-        for (int i = 0; i < item.second; i++)
-            addItem(item.first);
+    Storage::setItems(newItems);
 }
 
 void LimitedStorage::sortItems(vector<string> myItems)

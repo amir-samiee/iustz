@@ -17,7 +17,7 @@ public:
     vector<string> getNames() { return names; }
 
     // setters
-    virtual void setItems(map<string, int> newItems) { items = newItems; }
+    virtual void setItems(map<string, int> newItems);
 
     // others
     virtual void addItem(string name);
@@ -48,13 +48,9 @@ public:
     // setters
     void setCapacity(int newCapacity) { capacity = newCapacity; }
     void setItems(map<string, int> newItems) override;
-    void setPermanents(vector<string> items) { myWeapons = items; }
-    void setHpPotions(vector<string> items) { myHpPotions = items; }
-    void setStaminaPotions(vector<string> items) { myStaminaPotions = items; }
-    void setPowerPotions(vector<string> items) { myPowerPotions = items; }
-
+    
     // others
-    void sortItems(vector<string> items);
+    static void sortItems(vector<string> items);
     void addItem(string name) override;
     void removeItem(string name) override;
     bool isFull() { return size == capacity; }
