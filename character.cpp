@@ -16,7 +16,8 @@ int Stat::level()
     return (((maxPoint - 100) / 30) + 1);
 }
 
-/// @brief ////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+
 bool Player::isAlive() { return hp.getCurrentPoint() > 0; }
 int Player::level() { return (firearmLevel + meleeLevel + hp.level() + stamina.level()) / 4; }
 void Player::takeDamage(int takenDamage)
@@ -40,6 +41,8 @@ Player::Player(string name, int age, string gender, LimitedStorage backpack, Sta
 {
     this->backpack.addItem("Punch");
 }
+
+////////////////////////////////////////////////////////////////////
 
 MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                             int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
@@ -85,6 +88,8 @@ void MVC::SpecialEnemyController::takeDamage(int takenDamage)
         this->die();
 }
 
+////////////////////////////////////////////////////////////////////////////
+
 Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
              int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : model(new MVC::EnemyModel(name, age, gender, backpack, hp, stamina, firearmLevel,
@@ -92,7 +97,7 @@ Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat 
       view(new MVC::EnemyView)
 {
     controller = new MVC::EnemyController(model, view, this);
-    model->backpack.addItem("Punch");
+    this->model->backpack.addItem("Punch");
 }
 Enemy::~Enemy()
 {
@@ -105,17 +110,21 @@ int Enemy::level() { return (model->firearmLevel + model->meleeLevel + model->hp
 void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
-                       Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
-                                                                                                                                                       stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                       Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
+    : Enemy(name, age, gender, backpack, hp,
+            stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+
 ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
-                         Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : Enemy(name, age, gender, backpack, hp,
-                                                                                                                                                         stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
+                         Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
+    : Enemy(name, age, gender, backpack, hp,
+            stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
 void ZombieEnemy::takeDamage(int damage) { controller->takeDamage(damage); }
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
-                             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins) : ZombieEnemy(name, age, gender, backpack, hp, stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
+                             Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
+    : ZombieEnemy(name, age, gender, backpack, hp, stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
 {
-    controller = new MVC::SpecialEnemyController(model, view, this);
+    this->controller = new MVC::SpecialEnemyController(model, view, this);
 }
 
 void SpecialZombie::takeDamage(int damage) { this->controller->takeDamage(damage); }
