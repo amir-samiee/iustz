@@ -54,7 +54,7 @@ public:
     void setPowerPotions(vector<string> items) { myPowerPotions = items; }
     
     // others
-    //void sortItems(vector<string> items);
+    void sortItems(vector<string> items);
     void addItem(string name) override;
     void removeItem(string name) override;
 };

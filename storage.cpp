@@ -78,6 +78,21 @@ void LimitedStorage::setItems(map<string, int> newItems)
             addItem(item.first);
 }
 
+void LimitedStorage::sortItems(vector<string> myItems)
+{
+    bool check = 1;
+    while (check)
+    {
+        check = 0;
+        for (int i = 0; i < myItems.size() - 1; ++i)
+            if (itemsMap[myItems[i]]->getSpecial() > itemsMap[myItems[i + 1]]->getSpecial())
+            {
+                swap(myItems[i], myItems[i + 1]);
+                check = 1;
+            }
+    }
+}
+
 void LimitedStorage::addItem(string name)
 {
     if (size < capacity)
@@ -86,13 +101,25 @@ void LimitedStorage::addItem(string name)
         {
             items.insert({name, 1});
             if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr || dynamic_cast<Throwable *>(itemsMap[name]) != nullptr)
+            {
                 myWeapons.push_back(name);
+                sortItems(myWeapons);
+            }
             else if (dynamic_cast<HpPotion *>(itemsMap[name]) != nullptr)
+            {
                 myHpPotions.push_back(name);
+                sortItems(myHpPotions);
+            }
             else if (dynamic_cast<StaminaPotion *>(itemsMap[name]) != nullptr)
+            {
                 myStaminaPotions.push_back(name);
+                sortItems(myStaminaPotions);
+            }
             else
+            {
                 myPowerPotions.push_back(name);
+                sortItems(myPowerPotions);
+            }
             size++;
         }
 
