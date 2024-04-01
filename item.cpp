@@ -74,7 +74,7 @@ void Melee::useItem()
 {
     if (checkForUse())
     {
-        owner->getWave()[0]->takeDamage(getSpecial() * owner->getMeleeLevel() * owner->getPowerBoost());
+        owner->getWave()[0]->takeDamage(getSpecial() * owner->getMeleeLevel() *0.15* owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
@@ -89,7 +89,7 @@ void Firearm::useItem()
 {
     if (checkForUse())
     {
-        owner->getWave()[0]->takeDamage(getSpecial() * owner->getFirearmLevel() * owner->getPowerBoost());
+        owner->getWave()[0]->takeDamage(getSpecial() * owner->getFirearmLevel() *0.15* owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
