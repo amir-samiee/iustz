@@ -193,62 +193,62 @@ public:
 // do not change the order of items declarations
 
 // objects of Throwable class
-Throwable throwable1("Grenade", 5, nullptr, 5, 5);
-Throwable throwable2("Freezer Grenade", 10, nullptr, 10, 10);
-Throwable throwable3("Acid Bottle", 20, nullptr, 15, 15);
-Throwable throwable4("Molotov Cocktails", 30, nullptr, 20, 20);
-Throwable throwable5("Taser Darts", 50, nullptr, 25, 25);
-Throwable throwable6("Drone", 100, nullptr, 50, 150);
-Throwable throwable7("Armored Personnel Carrier", 200, nullptr, 100, 300);
-Throwable throwable8("Attack Helicopter", 300, nullptr, 100, 250);
-Throwable throwable9("Fighter Jet", 400, nullptr, 150, 300);
-Throwable throwable10("Gunship", 500, nullptr, 200, 400);
+Throwable throwable1("Grenade", 5, nullptr, 5, 2);
+Throwable throwable2("Biotic Grenade", 10, nullptr, 10,3);
+Throwable throwable3("Molotov Cocktails", 20, nullptr, 20,6);
+Throwable throwable4("Acid Bottle", 30, nullptr, 15, 8);
+Throwable throwable5("EMP", 50, nullptr, 25, 12);
+Throwable throwable6("Drone", 100, nullptr, 50, 18);
+Throwable throwable7("Armata", 200, nullptr, 100, 24);
+Throwable throwable8("Bell 201", 300, nullptr, 100,30);
+Throwable throwable9("kiowa", 400, nullptr, 150, 40);
+Throwable throwable10("Gunship", 500, nullptr, 200, 50);
 
 // objects of permanant class
 // "melee"
-Melee melee0("Punch", 0, nullptr, 0, 5);
-Melee melee1("Knife", 10, nullptr, 5, 15);
-Melee melee2("Axe", 10, nullptr, 10, 20);
-Melee melee3("Nunchaku", 20, nullptr, 15, 30);
-Melee melee4("Sword", 20, nullptr, 15, 30);
-Melee melee5("Katana", 30, nullptr, 20, 40);
-Melee melee6("Dagger", 30, nullptr, 20, 40);
-Melee melee7("Spear", 40, nullptr, 25, 50);
-Melee melee8("Halberd", 40, nullptr, 25, 50);
-Melee melee9("Rapier", 45, nullptr, 25, 50);
-Melee melee10("Chainsaw", 50, nullptr, 30, 60);
+Melee melee0("Punch", 0, nullptr, 0, 3);
+Melee melee1("Knife", 10, nullptr, 5, 6);
+Melee melee2("Axe", 10, nullptr, 10, 9);
+Melee melee3("Nunchaku", 20, nullptr, 15,12);
+Melee melee4("Sword", 20, nullptr, 15,15);
+Melee melee5("Katana", 30, nullptr, 20,18);
+Melee melee6("Dagger", 30, nullptr, 20, 21);
+Melee melee7("Spear", 40, nullptr, 25, 24);
+Melee melee8("Halberd", 40, nullptr, 25, 27);
+Melee melee9("Rapier", 45, nullptr, 25, 30);
+Melee melee10("Chainsaw", 50, nullptr, 30, 33);
 
 //"fireArm"
-Firearm fireArm1("Desert Eagle", 10, nullptr, 10, 20);
-Firearm fireArm2("Glock 17", 20, nullptr, 20, 40);
-Firearm fireArm3("Shutgun", 30, nullptr, 25, 50);
-Firearm fireArm4("Rifle", 40, nullptr, 25, 50);
-Firearm fireArm5("Submachine gun", 50, nullptr, 30, 60);
-Firearm fireArm6("Carbine", 60, nullptr, 30, 60);
-Firearm fireArm7("Assault rifle", 70, nullptr, 35, 70);
-Firearm fireArm8("Sniper rifle", 80, nullptr, 40, 80);
-Firearm fireArm9("Machine gun", 90, nullptr, 40, 80);
-Firearm fireArm10("FN SCAR", 100, nullptr, 45, 90);
+Firearm fireArm1("Desert Eagle", 10, nullptr, 10, 4);
+Firearm fireArm2("Glock 17", 20, nullptr, 20, 8);
+Firearm fireArm3("Shutgun", 30, nullptr, 25,12);
+Firearm fireArm4("Rifle", 40, nullptr, 25, 16);
+Firearm fireArm5("Submachine", 50, nullptr, 30, 20);
+Firearm fireArm6("Carbine", 60, nullptr, 30, 24);
+Firearm fireArm7("Assault R", 70, nullptr, 35, 28);
+Firearm fireArm8("Sniper R", 80, nullptr, 40, 28);
+Firearm fireArm9("Machine gun", 90, nullptr, 40, 32);
+Firearm fireArm10("FN SCAR", 100, nullptr, 45,36);
 
 // object of consumable class
 // hp potion
-HpPotion hpPotion1("First Aid Kits", 5, nullptr, 2, 5);
+HpPotion hpPotion1("FirstAid Kits", 5, nullptr, 2, 5);
 HpPotion hpPotion2("Bandages", 10, nullptr, 5, 10);
 HpPotion hpPotion3("Medkits", 15, nullptr, 10, 20);
-HpPotion hpPotion4("Healing Salve", 20, nullptr, 20, 40);
-HpPotion hpPotion5("Potion of Vitality", 35, nullptr, 30, 75);
-HpPotion hpPotion6("Diamond Elixir", 50, nullptr, 50, 100);
+HpPotion hpPotion4("CureCask", 20, nullptr, 20, 40);
+HpPotion hpPotion5("Vitality", 35, nullptr, 30, 75);
+HpPotion hpPotion6("EnduElixir", 50, nullptr, 50, 100);
 
 // stamina potion
 StaminaPotion staminaPotion1("Vigor Rush", 5, nullptr, 0, 10);
 StaminaPotion staminaPotion2("Energy Surge", 10, nullptr, 0, 20);
 StaminaPotion staminaPotion3("Turbo Tonic", 20, nullptr, 0, 30);
-StaminaPotion staminaPotion4("Endurance Elixir", 35, nullptr, 0, 40);
-StaminaPotion staminaPotion5("Stamina Spark", 50, nullptr, 0, 50);
+StaminaPotion staminaPotion4("ReviveRush", 35, nullptr, 0, 40);
+StaminaPotion staminaPotion5("StamBlitz", 50, nullptr, 0, 50);
 
 // power potion
-PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 2);
-PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 3);
-PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 4);
-PowerPotion powerPotion4("Blitzkrieg Booster", 225, nullptr, 0, 5);
-PowerPotion powerPotion5("Eternal Valor Elixir", 500, nullptr, 0, 6);
+PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 1.1);
+PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 1.2);
+PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 1.3);
+PowerPotion powerPotion4("Blitzkrieg ", 225, nullptr, 0, 1.4);
+PowerPotion powerPotion5("Valor Elixir", 500, nullptr, 0, 1.5);
