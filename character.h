@@ -254,7 +254,7 @@ class SpecialZombie : public ZombieEnemy
 public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
-
+    int getPowerBoost() ;
     void takeDamage(int damage) override;
     void turn() override;
 };

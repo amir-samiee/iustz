@@ -173,7 +173,13 @@ void Player::turn()
             break;
     }
 }
-
+int SpecialZombie::getPowerBoost(){
+   
+    if (this->getHp()->getMaxPoint() <= (100 * 0.2))
+        return model->powerBoost *1.5 ;
+        
+        return model->powerBoost;
+}
 void Player::die() {}
 void Enemy::turn() {}
 void Enemy::die() { controller->die(); }
