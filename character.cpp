@@ -173,9 +173,9 @@ void Player::turn()
             break;
     }
 }
-int SpecialZombie::getPowerBoost(){
+double SpecialZombie::getPowerBoost(){
    
-    if (this->getHp()->getMaxPoint() <= (100 * 0.2))
+    if (this->getHp()->getMaxPoint() <= (20))
         return model->powerBoost *1.5 ;
         
         return model->powerBoost;

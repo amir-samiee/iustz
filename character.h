@@ -35,7 +35,7 @@ public:
     virtual vector<Character *> getWave() const = 0;
     virtual int getFirearmLevel() const = 0;
     virtual int getMeleeLevel() const = 0;
-    virtual int getPowerBoost() const = 0;
+    virtual double getPowerBoost() const = 0;
     virtual int getCoins() const = 0;
 
     // setters
@@ -48,7 +48,7 @@ public:
     virtual void setWave(vector<Character *> newWave) = 0;
     virtual void setFirearmLevel(int newLevel) = 0;
     virtual void setMeleeLevel(int newLevel) = 0;
-    virtual void setPowerBoost(int newPowerBoost) = 0;
+    virtual void setPowerBoost(double newPowerBoost) = 0;
     virtual void setCoins(int newCoins) = 0;
 
     // others
@@ -92,7 +92,7 @@ public:
     Stat *getStamina() override { return &stamina; }
     int getFirearmLevel() const override { return firearmLevel; }
     int getMeleeLevel() const override { return meleeLevel; }
-    int getPowerBoost() const override { return powerBoost; }
+    double getPowerBoost() const override { return powerBoost; }
     int getCoins() const override { return coins; }
     vector<Character *> getWave() const override { return currentWave; }
     Storage *getInventory() { return &inventory; }
@@ -109,7 +109,7 @@ public:
     void setStamina(Stat newStamina) override { stamina = newStamina; }
     void setFirearmLevel(int newLevel) override { firearmLevel = newLevel; }
     void setMeleeLevel(int newLevel) override { meleeLevel = newLevel; }
-    void setPowerBoost(int newPowerBoost) override { powerBoost = newPowerBoost; }
+    void setPowerBoost(double newPowerBoost) override { powerBoost = newPowerBoost; }
     void setCoins(int newCoins) override { coins = newCoins; }
     void setWave(vector<Character *> newWave) override { currentWave = newWave; }
     void setInventory(Storage newInventory) { inventory = newInventory; }
@@ -208,7 +208,7 @@ public:
     Stat *getStamina() override { return &model->stamina; };
     int getFirearmLevel() const override { return model->firearmLevel; };
     int getMeleeLevel() const override { return model->meleeLevel; };
-    int getPowerBoost() const override { return model->powerBoost; };
+    double getPowerBoost() const override { return model->powerBoost; };
     int getCoins() const override { return model->coins; };
     vector<Character *> getWave() const override { return model->currentWave; };
 
@@ -222,7 +222,7 @@ public:
     void setWave(vector<Character *> newWave) override { model->currentWave = newWave; }
     void setFirearmLevel(int newLevel) override { model->firearmLevel = newLevel; }
     void setMeleeLevel(int newLevel) override { model->meleeLevel = newLevel; }
-    void setPowerBoost(int newPowerBoost) override { model->powerBoost = newPowerBoost; }
+    void setPowerBoost(double newPowerBoost) override { model->powerBoost = newPowerBoost; }
     void setCoins(int newCoins) override { model->coins = newCoins; }
 
     // others
@@ -254,7 +254,7 @@ class SpecialZombie : public ZombieEnemy
 public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
-    int getPowerBoost() ;
+    double getPowerBoost() ;
     void takeDamage(int damage) override;
     void turn() override;
 };
