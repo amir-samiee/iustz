@@ -5,10 +5,13 @@ int main()
     string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
     clearScreen();
     Sleep(2000);
-    int t = 1000;
+    cout << starterMessage;
+    getch();
+    int t = 700;
     while (t)
     {
-        cout << starterMessage << endl;
+        cout << endl
+             << starterMessage;
         Sleep(t);
         t /= 1.5;
     }
