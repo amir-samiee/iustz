@@ -248,7 +248,7 @@ ZombieFactory::ZombieFactory(int lvl, int casualEn, int specialEn)
 HumanFactory::HumanFactory(int lvl, int casualEn, int specialEn)
     : Factory(lvl, casualEn, specialEn) { initInventory(); }
 
-/// @brief ///////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 Mission::Mission(string newName, int newMissionNum, int specialEnemy)
 {

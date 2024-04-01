@@ -17,6 +17,8 @@ public:
     void setMaxPoint(int newValue) { maxPoint = newValue; }
     void setCurrentPoint(int newValue);
 
+    // other
+    void loadStat(json data);
     int level();
 };
 
@@ -122,6 +124,7 @@ public:
     void die() override;
     void takeDamage(int newPoint) override;
     void display() override;
+    void loadPlayer(json data);
 };
 
 Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(),

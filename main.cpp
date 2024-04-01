@@ -2,7 +2,18 @@
 
 int main()
 {
+    string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
     clearScreen();
+    Sleep(2000);
+    int t = 1000;
+    while (t)
+    {
+        cout << starterMessage << endl;
+        Sleep(t);
+        t /= 1.5;
+    }
+    clearScreen();
+    Sleep(2000);
     cout << iustzTitle << string(2, '\n') << "Enter your usename: ";
     string username;
     getline(cin, username);
@@ -28,11 +39,11 @@ int main()
 
         // some story ...
 
-        cout << "what should we call you?" << endl;
+        cout << "what should we call you? ";
         string sinput, name; // sinput stands for string input, we take it as input everytime and if it was proper we convert it to other types
         getline(cin, name);
-        cout << "nice " << name << "! now ";
-        int age = getInput("enter your age: ", 1, 200);
+        cout << "nice " << name << "! now";
+        int age = getInput("enter your age: ", 1, 200, 0);
     }
     menu::mainMenu();
     delete player1;

@@ -1,6 +1,29 @@
 {
-  "ehsan1402": {
-    "mame": "Ehsan",
-    "age": 23
+  "username": {
+    "name": "default",
+    "age": 18,
+    "gender": "default",
+    "backpack": {
+      "items": {
+        "Punch": 1
+      },
+      "capacity": 12
+    },
+    "hp": {
+      "maxPoint": 100
+    },
+    "stamina": {
+      "maxPoint": 100
+    },
+    "firearmLevel": 1,
+    "meleeLevel": 1,
+    "coins": 150,
+    "inventory": {
+      "items": {
+        "Katana": 1
+      }
+    },
+    "humanLevels": 1,
+    "zombieLevels": 1
   }
 }

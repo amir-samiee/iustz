@@ -20,6 +20,7 @@ public:
     virtual void setItems(map<string, int> newItems);
 
     // others
+    virtual void loadStorage(json data);
     virtual void addItem(string name);
     string getStorageData(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     void printStorage(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
@@ -36,6 +37,7 @@ protected:
     int capacity = 12;
     int size = 0;
     static void sortItems(vector<string> items);
+
 public:
     // getters
     int getCapacity() { return capacity; }
@@ -50,7 +52,7 @@ public:
     void setItems(map<string, int> newItems) override;
 
     // others
-    
+    void loadStorage(json data) override;
     void addItem(string name) override;
     void removeItem(string name) override;
     inline int remainedSpace() { return capacity - size; }

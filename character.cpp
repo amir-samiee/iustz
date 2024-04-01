@@ -11,6 +11,11 @@ void Stat::setCurrentPoint(int newValue)
         currentPoint = newValue;
 }
 
+void Stat::loadStat(json data)
+{
+    maxPoint = data["maxPoint"];
+}
+
 int Stat::level()
 {
     return (((maxPoint - 100) / 30) + 1);
@@ -35,6 +40,23 @@ void Player::display()
          << "Power Boost: " << powerBoost << endl
          << "Current Enemies Count: " << currentWave.size() << endl;
 }
+
+void Player::loadPlayer(json data)
+{
+    name = data["name"];
+    age = data["age"];
+    gender = data["gender"];
+    backpack.loadStorage(data["backpack"]);
+    hp.loadStat(data["hp"]);
+    stamina.loadStat(data["stamina"]);
+    firearmLevel = data["firearmLevel"];
+    meleeLevel = data["meleeLevel"];
+    coins = data["coins"];
+    inventory.loadStorage(data["inventory"]);
+    humanLevels = data["humanLevels"];
+    zombieLevels = data["zombieLevels"];
+}
+
 Player::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins, Storage inventory, int humanLevels, int zombieLevels) : name(name), age(age), gender(gender), backpack(backpack),
                                                                                                                                                       hp(hp), stamina(stamina), firearmLevel(firearmLevel), meleeLevel(meleeLevel), powerBoost(powerBoost), currentWave(currentWave), coins(coins), inventory(inventory), humanLevels(humanLevels), zombieLevels(zombieLevels)
@@ -129,7 +151,7 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
 
 void SpecialZombie::takeDamage(int damage) { this->controller->takeDamage(damage); }
 
-/// @brief /////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 void Player::turn()
 {

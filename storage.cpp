@@ -9,6 +9,11 @@ void Storage::setItems(map<string, int> newItems)
             addItem(item.first);
 }
 
+void Storage::loadStorage(json data)
+{
+    setItems(data["items"]);
+}
+
 void Storage::addItem(string name)
 {
     if (itemsMap.find(name) == itemsMap.end())
@@ -93,6 +98,12 @@ void LimitedStorage::setItems(map<string, int> newItems)
     Storage::setItems(newItems);
 }
 
+void LimitedStorage::loadStorage(json data)
+{
+    Storage::loadStorage(data);
+    capacity = data["capacity"];
+}
+
 void LimitedStorage::sortItems(vector<string> myItems)
 {
     bool check = 1;
@@ -116,22 +127,22 @@ void LimitedStorage::addItem(string name)
         {
             items.insert({name, 1});
             if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr || dynamic_cast<Throwable *>(itemsMap[name]) != nullptr)
-            {    
+            {
                 myWeapons.push_back(name);
                 sortItems(myWeapons);
             }
             else if (dynamic_cast<HpPotion *>(itemsMap[name]) != nullptr)
-            {   
+            {
                 myHpPotions.push_back(name);
                 sortItems(myHpPotions);
             }
             else if (dynamic_cast<StaminaPotion *>(itemsMap[name]) != nullptr)
-            {    
+            {
                 myStaminaPotions.push_back(name);
                 sortItems(myStaminaPotions);
             }
             else
-            {   
+            {
                 myPowerPotions.push_back(name);
                 sortItems(myPowerPotions);
             }
