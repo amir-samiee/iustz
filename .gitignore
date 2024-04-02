@@ -3,3 +3,4 @@
 tester*.cpp
 fsm.cpp
 shoptester.cpp
+Data/users.json
