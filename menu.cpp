@@ -108,8 +108,8 @@ namespace menu
     {
         while (1)
         {
-            string menu = "\n1. Attack \n2. Shop \n3. Profile \n4. Invnetory\n0. Exit\nenter your choice: ";
-            int intInput = getInput(iustzTitle + menu, 0, 4, true, "invalid input");
+            string menu = "\n 1. Attack \n 2. Shop \n 3. Profile \n 4. Invnetory\n 0. Exit\n-1. Logout\n\nenter your choice: ";
+            int intInput = getInput(iustzTitle + menu, -1, 4, true, "invalid input");
 
             switch (intInput)
             {
@@ -126,6 +126,9 @@ namespace menu
                 inventory();
                 break;
             case 0:
+                delete player1;
+                exit(0);
+            case -1:
                 return;
             }
         }

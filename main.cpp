@@ -7,7 +7,7 @@ int main()
     Sleep(2000);
     cout << starterMessage;
     getch();
-    int t = 700;
+    int t = 500;
     while (t)
     {
         cout << endl
@@ -15,39 +15,68 @@ int main()
         Sleep(t);
         t /= 1.5;
     }
-    clearScreen();
-    Sleep(2000);
-    cout << iustzTitle << string(2, '\n') << "Enter your usename: ";
-    string username;
-    getline(cin, username);
-    json users = loadData(usersFilePath);
-    if (users[username].is_null())
+    while (1)
     {
-        // uncomment to see how pprint function works
-        // this part of code will be removed later
+        *player1 = defaultPlayer;
+        clearScreen();
+        Sleep(2000);
+        cout << iustzTitle << string(2, '\n') << "Enter your usename: ";
+        string username;
+        getline(cin, username);
+        json users = loadData(usersFilePath);
+        if (users[username].is_null())
+        {
+            // set username
+            player1->setUsername(username);
 
-        pprint("");
-        pprint("Hello, friend.");
-        pprint("This is the end of the world...");
-        // pprint("The quick brown fox jumps over the lazy dog.");
-        // pprint("In the midst of chaos, there is also opportunity.");
-        // pprint("Life is like riding a bicycle. To keep your balance, you must keep moving.");
-        // pprint("Success is not final, failure is not fatal: It is the courage to continue that counts.");
-        // pprint("Happiness depends upon ourselves.");
-        // pprint("The cat sat on the mat.");
-        // pprint("Tomorrow is another day.");
-        // pprint("Coding is fun and challenging.");
-        // pprint("Music soothes the soul.");
-        // pprint("The sun sets in the west.");
+            // uncomment to see how pprint function works
+            // this part of code will be removed later
 
-        // some story ...
+            pprint("");
+            pprint("Hello, friend.");
+            pprint("This is the end of the world...");
+            // pprint("The quick brown fox jumps over the lazy dog.");
+            // pprint("In the midst of chaos, there is also opportunity.");
+            // pprint("Life is like riding a bicycle. To keep your balance, you must keep moving.");
+            // pprint("Success is not final, failure is not fatal: It is the courage to continue that counts.");
+            // pprint("Happiness depends upon ourselves.");
+            // pprint("The cat sat on the mat.");
+            // pprint("Tomorrow is another day.");
+            // pprint("Coding is fun and challenging.");
+            // pprint("Music soothes the soul.");
+            // pprint("The sun sets in the west.");
 
-        cout << "what should we call you? ";
-        string sinput, name; // sinput stands for string input, we take it as input everytime and if it was proper we convert it to other types
-        getline(cin, name);
-        cout << "nice " << name << "! now";
-        int age = getInput("enter your age: ", 1, 200, 0);
+            // some story ...
+
+            // set gender
+            string genderOptions = "Please choose your gender: "
+                                   "\n1. Male"
+                                   "\n2. Female"
+                                   "\n3. Other"
+                                   "\n\nenter your choice: ";
+            int genderChoice = getInput(genderOptions, 1, 3, 0);
+            string gender = genders[genderChoice - 1];
+            player1->setGender(gender);
+
+            // set name
+            cout << "what should we call you? ";
+            string name;
+            getline(cin, name);
+            player1->setName(name);
+
+            // set age
+            cout << "nice " << name << "! now";
+            int age = getInput("enter your age: ", 1, 200, 0);
+            player1->setAge(age);
+        }
+        else
+        {
+            player1->loadPlayer(users[username]);
+            clearScreen();
+            cout << "Welcome back, " << cyan << player1->getName() << reset << "!" << endl;
+            cout << "press any key to continue ...";
+            getch();
+        }
+        menu::mainMenu();
     }
-    menu::mainMenu();
-    delete player1;
 }

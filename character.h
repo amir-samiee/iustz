@@ -63,6 +63,7 @@ public:
 class Player : public Character
 {
 protected:
+    string username;
     string name;
     int age;
     string gender; // -male -female -other
@@ -82,8 +83,10 @@ protected:
 public:
     Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave,
            int coins, Storage inventory, int humanLevels, int zombieLevels);
+    Player(const Player &other);
 
     // getters
+    string getUsername() { return username; }
     string getName() const override { return name; }
     int getAge() const override { return age; }
     string getGender() const override { return gender; }
@@ -101,6 +104,7 @@ public:
     Storage *getReward() { return &reward; }
 
     // setters
+    void setUsername(string newUsername) { username = newUsername; }
     void setName(string newName) override { name = newName; }
     void setAge(int newAge) override { age = newAge; }
     void setGender(string newGender) override { gender = newGender; }
@@ -127,9 +131,9 @@ public:
     void loadPlayer(json data);
 };
 
-Player *player1 = new Player("default name", 18, "default gender", LimitedStorage(),
-                             Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
-
+Player defaultPlayer("default name", 18, "default gender", LimitedStorage(),
+                     Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
+Player *player1 = new Player(defaultPlayer);
 // Enemies
 class Enemy;
 
