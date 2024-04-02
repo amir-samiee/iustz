@@ -20,9 +20,9 @@ bool isInteger(string s)
     for (int i = 1; i < s.size(); i++)
         if (!isdigit(s[i]))
             return 0;
-    if (!(isdigit(s[0]) || s[0] == '-'))
+    if (!(isdigit(s[0]) || s[0] == '-' || s[0] == '+'))
         return 0;
-    if (s == "-")
+    if (s == "-" || s == "+")
         return 0;
     return 1;
 }
@@ -32,7 +32,7 @@ bool isZero(string s)
     for (int i = 1; i < s.size(); i++)
         if (s[i] != '0')
             return 0;
-    if (!(s[0] == '0' || s[0] == '-'))
+    if (!(s[0] == '0' || s.find("-0") == 0 || s.find("+0") == 0))
         return 0;
     return 1;
 }
@@ -47,10 +47,11 @@ void cleanIntString(string &s)
     while (1)
     {
         int size = s.size();
-        if (s[0] == '0')
+        char start = s[0];
+        if (start == '0')
             s = s.substr(1, size);
-        else if (s[0] == '-' && size >= 2 && s[1] == '0')
-            s = '-' + s.substr(2, size);
+        else if ((start == '-' || start == '+') && size > 2 && s[1] == '0')
+            s = start + s.substr(2, size);
         else
             break;
     }

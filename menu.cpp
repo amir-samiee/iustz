@@ -1,3 +1,4 @@
+#pragma once
 #include "headers.h"
 using namespace std;
 
@@ -54,7 +55,11 @@ namespace menu
 
     void profile()
     {
-        cout << "Profile" << endl;
+        clearScreen();
+        cout << "Username: " << player1->getUsername() << endl;
+        player1->display();
+        cout << "\npress any key to continue ...";
+        getch();
     }
     void inventory()
     {
@@ -108,7 +113,7 @@ namespace menu
     {
         while (1)
         {
-            string menu = "\n 1. Attack \n 2. Shop \n 3. Profile \n 4. Invnetory\n 0. Exit\n-1. Logout\n\nenter your choice: ";
+            string menu = "\n 1. Attack \n 2. Shop \n 3. Profile \n 4. Invnetory\n 0. Back\n-1. Exit\n\nenter your choice: ";
             int intInput = getInput(iustzTitle + menu, -1, 4, true, "invalid input");
 
             switch (intInput)
@@ -127,11 +132,11 @@ namespace menu
                 break;
             case 0:
                 save();
-                delete player1;
-                exit(0);
+                return;
             case -1:
                 save();
-                return;
+                delete player1;
+                exit(0);
             }
         }
     }
