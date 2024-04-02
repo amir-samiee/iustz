@@ -1,29 +1,29 @@
 {
   "username": {
-    "name": "default",
     "age": 18,
-    "gender": "default",
     "backpack": {
+      "capacity": 12,
       "items": {
         "Punch": 1
-      },
-      "capacity": 12
+      }
     },
+    "coins": 150,
+    "firearmLevel": 1,
+    "gender": "default",
     "hp": {
       "maxPoint": 100
     },
-    "stamina": {
-      "maxPoint": 100
-    },
-    "firearmLevel": 1,
-    "meleeLevel": 1,
-    "coins": 150,
+    "humanLevels": 1,
     "inventory": {
       "items": {
         "Katana": 1
       }
     },
-    "humanLevels": 1,
+    "meleeLevel": 1,
+    "name": "default",
+    "stamina": {
+      "maxPoint": 100
+    },
     "zombieLevels": 1
   }
 }

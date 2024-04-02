@@ -126,9 +126,11 @@ namespace menu
                 inventory();
                 break;
             case 0:
+                save();
                 delete player1;
                 exit(0);
             case -1:
+                save();
                 return;
             }
         }

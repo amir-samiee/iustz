@@ -21,6 +21,7 @@ public:
 
     // others
     virtual void loadStorage(json data);
+    virtual json dumpStorage();
     virtual void addItem(string name);
     string getStorageData(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     void printStorage(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
@@ -53,6 +54,7 @@ public:
 
     // others
     void loadStorage(json data) override;
+    json dumpStorage();
     void addItem(string name) override;
     void removeItem(string name) override;
     inline int remainedSpace() { return capacity - size; }

@@ -43,6 +43,9 @@ template <typename element, typename list>
 bool isIn(element x, list A);
 
 json loadData(string fileName);
+void dumpData(string fileName);
 
 template <typename K>
 void print_vector(vector<K> vec);
+
+void save();

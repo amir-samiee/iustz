@@ -113,6 +113,13 @@ json loadData(string fileName)
     return j;
 }
 
+void dumpData(string fileName, json data)
+{
+    ofstream file(fileName);
+    file << setw(2) << data << endl;
+    file.close();
+}
+
 template <typename K>
 void print_vector(vector<K> vec)
 {
@@ -127,4 +134,11 @@ void transfer(Storage *adding, Storage *to)
     for (auto item : adding->getItems())
         for (int i = 0; i < item.second; i++)
             to->addItem(item.first);
+}
+
+void save()
+{
+    json data = loadData(usersFilePath);
+    data[player1->getUsername()] = player1->dumpPlayer();
+    dumpData(usersFilePath, data);
 }

@@ -19,6 +19,7 @@ public:
 
     // other
     void loadStat(json data);
+    json dumpStat();
     int level();
 };
 
@@ -129,6 +130,7 @@ public:
     void takeDamage(int newPoint) override;
     void display() override;
     void loadPlayer(json data);
+    json dumpPlayer();
 };
 
 Player defaultPlayer("default name", 18, "default gender", LimitedStorage(),

@@ -14,6 +14,13 @@ void Storage::loadStorage(json data)
     setItems(data["items"]);
 }
 
+json Storage::dumpStorage()
+{
+    json data;
+    data["items"] = items;
+    return data;
+}
+
 void Storage::addItem(string name)
 {
     if (itemsMap.find(name) == itemsMap.end())
@@ -102,6 +109,13 @@ void LimitedStorage::loadStorage(json data)
 {
     Storage::loadStorage(data);
     capacity = data["capacity"];
+}
+
+json LimitedStorage::dumpStorage()
+{
+    json data = Storage::dumpStorage();
+    data["capacity"] = capacity;
+    return data;
 }
 
 void LimitedStorage::sortItems(vector<string> myItems)

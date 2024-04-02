@@ -16,6 +16,13 @@ void Stat::loadStat(json data)
     maxPoint = data["maxPoint"];
 }
 
+json Stat::dumpStat()
+{
+    json data;
+    data["maxPoint"] = maxPoint;
+    return data;
+}
+
 int Stat::level()
 {
     return (((maxPoint - 100) / 30) + 1);
@@ -55,6 +62,24 @@ void Player::loadPlayer(json data)
     inventory.loadStorage(data["inventory"]);
     humanLevels = data["humanLevels"];
     zombieLevels = data["zombieLevels"];
+}
+
+json Player::dumpPlayer()
+{
+    json data;
+    data["name"] = name;
+    data["age"] = age;
+    data["gender"] = gender;
+    data["backpack"] = backpack.dumpStorage();
+    data["hp"] = hp.dumpStat();
+    data["stamina"] = stamina.dumpStat();
+    data["firearmLevel"] = firearmLevel;
+    data["meleeLevel"] = meleeLevel;
+    data["coins"] = coins;
+    data["inventory"] = inventory.dumpStorage();
+    data["humanLevels"] = humanLevels;
+    data["zombieLevels"] = zombieLevels;
+    return data;
 }
 
 Player::Player(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
@@ -178,12 +203,13 @@ void Player::turn()
             break;
     }
 }
-double SpecialZombie::getPowerBoost(){
-   
+double SpecialZombie::getPowerBoost()
+{
+
     if (this->getHp()->getMaxPoint() <= (20))
-        return model->powerBoost *1.5 ;
-        
-        return model->powerBoost;
+        return model->powerBoost * 1.5;
+
+    return model->powerBoost;
 }
 void Player::die() {}
 void Enemy::turn() {}

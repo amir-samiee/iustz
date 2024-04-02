@@ -2,32 +2,35 @@
 
 int main()
 {
-    string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
-    clearScreen();
-    Sleep(2000);
-    cout << starterMessage;
-    getch();
-    int t = 500;
-    while (t)
-    {
-        cout << endl
-             << starterMessage;
-        Sleep(t);
-        t /= 1.5;
-    }
+    // string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
+    // clearScreen();
+    // Sleep(2000);
+    // cout << starterMessage;
+    // getch();
+    // int t = 500;
+    // while (t)
+    // {
+    //     cout << endl
+    //          << starterMessage;
+    //     Sleep(t);
+    //     t /= 1.5;
+    // }
     while (1)
     {
         *player1 = defaultPlayer;
         clearScreen();
-        Sleep(2000);
+        // Sleep(2000);
         cout << iustzTitle << string(2, '\n') << "Enter your usename: ";
         string username;
         getline(cin, username);
+
+        // set username
+        player1->setUsername(username);
+
         json users = loadData(usersFilePath);
-        if (users[username].is_null())
+
+        if (users[username].is_null() == true)
         {
-            // set username
-            player1->setUsername(username);
 
             // uncomment to see how pprint function works
             // this part of code will be removed later
