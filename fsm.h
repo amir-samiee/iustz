@@ -16,48 +16,48 @@ protected:
 
 public:
     States(Character *self) : self(self) {}
-    virtual void runState() = 0;
-    virtual StateName nextState() = 0;
+    //virtual void runState() = 0;
+    //virtual StateName nextState() = 0;
 };
 
 class StartPoint : public States
 {
 public:
     StartPoint(Character *self) : States(self) {}
-    void runState();
-    StateName nextState();
+    //void runState();
+    //StateName nextState();
 };
 
 class Attack : public States
 {
 public:
     Attack(Character *self) : States(self) {}
-    void runState();
-    StateName nextState();
+    //void runState();
+    //StateName nextState();
 };
 
 class LowHp : public States
 {
 public:
     LowHp(Character *self) : States(self) {}
-    void runState();
-    StateName nextState();
+    //void runState();
+    //StateName nextState();
 };
 
 class LowStamina : public States
 {
 public:
     LowStamina(Character *self) : States(self) {}
-    void runState();
-    StateName nextState();
+    //void runState();
+    //StateName nextState();
 };
 
 class BoostPower : public States
 {
 public:
     BoostPower(Character *self) : States(self) {}
-    void runState();
-    StateName nextState();
+    //void runState();
+    //StateName nextState();
 };
 
 class FSM

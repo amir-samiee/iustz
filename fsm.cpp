@@ -18,6 +18,6 @@ FSM::FSM(Character *self)
 
 void FSM::runTurn()
 {
-    statesMap[currentState]->runState();
-    currentState = statesMap[currentState]->nextState();
+    //statesMap[currentState]->runState();
+    //currentState = statesMap[currentState]->nextState();
 }
