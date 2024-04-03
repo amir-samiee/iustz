@@ -113,7 +113,7 @@ protected:
 
 public:
     // constructors:
-    Mission(string newName, int newMissionNum, int specialEnemy);
+    Mission( int newMissionNum, int specialEnemy);
     Mission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy)
         : name(name), missionNum(missionNum), casualEnemyNum(casualEnemyNum), specialEnemy(specialEnemy) {}
 

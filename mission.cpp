@@ -250,9 +250,8 @@ HumanFactory::HumanFactory(int lvl, int casualEn, int specialEn)
 
 //////////////////////////////////////////////////////////
 
-Mission::Mission(string newName, int newMissionNum, int specialEnemy)
+Mission::Mission( int newMissionNum, int specialEnemy)
 {
-    this->name = newName;
     this->missionNum = newMissionNum;
     // Random number of enemies based on level:
     this->casualEnemyNum = (rand() % 4) + missionNum + 2;
@@ -342,15 +341,15 @@ void Mission::start()
     end();
 }
 
-ZombieMission::ZombieMission(string newName, int missionNum, int specialEnemy)
-    : Mission(newName, missionNum, specialEnemy)
+ZombieMission::ZombieMission( int missionNum, int specialEnemy)
+    : Mission( missionNum, specialEnemy)
 {
     // Setting Human and Zombie levels
     zombieLevels = missionNum - 1;
     humanLevels = 3 * (zombieLevels / 3);
     // Setting the ID:
-    string id = "z" + missionNum;
-    missionMap[id] = this;
+    name = "z" + missionNum;
+    missionMap[name] = this;
 
     // Feeding data to factory:
     ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy);
@@ -403,8 +402,8 @@ bool ZombieMission::isUnlocked(Player *player)
     return 1;
 }
 
-HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
-    : Mission(newName, newMissionNum, specialEnemy)
+HumanMission::HumanMission( int newMissionNum, int specialEnemy)
+    : Mission( newMissionNum, specialEnemy)
 {
     // Setting Human and Zombie levels
     humanLevels = missionNum - 1;
