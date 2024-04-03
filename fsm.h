@@ -20,8 +20,11 @@ public:
     // virtual StateName nextState() = 0;
     bool canUse(string myItem);
     bool canKill();
-    bool lowStamina() { return self->getStamina()->getCurrentPoint() < 10; }
+    bool lowStamina() { return self->getStamina()->getCurrentPoint() < 0.1*self->getStamina()->getMaxPoint(); }
+    bool lowHp() { return self->getHp()->getCurrentPoint() < 0.3*self->getHp()->getMaxPoint(); }
     bool haveStaminaPotion() { return !self->getBackpack()->getStaminaPotions().empty(); }
+    bool haveHpPotion() { return !self->getBackpack()->getHpPotions().empty(); }
+    bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5*self->getStamina()->getMaxPoint(); }
     bool wastingPotion(string type);
 };
 
