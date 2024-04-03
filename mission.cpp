@@ -269,6 +269,11 @@ bool Mission::zombieQualified(Player *player)
     return player->getZombieLevels() >= zombieLevels;
 }
 
+bool Mission::isUnlocked(Player *player)
+{
+    return humanQualified(player) && zombieQualified(player);
+}
+
 void Mission::story()
 {
     ifstream file("Stories/" + name + ".txt");
