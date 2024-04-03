@@ -409,8 +409,8 @@ HumanMission::HumanMission( int newMissionNum, int specialEnemy)
     humanLevels = missionNum - 1;
     zombieLevels = 3 * (humanLevels / 3);
     // Setting the ID:
-    string id = "h" + newMissionNum;
-    missionMap[id] = this;
+    name = "h" + newMissionNum;
+    missionMap[name] = this;
 
     // Feeding data to factory:
     HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy);

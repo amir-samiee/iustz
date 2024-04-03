@@ -183,8 +183,7 @@ vector<Mission *> humanMissions;
 
 void initializeMission()
 {
-    int numMissions = 9;
-    for (int i = 0; i < numMissions; ++i) {
+    for (int i = 0; i < 9; ++i) {
 
         int missionNum = i + 1; 
         int specialEnemyHuman = 0;
