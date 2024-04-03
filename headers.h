@@ -26,6 +26,7 @@ using namespace std;
 #include "character.h"
 #include "mission.h"
 #include "shop.h"
+#include "fsm.h"
 
 #include "helper.cpp"
 #include "item.cpp"
@@ -34,5 +35,6 @@ using namespace std;
 #include "mission.cpp"
 #include "menu.cpp"
 #include "shop.cpp"
+#include "fsm.cpp"
 
 #endif
