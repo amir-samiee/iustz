@@ -36,11 +36,11 @@ bool States::wastingPotion(string type)
         myStat = self->getHp();
     }
     else
-        cout<<"invalid type";
+        cout << "invalid type";
 
     for (int i = 0; i < potions.size(); ++i)
     {
-        if (itemsMap[potions[i]]->getSpecial() > myStat->getMaxPoint()-myStat->getCurrentPoint() + 5)
+        if (itemsMap[potions[i]]->getSpecial() > myStat->getMaxPoint() - myStat->getCurrentPoint())
             return 1;
     }
     return 0;
