@@ -159,7 +159,7 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
         int coins;
         // Creating the enemy based on type:
         Character *enemy = new HumanEnemy("human" + 1 + i, 30, "male", *backpack, hp, stamina,
-                               firearmLvl, meleeLvl, 1, {player1}, coins);
+                                          firearmLvl, meleeLvl, 1, {player1}, coins);
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
     }
@@ -198,7 +198,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         int coins;
         // Creating the enemy based on type:
         Character *enemy = new ZombieEnemy("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                firearmLvl, meleeLvl, 1, {player1}, coins);
+                                           firearmLvl, meleeLvl, 1, {player1}, coins);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
         mixedEn.push_back(enemy);
@@ -223,7 +223,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         int coins;
 
         Character *enemy = new SpecialZombie("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                  firearmLvl, meleeLvl, 1, {player1}, coins);
+                                             firearmLvl, meleeLvl, 1, {player1}, coins);
         specialEn.push_back(enemy);
         mixedEn.push_back(enemy);
     }
@@ -257,6 +257,16 @@ Mission::Mission(string newName, int newMissionNum, int specialEnemy)
     // Random number of enemies based on level:
     this->casualEnemyNum = (rand() % 4) + missionNum + 2;
     this->specialEnemy = specialEnemy;
+}
+
+bool Mission::humanQualified(Player *player)
+{
+    return player->getHumanLevels() >= humanLevels;
+}
+
+bool Mission::zombieQualified(Player *player)
+{
+    return player->getZombieLevels() >= zombieLevels;
 }
 
 void Mission::story()
@@ -327,15 +337,18 @@ void Mission::start()
     end();
 }
 
-ZombieMission::ZombieMission(string newName, int newMissionNum, int specialEnemy)
-    : Mission(newName, newMissionNum, specialEnemy)
+ZombieMission::ZombieMission(string newName, int missionNum, int specialEnemy)
+    : Mission(newName, missionNum, specialEnemy)
 {
+    // Setting Human and Zombie levels
+    zombieLevels = missionNum - 1;
+    humanLevels = 3 * (zombieLevels / 3);
     // Setting the ID:
-    string id = "z" + newMissionNum;
+    string id = "z" + missionNum;
     missionMap[id] = this;
 
     // Feeding data to factory:
-    ZombieFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
+    ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy);
     waves = factory.createEnemy(factory.getWave());
 
     // Saving mission:
@@ -351,6 +364,9 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
                              const vector<int> wavesInfo)
     : Mission(name, missionNum, 0, specialEnemy)
 {
+    // Setting Human and Zombie levels
+    zombieLevels = missionNum - 1;
+    humanLevels = 3 * (zombieLevels / 3);
     // Setting the ID:
     string id = "z" + missionNum;
     missionMap[id] = this;
@@ -366,9 +382,28 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
     zombieMissions.push_back(this);
 }
 
+bool ZombieMission::isQualified(Player *player)
+{
+    clearScreen();
+    if (!zombieQualified(player))
+    {
+        cout << "you have to pass previous zombie missions" << endl;
+        return 0;
+    }
+    if (!humanQualified(player))
+    {
+        cout << "you have to pass sufficient human missions" << endl;
+        return 0;
+    }
+    return 1;
+}
+
 HumanMission::HumanMission(string newName, int newMissionNum, int specialEnemy)
     : Mission(newName, newMissionNum, specialEnemy)
 {
+    // Setting Human and Zombie levels
+    humanLevels = missionNum - 1;
+    zombieLevels = 3 * (humanLevels / 3);
     // Setting the ID:
     string id = "h" + newMissionNum;
     missionMap[id] = this;
@@ -390,6 +425,9 @@ HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
                            const vector<int> wavesInfo)
     : Mission(name, missionNum, 0, specialEnemy)
 {
+    // Setting Human and Zombie levels
+    humanLevels = missionNum - 1;
+    zombieLevels = 3 * (humanLevels / 3);
     // Setting the id:
     string id = "h" + missionNum;
     missionMap[id] = this;
@@ -404,4 +442,20 @@ HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
 
     // Saving mission:
     humanMissions.push_back(this);
+}
+
+bool HumanMission::isQualified(Player *player)
+{
+    clearScreen();
+    if (!humanQualified(player))
+    {
+        cout << "you have to pass previous human missions" << endl;
+        return 0;
+    }
+    if (!zombieQualified(player))
+    {
+        cout << "you have to pass sufficient zombie missions" << endl;
+        return 0;
+    }
+    return 1;
 }

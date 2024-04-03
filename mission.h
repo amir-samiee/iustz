@@ -102,9 +102,10 @@ public:
 
 class Mission
 {
-
 protected:
     string name;
+    int humanLevels;  // to be required to pass
+    int zombieLevels; // to be required to pass
     int missionNum;
     int casualEnemyNum;
     int specialEnemy;
@@ -121,18 +122,25 @@ public:
     int getMissionNum() const { return missionNum; }
     int getCasualEnemyNum() const { return casualEnemyNum; }
     int getSpecialEnemy() const { return specialEnemy; }
+    int getHumanLevels() const { return humanLevels; }
+    int getZombieLevels() const { return zombieLevels; }
 
     // setters :
     void setName(const string &newName) { name = newName; }
     void setMissionNum(const int &newMissionNum) { missionNum = newMissionNum; }
     void setCasualEnemyNum(int newCasualEnemyNum) { casualEnemyNum = newCasualEnemyNum; }
     void setSpecialEnemyNum(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }
+    void setHumanLevels(int newLevels) { humanLevels = newLevels; }
+    void setZombieLevels(int newLevels) { zombieLevels = newLevels; }
 
     // methods:
+    bool humanQualified(Player *player);
+    bool zombieQualified(Player *player);
+    virtual bool isQualified(Player *player);
     void story();
     void enemyTurn();
     void endWave();
-    void end();
+    virtual void end();
     void start();
 };
 
@@ -148,6 +156,7 @@ public:
                   const vector<string> &missionStaminaPotions,
                   const vector<string> &missionPowerPotions,
                   const vector<int> wavesInfo);
+    bool isQualified(Player *player) override;
 };
 
 class HumanMission : public Mission
@@ -162,6 +171,7 @@ public:
                  const vector<string> &missionStaminaPotions,
                  const vector<string> &missionPowerPotions,
                  const vector<int> wavesInfo);
+    bool isQualified(Player *player) override;
 };
 
 // a map for connecting missioins to their ID:
