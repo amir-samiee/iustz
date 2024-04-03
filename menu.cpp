@@ -4,22 +4,27 @@ using namespace std;
 
 namespace menu
 {
-    void zombies()
+    void missionSelect(vector<Mission *> missions)
     {
-        string zombieMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n0. Back\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + zombieMissions, 0, 9, true, "invalid input");
+        while (1)
+        {
+            stringstream options;
+            for (int i = 0; i < missions.size(); i++)
+            {
+                Mission *mission = missions[i];
+                if (mission->isUnlocked(player1))
+                    options << gray;
+                options << i + 1 << ". " << mission->getName() << reset << endl;
+            }
+            options << "0. Back" << endl;
+            options << "\nenter the mission number: ";
+            int intInput = getInput(iustzTitle + options.str(), 0, 9, true, "invalid input");
 
-        if (intInput == 0)
-            return;
-    }
-
-    void humans()
-    {
-        string humanMissions = "\n1. Mission1 \n2. Mission2 \n3. Mission3 \n4. Mission4\n5. Mission5\n6. Mission6 \n7. Mission7 \n8. Mission8 \n9. Mission9\n0. Back\n\nenter your choice: ";
-        int intInput = getInput(iustzTitle + humanMissions, 0, 9, true, "invalid input");
-
-        if (intInput == 0)
-            return;
+            if (intInput == 0)
+                return;
+            else if (missions[intInput - 1]->isUnlocked(player1))
+                missions[intInput - 1]->start();
+        }
     }
 
     void finale()
@@ -39,10 +44,10 @@ namespace menu
             switch (intInput)
             {
             case 1:
-                zombies();
+                missionSelect(zombieMissions);
                 break;
             case 2:
-                humans();
+                missionSelect(humanMissions);
                 break;
             case 3:
                 finale();

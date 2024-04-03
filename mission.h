@@ -136,7 +136,7 @@ public:
     // methods:
     bool humanQualified(Player *player);
     bool zombieQualified(Player *player);
-    virtual bool isQualified(Player *player);
+    virtual bool isUnlocked(Player *player);
     void story();
     void enemyTurn();
     void endWave();
@@ -156,7 +156,7 @@ public:
                   const vector<string> &missionStaminaPotions,
                   const vector<string> &missionPowerPotions,
                   const vector<int> wavesInfo);
-    bool isQualified(Player *player) override;
+    bool isUnlocked(Player *player) override;
 };
 
 class HumanMission : public Mission
@@ -171,12 +171,12 @@ public:
                  const vector<string> &missionStaminaPotions,
                  const vector<string> &missionPowerPotions,
                  const vector<int> wavesInfo);
-    bool isQualified(Player *player) override;
+    bool isUnlocked(Player *player) override;
 };
 
 // a map for connecting missioins to their ID:
 map<string, Mission *> missionMap;
 
 // vectors for saving missions:
-vector<ZombieMission *> zombieMissions;
-vector<HumanMission *> humanMissions;
+vector<Mission *> zombieMissions;
+vector<Mission *> humanMissions;

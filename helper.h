@@ -12,6 +12,7 @@ const string green("\033[1;32m");
 const string yellow("\033[1;33m");
 const string cyan("\033[0;36m");
 const string magenta("\033[0;35m");
+const string gray("\033[90m");
 const string reset("\033[0m");
 
 const string usersFilePath = "Data/users.json";

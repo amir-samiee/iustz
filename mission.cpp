@@ -382,7 +382,7 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
     zombieMissions.push_back(this);
 }
 
-bool ZombieMission::isQualified(Player *player)
+bool ZombieMission::isUnlocked(Player *player)
 {
     clearScreen();
     if (!zombieQualified(player))
@@ -444,7 +444,7 @@ HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
     humanMissions.push_back(this);
 }
 
-bool HumanMission::isQualified(Player *player)
+bool HumanMission::isUnlocked(Player *player)
 {
     clearScreen();
     if (!humanQualified(player))
