@@ -386,22 +386,6 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
     zombieMissions.push_back(this);
 }
 
-bool ZombieMission::isUnlocked(Player *player)
-{
-    clearScreen();
-    if (!zombieQualified(player))
-    {
-        cout << "you have to pass previous zombie missions" << endl;
-        return 0;
-    }
-    if (!humanQualified(player))
-    {
-        cout << "you have to pass sufficient human missions" << endl;
-        return 0;
-    }
-    return 1;
-}
-
 HumanMission::HumanMission( int newMissionNum, int specialEnemy)
     : Mission( newMissionNum, specialEnemy)
 {
@@ -448,18 +432,19 @@ HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
     humanMissions.push_back(this);
 }
 
-bool HumanMission::isUnlocked(Player *player)
+void initializeMissions()
 {
-    clearScreen();
-    if (!humanQualified(player))
+    for (int i = 0; i < 9; ++i)
     {
-        cout << "you have to pass previous human missions" << endl;
-        return 0;
+        int missionNum = i + 1;
+        int specialEnemyZombie = 0;
+        if (missionNum % 3 == 0)
+            specialEnemyZombie = 1;
+
+        ZombieMission *newZombieMission = new ZombieMission(missionNum, specialEnemyZombie);
+        HumanMission *newHumanmission = new HumanMission(missionNum, 0);
+
+        newZombieMission->setName("Mission " + to_string(i + 1));
+        newHumanmission->setName("Mission " + to_string(i + 1));
     }
-    if (!zombieQualified(player))
-    {
-        cout << "you have to pass sufficient zombie missions" << endl;
-        return 0;
-    }
-    return 1;
 }

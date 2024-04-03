@@ -9,21 +9,32 @@ namespace menu
         while (1)
         {
             stringstream options;
+            options << endl;
             for (int i = 0; i < missions.size(); i++)
             {
                 Mission *mission = missions[i];
-                if (mission->isUnlocked(player1))
+                if (!mission->isUnlocked(player1))
                     options << gray;
                 options << i + 1 << ". " << mission->getName() << reset << endl;
             }
             options << "0. Back" << endl;
             options << "\nenter the mission number: ";
             int intInput = getInput(iustzTitle + options.str(), 0, 9, true, "invalid input");
-
+            Mission *selected = missions[intInput - 1];
             if (intInput == 0)
                 return;
-            else if (missions[intInput - 1]->isUnlocked(player1))
-                missions[intInput - 1]->start();
+            else if (selected->isUnlocked(player1))
+                selected->start();
+            else
+            {
+                clearScreen();
+                cout << "you haven't unlocked this mission!  " << cyan << "(" << selected->getName() << ")" << reset
+                     << "\nnotice: you might have to continue the other branch to unlock this mission"
+                     << "\n\nRequired Human Levels: " << selected->getHumanLevels()
+                     << "\nRequired Zombie Levels: " << selected->getZombieLevels()
+                     << "\n\nenter any key to continue...";
+                getch();
+            }
         }
     }
 
@@ -140,7 +151,7 @@ namespace menu
                 return;
             case -1:
                 save();
-                delete player1;
+                cleanUp();
                 exit(0);
             }
         }

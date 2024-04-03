@@ -113,7 +113,7 @@ protected:
 
 public:
     // constructors:
-    Mission( int newMissionNum, int specialEnemy);
+    Mission(int newMissionNum, int specialEnemy);
     Mission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy)
         : name(name), missionNum(missionNum), casualEnemyNum(casualEnemyNum), specialEnemy(specialEnemy) {}
 
@@ -136,7 +136,7 @@ public:
     // methods:
     bool humanQualified(Player *player);
     bool zombieQualified(Player *player);
-    virtual bool isUnlocked(Player *player);
+    bool isUnlocked(Player *player);
     void story();
     void enemyTurn();
     void endWave();
@@ -148,7 +148,7 @@ class ZombieMission : public Mission
 {
 public:
     // constructors:
-    ZombieMission( int newMissionNum, int newSpecialEnemy);
+    ZombieMission(int newMissionNum, int newSpecialEnemy);
     ZombieMission(const string &name, int missionNum, int specialEnemy,
                   const vector<string> &missionPermanents,
                   const vector<string> &missionThrowables,
@@ -156,14 +156,13 @@ public:
                   const vector<string> &missionStaminaPotions,
                   const vector<string> &missionPowerPotions,
                   const vector<int> wavesInfo);
-    bool isUnlocked(Player *player) override;
 };
 
 class HumanMission : public Mission
 {
 public:
     // constructor:
-    HumanMission( int newMissionNum, int newSpecialEnemy);
+    HumanMission(int newMissionNum, int newSpecialEnemy);
     HumanMission(const string &name, int missionNum, int specialEnemy,
                  const vector<string> &missionPermanents,
                  const vector<string> &missionThrowables,
@@ -171,7 +170,6 @@ public:
                  const vector<string> &missionStaminaPotions,
                  const vector<string> &missionPowerPotions,
                  const vector<int> wavesInfo);
-    bool isUnlocked(Player *player) override;
 };
 
 // a map for connecting missioins to their ID:
@@ -181,18 +179,4 @@ map<string, Mission *> missionMap;
 vector<Mission *> zombieMissions;
 vector<Mission *> humanMissions;
 
-void initializeMission()
-{
-    for (int i = 0; i < 9; ++i) {
-
-        int missionNum = i + 1; 
-        int specialEnemyHuman = 0;
-        int specialEnemyZombie=0;
-        if(missionNum % 3==0){
-        specialEnemyZombie = 1;
-        }
-
-        ZombieMission *newZombieMission = new ZombieMission( missionNum, specialEnemyZombie);
-        HumanMission *newHumanmission = new HumanMission( missionNum, specialEnemyHuman);
-    }
-}
+void initializeMissions();

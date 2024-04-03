@@ -50,3 +50,4 @@ template <typename K>
 void print_vector(vector<K> vec);
 
 void save();
+void cleanUp();

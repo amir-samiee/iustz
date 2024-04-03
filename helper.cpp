@@ -143,3 +143,12 @@ void save()
     data[player1->getUsername()] = player1->dumpPlayer();
     dumpData(usersFilePath, data);
 }
+
+void cleanUp()
+{
+    delete player1;
+    for (auto i : zombieMissions)
+        delete i;
+    for (auto i : humanMissions)
+        delete i;
+}
