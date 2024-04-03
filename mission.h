@@ -148,7 +148,7 @@ class ZombieMission : public Mission
 {
 public:
     // constructors:
-    ZombieMission(string newName, int newMissionNum, int newSpecialEnemy);
+    ZombieMission( int newMissionNum, int newSpecialEnemy);
     ZombieMission(const string &name, int missionNum, int specialEnemy,
                   const vector<string> &missionPermanents,
                   const vector<string> &missionThrowables,
@@ -163,7 +163,7 @@ class HumanMission : public Mission
 {
 public:
     // constructor:
-    HumanMission(string newName, int newMissionNum, int newSpecialEnemy);
+    HumanMission( int newMissionNum, int newSpecialEnemy);
     HumanMission(const string &name, int missionNum, int specialEnemy,
                  const vector<string> &missionPermanents,
                  const vector<string> &missionThrowables,
@@ -185,8 +185,7 @@ void initializeMission()
 {
     int numMissions = 9;
     for (int i = 0; i < numMissions; ++i) {
-        string zname = "z" + to_string(i + 1);
-        string hname = "h" + to_string(i + 1);
+
         int missionNum = i + 1; 
         int specialEnemyHuman = 0;
         int specialEnemyZombie=0;
@@ -194,7 +193,7 @@ void initializeMission()
         specialEnemyZombie = 1;
         }
 
-        ZombieMission *newZombieMission = new ZombieMission(zname, missionNum, specialEnemyZombie);
-        HumanMission *newHumanmission = new HumanMission(hname , missionNum, specialEnemyHuman);
+        ZombieMission *newZombieMission = new ZombieMission( missionNum, specialEnemyZombie);
+        HumanMission *newHumanmission = new HumanMission( missionNum, specialEnemyHuman);
     }
 }
