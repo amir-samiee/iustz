@@ -180,3 +180,21 @@ map<string, Mission *> missionMap;
 // vectors for saving missions:
 vector<Mission *> zombieMissions;
 vector<Mission *> humanMissions;
+
+void initializeMission()
+{
+    int numMissions = 9;
+    for (int i = 0; i < numMissions; ++i) {
+        string zname = "z" + to_string(i + 1);
+        string hname = "h" + to_string(i + 1);
+        int missionNum = i + 1; 
+        int specialEnemyHuman = 0;
+        int specialEnemyZombie=0;
+        if(missionNum % 3==0){
+        specialEnemyZombie = 1;
+        }
+
+        ZombieMission *newZombieMission = new ZombieMission(zname, missionNum, specialEnemyZombie);
+        HumanMission *newHumanmission = new HumanMission(hname , missionNum, specialEnemyHuman);
+    }
+}
