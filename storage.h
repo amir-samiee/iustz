@@ -43,7 +43,7 @@ public:
     // getters
     int getCapacity() { return capacity; }
     int getSize() { return size; }
-    vector<string> getPermanents() const { return myWeapons; }
+    vector<string> getWeapons() const { return myWeapons; }
     vector<string> getHpPotions() const { return myHpPotions; }
     vector<string> getStaminaPotions() const { return myStaminaPotions; }
     vector<string> getPowerPotions() const { return myPowerPotions; }

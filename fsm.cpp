@@ -1,5 +1,26 @@
 #include "headers.h"
 
+bool States::canUse(string name)
+{
+    if (self->getStamina()->getCurrentPoint() >= itemsMap[name]->getStamina())
+    {
+        return 1;
+    }
+    return 0;
+}
+
+bool States::canKill()
+{
+    vector<string> weapons = self->getBackpack()->getWeapons();
+    int currentPoint = self->getWave()[0]->getHp()->getCurrentPoint();
+    for (int i = 0; i < weapons.size(); i++)
+        if (currentPoint <= itemsMap[weapons[i]]->getSpecial() && canUse(weapons[i]))
+        {
+            return 1;
+        }
+    return 0;
+}
+
 FSM::FSM(Character *self)
 {
     currentState = StateName::StartPoint;
@@ -18,6 +39,6 @@ FSM::FSM(Character *self)
 
 void FSM::runTurn()
 {
-    //statesMap[currentState]->runState();
-    //currentState = statesMap[currentState]->nextState();
+    // statesMap[currentState]->runState();
+    // currentState = statesMap[currentState]->nextState();
 }

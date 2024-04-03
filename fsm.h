@@ -18,6 +18,8 @@ public:
     States(Character *self) : self(self) {}
     //virtual void runState() = 0;
     //virtual StateName nextState() = 0;
+    bool canUse(string myItem);
+    bool canKill();
 };
 
 class StartPoint : public States
