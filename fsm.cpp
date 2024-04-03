@@ -21,6 +21,31 @@ bool States::canKill()
     return 0;
 }
 
+bool States::wastingPotion(string type)
+{
+    vector<string> potions;
+    Stat *myStat;
+    if (type == "stamina")
+    {
+        potions = self->getBackpack()->getStaminaPotions();
+        myStat = self->getStamina();
+    }
+    else if (type == "hp")
+    {
+        potions = self->getBackpack()->getHpPotions();
+        myStat = self->getHp();
+    }
+    else
+        cout<<"invalid type";
+
+    for (int i = 0; i < potions.size(); ++i)
+    {
+        if (itemsMap[potions[i]]->getSpecial() > myStat->getMaxPoint()-myStat->getCurrentPoint() + 5)
+            return 1;
+    }
+    return 0;
+}
+
 FSM::FSM(Character *self)
 {
     currentState = StateName::StartPoint;

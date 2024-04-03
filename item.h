@@ -232,8 +232,8 @@ Firearm fireArm10("FN SCAR", 100, nullptr, 45,36);
 
 // object of consumable class
 // hp potion
-HpPotion hpPotion1("FirstAid Kits", 5, nullptr, 2, 5);
-HpPotion hpPotion2("Bandages", 10, nullptr, 5, 10);
+HpPotion hpPotion1("FirstAid Kits", 5, nullptr, 2, 10);
+HpPotion hpPotion2("Bandages", 10, nullptr, 5, 15);
 HpPotion hpPotion3("Medkits", 15, nullptr, 10, 20);
 HpPotion hpPotion4("CureCask", 20, nullptr, 20, 40);
 HpPotion hpPotion5("Vitality", 35, nullptr, 30, 75);
