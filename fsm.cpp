@@ -45,7 +45,7 @@ bool States::wastingPotion(string type)
         myStat = self->getHp();
     }
     else
-        cout << "invalid type";
+        cout << "invalid type in fsm.cpp/States::wastingPotion()";
 
     for (int i = 0; i < potions.size(); ++i)
     {
@@ -71,7 +71,7 @@ StateName States::nextState()
     }
     else if (highStamina() && havePowerPotion() && canUse(self->getBackpack()->getPowerPotions()))
     {
-        return StateName::LowStamina;
+        return StateName::BoostPower;
     }
     return StateName::Attack;
 }
