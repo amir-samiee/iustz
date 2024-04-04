@@ -32,7 +32,7 @@ namespace menu
                      << "\nnotice: you might have to continue the other branch to unlock this mission"
                      << "\n\nRequired Human Levels: " << selected->getHumanLevels()
                      << "\nRequired Zombie Levels: " << selected->getZombieLevels()
-                     << "\n\nenter any key to continue...";
+                     << "\n\npress any key to continue...";
                 getch();
             }
         }
@@ -74,7 +74,7 @@ namespace menu
         clearScreen();
         cout << "Username: " << player1->getUsername() << endl;
         player1->display();
-        cout << "\npress any key to continue ...";
+        cout << "\npress any key to continue...";
         getch();
     }
     void inventory()
@@ -114,7 +114,7 @@ namespace menu
                 {
                     clearScreen();
                     cout << red << "you can't remove Punch from your backpack!" << reset << endl;
-                    cout << "enter any key to continue: ";
+                    cout << "press any key to continue... ";
                     getch();
                     continue;
                 }
