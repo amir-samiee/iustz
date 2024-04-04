@@ -66,22 +66,32 @@ void Shop::displayShop()
 
 void Shop::subShop(vector<Item *> shopItems, string title, string special)
 {
-    string backOption = "0- Back\n";
+    string backOption = " 0- Back\n";
     string message = "Item added to your backpack!\n";
+
+    int maxLength = 8;
+    for (int i = 0; i < shopItems.size(); ++i)
+    {
+        string itemName = shopItems[i]->getName();
+        if (itemName.size() > maxLength)
+            maxLength = itemName.size();
+    }
     stringstream result;
     result << title << endl;
     result << left
-           << setw(20) << "  NAME"
+           << setw(maxLength + 5) << "    NAME"
            << setw(20) << "PRICE"
            << setw(20) << "STAMINA"
            << setw(20) << special << endl;
     for (int i = 0; i < shopItems.size(); ++i)
     {
         int index = i + 1;
-        result << left << index << "-" << setw(20) << shopItems[i]->getName()
-               << setw(20) << shopItems[i]->getPrice()
-               << setw(20) << shopItems[i]->getStamina()
-               << setw(20) << shopItems[i]->getSpecial() << endl;
+        Item *item = shopItems[i];
+        result << right << setw(2) << index << "- " << left
+               << setw(maxLength + 5) << item->getName()
+               << setw(20) << item->getPrice()
+               << setw(20) << item->getStamina()
+               << setw(20) << item->getSpecial() << endl;
     }
     result << backOption << endl
            << "enetr your choice: ";
