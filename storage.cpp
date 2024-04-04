@@ -42,30 +42,36 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
         return "Storage is Empty!\n";
     stringstream result;
     int i = 1;
-    int maxNameLength = 0;
-    // Find the maximum length of names
+    int maxNameLength = 4;
+    int maxTypeLength = 4;
+    // Find the maximum length of names and types
     for (auto &item : items)
     {
-        int length = itemsMap[item.first]->getName().length();
-        if (length > maxNameLength)
-            maxNameLength = length;
+        int nameLength = itemsMap[item.first]->getName().length();
+        if (nameLength > maxNameLength)
+            maxNameLength = nameLength;
+
+        int typeLength = itemsMap[item.first]->getType().length();
+        if (typeLength > maxTypeLength)
+            maxTypeLength = typeLength;
     }
     if (leftMargin == -1)
         leftMargin = (beforeNumber + afterNumber).size() + 3;
     result << left << setw(leftMargin) << "No." << setw(maxNameLength + 5) << "Name"
-           << setw(15) << "Type" << right
-           << setw(15) << "Effectivity"
+           << setw(maxTypeLength + 2) << "Type" << right
+           << setw(12) << "Effectivity"
            << setw(10) << "Stamina"
            << setw(10) << "Count" << endl;
     names.clear();
     for (auto &item : items)
     {
         string itemName = item.first;
+        Item *itemPtr = itemsMap[itemName];
         names.push_back(itemName);
         result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber << setw(maxNameLength + 5) << itemName
-               << setw(15) << itemsMap[itemName]->getType() << right
-               << setw(11) << itemsMap[itemName]->getSpecial() << string(4, ' ')
-               << setw(8) << itemsMap[itemName]->getStamina() << string(2, ' ')
+               << setw(maxTypeLength + 2) << itemPtr->getType() << right
+               << setw(8) << itemPtr->getSpecial() << string(4, ' ')
+               << setw(8) << itemPtr->getStamina() << string(2, ' ')
                << setw(8) << item.second << endl;
         i++;
     }

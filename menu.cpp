@@ -230,6 +230,7 @@ namespace menu
             case 5:
                 if (deletedAccount())
                     return;
+                break;
             case -1:
                 save();
                 cleanUp();
