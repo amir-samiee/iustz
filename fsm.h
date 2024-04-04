@@ -16,16 +16,19 @@ protected:
 
 public:
     States(Character *self) : self(self) {}
-    // virtual void runState() = 0;
-    // virtual StateName nextState() = 0;
     bool canUse(string myItem);
+    bool canUse(vector<string> myItems);
     bool canKill();
     bool lowStamina() { return self->getStamina()->getCurrentPoint() < 0.1*self->getStamina()->getMaxPoint(); }
     bool lowHp() { return self->getHp()->getCurrentPoint() < 0.3*self->getHp()->getMaxPoint(); }
     bool haveStaminaPotion() { return !self->getBackpack()->getStaminaPotions().empty(); }
     bool haveHpPotion() { return !self->getBackpack()->getHpPotions().empty(); }
+    bool havePowerPotion() { return !self->getBackpack()->getPowerPotions().empty(); }
     bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5*self->getStamina()->getMaxPoint(); }
     bool wastingPotion(string type);
+    
+    // virtual void runState() = 0;
+    virtual StateName nextState();
 };
 
 class StartPoint : public States

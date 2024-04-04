@@ -8,6 +8,15 @@ bool States::canUse(string name)
     }
     return 0;
 }
+bool States::canUse(vector<string> myItems)
+{
+    for (int i = 0; i < myItems.size(); ++i)
+    {
+        if (canUse(myItems[i]))
+            return 1;
+    }
+    return 0;
+}
 
 bool States::canKill()
 {
@@ -44,6 +53,27 @@ bool States::wastingPotion(string type)
             return 1;
     }
     return 0;
+}
+
+StateName States::nextState()
+{
+    if (canKill())
+    {
+        return StateName::Attack;
+    }
+    else if (haveStaminaPotion() && (!wastingPotion("stamina")))
+    {
+        return StateName::LowStamina;
+    }
+    else if (lowHp() && haveHpPotion() && canUse(self->getBackpack()->getHpPotions()))
+    {
+        return StateName::LowHp;
+    }
+    else if (highStamina() && havePowerPotion() && canUse(self->getBackpack()->getPowerPotions()))
+    {
+        return StateName::LowStamina;
+    }
+    return StateName::Attack;
 }
 
 FSM::FSM(Character *self)
