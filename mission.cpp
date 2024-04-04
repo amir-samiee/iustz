@@ -289,8 +289,7 @@ void Mission::story()
     else
         cerr << "Unable to open file! " << endl;
 
-    cout << "Press any key to start\n";
-    _getch();
+    getchpress();
     clearScreen();
 }
 void Mission::enemyTurn()

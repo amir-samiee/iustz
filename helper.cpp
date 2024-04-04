@@ -170,3 +170,7 @@ bool changeUsername(string oldUsername, string newUsername)
     dumpData(usersFilePath, data);
     return 1;
 }
+void getchpress(){
+    cout<<yellow<<"\nPlease press any key to continue... "<<reset<<endl;
+    getch();
+    }

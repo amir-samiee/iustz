@@ -69,7 +69,7 @@ void Shop::subShop(vector<Item *> shopItems, string title, string special)
     while(1)
     {
     string backOption = " 0- Back\n";
-    string message = "Item added to your backpack!\n";
+    string message = "Item added to your inventory!\n";
 
     int maxLength = 8;
     for (int i = 0; i < shopItems.size(); ++i)
@@ -108,18 +108,19 @@ void Shop::subShop(vector<Item *> shopItems, string title, string special)
 
 void Shop::buy(Item* shopItem)
 {
-    string message = "Item added to your backpack!\n";
+    string message = "Item added to your inventory!\n";
     if (player1->getCoins() >= shopItem->getPrice())
     {
     player1->getInventory()->addItem((shopItem)->getName());
     int newcoin = player1->getCoins() - shopItem->getPrice();
     player1->setCoins(newcoin);
-    cout << message << endl;
-    getch();
+    cout << green << message << reset << endl;
+    getchpress();
     }
     else
     {
-        cout << "Insufficient coins! You need to gather more coins to acquire this item" << endl;
-    getch();
+        clearScreen();
+        cout << red <<"Insufficient coins! You need to gather more coins to acquire this item"<< reset << endl;
+        getchpress();
     }
 }

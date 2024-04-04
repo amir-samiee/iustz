@@ -31,9 +31,8 @@ namespace menu
                 cout << "you haven't unlocked this mission!  " << cyan << "(" << selected->getName() << ")" << reset
                      << "\nnotice: you might have to continue the other branch to unlock this mission"
                      << "\n\nRequired Human Levels: " << selected->getHumanLevels()
-                     << "\nRequired Zombie Levels: " << selected->getZombieLevels()
-                     << "\n\npress any key to continue...";
-                getch();
+                     << "\nRequired Zombie Levels: " << selected->getZombieLevels();
+                     getchpress();
             }
         }
     }
@@ -130,8 +129,7 @@ namespace menu
                 return;
             }
             save();
-            cout << "\npress any key to continue... ";
-            getch();
+            getchpress();
         }
     }
     void inventory()
@@ -171,8 +169,7 @@ namespace menu
                 {
                     clearScreen();
                     cout << red << "you can't remove Punch from your backpack!" << reset << endl;
-                    cout << "press any key to continue... ";
-                    getch();
+                    getchpress();
                     continue;
                 }
                 player1->getInventory()->addItem(itemName);
@@ -195,8 +192,7 @@ namespace menu
         }
         else
             cout << red << "action canceled!!" << reset;
-        cout << "\npress any key to continue... ";
-        getch();
+        getchpress();
         if (deleteVerification == "YES")
             return 1;
         return 0;
