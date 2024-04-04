@@ -64,8 +64,7 @@ void Shop::displayShop()
     }
 }
 
-template <class K>
-void Shop::subShop(vector<K> items, string title, string special)
+void Shop::subShop(vector<Item *> shopItems, string title, string special)
 {
     string backOption = "0- Back\n";
     string message = "Item added to your backpack!\n";
@@ -76,25 +75,24 @@ void Shop::subShop(vector<K> items, string title, string special)
            << setw(20) << "PRICE"
            << setw(20) << "STAMINA"
            << setw(20) << special << endl;
-    for (int i = 0; i < items.size(); ++i)
+    for (int i = 0; i < shopItems.size(); ++i)
     {
         int index = i + 1;
-        result << left << index << "-" << setw(20) << items[i]->getName()
-               << setw(20) << items[i]->getPrice()
-               << setw(20) << items[i]->getStamina()
-               << setw(20) << items[i]->getSpecial() << endl;
+        result << left << index << "-" << setw(20) << shopItems[i]->getName()
+               << setw(20) << shopItems[i]->getPrice()
+               << setw(20) << shopItems[i]->getStamina()
+               << setw(20) << shopItems[i]->getSpecial() << endl;
     }
     result << backOption << endl
            << "enetr your choice: ";
-    int input = getInput(result.str(), 0, items.size());
+    int input = getInput(result.str(), 0, shopItems.size());
 
     if (input == 0)
         return;
-    buy(input, items);
+    buy(input, shopItems);
 }
 
-template <class K>
-void Shop::buy(int input, vector<K> items)
+void Shop::buy(int input, vector<Item *> items)
 {
     string message = "Item added to your backpack!\n";
     if (player1->getCoins() >= items[input - 1]->getPrice())
