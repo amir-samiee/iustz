@@ -16,6 +16,8 @@ protected:
 
 public:
     States(Character *self) : self(self) {}
+    
+    //conditions:
     bool canUse(string myItem);
     bool canUse(vector<string> myItems);
     bool canKill();
@@ -44,7 +46,7 @@ class Attack : public States
 public:
     Attack(Character *self) : States(self) {}
     // void runState();
-    // StateName nextState();
+    StateName nextState(){return StateName::StartPoint;}
 };
 
 class LowHp : public States
