@@ -201,7 +201,7 @@ Throwable throwable5("EMP", 50, nullptr, 25, 12);
 Throwable throwable6("Drone", 100, nullptr, 50, 18);
 Throwable throwable7("Armata", 200, nullptr, 100, 24);
 Throwable throwable8("Bell 201", 300, nullptr, 100,30);
-Throwable throwable9("kiowa", 400, nullptr, 150, 40);
+Throwable throwable9("Kiowa", 400, nullptr, 150, 40);
 Throwable throwable10("Gunship", 500, nullptr, 200, 50);
 
 // objects of permanant class

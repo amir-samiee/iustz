@@ -10,7 +10,8 @@ public:
     template <class K>
     static void subShop(vector<K> items, string title, string special);
     void displayShop();
-    void buy();
+    template<class K>
+    static void buy(int input , vector<K>items);
 };
 
 Shop shop;

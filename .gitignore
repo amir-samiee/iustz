@@ -1,5 +1,5 @@
 *.exe
 /.vscode
 tester*.cpp
-shoptester.cpp
+shoptest.cpp
 Data/users.json
