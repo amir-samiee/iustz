@@ -280,11 +280,10 @@ void Mission::story()
     {
         string line;
         cout << "Mission " << missionNum << " - " << name << ":\n";
+        
         while (getline(file, line))
-        {
-            cout << line << endl;
-            Sleep(2000);
-        }
+            pprint(line);
+
         file.close();
     }
     else
