@@ -64,8 +64,6 @@ void Shop::displayShop()
     }
 }
 
-
-
 template <class K>
 void Shop::subShop(vector<K> items, string title, string special)
 {
@@ -92,20 +90,20 @@ void Shop::subShop(vector<K> items, string title, string special)
 
     if (input == 0)
         return;
-    Shop::buy(input,items);
+    buy(input, items);
 }
 
 template <class K>
-void Shop::buy(int input ,vector<K> items ) 
+void Shop::buy(int input, vector<K> items)
 {
     string message = "Item added to your backpack!\n";
-    if (player1->getCoins() >= items[input-1]->getPrice()){
-    
+    if (player1->getCoins() >= items[input - 1]->getPrice())
+    {
         player1->getInventory()->addItem(items[input - 1]->getName());
         int newCoins = player1->getCoins() - items[input - 1]->getPrice();
         player1->setCoins(newCoins);
         cout << message << endl;
-        }
-    else cout <<"Insufficient coins! You need to gather more coin to acquire this item"<< endl;
-    
+    }
+    else
+        cout << "Insufficient coins! You need to gather more coins to acquire this item" << endl;
 }
