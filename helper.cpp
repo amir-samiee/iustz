@@ -152,3 +152,21 @@ void cleanUp()
     for (auto i : humanMissions)
         delete i;
 }
+
+void removeUsername(string username)
+{
+    json data = loadData(usersFilePath);
+    data.erase(username);
+    dumpData(usersFilePath, data);
+}
+
+bool changeUsername(string oldUsername, string newUsername)
+{
+    json data = loadData(usersFilePath);
+    if (!data[newUsername].is_null())
+        return 0;
+    data[newUsername] = data[oldUsername];
+    data.erase(oldUsername);
+    dumpData(usersFilePath, data);
+    return 1;
+}

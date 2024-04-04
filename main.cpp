@@ -2,6 +2,7 @@
 
 int main()
 {
+    initializeMissions();
     // string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
     // clearScreen();
     // Sleep(2000);
@@ -20,9 +21,14 @@ int main()
         *player1 = defaultPlayer;
         clearScreen();
         // Sleep(2000);
-        cout << iustzTitle << string(2, '\n') << "Enter your usename: ";
+        cout << iustzTitle << string(2, '\n') << "Enter your usename (q to quit): ";
         string username;
         getline(cin, username);
+        if (username == "q")
+        {
+            cleanUp();
+            exit(0);
+        }
 
         // set username
         player1->setUsername(username);
@@ -52,11 +58,6 @@ int main()
             // some story ...
 
             // set gender
-            string genderOptions = "Please choose your gender: "
-                                   "\n1. Male"
-                                   "\n2. Female"
-                                   "\n3. Other"
-                                   "\n\nenter your choice: ";
             int genderChoice = getInput(genderOptions, 1, 3, 0);
             string gender = genders[genderChoice - 1];
             player1->setGender(gender);

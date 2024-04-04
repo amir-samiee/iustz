@@ -6,6 +6,11 @@ random_device rd;
 mt19937 gen(rd());
 
 const vector<string> genders = {"male", "female", "other"};
+string genderOptions = "Please choose your gender... "
+                       "\n1. Male"
+                       "\n2. Female"
+                       "\n3. Other"
+                       "\n\nenter your choice: ";
 
 const string red("\033[0;31m");
 const string green("\033[1;32m");
@@ -51,3 +56,6 @@ void print_vector(vector<K> vec);
 
 void save();
 void cleanUp();
+
+void removeUsername(string username);
+bool changeUsername(string oldUsername, string newUsername);
