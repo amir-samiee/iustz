@@ -89,18 +89,19 @@ void Shop::subShop(vector<Item *> shopItems, string title, string special)
 
     if (input == 0)
         return;
-    buy(input, shopItems);
+      
+    buy(shopItems[input-1]);
 }
 
-void Shop::buy(int input, vector<Item *> items)
+void Shop::buy(Item* shopItem)
 {
     string message = "Item added to your backpack!\n";
-    if (player1->getCoins() >= items[input - 1]->getPrice())
+    if (player1->getCoins() >= shopItem->getPrice())
     {
-        player1->getInventory()->addItem(items[input - 1]->getName());
-        int newCoins = player1->getCoins() - items[input - 1]->getPrice();
-        player1->setCoins(newCoins);
-        cout << message << endl;
+    player1->getInventory()->addItem((shopItem)->getName());
+    int newcoin = player1->getCoins() - shopItem->getPrice();
+    player1->setCoins(newcoin);
+    cout << message << endl;
     }
     else
         cout << "Insufficient coins! You need to gather more coins to acquire this item" << endl;
