@@ -158,7 +158,7 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
         int meleeLvl;
         int coins;
         // Creating the enemy based on type:
-        Character *enemy = new HumanEnemy("human" + 1 + i, 30, "male", *backpack, hp, stamina,
+        Character *enemy = new HumanEnemy("Human" + 1 + i, 30, "male", *backpack, hp, stamina,
                                           firearmLvl, meleeLvl, 1, {player1}, coins);
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
@@ -197,7 +197,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         int meleeLvl;
         int coins;
         // Creating the enemy based on type:
-        Character *enemy = new ZombieEnemy("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
+        Character *enemy = new ZombieEnemy("Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
                                            firearmLvl, meleeLvl, 1, {player1}, coins);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
@@ -222,7 +222,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         int meleeLvl;
         int coins;
 
-        Character *enemy = new SpecialZombie("zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
+        Character *enemy = new SpecialZombie("Special Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
                                              firearmLvl, meleeLvl, 1, {player1}, coins);
         specialEn.push_back(enemy);
         mixedEn.push_back(enemy);

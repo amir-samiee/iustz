@@ -32,7 +32,7 @@ namespace menu
                      << "\nnotice: you might have to continue the other branch to unlock this mission"
                      << "\n\nRequired Human Levels: " << selected->getHumanLevels()
                      << "\nRequired Zombie Levels: " << selected->getZombieLevels();
-                     getchPress();
+                getchPress();
             }
         }
     }
@@ -159,7 +159,7 @@ namespace menu
                 if (!player1->getBackpack()->isFull())
                 {
                     player1->getInventory()->removeItem(itemName);
-                    player1->getBackpack()->addItem(itemName);
+                    player1->getBackpack()->addItem(itemName, true);
                 }
             }
             else if (choice < 0) // remove item from backpack and add to inventory
@@ -172,7 +172,7 @@ namespace menu
                     getchPress();
                     continue;
                 }
-                player1->getInventory()->addItem(itemName);
+                player1->getInventory()->addItem(itemName, true);
                 player1->getBackpack()->removeItem(itemName);
             }
         }

@@ -29,7 +29,7 @@ public:
     bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5*self->getStamina()->getMaxPoint(); }
     bool wastingPotion(string type);
     
-    // virtual void runState() = 0;
+    virtual void runState(){}
     virtual StateName nextState();
 };
 
@@ -37,8 +37,6 @@ class StartPoint : public States
 {
 public:
     StartPoint(Character *self) : States(self) {}
-    // void runState();
-    // StateName nextState();
 };
 
 class Attack : public States

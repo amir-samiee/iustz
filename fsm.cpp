@@ -1,5 +1,6 @@
 #include "headers.h"
 
+// class States:
 bool States::canUse(string name)
 {
     if (self->getStamina()->getCurrentPoint() >= itemsMap[name]->getStamina())
@@ -76,6 +77,12 @@ StateName States::nextState()
     return StateName::Attack;
 }
 
+// class Attack:
+// class LowHp:
+// class LowStamina:
+// class BoostPower:
+
+// class FSM:
 FSM::FSM(Character *self)
 {
     currentState = StateName::StartPoint;
@@ -94,6 +101,6 @@ FSM::FSM(Character *self)
 
 void FSM::runTurn()
 {
-    // statesMap[currentState]->runState();
-    // currentState = statesMap[currentState]->nextState();
+    statesMap[currentState]->runState();
+    currentState = statesMap[currentState]->nextState();
 }

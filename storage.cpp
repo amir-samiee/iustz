@@ -28,14 +28,14 @@ json Storage::dumpStorage()
     return data;
 }
 
-void Storage::addItem(string name)
+void Storage::addItem(string name, bool isViewed)
 {
     if (itemsMap.find(name) == itemsMap.end())
         throw invalid_argument("Invalid item name!");
     if (items.find(name) == items.end())
         items.insert({name, 1});
 
-    else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
+    else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr && isViewed)
         cout << yellow << "you can only add a permanent item once!\n"
              << reset;
 
@@ -146,7 +146,7 @@ void LimitedStorage::sortItems(vector<string> myItems)
     }
 }
 
-void LimitedStorage::addItem(string name)
+void LimitedStorage::addItem(string name, bool isViewed)
 {
     if (size < capacity)
     {
@@ -176,7 +176,7 @@ void LimitedStorage::addItem(string name)
             size++;
         }
 
-        else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
+        else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr && isViewed)
             cout << yellow << "you can only add a permanent item once!\n"
                  << reset;
 
@@ -186,7 +186,7 @@ void LimitedStorage::addItem(string name)
             size++;
         }
     }
-    else
+    else if (isViewed)
         cout << yellow << "your backpack is already full!\n"
              << reset;
 }

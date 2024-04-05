@@ -23,7 +23,7 @@ public:
     void clearStorage();
     virtual void loadStorage(json data);
     virtual json dumpStorage();
-    virtual void addItem(string name);
+    virtual void addItem(string name, bool isViewed = false);
     string getStorageData(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     void printStorage(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     virtual void removeItem(string name);
@@ -56,7 +56,7 @@ public:
     // others
     void loadStorage(json data) override;
     json dumpStorage();
-    void addItem(string name) override;
+    void addItem(string name, bool isViewed = false) override;
     void removeItem(string name) override;
     inline int remainedSpace() { return capacity - size; }
     inline bool isFull() { return remainedSpace() == 0; }
