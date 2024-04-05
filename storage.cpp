@@ -3,7 +3,10 @@
 
 void Storage::setItems(map<string, int> newItems)
 {
-    items = {};
+    for (auto item : items)
+        for (int i = 0; i < item.second; i++)
+            removeItem(item.first);
+    
     for (auto item : newItems)
         for (int i = 0; i < item.second; i++)
             addItem(item.first);

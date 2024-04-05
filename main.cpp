@@ -35,7 +35,7 @@ int main()
 
         json users = loadData(usersFilePath);
 
-        if (users[username].is_null() == true)
+        if (users[username].is_null())
         {
 
             // uncomment to see how pprint function works
