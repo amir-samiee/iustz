@@ -70,7 +70,7 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
         names.push_back(itemName);
         result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber << setw(maxNameLength + 5) << itemName
                << setw(maxTypeLength + 2) << itemPtr->getType() << right
-               << setw(8) << itemPtr->getSpecial() << string(4, ' ')
+               << setw(9) << itemPtr->getSpecial() << string(3, ' ')
                << setw(8) << itemPtr->getStamina() << string(2, ' ')
                << setw(8) << item.second << endl;
         i++;

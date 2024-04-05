@@ -289,7 +289,7 @@ void Mission::story()
     else
         cerr << "Unable to open file! " << endl;
 
-    getchpress();
+    getchPress();
     clearScreen();
 }
 void Mission::enemyTurn()

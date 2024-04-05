@@ -60,4 +60,4 @@ void cleanUp();
 void removeUsername(string username);
 bool changeUsername(string oldUsername, string newUsername);
 
-void getchpress();
+void getchPress();

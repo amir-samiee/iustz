@@ -42,7 +42,7 @@ void Shop::displayShop()
         case 3: // Weapons
             while (!breakFlag)
             {
-                options2 = "Permenet Weapons Items\n1-Melee\n2-Firearm\n0-Back\n\nenter your choice: ";
+                options2 = "Permenet Weapons Items\n1- Melees\n2- Firearms\n0- Back\n\nenter your choice: ";
                 secondInput = getInput(options2, 0, 2);
                 switch (secondInput)
                 {
@@ -66,61 +66,62 @@ void Shop::displayShop()
 
 void Shop::subShop(vector<Item *> shopItems, string title, string special)
 {
-    while(1)
+    const string backOption = " 0- Back\n";
+    while (1)
     {
-    string backOption = " 0- Back\n";
-    string message = "Item added to your inventory!\n";
+        int maxLength = 8;
+        for (int i = 0; i < shopItems.size(); ++i)
+        {
+            string itemName = shopItems[i]->getName();
+            if (itemName.size() > maxLength)
+                maxLength = itemName.size();
+        }
+        stringstream result;
+        result << "COINS: " << player1->getCoins() << endl
+               << endl;
+        result << title << endl;
+        result << left
+               << setw(maxLength + 5) << "    NAME" << right
+               << setw(20) << "PRICE"
+               << setw(20) << "STAMINA"
+               << setw(20) << special << endl;
+        for (int i = 0; i < shopItems.size(); ++i)
+        {
+            int index = i + 1;
+            Item *item = shopItems[i];
+            result << right << setw(2) << index << "- " << left
+                   << setw(maxLength + 5) << item->getName() << right
+                   << setw(15) << item->getPrice() << string(5, ' ')
+                   << setw(14) << item->getStamina() << string(6, ' ')
+                   << setw(14) << item->getSpecial() << endl;
+        }
+        result << backOption << endl
+               << "enetr your choice: ";
+        int input = getInput(result.str(), 0, shopItems.size());
 
-    int maxLength = 8;
-    for (int i = 0; i < shopItems.size(); ++i)
-    {
-        string itemName = shopItems[i]->getName();
-        if (itemName.size() > maxLength)
-            maxLength = itemName.size();
-    }
-    stringstream result;
-    result << title << endl;
-    result << left
-           << setw(maxLength + 5) << "    NAME"
-           << setw(20) << "PRICE"
-           << setw(20) << "STAMINA"
-           << setw(20) << special << endl;
-    for (int i = 0; i < shopItems.size(); ++i)
-    {
-        int index = i + 1;
-        Item *item = shopItems[i];
-        result << right << setw(2) << index << "- " << left
-               << setw(maxLength + 5) << item->getName()
-               << setw(20) << item->getPrice()
-               << setw(20) << item->getStamina()
-               << setw(20) << item->getSpecial() << endl;
-    }
-    result << backOption << endl
-           << "enetr your choice: ";
-    int input = getInput(result.str(), 0, shopItems.size());
+        if (input == 0)
+            return;
 
-    if (input == 0)
-        return;
-      
-    buy(shopItems[input-1]);
+        buy(shopItems[input - 1]);
     }
 }
 
-void Shop::buy(Item* shopItem)
+void Shop::buy(Item *item)
 {
-    string message = "Item added to your inventory!\n";
-    if (player1->getCoins() >= shopItem->getPrice())
-    {
-    player1->getInventory()->addItem((shopItem)->getName());
-    int newcoin = player1->getCoins() - shopItem->getPrice();
-    player1->setCoins(newcoin);
-    cout << green << message << reset << endl;
-    getchpress();
-    }
+    string itemName = item->getName();
+    clearScreen();
+    int newCoin = player1->getCoins() - item->getPrice();
+    map<string, int> backpackItems = player1->getBackpack()->getItems();
+    map<string, int> inventoryItems = player1->getInventory()->getItems();
+    if (dynamic_cast<Permanent *>(item) != nullptr && (backpackItems[itemName] != 0 || inventoryItems[itemName] != 0))
+        cout << red << "You already own this permanent item!" << reset << endl;
+    else if (newCoin < 0)
+        cout << red << "Insufficient coins! You need to gather more coins to acquire this item!" << reset << endl;
     else
     {
-        clearScreen();
-        cout << red <<"Insufficient coins! You need to gather more coins to acquire this item"<< reset << endl;
-        getchpress();
+        player1->getInventory()->addItem((item)->getName());
+        player1->setCoins(newCoin);
+        cout << green << "Item added to your inventory!" << reset << endl;
     }
+    getchPress();
 }

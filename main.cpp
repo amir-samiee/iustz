@@ -78,7 +78,7 @@ int main()
             player1->loadPlayer(users[username]);
             clearScreen();
             cout << "Welcome back, " << cyan << player1->getName() << reset << "!" << endl;
-            getchpress();
+            getchPress();
         }
         menu::mainMenu();
     }
