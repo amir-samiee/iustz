@@ -311,9 +311,7 @@ void Mission::end()
     if (player1->isAlive())
         transfer(player1->getReward(), player1->getInventory());
     else
-    {
         player1->getReward()->setItems({});
-    }
 }
 
 void Mission::start()

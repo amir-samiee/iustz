@@ -20,6 +20,7 @@ public:
     virtual void setItems(map<string, int> newItems);
 
     // others
+    void clearStorage();
     virtual void loadStorage(json data);
     virtual json dumpStorage();
     virtual void addItem(string name);

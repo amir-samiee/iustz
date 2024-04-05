@@ -3,13 +3,17 @@
 
 void Storage::setItems(map<string, int> newItems)
 {
-    for (auto item : items)
-        for (int i = 0; i < item.second; i++)
-            removeItem(item.first);
-    
+    clearStorage();
     for (auto item : newItems)
         for (int i = 0; i < item.second; i++)
             addItem(item.first);
+}
+
+void Storage::clearStorage()
+{
+    for (auto item : items)
+        for (int i = 0; i < item.second; i++)
+            removeItem(item.first);
 }
 
 void Storage::loadStorage(json data)

@@ -48,12 +48,21 @@ void cleanIntString(string &s)
     {
         int size = s.size();
         char start = s[0];
-        if (start == '0')
+        switch (start)
+        {
+        case '0':
+        case '+':
             s = s.substr(1, size);
-        else if ((start == '-' || start == '+') && size > 2 && s[1] == '0')
-            s = start + s.substr(2, size);
-        else
             break;
+        case '-':
+            if (size > 2 && s[1] == '0')
+            {
+                s = start + s.substr(2, size);
+                break;
+            }
+        default:
+            return;
+        }
     }
 }
 
