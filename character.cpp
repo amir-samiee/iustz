@@ -183,25 +183,24 @@ void SpecialZombie::takeDamage(int damage) { this->controller->takeDamage(damage
 
 ////////////////////////////////////////////////////////////////
 
-void Player::turn()
+bool Player::move()
 {
-    while (1)
+    int choice;
+    Item *selectedItem;
+    do
     {
-        int choice;
-        Item *selectedItem;
-        do
-        {
-            string options = backpack.getStorageData() + "\nenter your choice: ";
-            choice = getInput(options, 1, backpack.getNames().size(), 0);
-            selectedItem = itemsMap[backpack.getNames()[choice - 1]];
-            selectedItem->setOwner(this);
-            if (selectedItem->checkForUse())
-                break;
-        } while (1);
-        selectedItem->useItem();
-        if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
+        string options = backpack.getStorageData() + "\nenter your choice: ";
+        choice = getInput(options, 1, backpack.getNames().size(), 0);
+        selectedItem = itemsMap[backpack.getNames()[choice - 1]];
+        selectedItem->setOwner(this);
+        if (selectedItem->checkForUse())
             break;
+    } while (1);
+    selectedItem->useItem();
+    if(dynamic_cast<Permanent*>(selectedItem) || dynamic_cast<Throwable*>(selectedItem)){
+        return 0;
     }
+    return 1;
 }
 double SpecialZombie::getPowerBoost()
 {
@@ -212,7 +211,7 @@ double SpecialZombie::getPowerBoost()
     return model->powerBoost;
 }
 void Player::die() {}
-void Enemy::turn() {}
+bool Enemy::move() {}
 void Enemy::die() { controller->die(); }
 void Enemy::display(){};
-void SpecialZombie::turn() {}
+bool SpecialZombie::move() {}
