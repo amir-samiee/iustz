@@ -60,7 +60,7 @@ class LowStamina : public States
 {
 public:
     LowStamina(Character *self) : States(self) {}
-    // void runState();
+    void runState();
     // StateName nextState();
 };
 

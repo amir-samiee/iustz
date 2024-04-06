@@ -148,6 +148,14 @@ void LowHp::runState()
 }
 
 // class LowStamina:
+void LowStamina :: runState(){
+    vector<string>enemyStaminaPotion = self->getBackpack()->getStaminaPotions();
+        for (int i =  enemyStaminaPotion.size()-1 ; i >= 0; i--)
+        {
+            if(!wastingPotion(itemsMap[enemyStaminaPotion[i]]))
+            itemsMap[enemyStaminaPotion[i]]->useItem() ;
+        }
+}
 // class BoostPower:
 
 // class FSM:
