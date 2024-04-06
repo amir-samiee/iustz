@@ -157,6 +157,7 @@ namespace MVC
         string currentMission;
         vector<Character *> currentWave;
 
+
         EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                    int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
         bool isAlive();
@@ -174,9 +175,12 @@ namespace MVC
         EnemyModel *model;
         EnemyView *view;
         Enemy *self;
+        FSM fsm;
 
     public:
-        EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
+        EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {
+            fsm = FSM(self) ;
+        }
         virtual void takeDamage(int damage);
         void die();
     };
@@ -199,6 +203,7 @@ protected:
     MVC::EnemyModel *model;
     MVC::EnemyView *view;
     MVC::EnemyController *controller;
+
 
 public:
     Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,

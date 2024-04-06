@@ -87,5 +87,6 @@ protected:
 
 public:
     FSM(Character *self);
+    FSM() = default ;
     void runTurn();
 };
