@@ -14,6 +14,7 @@ void Storage::clearStorage()
     for (auto item : items)
         for (int i = 0; i < item.second; i++)
             removeItem(item.first);
+    removeItem(items);
 }
 
 void Storage::loadStorage(json data)
@@ -104,6 +105,13 @@ void Storage::removeItem(string name, bool isViewd)
 
     else
         items[name]--;
+}
+
+void Storage::removeItem(map<string, int> removingItems, bool isViewd)
+{
+    for (auto item : removingItems)
+        for (int i = 0; i < item.second; i++)
+            removeItem(item.first, isViewd);
 }
 
 void LimitedStorage::setItems(map<string, int> newItems)

@@ -27,6 +27,7 @@ public:
     string getStorageData(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     void printStorage(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
     virtual void removeItem(string name, bool isViewd = 1);
+    void removeItem(map<string, int> items, bool isViewd = 1);
 };
 
 class LimitedStorage : public Storage
