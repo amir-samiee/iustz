@@ -9,10 +9,8 @@ bool States::canUse(string name)
 bool States::canUse(vector<string> myItems)
 {
     for (int i = 0; i < myItems.size(); ++i)
-    {
         if (canUse(myItems[i]))
             return 1;
-    }
     return 0;
 }
 
@@ -29,10 +27,8 @@ bool States::canKill()
 bool States::wastingPotion(vector<string> potions, Stat myStat)
 {
     for (int i = 0; i < potions.size(); ++i)
-    {
         if (itemsMap[potions[i]]->getSpecial() > myStat.getMaxPoint() - myStat.getCurrentPoint())
             return 1;
-    }
     return 0;
 }
 
@@ -177,15 +173,24 @@ void BoostPower::runState()
     for (int i = powerPotions.size() - 1; i >= 0; --i)
     {
         Stat newStamina = *player1->getStamina();
-        newStamina.setCurrentPoint(newStamina.getCurrentPoint()-itemsMap[powerPotions[i]]->getStamina());
+        newStamina.setCurrentPoint(newStamina.getCurrentPoint() - itemsMap[powerPotions[i]]->getStamina());
         string staminaItem = appropriateStamina(newStamina);
         if (staminaItem != "")
             newStamina.setCurrentPoint(newStamina.getCurrentPoint() + itemsMap[staminaItem]->getSpecial());
 
         string weapon = appropriateWeapon(itemsMap[powerPotions[i]]->getSpecial(), newStamina);
-        if (itemsMap[weapon]->getSpecial() > maxDamage)
+
+        int currentDamage = itemsMap[weapon]->getSpecial() * itemsMap[powerPotions[i]]->getSpecial();
+
+        if (dynamic_cast<Firearm *>(itemsMap[weapon]) != nullptr)
+            currentDamage *= self->getFirearmLevel();
+
+        else if (dynamic_cast<Melee *>(itemsMap[weapon]) != nullptr)
+            currentDamage *= self->getMeleeLevel();
+
+        if (currentDamage > maxDamage)
         {
-            maxDamage = itemsMap[weapon]->getSpecial();
+            maxDamage = currentDamage;
             myPowerPotion = powerPotions[i];
         }
     }

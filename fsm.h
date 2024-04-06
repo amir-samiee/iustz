@@ -18,8 +18,8 @@ public:
     States(Character *self) : self(self) {}
 
     // conditions:
-    bool canUse(string myItem);
-    bool canUse(vector<string> myItems);
+    bool canUse(string myItem); //have enough stamina to use an item
+    bool canUse(vector<string> myItems); //have enough stamina to use a type of item
     bool canKill();
     bool lowStamina() { return self->getStamina()->getCurrentPoint() < 0.1 * self->getStamina()->getMaxPoint(); }
     bool lowHp() { return self->getHp()->getCurrentPoint() < 0.3 * self->getHp()->getMaxPoint(); }
@@ -27,8 +27,8 @@ public:
     bool haveHpPotion() { return !self->getBackpack()->getHpPotions().empty(); }
     bool havePowerPotion() { return !self->getBackpack()->getPowerPotions().empty(); }
     bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5 * self->getStamina()->getMaxPoint(); }
-    bool wastingPotion(vector<string> potions, Stat myStat);
-    bool wastingPotion(Item *potion, Stat myStat);
+    bool wastingPotion(vector<string> potions, Stat myStat); // check if there is a potion of a type that wont go to waste
+    bool wastingPotion(Item *potion, Stat myStat); // check if a certain potion wont go to waste
     string appropriateStamina(Stat myStat);
     string appropriateWeapon(double powerBoost, Stat myStamina);
 
