@@ -87,7 +87,8 @@ protected:
 
 public:
     FSM(Character *self);
-    FSM() = default ;
+    FSM() = default;
+    ~FSM();
     void runTurn();
-    StateName getCurrentState(){return currentState;}
+    StateName getCurrentState() { return currentState; }
 };

@@ -65,3 +65,5 @@ public:
     inline int remainedSpace() { return capacity - size; }
     inline bool isFull() { return remainedSpace() == 0; }
 };
+
+vector<Storage *> storageLeakHandle;

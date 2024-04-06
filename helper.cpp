@@ -156,9 +156,25 @@ void cleanUp()
 {
     delete player1;
     for (auto i : zombieMissions)
+    {
+        i = nullptr;
         delete i;
+    }
     for (auto i : humanMissions)
+    {
+        i = nullptr;
         delete i;
+    }
+    for (auto i : storageLeakHandle)
+    {
+        i = nullptr;
+        delete i;
+    }
+    for (auto i : characterLeakHandle)
+    {
+        i = nullptr;
+        delete i;
+    }
 }
 
 void removeUsername(string username)

@@ -157,7 +157,6 @@ namespace MVC
         string currentMission;
         vector<Character *> currentWave;
 
-
         EnemyModel(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
                    int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
         bool isAlive();
@@ -179,6 +178,7 @@ namespace MVC
 
     public:
         EnemyController(EnemyModel *model, EnemyView *view, Enemy *self);
+        ~EnemyController();
         virtual void takeDamage(int damage);
         void die();
         bool move();
@@ -202,7 +202,6 @@ protected:
     MVC::EnemyModel *model;
     MVC::EnemyView *view;
     MVC::EnemyController *controller;
-
 
 public:
     Enemy(string name, int age, string gender, LimitedStorage backpack, Stat hp, Stat stamina, int firearmLevel,
@@ -264,7 +263,9 @@ class SpecialZombie : public ZombieEnemy
 public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
-    double getPowerBoost() ;
+    double getPowerBoost();
     void takeDamage(int damage) override;
     bool move() override;
 };
+
+vector<Character *> characterLeakHandle;

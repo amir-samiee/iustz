@@ -192,10 +192,10 @@ void BoostPower::runState()
     {
         Stat newStamina = *player1->getStamina();
         string staminaItem = appropriateStamina(newStamina);
-        
+
         if (staminaItem != "")
             newStamina.setCurrentPoint(newStamina.getCurrentPoint() + itemsMap[staminaItem]->getSpecial());
-        
+
         string weapon = appropriateWeapon(itemsMap[powerPotions[i]]->getSpecial(), newStamina);
         if (itemsMap[weapon]->getSpecial() > maxDamage)
         {
@@ -222,6 +222,15 @@ FSM::FSM(Character *self)
         {StateName::LowHp, lowHp},
         {StateName::LowStamina, lowStamina},
         {StateName::BoostPower, boostPower}};
+}
+
+FSM::~FSM()
+{
+    delete startPoint;
+    delete attack;
+    delete lowHp;
+    delete lowStamina;
+    delete boostPower;
 }
 
 void FSM::runTurn()
