@@ -25,9 +25,7 @@ bool States::canKill()
     int currentPoint = self->getWave()[0]->getHp()->getCurrentPoint();
     for (int i = 0; i < weapons.size(); i++)
         if (currentPoint <= itemsMap[weapons[i]]->getSpecial() && canUse(weapons[i]))
-        {
             return 1;
-        }
     return 0;
 }
 
@@ -78,6 +76,45 @@ StateName States::nextState()
 }
 
 // class Attack:
+void Attack::runState()
+{
+    string myWeapon;
+    int maxDamage;
+    vector<string> weapons;
+    for (int i = 0; i < weapons.size(); i++)
+    {
+        int damage = itemsMap[weapons[i]]->getSpecial();
+        if (dynamic_cast<Firearm *>(itemsMap[weapons[i]]))
+        {
+            damage *= self->getFirearmLevel() * self->getPowerBoost();
+            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+            {
+                maxDamage = damage;
+                myWeapon = weapons[i];
+            }
+        }
+        if (dynamic_cast<Melee *>(itemsMap[weapons[i]]))
+        {
+            damage *= self->getMeleeLevel() * self->getPowerBoost();
+            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+            {
+                maxDamage = damage;
+                myWeapon = weapons[i];
+            }
+        }
+        if (dynamic_cast<Throwable *>(itemsMap[weapons[i]]))
+        {
+            damage *= self->getPowerBoost();
+            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+            {
+                maxDamage = damage;
+                myWeapon = weapons[i];
+            }
+        }
+    }
+    itemsMap[myWeapon]->setOwner(self);
+    itemsMap[myWeapon]->useItem();
+}
 // class LowHp:
 // class LowStamina:
 // class BoostPower:
