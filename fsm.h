@@ -16,21 +16,23 @@ protected:
 
 public:
     States(Character *self) : self(self) {}
-    
-    //conditions:
+
+    // conditions:
     bool canUse(string myItem);
     bool canUse(vector<string> myItems);
     bool canKill();
-    bool lowStamina() { return self->getStamina()->getCurrentPoint() < 0.1*self->getStamina()->getMaxPoint(); }
-    bool lowHp() { return self->getHp()->getCurrentPoint() < 0.3*self->getHp()->getMaxPoint(); }
+    bool lowStamina() { return self->getStamina()->getCurrentPoint() < 0.1 * self->getStamina()->getMaxPoint(); }
+    bool lowHp() { return self->getHp()->getCurrentPoint() < 0.3 * self->getHp()->getMaxPoint(); }
     bool haveStaminaPotion() { return !self->getBackpack()->getStaminaPotions().empty(); }
     bool haveHpPotion() { return !self->getBackpack()->getHpPotions().empty(); }
     bool havePowerPotion() { return !self->getBackpack()->getPowerPotions().empty(); }
-    bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5*self->getStamina()->getMaxPoint(); }
-    bool wastingPotion(string type);
-    bool wastingPotion(Item* potion);
-    
-    virtual void runState(){}
+    bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5 * self->getStamina()->getMaxPoint(); }
+    bool wastingPotion(string type, Stat *myStat);
+    bool wastingPotion(Item *potion, Stat myStat);
+    string appropriateStamina(Stat myStat);
+    string appropriateWeapon(double powerBoost, Stat myStamina);
+
+    virtual void runState() {}
     virtual StateName nextState();
 };
 
@@ -45,7 +47,7 @@ class Attack : public States
 public:
     Attack(Character *self) : States(self) {}
     void runState();
-    StateName nextState(){return StateName::StartPoint;}
+    StateName nextState() { return StateName::StartPoint; }
 };
 
 class LowHp : public States
@@ -68,7 +70,7 @@ class BoostPower : public States
 {
 public:
     BoostPower(Character *self) : States(self) {}
-    // void runState();
+    void runState();
     // StateName nextState();
 };
 
