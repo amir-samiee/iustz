@@ -89,4 +89,5 @@ public:
     FSM(Character *self);
     FSM() = default ;
     void runTurn();
+    StateName getCurrentState(){return currentState;}
 };
