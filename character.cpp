@@ -197,7 +197,7 @@ bool Player::move()
             break;
     } while (1);
     selectedItem->useItem();
-    if(dynamic_cast<Permanent*>(selectedItem) || dynamic_cast<Throwable*>(selectedItem)){
+    if(dynamic_cast<Permanent*>(selectedItem)!=nullptr || dynamic_cast<Throwable*>(selectedItem)!= nullptr){
         return 0;
     }
     return 1;
