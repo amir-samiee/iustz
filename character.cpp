@@ -113,6 +113,13 @@ void MVC::EnemyController::takeDamage(int takenDamage)
         this->die();
 }
 
+bool MVC::EnemyController::move()
+{
+    StateName currentState = fsm->getCurrentState();
+    fsm->runTurn();
+    return (currentState != StateName::Attack);
+}
+
 void MVC::EnemyController::die()
 {
     Player *myplayer = dynamic_cast<Player *>(self->getWave()[0]);
@@ -213,11 +220,12 @@ double SpecialZombie::getPowerBoost()
 }
 void Player::die() {}
 
-MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {
-            fsm = new FSM(self) ;
+MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self)
+{
+    fsm = new FSM(self);
 }
 
-bool Enemy::move() { return 1; }
+bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
 void Enemy::display() {}
 bool SpecialZombie::move() { return 1; }

@@ -181,6 +181,7 @@ namespace MVC
         EnemyController(EnemyModel *model, EnemyView *view, Enemy *self);
         virtual void takeDamage(int damage);
         void die();
+        bool move();
     };
 
     class SpecialEnemyController : public EnemyController

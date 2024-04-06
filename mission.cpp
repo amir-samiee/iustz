@@ -294,6 +294,9 @@ void Mission::story()
 }
 void Mission::enemyTurn()
 {
+    Character* enemy = player1->getWave()[0];
+    while (enemy->move())
+        display();
 }
 void Mission::playerTurn()
 {
