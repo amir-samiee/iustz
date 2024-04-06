@@ -22,8 +22,8 @@ int main()
         clearScreen();
         // Sleep(2000);
         cout << iustzTitle << string(2, '\n') << "Enter your usename (q to quit): ";
-        string username = "amir";
-        // getline(cin, username);
+        string username;
+        getline(cin, username);
         if (username == "q")
         {
             cleanUp();

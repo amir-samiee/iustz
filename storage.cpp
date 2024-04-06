@@ -209,7 +209,6 @@ void LimitedStorage::addItem(map<string, int> addingItems, bool isViewed)
                  << reset;
         return;
     }
-    cout << "done" << endl;
     Storage::addItem(addingItems, isViewed);
 }
 

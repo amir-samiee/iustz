@@ -11,6 +11,7 @@ protected:
 public:
     // constructor
     Storage() = default;
+    Storage(map<string, int> items) : items(items) {}
 
     // getters
     map<string, int> getItems() { return items; }

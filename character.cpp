@@ -197,7 +197,8 @@ bool Player::move()
             break;
     } while (1);
     selectedItem->useItem();
-    if(dynamic_cast<Permanent*>(selectedItem)!=nullptr || dynamic_cast<Throwable*>(selectedItem)!= nullptr){
+    if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
+    {
         return 0;
     }
     return 1;
@@ -211,7 +212,7 @@ double SpecialZombie::getPowerBoost()
     return model->powerBoost;
 }
 void Player::die() {}
-bool Enemy::move() {}
+bool Enemy::move() { return 1; }
 void Enemy::die() { controller->die(); }
-void Enemy::display(){};
-bool SpecialZombie::move() {}
+void Enemy::display() {}
+bool SpecialZombie::move() { return 1; }

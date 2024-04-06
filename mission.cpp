@@ -299,8 +299,6 @@ void Mission::playerTurn()
 {
     while (player1->move())
         display();
-    
-    
 }
 void Mission::endWave()
 {
@@ -316,17 +314,21 @@ void Mission::endWave()
 void Mission::end()
 {
     if (player1->isAlive())
-        transfer(player1->getReward(), player1->getInventory());
+    {
+        LimitedStorage *backpack = player1->getBackpack();
+        Storage *inventory = player1->getInventory();
+        LimitedStorage temp = *backpack;
+        transfer(backpack, inventory);
+        transfer(player1->getReward(), inventory);
+        inventory->removeItem(temp.getItems());
+        transfer(&temp, backpack);
+    }
     else
-        player1->getReward()->setItems({});
+        player1->getReward()->clearStorage();
+}
 
-    // LimitedStorage *backpack = player1->getBackpack();
-    // Storage *inventory = player1->getInventory();
-    // LimitedStorage temp = *backpack;
-    // transfer(backpack, inventory);
-
-    // backpack->clearStorage();
-    // transfer
+void Mission::display()
+{
 }
 
 void Mission::start()
