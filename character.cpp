@@ -212,6 +212,11 @@ double SpecialZombie::getPowerBoost()
     return model->powerBoost;
 }
 void Player::die() {}
+
+MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {
+            fsm = new FSM(self) ;
+}
+
 bool Enemy::move() { return 1; }
 void Enemy::die() { controller->die(); }
 void Enemy::display() {}

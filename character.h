@@ -138,7 +138,7 @@ Player defaultPlayer("default name", 18, "default gender", LimitedStorage(),
 Player *player1 = new Player(defaultPlayer);
 // Enemies
 class Enemy;
-
+class FSM;
 namespace MVC
 {
     class EnemyModel
@@ -175,12 +175,10 @@ namespace MVC
         EnemyModel *model;
         EnemyView *view;
         Enemy *self;
-        FSM fsm;
+        FSM *fsm;
 
     public:
-        EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {
-            fsm = FSM(self) ;
-        }
+        EnemyController(EnemyModel *model, EnemyView *view, Enemy *self);
         virtual void takeDamage(int damage);
         void die();
     };
