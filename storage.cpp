@@ -90,11 +90,14 @@ void Storage::printStorage(string beforeNumber, string afterNumber, int leftMarg
     cout << getStorageData(beforeNumber, afterNumber, leftMargin);
 }
 
-void Storage::removeItem(string name)
+void Storage::removeItem(string name, bool isViewd)
 {
     if (items[name] < 1)
-        cout << yellow << "item does not exist to remove!\n"
-             << reset;
+    {
+        if (isViewd)
+            cout << yellow << "item does not exist to remove!\n"
+                 << reset;
+    }
 
     else if (items[name] == 1)
         items.erase(name);
@@ -191,7 +194,7 @@ void LimitedStorage::addItem(string name, bool isViewed)
              << reset;
 }
 
-void LimitedStorage::removeItem(string name)
+void LimitedStorage::removeItem(string name, bool isViewd)
 {
     if (items[name] > 0)
         size--;
@@ -206,5 +209,5 @@ void LimitedStorage::removeItem(string name)
         else
             myPowerPotions.erase(remove(myPowerPotions.begin(), myPowerPotions.end(), name), myPowerPotions.end());
     }
-    Storage::removeItem(name);
+    Storage::removeItem(name, isViewd);
 }

@@ -20,6 +20,7 @@ bool Item::checkForUse()
     }
     if (owner->getBackpack()->getItems()[name] == 0)
     {
+        
         cout << red << "user doesn't own the item\n"
              << reset;
         return false;

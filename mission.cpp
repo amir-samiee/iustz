@@ -250,7 +250,7 @@ HumanFactory::HumanFactory(int lvl, int casualEn, int specialEn)
 
 //////////////////////////////////////////////////////////
 
-Mission::Mission( int newMissionNum, int specialEnemy)
+Mission::Mission(int newMissionNum, int specialEnemy)
 {
     this->missionNum = newMissionNum;
     // Random number of enemies based on level:
@@ -280,7 +280,7 @@ void Mission::story()
     {
         string line;
         cout << "Mission " << missionNum << " - " << name << ":\n";
-        
+
         while (getline(file, line))
             pprint(line);
 
@@ -337,8 +337,8 @@ void Mission::start()
     end();
 }
 
-ZombieMission::ZombieMission( int missionNum, int specialEnemy)
-    : Mission( missionNum, specialEnemy)
+ZombieMission::ZombieMission(int missionNum, int specialEnemy)
+    : Mission(missionNum, specialEnemy)
 {
     // Setting Human and Zombie levels
     zombieLevels = missionNum - 1;
@@ -382,8 +382,8 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
     zombieMissions.push_back(this);
 }
 
-HumanMission::HumanMission( int newMissionNum, int specialEnemy)
-    : Mission( newMissionNum, specialEnemy)
+HumanMission::HumanMission(int newMissionNum, int specialEnemy)
+    : Mission(newMissionNum, specialEnemy)
 {
     // Setting Human and Zombie levels
     humanLevels = missionNum - 1;
