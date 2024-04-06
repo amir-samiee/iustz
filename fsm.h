@@ -43,7 +43,7 @@ class Attack : public States
 {
 public:
     Attack(Character *self) : States(self) {}
-    // void runState();
+    void runState();
     StateName nextState(){return StateName::StartPoint;}
 };
 
