@@ -27,7 +27,7 @@ public:
     bool haveHpPotion() { return !self->getBackpack()->getHpPotions().empty(); }
     bool havePowerPotion() { return !self->getBackpack()->getPowerPotions().empty(); }
     bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5 * self->getStamina()->getMaxPoint(); }
-    bool wastingPotion(string type, Stat *myStat);
+    bool wastingPotion(vector<string> potions, Stat myStat);
     bool wastingPotion(Item *potion, Stat myStat);
     string appropriateStamina(Stat myStat);
     string appropriateWeapon(double powerBoost, Stat myStamina);
