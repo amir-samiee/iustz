@@ -126,6 +126,26 @@ void Attack::runState()
     itemsMap[myWeapon]->useItem();
 }
 // class LowHp:
+void LowHp::runState()
+{
+    string hpName;
+    vector<string>enemyHpPotion = self->getBackpack()->getHpPotions();
+    if(self->getBackpack()->getStaminaPotions().size() > 0){
+        for(int i = enemyHpPotion.size()-1 ; i>=0 ; i--){
+            if (itemsMap[enemyHpPotion[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+                itemsMap[enemyHpPotion[i]]->useItem();
+        }
+    }
+    else
+    {
+        for (int i = 0 ; i < enemyHpPotion.size(); i++)
+        {
+            if (self->getHp()->getCurrentPoint() + itemsMap[enemyHpPotion[i]]->getSpecial() > 50.0 && !wastingPotion(itemsMap[enemyHpPotion[i]]))
+                itemsMap[enemyHpPotion[i]]->useItem();
+        }
+        
+    }
+}
 
 // class LowStamina:
 // class BoostPower:
