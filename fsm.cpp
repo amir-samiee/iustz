@@ -210,6 +210,15 @@ FSM::FSM(Character *self)
         {StateName::BoostPower, boostPower}};
 }
 
+FSM::~FSM()
+{
+    delete startPoint;
+    delete attack;
+    delete lowHp;
+    delete lowStamina;
+    delete boostPower;
+}
+
 void FSM::runTurn()
 {
     statesMap[currentState]->runState();
