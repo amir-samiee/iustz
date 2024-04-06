@@ -139,8 +139,10 @@ public:
     bool isUnlocked(Player *player);
     void story();
     void enemyTurn();
+    void playerTurn();
     void endWave();
     virtual void end();
+    void display();
     void start();
 };
 

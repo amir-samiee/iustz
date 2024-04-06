@@ -55,7 +55,7 @@ public:
     // others
     virtual bool isAlive() = 0;
     virtual int level() = 0;
-    virtual void turn() = 0;
+    virtual bool move() = 0;
     virtual void die() = 0;
     virtual void takeDamage(int newPoint) = 0;
     virtual void display() = 0;
@@ -125,7 +125,7 @@ public:
     // others
     bool isAlive() override;
     int level() override;
-    void turn() override;
+    bool move() override;
     void die() override;
     void takeDamage(int newPoint) override;
     void display() override;
@@ -235,7 +235,7 @@ public:
     bool isAlive() override;
     int level() override;
     virtual void takeDamage(int damage) override;
-    void turn() override;
+    bool move() override;
     void die() override;
     void display() override;
 };
@@ -262,5 +262,5 @@ public:
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
     double getPowerBoost() ;
     void takeDamage(int damage) override;
-    void turn() override;
+    bool move() override;
 };
