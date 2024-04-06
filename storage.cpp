@@ -4,16 +4,11 @@
 void Storage::setItems(map<string, int> newItems)
 {
     clearStorage();
-    for (auto item : newItems)
-        for (int i = 0; i < item.second; i++)
-            addItem(item.first);
+    addItem(newItems);
 }
 
 void Storage::clearStorage()
 {
-    for (auto item : items)
-        for (int i = 0; i < item.second; i++)
-            removeItem(item.first);
     removeItem(items);
 }
 
@@ -42,6 +37,13 @@ void Storage::addItem(string name, bool isViewed)
 
     else
         items[name]++;
+}
+
+void Storage::addItem(map<string, int> addingItems, bool isViewed)
+{
+    for (auto item : addingItems)
+        for (int i = 0; i < item.second; i++)
+            addItem(item.first, isViewed);
 }
 
 string Storage::getStorageData(string beforeNumber, string afterNumber, int leftMargin)
@@ -116,16 +118,12 @@ void Storage::removeItem(map<string, int> removingItems, bool isViewd)
 
 void LimitedStorage::setItems(map<string, int> newItems)
 {
-    int newSize = 0;
-    for (auto i : newItems)
-        newSize += i.second;
-    if (newSize > capacity)
+    if (mapSize(newItems) > capacity)
     {
         cout << yellow << "insufficient space!\n"
              << reset;
         return;
     }
-
     Storage::setItems(newItems);
 }
 
@@ -200,6 +198,19 @@ void LimitedStorage::addItem(string name, bool isViewed)
     else if (isViewed)
         cout << yellow << "your backpack is already full!\n"
              << reset;
+}
+
+void LimitedStorage::addItem(map<string, int> addingItems, bool isViewed)
+{
+    if (mapSize(addingItems) > remainedSpace())
+    {
+        if (isViewed)
+            cout << yellow << "insufficient space!\n"
+                 << reset;
+        return;
+    }
+    cout << "done" << endl;
+    Storage::addItem(addingItems, isViewed);
 }
 
 void LimitedStorage::removeItem(string name, bool isViewd)

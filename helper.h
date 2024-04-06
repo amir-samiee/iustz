@@ -61,3 +61,5 @@ void removeUsername(string username);
 bool changeUsername(string oldUsername, string newUsername);
 
 void getchPress();
+
+inline int mapSize(map<string, int> items);

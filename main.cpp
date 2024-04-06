@@ -22,8 +22,8 @@ int main()
         clearScreen();
         // Sleep(2000);
         cout << iustzTitle << string(2, '\n') << "Enter your usename (q to quit): ";
-        string username;
-        getline(cin, username);
+        string username = "amir";
+        // getline(cin, username);
         if (username == "q")
         {
             cleanUp();
@@ -32,12 +32,10 @@ int main()
 
         // set username
         player1->setUsername(username);
-
         json users = loadData(usersFilePath);
 
         if (users[username].is_null())
         {
-
             // uncomment to see how pprint function works
             // this part of code will be removed later
 

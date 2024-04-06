@@ -312,6 +312,14 @@ void Mission::end()
         transfer(player1->getReward(), player1->getInventory());
     else
         player1->getReward()->setItems({});
+
+    // LimitedStorage *backpack = player1->getBackpack();
+    // Storage *inventory = player1->getInventory();
+    // LimitedStorage temp = *backpack;
+    // transfer(backpack, inventory);
+
+    // backpack->clearStorage();
+    // transfer
 }
 
 void Mission::start()

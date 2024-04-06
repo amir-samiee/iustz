@@ -141,9 +141,8 @@ void print_vector(vector<K> vec)
 
 void transfer(Storage *adding, Storage *to)
 {
-    for (auto item : adding->getItems())
-        for (int i = 0; i < item.second; i++)
-            to->addItem(item.first);
+    to->addItem(adding->getItems());
+    adding->clearStorage();
 }
 
 void save()
@@ -184,4 +183,12 @@ void getchPress()
 {
     cout << yellow << "\nPlease press any key to continue... " << reset << endl;
     getch();
+}
+
+int mapSize(map<string, int> items)
+{
+    int newSize = 0;
+    for (auto i : items)
+        newSize += i.second;
+    return newSize;
 }
