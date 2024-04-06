@@ -295,6 +295,13 @@ void Mission::story()
 void Mission::enemyTurn()
 {
 }
+void Mission::playerTurn()
+{
+    while (player1->move())
+        display();
+    
+    
+}
 void Mission::endWave()
 {
     // Adding hp:
@@ -331,7 +338,7 @@ void Mission::start()
 
         while (!player1->getWave().empty() && player1->isAlive())
         {
-            player1->turn();
+            player1->move();
 
             if (!player1->getWave().empty())
                 enemyTurn();

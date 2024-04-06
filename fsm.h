@@ -28,6 +28,7 @@ public:
     bool havePowerPotion() { return !self->getBackpack()->getPowerPotions().empty(); }
     bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5*self->getStamina()->getMaxPoint(); }
     bool wastingPotion(string type);
+    bool wastingPotion(Item* potion);
     
     virtual void runState(){}
     virtual StateName nextState();
@@ -51,7 +52,7 @@ class LowHp : public States
 {
 public:
     LowHp(Character *self) : States(self) {}
-    // void runState();
+    void runState();
     // StateName nextState();
 };
 

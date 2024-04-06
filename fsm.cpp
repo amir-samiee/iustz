@@ -54,6 +54,16 @@ bool States::wastingPotion(string type)
     return 0;
 }
 
+bool States::wastingPotion(Item *potion){
+    if(dynamic_cast< HpPotion* > (potion) != nullptr){
+        if(self->getHp()->getCurrentPoint() + potion->getSpecial() > 100.0 )
+            return 0;}
+    if(dynamic_cast< StaminaPotion* > (potion) != nullptr){
+        if(self->getStamina()->getCurrentPoint() + potion->getSpecial() > self->getStamina()->getMaxPoint())
+        return 0;}
+    
+    return 1;
+}
 StateName States::nextState()
 {
     if (canKill())
@@ -80,11 +90,11 @@ void Attack::runState()
 {
     string myWeapon;
     int maxDamage;
-    vector<string> weapons;
+    vector<string> weapons = self->getBackpack()->getWeapons();
     for (int i = 0; i < weapons.size(); i++)
     {
         int damage = itemsMap[weapons[i]]->getSpecial();
-        if (dynamic_cast<Firearm *>(itemsMap[weapons[i]]))
+        if (dynamic_cast<Firearm *>(itemsMap[weapons[i]]) != nullptr)
         {
             damage *= self->getFirearmLevel() * self->getPowerBoost();
             if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
@@ -93,7 +103,7 @@ void Attack::runState()
                 myWeapon = weapons[i];
             }
         }
-        if (dynamic_cast<Melee *>(itemsMap[weapons[i]]))
+        if (dynamic_cast<Melee *>(itemsMap[weapons[i]]) != nullptr)
         {
             damage *= self->getMeleeLevel() * self->getPowerBoost();
             if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
@@ -102,7 +112,7 @@ void Attack::runState()
                 myWeapon = weapons[i];
             }
         }
-        if (dynamic_cast<Throwable *>(itemsMap[weapons[i]]))
+        if (dynamic_cast<Throwable *>(itemsMap[weapons[i]]) != nullptr)
         {
             damage *= self->getPowerBoost();
             if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
@@ -116,6 +126,27 @@ void Attack::runState()
     itemsMap[myWeapon]->useItem();
 }
 // class LowHp:
+void LowHp::runState()
+{
+    string hpName;
+    vector<string>enemyHpPotion = self->getBackpack()->getHpPotions();
+    if(self->getBackpack()->getStaminaPotions().size() > 0){
+        for(int i = enemyHpPotion.size()-1 ; i>=0 ; i--){
+            if (itemsMap[enemyHpPotion[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+                itemsMap[enemyHpPotion[i]]->useItem();
+        }
+    }
+    else
+    {
+        for (int i = 0 ; i < enemyHpPotion.size(); i++)
+        {
+            if (self->getHp()->getCurrentPoint() + itemsMap[enemyHpPotion[i]]->getSpecial() > 50.0 && !wastingPotion(itemsMap[enemyHpPotion[i]]))
+                itemsMap[enemyHpPotion[i]]->useItem();
+        }
+        
+    }
+}
+
 // class LowStamina:
 // class BoostPower:
 
