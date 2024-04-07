@@ -23,6 +23,11 @@ json Stat::dumpStat()
     return data;
 }
 
+void Stat::fill()
+{
+    currentPoint = maxPoint;
+}
+
 int Stat::level()
 {
     return (((maxPoint - 100) / 30) + 1);
@@ -41,11 +46,13 @@ void Player::takeDamage(int takenDamage)
 }
 void Player::display()
 {
-    cout << "Player: " << name << endl
+    cout << green
+         << "Player: " << name << endl
          << "HP: " << hp.getCurrentPoint() << endl
          << "Stamina: " << stamina.getCurrentPoint() << endl
          << "Power Boost: " << powerBoost << endl
-         << "Current Enemies Count: " << currentWave.size() << endl;
+         << "Current Enemies Count: " << currentWave.size() << endl
+         << reset;
 }
 
 void Player::loadPlayer(json data)
@@ -200,15 +207,16 @@ bool Player::move()
 {
     int choice;
     Item *selectedItem;
-    do
+    while (1)
     {
-        string options = backpack.getStorageData() + "\nenter your choice: ";
+        string options = "enter your choice: ";
         choice = getInput(options, 1, backpack.getNames().size(), 0);
         selectedItem = itemsMap[backpack.getNames()[choice - 1]];
         selectedItem->setOwner(this);
         if (selectedItem->checkForUse())
             break;
-    } while (1);
+        cout << yellow << "move is not confirmed" << reset << endl;
+    }
     selectedItem->useItem();
     if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
     {
@@ -233,5 +241,13 @@ MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy 
 
 bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
-void Enemy::display() {}
+void Enemy::display()
+{
+    cout << red
+         << "Enemy Name: " << model->name << endl
+         << "HP: " << model->hp.getCurrentPoint() << endl
+         << "Stamina: " << model->stamina.getCurrentPoint() << endl
+         << "Power Boost: " << model->powerBoost << endl
+         << reset;
+}
 bool SpecialZombie::move() { return 1; }

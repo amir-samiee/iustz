@@ -20,6 +20,7 @@ public:
     // other
     void loadStat(json data);
     json dumpStat();
+    void fill();
     int level();
 };
 

@@ -154,6 +154,7 @@ void save()
 
 void cleanUp()
 {
+    cout << yellow << "exiting cleanly..." << reset << endl;
     delete player1;
     for (auto i : zombieMissions)
     {
@@ -175,6 +176,7 @@ void cleanUp()
         i = nullptr;
         delete i;
     }
+    cout << green << "done!" << reset << endl;
 }
 
 void removeUsername(string username)

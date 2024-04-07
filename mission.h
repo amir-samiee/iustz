@@ -137,13 +137,13 @@ public:
     bool humanQualified(Player *player);
     bool zombieQualified(Player *player);
     bool isUnlocked(Player *player);
-    void story();
-    void enemyTurn();
-    void playerTurn();
-    void endWave();
-    virtual void end();
-    void display();
     void start();
+    void story();
+    void display();
+    void playerTurn();
+    void enemyTurn();
+    void endWave();
+    virtual void end(bool lost);
 };
 
 class ZombieMission : public Mission

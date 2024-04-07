@@ -300,14 +300,17 @@ void Mission::story()
 }
 void Mission::enemyTurn()
 {
-    Character* enemy = player1->getWave()[0];
+    Character *enemy = player1->getWave()[0];
     while (enemy->move())
         display();
+    display();
 }
 void Mission::playerTurn()
 {
-    while (player1->move())
+    do
         display();
+    while (player1->move());
+    display();
 }
 void Mission::endWave()
 {
@@ -316,13 +319,14 @@ void Mission::endWave()
     player1->getHp()->setCurrentPoint((currentHp * 5) / 4);
 
     // Refilling stamina:
-    int newStamina = player1->getStamina()->getMaxPoint();
-    player1->getStamina()->setCurrentPoint(newStamina);
+    player1->getStamina()->fill();
 }
 
-void Mission::end()
+void Mission::end(bool lost)
 {
-    if (player1->isAlive())
+    if (lost)
+        player1->getReward()->clearStorage();
+    else
     {
         /*
         here, first backpack transfers to inventory to prevent adding
@@ -339,35 +343,44 @@ void Mission::end()
         inventory->removeItem(temp.getItems());
         transfer(&temp, backpack);
     }
-    else
-        player1->getReward()->clearStorage();
 }
 
 void Mission::display()
 {
+    clearScreen(); // this line might better be commented for debugging
+    player1->getWave()[0]->display();
+    player1->display();
+    player1->getBackpack()->printStorage();
 }
 
 void Mission::start()
 {
+    bool lost = 0; // this boolean prevents too many isAlive() function calls
     story();
     for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
 
-        while (!player1->getWave().empty() && player1->isAlive())
+        while (!lost)
         {
-            player1->move();
+            playerTurn();
 
             if (!player1->getWave().empty())
+            {
                 enemyTurn();
+            }
+            else
+                break;
+            if (!player1->isAlive())
+                lost = 1;
         }
 
-        if (!player1->isAlive())
+        if (lost)
             break;
 
         endWave();
     }
-    end();
+    end(lost);
 }
 
 ZombieMission::ZombieMission(int missionNum, int specialEnemy)

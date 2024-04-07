@@ -20,7 +20,7 @@ bool Item::checkForUse()
     }
     if (owner->getBackpack()->getItems()[name] == 0)
     {
-        
+
         cout << red << "user doesn't own the item\n"
              << reset;
         return false;
@@ -38,8 +38,6 @@ Removable::Removable(string name, int price, Character *owner, int stamina) : It
 
 void Removable::removeFromBackpack() { owner->getBackpack()->removeItem(name); }
 
-void Removable::info(){}
-
 Throwable::Throwable(string name, int price, Character *owner, int stamina, int damage) : Removable(name, price, owner, stamina)
 {
 
@@ -47,6 +45,7 @@ Throwable::Throwable(string name, int price, Character *owner, int stamina, int 
     Item *basePtr = this;
     throwables.push_back(basePtr);
 }
+
 void Throwable::useItem()
 {
     if (checkForUse())
@@ -60,13 +59,16 @@ void Throwable::useItem()
         removeFromBackpack();
     }
 }
-void Throwable::info() {
+
+void Throwable::info()
+{
     cout << owner->getName() << "threw" << name << endl;
 }
 
 Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
 
-void Consumable::info() {
+void Consumable::info()
+{
     cout << owner->getName() << "consumed" << name << endl;
 }
 
@@ -75,7 +77,8 @@ Permanent::Permanent(string name, int price, Character *owner, int stamina, int 
     this->damage = damage;
 }
 
-void Permanent::info() {
+void Permanent::info()
+{
     cout << owner->getName() << "attacked with" << name << endl;
 }
 
@@ -84,17 +87,19 @@ Melee::Melee(string name, int price, Character *owner, int stamina, int damage) 
     Item *basePtr = this;
     melees.push_back(basePtr);
 }
+
 void Melee::useItem()
 {
     if (checkForUse())
     {
-        owner->getWave()[0]->takeDamage(getSpecial() *(1+((owner->getMeleeLevel()-1)/6)) * owner->getPowerBoost());
+        owner->getWave()[0]->takeDamage(getSpecial() * (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
 }
 
-void Melee::info() {
+void Melee::info()
+{
     cout << owner->getName() << "hit" << name << endl;
 }
 
@@ -107,13 +112,14 @@ void Firearm::useItem()
 {
     if (checkForUse())
     {
-        owner->getWave()[0]->takeDamage(getSpecial() * (1+((owner->getFirearmLevel()-1)/6) )* owner->getPowerBoost());
+        owner->getWave()[0]->takeDamage(getSpecial() * (1 + ((owner->getFirearmLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
 };
 
-void Firearm::info() {
+void Firearm::info()
+{
     cout << owner->getName() << "shot" << name << endl;
 }
 
@@ -141,6 +147,7 @@ StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stami
     Item *basePtr = this;
     staminaPotions.push_back(basePtr);
 }
+
 void StaminaPotion::useItem()
 {
     int newPoint = owner->getStamina()->getCurrentPoint() + getSpecial();
@@ -154,6 +161,7 @@ PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, 
     Item *basePtr = this;
     powerPotions.push_back(basePtr);
 }
+
 void PowerPotion::useItem()
 {
     if (checkForUse())

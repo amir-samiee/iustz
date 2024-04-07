@@ -59,7 +59,6 @@ class Removable : public Item
 public:
     Removable(string name, int price, Character *owner, int stamina);
     virtual string getType() const = 0;
-    virtual void info () override ;
 
 protected:
     void removeFromBackpack();
