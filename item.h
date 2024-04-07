@@ -51,6 +51,7 @@ public:
     bool checkForUse();
     void takeStamina();
     virtual void useItem() = 0;
+    virtual void info() = 0;
 };
 
 class Removable : public Item
@@ -58,6 +59,7 @@ class Removable : public Item
 public:
     Removable(string name, int price, Character *owner, int stamina);
     virtual string getType() const = 0;
+    virtual void info () override ;
 
 protected:
     void removeFromBackpack();
@@ -81,6 +83,8 @@ public:
 
     // others
     void useItem();
+    virtual void info() override ;
+
 };
 
 class Consumable : public Removable
@@ -88,6 +92,8 @@ class Consumable : public Removable
 public:
     Consumable(string name, int price, Character *owner, int stamina);
     virtual string getType() const = 0;
+    virtual void info() override ;
+
 };
 
 class HpPotion : public Consumable
@@ -128,6 +134,7 @@ public:
 
     // others
     void useItem() override;
+
 };
 
 class PowerPotion : public Consumable
@@ -164,6 +171,8 @@ public:
 
     // setters
     void setSpecial(int newdamage) override { damage = newdamage; }
+
+    virtual void info();
 };
 
 class Melee : public Permanent
@@ -175,6 +184,7 @@ public:
     virtual string getType() const override { return meleeType; }
     // others
     void useItem() override;
+    virtual void info() override ;
 };
 
 class Firearm : public Permanent
@@ -186,6 +196,7 @@ public:
     virtual string getType() const override { return firearmType; }
     // others
     void useItem() override;
+    virtual void info() override ;
 };
 
 // do not change the order of items declarations

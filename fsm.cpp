@@ -3,19 +3,14 @@
 // class States:
 bool States::canUse(string name)
 {
-    if (self->getStamina()->getCurrentPoint() >= itemsMap[name]->getStamina())
-    {
-        return 1;
-    }
-    return 0;
+    return (self->getStamina()->getCurrentPoint() >= itemsMap[name]->getStamina());
 }
+
 bool States::canUse(vector<string> myItems)
 {
     for (int i = 0; i < myItems.size(); ++i)
-    {
         if (canUse(myItems[i]))
             return 1;
-    }
     return 0;
 }
 
@@ -29,27 +24,11 @@ bool States::canKill()
     return 0;
 }
 
-bool States::wastingPotion(string type, Stat *myStat)
+bool States::wastingPotion(vector<string> potions, Stat myStat)
 {
-    vector<string> potions;
-    if (type == "stamina")
-    {
-        potions = self->getBackpack()->getStaminaPotions();
-        myStat = self->getStamina();
-    }
-    else if (type == "hp")
-    {
-        potions = self->getBackpack()->getHpPotions();
-        myStat = self->getHp();
-    }
-    else
-        cout << "invalid type in fsm.cpp/States::wastingPotion()";
-
     for (int i = 0; i < potions.size(); ++i)
-    {
-        if (itemsMap[potions[i]]->getSpecial() > myStat->getMaxPoint() - myStat->getCurrentPoint())
+        if (itemsMap[potions[i]]->getSpecial() > myStat.getMaxPoint() - myStat.getCurrentPoint())
             return 1;
-    }
     return 0;
 }
 
@@ -68,12 +47,13 @@ bool States::wastingPotion(Item *potion, Stat myStat)
 
     return 1;
 }
-string States::appropriateStamina(Stat myStat)
+
+string States::appropriateStamina(Stat myStamina)
 {
     vector<string> enemyStaminaPotion = self->getBackpack()->getStaminaPotions();
     for (int i = enemyStaminaPotion.size() - 1; i >= 0; i--)
     {
-        if (!wastingPotion(itemsMap[enemyStaminaPotion[i]], myStat))
+        if (!wastingPotion(itemsMap[enemyStaminaPotion[i]], myStamina))
             return enemyStaminaPotion[i];
     }
     return "";
@@ -90,7 +70,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
         if (dynamic_cast<Firearm *>(itemsMap[weapons[i]]) != nullptr)
         {
             damage *= self->getFirearmLevel() * powerBoost;
-            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < myStamina.getCurrentPoint())
+            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() <= myStamina.getCurrentPoint())
             {
                 maxDamage = damage;
                 myWeapon = weapons[i];
@@ -99,7 +79,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
         if (dynamic_cast<Melee *>(itemsMap[weapons[i]]) != nullptr)
         {
             damage *= self->getMeleeLevel() * powerBoost;
-            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() <= myStamina.getCurrentPoint())
             {
                 maxDamage = damage;
                 myWeapon = weapons[i];
@@ -108,7 +88,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
         if (dynamic_cast<Throwable *>(itemsMap[weapons[i]]) != nullptr)
         {
             damage *= powerBoost;
-            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+            if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() <= myStamina.getCurrentPoint())
             {
                 maxDamage = damage;
                 myWeapon = weapons[i];
@@ -124,7 +104,7 @@ StateName States::nextState()
     {
         return StateName::Attack;
     }
-    else if (haveStaminaPotion() && (!wastingPotion("stamina", self->getStamina())))
+    else if (haveStaminaPotion() && (!wastingPotion(self->getBackpack()->getStaminaPotions(), *self->getStamina())))
     {
         return StateName::LowStamina;
     }
@@ -150,24 +130,25 @@ void Attack::runState()
 void LowHp::runState()
 {
     string hpName;
-    vector<string> enemyHpPotion = self->getBackpack()->getHpPotions();
+    vector<string> myHpPotion = self->getBackpack()->getHpPotions();
     if (self->getBackpack()->getStaminaPotions().size() > 0)
     {
-        for (int i = enemyHpPotion.size() - 1; i >= 0; i--)
-        {
-            if (itemsMap[enemyHpPotion[i]]->getStamina() < self->getStamina()->getCurrentPoint())
-                itemsMap[enemyHpPotion[i]]->useItem();
-        }
+        for (int i = myHpPotion.size() - 1; i >= 0; i--)
+            if (itemsMap[myHpPotion[i]]->getStamina() < self->getStamina()->getCurrentPoint())
+                hpName = myHpPotion[i];
     }
     else
     {
-        for (int i = 0; i < enemyHpPotion.size(); i++)
+        for (int i = 0; i < myHpPotion.size(); ++i)
         {
             Stat myStat = *self->getHp();
-            if (self->getHp()->getCurrentPoint() + itemsMap[enemyHpPotion[i]]->getSpecial() > 50.0 && !wastingPotion(itemsMap[enemyHpPotion[i]], myStat))
-                itemsMap[enemyHpPotion[i]]->useItem();
+            int newHpAmount = myStat.getCurrentPoint() + itemsMap[myHpPotion[i]]->getSpecial();
+            if (newHpAmount > 50.0 && !wastingPotion(itemsMap[myHpPotion[i]], myStat))
+                hpName = myHpPotion[i];
         }
     }
+    itemsMap[hpName]->setOwner(self);
+    itemsMap[hpName]->useItem();
 }
 
 // class LowStamina:
@@ -181,6 +162,7 @@ void LowStamina ::runState()
         itemsMap[staminaPotion]->useItem();
     }
 }
+
 // class BoostPower:
 void BoostPower::runState()
 {
@@ -191,15 +173,24 @@ void BoostPower::runState()
     for (int i = powerPotions.size() - 1; i >= 0; --i)
     {
         Stat newStamina = *player1->getStamina();
+        newStamina.setCurrentPoint(newStamina.getCurrentPoint() - itemsMap[powerPotions[i]]->getStamina());
         string staminaItem = appropriateStamina(newStamina);
-        
         if (staminaItem != "")
             newStamina.setCurrentPoint(newStamina.getCurrentPoint() + itemsMap[staminaItem]->getSpecial());
-        
+
         string weapon = appropriateWeapon(itemsMap[powerPotions[i]]->getSpecial(), newStamina);
-        if (itemsMap[weapon]->getSpecial() > maxDamage)
+
+        int currentDamage = itemsMap[weapon]->getSpecial() * itemsMap[powerPotions[i]]->getSpecial();
+
+        if (dynamic_cast<Firearm *>(itemsMap[weapon]) != nullptr)
+            currentDamage *= self->getFirearmLevel();
+
+        else if (dynamic_cast<Melee *>(itemsMap[weapon]) != nullptr)
+            currentDamage *= self->getMeleeLevel();
+
+        if (currentDamage > maxDamage)
         {
-            maxDamage = itemsMap[weapon]->getSpecial();
+            maxDamage = currentDamage;
             myPowerPotion = powerPotions[i];
         }
     }
@@ -222,6 +213,15 @@ FSM::FSM(Character *self)
         {StateName::LowHp, lowHp},
         {StateName::LowStamina, lowStamina},
         {StateName::BoostPower, boostPower}};
+}
+
+FSM::~FSM()
+{
+    delete startPoint;
+    delete attack;
+    delete lowHp;
+    delete lowStamina;
+    delete boostPower;
 }
 
 void FSM::runTurn()

@@ -151,6 +151,7 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     for (int i = 0; i < casualEnemy; i++)
     {
         LimitedStorage *backpack = new LimitedStorage;
+        storageLeakHandle.push_back(backpack);
         Stat hp;
         Stat stamina;
         // The value is not decided yet:
@@ -160,6 +161,7 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
         // Creating the enemy based on type:
         Character *enemy = new HumanEnemy("Human" + 1 + i, 30, "male", *backpack, hp, stamina,
                                           firearmLvl, meleeLvl, 1, {player1}, coins);
+        characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
     }
@@ -190,6 +192,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
     for (int i = 0; i < casualEnemy; i++)
     {
         LimitedStorage *backpack = new LimitedStorage;
+        storageLeakHandle.push_back(backpack);
         Stat hp;
         Stat stamina;
         // The value is not decided yet:
@@ -199,6 +202,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         // Creating the enemy based on type:
         Character *enemy = new ZombieEnemy("Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
                                            firearmLvl, meleeLvl, 1, {player1}, coins);
+        characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
         mixedEn.push_back(enemy);
@@ -212,6 +216,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
     for (int i = 0; i < specialEnemy; i++)
     {
         LimitedStorage *backpack = new LimitedStorage;
+        storageLeakHandle.push_back(backpack);
         int bestWeapon = (missionPermanents.size() - 1);
         backpack->addItem(missionPermanents[bestWeapon]);
 
@@ -224,6 +229,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
         Character *enemy = new SpecialZombie("Special Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
                                              firearmLvl, meleeLvl, 1, {player1}, coins);
+        characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
         mixedEn.push_back(enemy);
     }
@@ -294,6 +300,9 @@ void Mission::story()
 }
 void Mission::enemyTurn()
 {
+    Character* enemy = player1->getWave()[0];
+    while (enemy->move())
+        display();
 }
 void Mission::playerTurn()
 {
@@ -315,6 +324,13 @@ void Mission::end()
 {
     if (player1->isAlive())
     {
+        /*
+        here, first backpack transfers to inventory to prevent adding
+        a permanent reward to inventory while already included in backpack
+
+        then we transfer back the removed items from backpack.
+        conservation of items is preserved here.
+         */
         LimitedStorage *backpack = player1->getBackpack();
         Storage *inventory = player1->getInventory();
         LimitedStorage temp = *backpack;

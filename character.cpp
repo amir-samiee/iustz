@@ -113,6 +113,18 @@ void MVC::EnemyController::takeDamage(int takenDamage)
         this->die();
 }
 
+bool MVC::EnemyController::move()
+{
+    StateName currentState = fsm->getCurrentState();
+    fsm->runTurn();
+    return (currentState != StateName::Attack);
+}
+
+MVC::EnemyController::~EnemyController()
+{
+    delete fsm;
+}
+
 void MVC::EnemyController::die()
 {
     Player *myplayer = dynamic_cast<Player *>(self->getWave()[0]);
@@ -149,8 +161,9 @@ Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat 
       view(new MVC::EnemyView)
 {
     controller = new MVC::EnemyController(model, view, this);
-    this->model->backpack.addItem("Punch");
+    model->backpack.addItem("Punch");
 }
+
 Enemy::~Enemy()
 {
     delete model;
@@ -176,7 +189,7 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : ZombieEnemy(name, age, gender, backpack, hp, stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
 {
-    this->controller = new MVC::SpecialEnemyController(model, view, this);
+    controller = new MVC::SpecialEnemyController(model, view, this);
 }
 
 void SpecialZombie::takeDamage(int damage) { this->controller->takeDamage(damage); }
@@ -213,11 +226,12 @@ double SpecialZombie::getPowerBoost()
 }
 void Player::die() {}
 
-MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {
-            fsm = new FSM(self) ;
+MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self)
+{
+    fsm = new FSM(self);
 }
 
-bool Enemy::move() { return 1; }
+bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
 void Enemy::display() {}
 bool SpecialZombie::move() { return 1; }

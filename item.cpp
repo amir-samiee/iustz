@@ -38,6 +38,8 @@ Removable::Removable(string name, int price, Character *owner, int stamina) : It
 
 void Removable::removeFromBackpack() { owner->getBackpack()->removeItem(name); }
 
+void Removable::info(){}
+
 Throwable::Throwable(string name, int price, Character *owner, int stamina, int damage) : Removable(name, price, owner, stamina)
 {
 
@@ -58,12 +60,23 @@ void Throwable::useItem()
         removeFromBackpack();
     }
 }
+void Throwable::info() {
+    cout << owner->getName() << "threw" << name << endl;
+}
 
 Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
+
+void Consumable::info() {
+    cout << owner->getName() << "consumed" << name << endl;
+}
 
 Permanent::Permanent(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
 {
     this->damage = damage;
+}
+
+void Permanent::info() {
+    cout << owner->getName() << "attacked with" << name << endl;
 }
 
 Melee::Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
@@ -81,6 +94,10 @@ void Melee::useItem()
     }
 }
 
+void Melee::info() {
+    cout << owner->getName() << "hit" << name << endl;
+}
+
 Firearm::Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
     Item *basePtr = this;
@@ -95,6 +112,10 @@ void Firearm::useItem()
         takeStamina();
     }
 };
+
+void Firearm::info() {
+    cout << owner->getName() << "shot" << name << endl;
+}
 
 HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
 {
