@@ -6,10 +6,11 @@ void Shop::displayShop()
     while (1)
     {
         string options1 = "Welcome to the shop! Here are the items available for purchase:\n";
-        options1 += "1- Throwables\n2- Potions\n3- Weapons\n\n0- Back\nenter your choice: ";
-        int firstInput = getInput(options1, 0, 3);
+        options1 += "1- Throwables\n2- Potions\n3- Weapons\n4- Upgrade\n\n0- Back\nenter your choice: ";
+        int firstInput = getInput(options1, 0, 4);
         int secondInput;
         string options2;
+        string option3;
 
         bool breakFlag = 0;
         switch (firstInput)
@@ -58,8 +59,16 @@ void Shop::displayShop()
                 }
             }
             break;
+        case 4://upgrade
+            while (!breakFlag)
+            {
+                upgrade();
+                breakFlag = 1 ;
+            }
+            break;
         case 0: // Back
             return;
+            break;
         }
     }
 }
@@ -116,6 +125,7 @@ void Shop::buy(Item *item)
     if (dynamic_cast<Permanent *>(item) != nullptr && (backpackItems[itemName] != 0 || inventoryItems[itemName] != 0))
         cout << red << "You already own this permanent item!" << reset << endl;
     else if (newCoin < 0)
+       
         cout << red << "Insufficient coins! You need to gather more coins to acquire this item!" << reset << endl;
     else
     {
@@ -125,3 +135,136 @@ void Shop::buy(Item *item)
     }
     getchPress();
 }
+
+
+    void Shop :: upgrade()
+    {   
+    stringstream result;
+    string result1;
+    int secondInput;
+
+    result << "COINS: " << player1->getCoins() << endl << endl;
+    result <<left<< "    NAME" << right<<setw(20)
+        << "LEVEL"<<setw(20)
+        << "ESCALATION"<<setw(20)
+        << "PRICE" << endl;
+
+    result << "1- Hp" <<setw(21)
+        <<  player1->getHp()->level()
+        << setw(22)<< "1 = 30 hp"
+        << setw(18)<<upgradePrice("hp",player1->getStamina()->level()) << endl;
+
+    result << "2- Stamina"<<setw(16)
+        <<  player1->getStamina()->level()
+        <<setw(24)<<"1 = 30 stamina"
+        <<setw(16)<<upgradePrice("stamina",player1->getStamina()->level()) << endl;
+
+    result << "3- Firearm Level"<<setw(10)
+        <<  player1->getFirearmLevel()<<setw(23)
+        <<  "1 = 1 level"<<setw(17)
+        <<  upgradePrice("firearm",player1->getFirearmLevel()) << endl;
+
+    result << "4- Melee Level"<<setw(12)
+        <<  player1->getMeleeLevel()<<setw(23)
+        <<  "1 = 1 level"<<setw(17)
+        <<  upgradePrice("melee",player1->getMeleeLevel()) << endl;
+
+    result1 = result.str() + "\n0- Back\nenter your choice : ";
+            secondInput = getInput( result1, 0 , 4) ;
+            clearScreen();
+           switch (secondInput)
+
+    {
+    case 1:
+        {
+            int upgradeCost = upgradePrice("hp", player1->getHp()->level());
+            if (player1->getCoins() >= upgradeCost) {
+                // Deduct the upgrade cost from player's coins
+                player1->setCoins(player1->getCoins() - upgradeCost);
+                // Perform the upgrade
+                player1->getHp()->setMaxPoint(player1->getHp()->getMaxPoint() +30);
+                cout << green<<"Hp upgraded successfully!" <<reset<< endl;
+                getchPress();
+            } else {
+                cout << red<<"Not enough coins to upgrade Hp."<<reset << endl;
+                getchPress();
+            }
+            break;
+        }
+    case 2:
+        {
+            int upgradeCost = upgradePrice("stamina", player1->getStamina()->level());
+            if (player1->getCoins() >= upgradeCost) {
+                // Deduct the upgrade cost from player's coins
+                player1->setCoins(player1->getCoins() - upgradeCost);
+                // Perform the upgrade
+                player1->getStamina()->setMaxPoint(player1->getStamina()->getMaxPoint()+30);
+                cout << green<<"Stamina upgraded successfully!"<<reset << endl;
+                getchPress();
+            } else {
+                cout<<red << "Not enough coins to upgrade Stamina."<<reset << endl;
+                getchPress();
+            }
+            break;
+        }
+    case 3:
+        {
+            int upgradeCost = upgradePrice("firearm", player1->getFirearmLevel());
+            if (player1->getCoins() >= upgradeCost) {
+                // Deduct the upgrade cost from player's coins
+                player1->setCoins(player1->getCoins() - upgradeCost);
+                // Perform the upgrade
+                player1->setFirearmLevel(player1->getFirearmLevel()+1);
+                cout <<green<<"Firearm level upgraded successfully!" <<reset<< endl;
+            getchPress();
+            } else {
+                cout <<red<< "Not enough coins to upgrade Firearm level."<<reset<< endl;
+            getchPress();
+            }
+            break;
+        }
+    case 4:
+        {
+            int upgradeCost = upgradePrice("melee", player1->getMeleeLevel());
+            if (player1->getCoins() >= upgradeCost) {
+                // Deduct the upgrade cost from player's coins
+                player1->setCoins(player1->getCoins() - upgradeCost);
+                // Perform the upgrade
+                player1->setMeleeLevel(player1->getMeleeLevel()+1);
+                cout <<green<<"Melee level upgraded successfully!"<<reset<< endl;
+            getchPress();
+            } else {
+                cout << red<<"Not enough coins to upgrade Melee level." <<reset <<endl;
+            getchPress();
+            }
+            break;
+        }
+    case 0 :{
+        return;
+        break;}
+    }
+
+       
+}
+
+    int Shop::upgradePrice(string type , int choice)
+    {   int upgradeResult;
+        bool breakFlag = 0;
+        if(type == "hp"){
+            upgradeResult = 15 + (choice - 1) * 15 ;
+            return upgradeResult;
+        }
+        else if(type == "stamina"){
+            upgradeResult = 10 + (choice - 1) * 10 ;
+            return upgradeResult;
+        }
+        else if(type == "firearm"){
+            upgradeResult = 25 * pow(1.5,choice - 1) ;
+            return upgradeResult;}
+        else if(type == "melee"){
+            upgradeResult = 20 * pow(1.2,choice - 1) ;
+            return upgradeResult;}
+        else cout << "\ncant upgrade price"<<endl;
+        
+        return 0 ;
+    }
