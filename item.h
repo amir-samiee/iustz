@@ -209,28 +209,28 @@ public:
 // objects of Throwable class
 Throwable throwable1("Grenade", 5, nullptr, 5, 2);
 Throwable throwable2("Biotic Grenade", 10, nullptr, 10,3);
-Throwable throwable3("Molotov Cocktails", 20, nullptr, 20,6);
-Throwable throwable4("Acid Bottle", 30, nullptr, 15, 8);
-Throwable throwable5("EMP", 50, nullptr, 25, 12);
-Throwable throwable6("Drone", 100, nullptr, 50, 18);
-Throwable throwable7("Armata", 200, nullptr, 100, 24);
-Throwable throwable8("Bell 201", 300, nullptr, 100,30);
-Throwable throwable9("Kiowa", 400, nullptr, 150, 40);
-Throwable throwable10("Gunship", 500, nullptr, 200, 50);
+Throwable throwable3("Molotov Cocktails", 15, nullptr, 20,6);
+Throwable throwable4("Acid Bottle", 20, nullptr, 15, 8);
+Throwable throwable5("EMP", 25 , nullptr, 25, 12);
+Throwable throwable6("Drone",50, nullptr, 50, 18);
+Throwable throwable7("Armata", 75, nullptr, 100, 24);
+Throwable throwable8("Bell 201", 100, nullptr, 100,30);
+Throwable throwable9("Kiowa", 125 , nullptr, 150, 40);
+Throwable throwable10("Gunship", 150, nullptr, 200, 50);
 
 // objects of permanant class
 // "melee"
 Melee melee0("Punch", 0, nullptr, 0, 3);
 Melee melee1("Knife", 10, nullptr, 5, 6);
-Melee melee2("Axe", 10, nullptr, 10, 9);
+Melee melee2("Axe", 15, nullptr, 10, 9);
 Melee melee3("Nunchaku", 20, nullptr, 15,12);
-Melee melee4("Sword", 20, nullptr, 15,15);
+Melee melee4("Sword", 25, nullptr, 15,15);
 Melee melee5("Katana", 30, nullptr, 20,18);
-Melee melee6("Dagger", 30, nullptr, 20, 21);
+Melee melee6("Dagger", 35, nullptr, 20, 21);
 Melee melee7("Spear", 40, nullptr, 25, 24);
-Melee melee8("Halberd", 40, nullptr, 25, 27);
-Melee melee9("Rapier", 45, nullptr, 25, 30);
-Melee melee10("Chainsaw", 50, nullptr, 30, 33);
+Melee melee8("Halberd", 45, nullptr, 25, 27);
+Melee melee9("Rapier", 50, nullptr, 25, 30);
+Melee melee10("Chainsaw", 60, nullptr, 30, 33);
 
 //"fireArm"
 Firearm fireArm1("Desert Eagle", 10, nullptr, 10, 4);
@@ -261,8 +261,8 @@ StaminaPotion staminaPotion4("ReviveRush", 35, nullptr, 0, 40);
 StaminaPotion staminaPotion5("StamBlitz", 50, nullptr, 0, 50);
 
 // power potion
-PowerPotion powerPotion1("Savage Serum", 5, nullptr, 0, 1.1);
-PowerPotion powerPotion2("Titan Tonic", 25, nullptr, 0, 1.2);
-PowerPotion powerPotion3("Cataclysmic", 125, nullptr, 0, 1.3);
-PowerPotion powerPotion4("Blitzkrieg ", 225, nullptr, 0, 1.4);
-PowerPotion powerPotion5("Valor Elixir", 500, nullptr, 0, 1.5);
+PowerPotion powerPotion1("Savage Serum", 25, nullptr, 0, 1.1);
+PowerPotion powerPotion2("Titan Tonic", 50, nullptr, 0, 1.2);
+PowerPotion powerPotion3("Cataclysmic", 75, nullptr, 0, 1.3);
+PowerPotion powerPotion4("Blitzkrieg ", 100, nullptr, 0, 1.4);
+PowerPotion powerPotion5("Valor Elixir", 150, nullptr, 0, 1.5);
