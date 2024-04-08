@@ -289,12 +289,15 @@ void Mission::story()
     getchPress();
     clearScreen();
 }
+
 void Mission::enemyTurn()
 {
     Character *enemy = player1->currentEnemy();
     while (enemy->move())
+    {
         // display();
-        cout << "enemy moving... " << endl;
+        // cout << "enemy moving... " << endl;}
+    }
 }
 
 void Mission::playerTurn()
@@ -303,7 +306,6 @@ void Mission::playerTurn()
         display();
     while (player1->move());
     display();
-    cout << "in player turn" << endl;
 }
 
 void Mission::endWave()
@@ -372,10 +374,7 @@ void Mission::start()
             playerTurn();
 
             if (player1->currentEnemy() != nullptr)
-            {
-                cout << "enemy turn" << endl;
                 enemyTurn();
-            }
             else
                 break;
             if (!player1->isAlive())
