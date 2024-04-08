@@ -197,7 +197,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         Stat stamina;
         // Creating the enemy based on type:
         Character *enemy = new ZombieEnemy("Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                           (rand() % 2), (rand() % 2), 1, {player1}, (level + (rand() % 2 ) - 1));
+                                           level+(rand() % 2), level +(rand() % 2), 1, {player1}, (level + (rand() % 2 ) + 1));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
@@ -218,13 +218,8 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
         Stat hp;
         Stat stamina;
-        // The value is not decided yet:
-        int firearmLvl;
-        int meleeLvl;
-        int coins;
-
         Character *enemy = new SpecialZombie("Special Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                             firearmLvl, meleeLvl, 1, {player1}, coins);
+                                             (level + rand() % 3 + 1), level + (rand() % 2 + 1 ), 1, {player1}, (level + rand() % 3 + 3));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
         mixedEn.push_back(enemy);
