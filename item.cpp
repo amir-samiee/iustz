@@ -50,9 +50,10 @@ void Throwable::useItem()
 {
     if (checkForUse())
     {
+        double special = (getSpecial() * owner->getPowerBoost()) * (rand() % 26 + 75);
         for (int i = owner->getWave().size() - 1; i >= 0; i--)
         {
-            owner->getWave()[i]->takeDamage((getSpecial() * owner->getPowerBoost()) / (i + 1));
+            owner->getWave()[i]->takeDamage(special / (i + 1));
             owner->setPowerBoost(1);
         }
         takeStamina();
@@ -84,7 +85,8 @@ void Melee::useItem()
 {
     if (checkForUse())
     {
-        owner->getWave()[0]->takeDamage(getSpecial() * (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
+        int special = getSpecial() * (rand() % 26 + 75) ;
+        owner->getWave()[0]->takeDamage( special* (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
@@ -103,8 +105,9 @@ Firearm::Firearm(string name, int price, Character *owner, int stamina, int dama
 void Firearm::useItem()
 {
     if (checkForUse())
-    {
-        owner->getWave()[0]->takeDamage(getSpecial() * (1 + ((owner->getFirearmLevel() - 1) / 6)) * owner->getPowerBoost());
+    {   
+        int special = getSpecial() * (rand() % 26 + 75) ;
+        owner->getWave()[0]->takeDamage(special * (1 + ((owner->getFirearmLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
