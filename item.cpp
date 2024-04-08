@@ -67,20 +67,12 @@ void Throwable::info()
 
 Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
 
-void Consumable::info()
-{
-    cout << owner->getName() << "consumed" << name << endl;
-}
 
 Permanent::Permanent(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
 {
     this->damage = damage;
 }
 
-void Permanent::info()
-{
-    cout << owner->getName() << "attacked with" << name << endl;
-}
 
 Melee::Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
@@ -141,6 +133,11 @@ void HpPotion::useItem()
     }
 }
 
+void HpPotion::info()
+{
+    cout << owner->getName() << "11" << name << endl;
+}
+
 StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
 {
     this->boostAmount = boostAmount;
@@ -153,6 +150,11 @@ void StaminaPotion::useItem()
     int newPoint = owner->getStamina()->getCurrentPoint() + getSpecial();
     owner->getStamina()->setCurrentPoint(newPoint);
     removeFromBackpack();
+}
+
+void StaminaPotion::info()
+{
+    cout << owner->getName() << "12" << name << endl;
 }
 
 PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
@@ -170,4 +172,9 @@ void PowerPotion::useItem()
         takeStamina();
         removeFromBackpack();
     }
+}
+
+void PowerPotion::info()
+{
+    cout << owner->getName() << "13" << name << endl;
 }
