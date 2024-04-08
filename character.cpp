@@ -122,14 +122,16 @@ void MVC::EnemyController::takeDamage(int takenDamage)
 
 bool MVC::EnemyController::move()
 {
-    StateName currentState = fsm->getCurrentState();
-    fsm->runTurn();
+    fsm.setSelf(self);
+    StateName currentState = fsm.getCurrentState();
+    cout << "state code: " << static_cast<int>(currentState) << endl;
+    fsm.runTurn();
+    cout << "state runTurn ended" << endl;
     return (currentState != StateName::Attack);
 }
 
 MVC::EnemyController::~EnemyController()
 {
-    delete fsm;
 }
 
 void MVC::EnemyController::die()
@@ -234,10 +236,7 @@ double SpecialZombie::getPowerBoost()
 }
 void Player::die() {}
 
-MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self)
-{
-    fsm = new FSM(self);
-}
+MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
 
 bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
@@ -250,4 +249,3 @@ void Enemy::display()
          << "Power Boost: " << model->powerBoost << endl
          << reset;
 }
-bool SpecialZombie::move() { return 1; }

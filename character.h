@@ -175,7 +175,6 @@ namespace MVC
         EnemyModel *model;
         EnemyView *view;
         Enemy *self;
-        FSM *fsm;
 
     public:
         EnemyController(EnemyModel *model, EnemyView *view, Enemy *self);
@@ -266,7 +265,6 @@ public:
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
     double getPowerBoost();
     void takeDamage(int damage) override;
-    bool move() override;
 };
 
 vector<Character *> characterLeakHandle;

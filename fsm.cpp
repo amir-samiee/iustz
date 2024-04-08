@@ -123,7 +123,11 @@ StateName States::nextState()
 void Attack::runState()
 {
     string myWeapon = appropriateWeapon(self->getPowerBoost(), *self->getStamina());
+    cout << "appropriateWeapon done" << endl;
+    cout << "owner is null?: " << (self == nullptr) << endl;
+    cout << "item name: " << myWeapon << endl;
     itemsMap[myWeapon]->setOwner(self);
+    cout << "owner set" << endl;
     itemsMap[myWeapon]->useItem();
 }
 // class LowHp:
@@ -199,7 +203,7 @@ void BoostPower::runState()
 }
 
 // class FSM:
-FSM::FSM(Character *self)
+FSM::FSM(Character *self) : self(self)
 {
     currentState = StateName::StartPoint;
     startPoint = new StartPoint(self);
@@ -226,6 +230,7 @@ FSM::~FSM()
 
 void FSM::runTurn()
 {
+    statesMap[currentState]->setSelf(self);
     statesMap[currentState]->runState();
     currentState = statesMap[currentState]->nextState();
 }

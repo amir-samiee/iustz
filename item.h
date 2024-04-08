@@ -59,7 +59,6 @@ class Removable : public Item
 public:
     Removable(string name, int price, Character *owner, int stamina);
     virtual string getType() const = 0;
-    virtual void info();
 
 protected:
     void removeFromBackpack();
@@ -92,7 +91,6 @@ class Consumable : public Removable
 public:
     Consumable(string name, int price, Character *owner, int stamina);
     virtual string getType() const = 0;
-    virtual void info();
 
 };
 
@@ -135,7 +133,7 @@ public:
 
     // others
     void useItem() override;
-    virtual void info() override ;
+    virtual void info() override;
 };
 
 class PowerPotion : public Consumable
@@ -175,7 +173,6 @@ public:
     // setters
     void setSpecial(int newdamage) override { damage = newdamage; }
 
-    virtual void info();
 };
 
 class Melee : public Permanent

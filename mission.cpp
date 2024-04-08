@@ -302,8 +302,8 @@ void Mission::enemyTurn()
 {
     Character *enemy = player1->getWave()[0];
     while (enemy->move())
-        display();
-    display();
+        // display();
+        cout << "enemy moving... " << endl;
 }
 void Mission::playerTurn()
 {
@@ -325,16 +325,22 @@ void Mission::endWave()
 void Mission::end(bool lost)
 {
     if (lost)
+    {
         player1->getReward()->clearStorage();
+        cout << "\033[35m"
+             << "you lost" << reset << endl;
+    }
     else
     {
         /*
+
         here, first backpack transfers to inventory to prevent adding
         a permanent reward to inventory while already included in backpack
 
         then we transfer back the removed items from backpack.
         conservation of items is preserved here.
-         */
+
+        */
         LimitedStorage *backpack = player1->getBackpack();
         Storage *inventory = player1->getInventory();
         LimitedStorage temp = *backpack;
@@ -342,12 +348,14 @@ void Mission::end(bool lost)
         transfer(player1->getReward(), inventory);
         inventory->removeItem(temp.getItems());
         transfer(&temp, backpack);
+        cout << "\033[35m"
+             << "you won" << reset << endl;
     }
 }
 
 void Mission::display()
 {
-    clearScreen(); // this line might better be commented for debugging
+    // clearScreen(); // this line might better be commented for debugging
     player1->getWave()[0]->display();
     player1->display();
     player1->getBackpack()->printStorage();
@@ -356,7 +364,9 @@ void Mission::display()
 void Mission::start()
 {
     bool lost = 0; // this boolean prevents too many isAlive() function calls
-    story();
+    // story();
+    player1->getHp()->fill();
+    player1->getStamina()->fill();
     for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
@@ -366,9 +376,7 @@ void Mission::start()
             playerTurn();
 
             if (!player1->getWave().empty())
-            {
                 enemyTurn();
-            }
             else
                 break;
             if (!player1->isAlive())
