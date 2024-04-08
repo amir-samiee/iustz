@@ -35,6 +35,7 @@ public:
     virtual Stat *getHp() = 0;
     virtual Stat *getStamina() = 0;
     virtual vector<Character *> getWave() const = 0;
+    virtual Character *currentEnemy(bool isViewd = 0) = 0;
     virtual int getFirearmLevel() const = 0;
     virtual int getMeleeLevel() const = 0;
     virtual double getPowerBoost() const = 0;
@@ -100,6 +101,7 @@ public:
     double getPowerBoost() const override { return powerBoost; }
     int getCoins() const override { return coins; }
     vector<Character *> getWave() const override { return currentWave; }
+    Character *currentEnemy(bool isViewd = 0) override;
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
     int getZombieLevels() { return zombieLevels; }
@@ -220,6 +222,7 @@ public:
     double getPowerBoost() const override { return model->powerBoost; };
     int getCoins() const override { return model->coins; };
     vector<Character *> getWave() const override { return model->currentWave; };
+    Character *currentEnemy(bool isViewd = 0) override;
 
     // setters
     void setName(const string newName) override { model->name = newName; }

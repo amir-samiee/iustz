@@ -197,9 +197,9 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         Stat stamina;
         // Creating the enemy based on type:
         Character *enemy = new ZombieEnemy("Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
-                                           level+(rand() % 2), level +(rand() % 2), 1, {player1}, (level * 10));
-                                           cout<<enemy->getName()<<endl;
-                                           cout<<enemy->getHp()->getCurrentPoint()<<endl;
+                                           level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
+        cout << enemy->getName() << endl;
+        cout << enemy->getHp()->getCurrentPoint() << endl;
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
@@ -220,8 +220,8 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
         Stat hp;
         Stat stamina;
-        Character *enemy = new SpecialZombie("Special Zombie" + to_string(1+i), 1000, "male", *backpack, hp, stamina,
-                                             (level + rand() % 3 + 1), level + (rand() % 2 + 1 ), 1, {player1}, (level * 20 ));
+        Character *enemy = new SpecialZombie("Special Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
+                                             (level + rand() % 3 + 1), level + (rand() % 2 + 1), 1, {player1}, (level * 20));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
         mixedEn.push_back(enemy);
@@ -291,13 +291,17 @@ void Mission::story()
     getchPress();
     clearScreen();
 }
+
 void Mission::enemyTurn()
 {
-    Character *enemy = player1->getWave()[0];
+    Character *enemy = player1->currentEnemy();
     while (enemy->move())
+    {
         // display();
-        cout << "enemy moving... " << endl;
+        // cout << "enemy moving... " << endl;}
+    }
 }
+
 void Mission::playerTurn()
 {
     do
@@ -305,6 +309,7 @@ void Mission::playerTurn()
     while (player1->move());
     display();
 }
+
 void Mission::endWave()
 {
     // Adding hp:
@@ -349,7 +354,9 @@ void Mission::end(bool lost)
 void Mission::display()
 {
     // clearScreen(); // this line might better be commented for debugging
-    player1->getWave()[0]->display();
+    vector<Character *> wave = player1->getWave();
+    if (!wave.empty())
+        wave[0]->display();
     player1->display();
     player1->getBackpack()->printStorage();
 }
@@ -368,14 +375,13 @@ void Mission::start()
         {
             playerTurn();
 
-            if (!player1->getWave().empty())
+            if (player1->currentEnemy() != nullptr)
                 enemyTurn();
             else
                 break;
             if (!player1->isAlive())
                 lost = 1;
         }
-
         if (lost)
             break;
 

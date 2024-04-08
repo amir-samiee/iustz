@@ -17,7 +17,7 @@ bool States::canUse(vector<string> myItems)
 bool States::canKill()
 {
     vector<string> weapons = self->getBackpack()->getWeapons();
-    int currentPoint = self->getWave()[0]->getHp()->getCurrentPoint();
+    int currentPoint = self->currentEnemy()->getHp()->getCurrentPoint();
     for (int i = 0; i < weapons.size(); i++)
         if (currentPoint <= itemsMap[weapons[i]]->getSpecial() && canUse(weapons[i]))
             return 1;
@@ -123,11 +123,7 @@ StateName States::nextState()
 void Attack::runState()
 {
     string myWeapon = appropriateWeapon(self->getPowerBoost(), *self->getStamina());
-    cout << "appropriateWeapon done" << endl;
-    cout << "owner is null?: " << (self == nullptr) << endl;
-    cout << "item name: " << myWeapon << endl;
     itemsMap[myWeapon]->setOwner(self);
-    cout << "owner set" << endl;
     itemsMap[myWeapon]->useItem();
 }
 // class LowHp:
