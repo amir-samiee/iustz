@@ -11,9 +11,6 @@ public:
     static void buy(Item* shopItem);
     int upgradePrice(string type ,int secondInput);
     void upgrade();
-    
-
-
 };
 
 Shop shop;
