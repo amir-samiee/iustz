@@ -365,7 +365,7 @@ void Mission::start()
     // story();
     player1->getHp()->fill();
     player1->getStamina()->fill();
-    for (int i = 0; i < waves.size() - 1; i++)
+    for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
 
