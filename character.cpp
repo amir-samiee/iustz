@@ -35,13 +35,14 @@ int Stat::level()
 
 ///////////////////////////////////////////////////////////////
 
-Character *Player::currentEnemy()
+Character *Player::currentEnemy(bool isViewd)
 {
     if (!currentWave.empty())
         return currentWave[0];
     else
     {
-        cout << yellow << "empty wave!!!" << reset << endl;
+        if (isViewd)
+            cout << yellow << "empty wave!!!" << reset << endl;
         return nullptr;
     }
 }
@@ -135,9 +136,8 @@ bool MVC::EnemyController::move()
 {
     fsm.setSelf(self);
     StateName currentState = fsm.getCurrentState();
-    cout << "state code: " << static_cast<int>(currentState) << endl;
+    // cout << "state code: " << static_cast<int>(currentState) << endl;
     fsm.runTurn();
-    cout << "state runTurn ended" << endl;
     return (currentState != StateName::Attack);
 }
 
@@ -191,13 +191,14 @@ Enemy::~Enemy()
     delete controller;
 }
 
-Character *Enemy::currentEnemy()
+Character *Enemy::currentEnemy(bool isViewd)
 {
     if (!model->currentWave.empty())
         return model->currentWave[0];
     else
     {
-        cout << yellow << "empty wave!!!" << reset << endl;
+        if (isViewd)
+            cout << yellow << "empty wave!!!" << reset << endl;
         return nullptr;
     }
 }

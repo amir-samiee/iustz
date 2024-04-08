@@ -47,7 +47,7 @@ int main()
     player1->getStamina()->fill();
     // menu::missionSelect(zombieMissions);
     zombieMissions[0]->start();
-    zombieMissions[0]->display();
+    // zombieMissions[0]->display();
     cleanUp();
 
     // for (int i = 0; i < 5; i++)
