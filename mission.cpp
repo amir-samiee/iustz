@@ -21,8 +21,8 @@ Factory::Factory(int lvl, int specialEn,
 vector<int> Factory::getWave()
 {
     vector<int> waves;
-    int waveNum = casualEnemy / 3;
-    int remaining = casualEnemy % waveNum;
+    int waveNum = (casualEnemy / 3);
+    int remaining = casualEnemy % 3;
 
     for (int i = 0; i < waveNum; i++)
         waves.push_back(3);
@@ -207,7 +207,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
     addPermanent(casualEn, missionPermanents);
     shuffle(mixedEn.begin(), mixedEn.end(), gen);
     shuffle(casualEn.begin(), casualEn.end(), gen);
-
+    
     // Generating special enemies:
     for (int i = 0; i < specialEnemy; i++)
     {
