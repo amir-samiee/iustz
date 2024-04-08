@@ -152,7 +152,7 @@ void Shop::buy(Item *item)
     result << "1- Hp" <<setw(21)
         <<  player1->getHp()->level()
         << setw(22)<< "1 = 30 hp"
-        << setw(18)<<upgradePrice("hp",player1->getStamina()->level()) << endl;
+        << setw(18)<<upgradePrice("hp",player1->getHp()->level()) << endl;
 
     result << "2- Stamina"<<setw(16)
         <<  player1->getStamina()->level()
