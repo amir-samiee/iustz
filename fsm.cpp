@@ -17,7 +17,7 @@ bool States::canUse(vector<string> myItems)
 bool States::canKill()
 {
     vector<string> weapons = self->getBackpack()->getWeapons();
-    int currentPoint = self->getWave()[0]->getHp()->getCurrentPoint();
+    int currentPoint = self->currentEnemy()->getHp()->getCurrentPoint();
     for (int i = 0; i < weapons.size(); i++)
         if (currentPoint <= itemsMap[weapons[i]]->getSpecial() && canUse(weapons[i]))
             return 1;

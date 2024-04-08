@@ -197,7 +197,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         Stat stamina;
         // Creating the enemy based on type:
         Character *enemy = new ZombieEnemy("Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                           level+(rand() % 2), level +(rand() % 2), 1, {player1}, (level * 10));
+                                           level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
@@ -219,7 +219,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         Stat hp;
         Stat stamina;
         Character *enemy = new SpecialZombie("Special Zombie" + 1 + i, 1000, "male", *backpack, hp, stamina,
-                                             (level + rand() % 3 + 1), level + (rand() % 2 + 1 ), 1, {player1}, (level * 20 ));
+                                             (level + rand() % 3 + 1), level + (rand() % 2 + 1), 1, {player1}, (level * 20));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
         mixedEn.push_back(enemy);
@@ -291,18 +291,21 @@ void Mission::story()
 }
 void Mission::enemyTurn()
 {
-    Character *enemy = player1->getWave()[0];
+    Character *enemy = player1->currentEnemy();
     while (enemy->move())
         // display();
         cout << "enemy moving... " << endl;
 }
+
 void Mission::playerTurn()
 {
     do
         display();
     while (player1->move());
     display();
+    cout << "in player turn" << endl;
 }
+
 void Mission::endWave()
 {
     // Adding hp:
@@ -347,7 +350,9 @@ void Mission::end(bool lost)
 void Mission::display()
 {
     // clearScreen(); // this line might better be commented for debugging
-    player1->getWave()[0]->display();
+    vector<Character *> wave = player1->getWave();
+    if (!wave.empty())
+        wave[0]->display();
     player1->display();
     player1->getBackpack()->printStorage();
 }
@@ -366,14 +371,16 @@ void Mission::start()
         {
             playerTurn();
 
-            if (!player1->getWave().empty())
+            if (player1->currentEnemy() != nullptr)
+            {
+                cout << "enemy turn" << endl;
                 enemyTurn();
+            }
             else
                 break;
             if (!player1->isAlive())
                 lost = 1;
         }
-
         if (lost)
             break;
 

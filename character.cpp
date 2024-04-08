@@ -35,6 +35,17 @@ int Stat::level()
 
 ///////////////////////////////////////////////////////////////
 
+Character *Player::currentEnemy()
+{
+    if (!currentWave.empty())
+        return currentWave[0];
+    else
+    {
+        cout << yellow << "empty wave!!!" << reset << endl;
+        return nullptr;
+    }
+}
+
 bool Player::isAlive() { return hp.getCurrentPoint() > 0; }
 int Player::level() { return (firearmLevel + meleeLevel + hp.level() + stamina.level()) / 4; }
 void Player::takeDamage(int takenDamage)
@@ -136,12 +147,12 @@ MVC::EnemyController::~EnemyController()
 
 void MVC::EnemyController::die()
 {
-    Player *myplayer = dynamic_cast<Player *>(self->getWave()[0]);
+    Player *myplayer = dynamic_cast<Player *>(self->currentEnemy());
     // setting rewards:
     transfer(self->getBackpack(), myplayer->getReward());
 
     // removing enemy from wave:
-    vector<Character *> newvec = this->self->getWave()[0]->getWave();
+    vector<Character *> newvec = this->self->currentEnemy()->getWave();
     for (int i = 0; i < newvec.size(); i++)
     {
         if (newvec[i] == dynamic_cast<Character *>(self))
@@ -150,7 +161,7 @@ void MVC::EnemyController::die()
             break;
         }
     }
-    this->self->getWave()[0]->setWave(newvec);
+    this->self->currentEnemy()->setWave(newvec);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
@@ -179,6 +190,18 @@ Enemy::~Enemy()
     delete view;
     delete controller;
 }
+
+Character *Enemy::currentEnemy()
+{
+    if (!model->currentWave.empty())
+        return model->currentWave[0];
+    else
+    {
+        cout << yellow << "empty wave!!!" << reset << endl;
+        return nullptr;
+    }
+}
+
 bool Enemy::isAlive() { return model->isAlive(); }
 int Enemy::level() { return (model->firearmLevel + model->meleeLevel + model->hp.level() + model->stamina.level()) / 4; }
 void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
