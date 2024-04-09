@@ -235,8 +235,12 @@ bool Player::move()
     Item *selectedItem;
     while (1)
     {
-        string options = "enter your choice: ";
-        choice = getInput(options, 1, backpack.getNames().size(), 0);
+        string options = "enter your choice ('0' to quit): ";
+        choice = getInput(options, 0, backpack.getNames().size(), 0);
+        if(choice == 0){
+            hp.setCurrentPoint(0);
+            return 0;
+        }
         selectedItem = itemsMap[backpack.getNames()[choice - 1]];
         selectedItem->setOwner(this);
         if (selectedItem->checkForUse())
