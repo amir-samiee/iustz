@@ -50,10 +50,10 @@ void Throwable::useItem()
 {
     if (checkForUse())
     {
-        double special = (getSpecial() * owner->getPowerBoost()) * (rand() % 26 + 75);
+        double special = getSpecial() * ((rand() % 51 + 75) / 100.0);
         for (int i = owner->getWave().size() - 1; i >= 0; i--)
         {
-            owner->getWave()[i]->takeDamage(special / (i + 1));
+            owner->getWave()[i]->takeDamage((special * owner->getPowerBoost()) / (i + 1));
             owner->setPowerBoost(1);
         }
         takeStamina();
@@ -68,12 +68,10 @@ void Throwable::info()
 
 Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
 
-
 Permanent::Permanent(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
 {
     this->damage = damage;
 }
-
 
 Melee::Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
@@ -85,8 +83,8 @@ void Melee::useItem()
 {
     if (checkForUse())
     {
-        int special = getSpecial() * (rand() % 26 + 75) ;
-        owner->getWave()[0]->takeDamage( special* (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
+        int special = getSpecial() * ((rand() % 51 + 75) / 100.0);
+        owner->getWave()[0]->takeDamage(special * (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
@@ -94,7 +92,7 @@ void Melee::useItem()
 
 void Melee::info()
 {
-    cout << owner->getName() << "hit" << name << endl;
+    cout << owner->getName() << "hit with" << name << endl;
 }
 
 Firearm::Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
@@ -105,8 +103,8 @@ Firearm::Firearm(string name, int price, Character *owner, int stamina, int dama
 void Firearm::useItem()
 {
     if (checkForUse())
-    {   
-        int special = getSpecial() * (rand() % 26 + 75) ;
+    {
+        int special = getSpecial() * ((rand() % 51 + 75)/100.0);
         owner->getWave()[0]->takeDamage(special * (1 + ((owner->getFirearmLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
@@ -138,7 +136,7 @@ void HpPotion::useItem()
 
 void HpPotion::info()
 {
-    cout << owner->getName() << "11" << name << endl;
+    cout << owner->getName() << "Boosted HP With " << name << endl;
 }
 
 StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
@@ -157,7 +155,7 @@ void StaminaPotion::useItem()
 
 void StaminaPotion::info()
 {
-    cout << owner->getName() << "12" << name << endl;
+    cout << owner->getName() << "Boosted Stamina With " << name << endl;
 }
 
 PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
@@ -179,5 +177,5 @@ void PowerPotion::useItem()
 
 void PowerPotion::info()
 {
-    cout << owner->getName() << "13" << name << endl;
+    cout << owner->getName() << "Boosted Power With " << name << endl;
 }

@@ -388,7 +388,7 @@ void Mission::start()
 
         while (!lost)
         {
-            cout << magenta << "wave number: " << i << endl;
+            cout << magenta << "wave number: " << i+1 << endl;
             // if (player1->currentEnemy() != nullptr)
             playerTurn();
 

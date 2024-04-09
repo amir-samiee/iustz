@@ -69,7 +69,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
         int damage = itemsMap[weapons[i]]->getSpecial();
         if (dynamic_cast<Firearm *>(itemsMap[weapons[i]]) != nullptr)
         {
-            damage *= self->getFirearmLevel() * powerBoost;
+            damage *= (1 + ((self->getFirearmLevel() - 1) / 6)) * powerBoost;
             if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() <= myStamina.getCurrentPoint())
             {
                 maxDamage = damage;
@@ -78,7 +78,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
         }
         if (dynamic_cast<Melee *>(itemsMap[weapons[i]]) != nullptr)
         {
-            damage *= self->getMeleeLevel() * powerBoost;
+            damage *= (1 + ((self->getMeleeLevel() - 1) / 6)) * powerBoost;
             if (damage > maxDamage && itemsMap[weapons[i]]->getStamina() <= myStamina.getCurrentPoint())
             {
                 maxDamage = damage;
@@ -95,6 +95,9 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
             }
         }
     }
+    cout<<myWeapon<<endl;
+    cout<<maxDamage<<endl;
+    getchPress();
     return myWeapon;
 }
 
