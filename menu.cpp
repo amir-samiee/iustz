@@ -24,22 +24,7 @@ namespace menu
             if (intInput == 0)
                 return;
             else if (selected->isUnlocked(player1))
-            {
-                if (dynamic_cast<ZombieMission *>(selected) != nullptr)
-                {
-                    // Feeding data to factory:
-                    ZombieFactory factory(selected->getMissionNum(), selected->getCasualEnemyNum(), selected->getSpecialEnemy());
-                    selected->setWaves(factory.createEnemy(factory.getWave()));
-                }
-                if (dynamic_cast<HumanMission *>(selected) != nullptr)
-                {
-                    // Feeding data to factory:
-                    HumanFactory factory(selected->getMissionNum(), selected->getCasualEnemyNum(), selected->getSpecialEnemy());
-                    selected->setWaves(factory.createEnemy(factory.getWave()));
-                }
-                // Starting the mission:
                 selected->start();
-            }
             else
             {
                 clearScreen();

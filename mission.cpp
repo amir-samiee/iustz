@@ -372,6 +372,18 @@ void Mission::display()
 
 void Mission::start()
 {
+    if (dynamic_cast<ZombieMission *>(this) != nullptr)
+    {
+        // Feeding data to factory:
+        ZombieFactory factory(this->getMissionNum(), this->getCasualEnemyNum(), this->getSpecialEnemy());
+        this->setWaves(factory.createEnemy(factory.getWave()));
+    }
+    if (dynamic_cast<HumanMission *>(this) != nullptr)
+    {
+        // Feeding data to factory:
+        HumanFactory factory(this->getMissionNum(), this->getCasualEnemyNum(), this->getSpecialEnemy());
+        this->setWaves(factory.createEnemy(factory.getWave()));
+    }
     bool lost = 0; // this boolean prevents too many isAlive() function calls
     // story();
     player1->getHp()->fill();
