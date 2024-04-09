@@ -209,7 +209,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
     addPermanent(casualEn, missionPermanents);
     shuffle(mixedEn.begin(), mixedEn.end(), gen);
     shuffle(casualEn.begin(), casualEn.end(), gen);
-    
+
     // Generating special enemies:
     for (int i = 0; i < specialEnemy; i++)
     {
@@ -346,9 +346,11 @@ void Mission::end(bool lost)
         transfer(player1->getReward(), inventory);
         inventory->removeItem(temp.getItems());
         transfer(&temp, backpack);
+
         cout << "\033[35m"
              << "you won" << reset << endl;
     }
+    save();
 }
 
 void Mission::display()
@@ -435,6 +437,13 @@ ZombieMission::ZombieMission(const string &name, int missionNum, int specialEnem
     zombieMissions.push_back(this);
 }
 
+void ZombieMission::end(bool lost)
+{
+    Mission::end(lost);
+    // saving player progress
+    player1->setZombieLevels(zombieLevels + 1);
+}
+
 HumanMission::HumanMission(int newMissionNum, int specialEnemy)
     : Mission(newMissionNum, specialEnemy)
 {
@@ -479,6 +488,13 @@ HumanMission::HumanMission(const string &name, int missionNum, int specialEnemy,
 
     // Saving mission:
     humanMissions.push_back(this);
+}
+
+void HumanMission::end(bool lost)
+{
+    Mission::end(lost);
+    // saving player progress
+    player1->setHumanLevels(humanLevels + 1);
 }
 
 void initializeMissions()

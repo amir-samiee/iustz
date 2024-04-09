@@ -158,6 +158,7 @@ public:
                   const vector<string> &missionStaminaPotions,
                   const vector<string> &missionPowerPotions,
                   const vector<int> wavesInfo);
+    void end(bool lost) override;
 };
 
 class HumanMission : public Mission
@@ -172,6 +173,7 @@ public:
                  const vector<string> &missionStaminaPotions,
                  const vector<string> &missionPowerPotions,
                  const vector<int> wavesInfo);
+    void end(bool lost) override;
 };
 
 // a map for connecting missioins to their ID:
