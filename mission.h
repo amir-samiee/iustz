@@ -127,6 +127,7 @@ public:
 
     // setters :
     void setName(const string &newName) { name = newName; }
+    void setWaves(vector<vector<Character *>> waves) { this->waves = waves; }
     void setMissionNum(const int &newMissionNum) { missionNum = newMissionNum; }
     void setCasualEnemyNum(int newCasualEnemyNum) { casualEnemyNum = newCasualEnemyNum; }
     void setSpecialEnemyNum(int newSpecialEnemy) { specialEnemy = newSpecialEnemy; }

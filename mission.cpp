@@ -411,10 +411,6 @@ ZombieMission::ZombieMission(int missionNum, int specialEnemy)
     name = "z" + missionNum;
     missionMap[name] = this;
 
-    // Feeding data to factory:
-    ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy);
-    waves = factory.createEnemy(factory.getWave());
-
     // Saving mission:
     zombieMissions.push_back(this);
 }
@@ -466,10 +462,6 @@ HumanMission::HumanMission(int newMissionNum, int specialEnemy)
     // Setting the ID:
     name = "h" + newMissionNum;
     missionMap[name] = this;
-
-    // Feeding data to factory:
-    HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-    waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     humanMissions.push_back(this);
