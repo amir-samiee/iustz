@@ -186,9 +186,9 @@ Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat 
 
 Enemy::~Enemy()
 {
-    delete model;
-    delete view;
-    delete controller;
+    deletePtr(model);
+    deletePtr(view);
+    deletePtr(controller);
 }
 
 Character *Enemy::currentEnemy(bool isViewd)
