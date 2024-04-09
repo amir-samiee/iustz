@@ -159,7 +159,7 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
         int meleeLvl;
         int coins;
         // Creating the enemy based on type:
-        Character *enemy = new HumanEnemy("Human" + to_string(1 + i), 30, "male", *backpack, hp, stamina,
+        Character *enemy = new HumanEnemy("", 30, "male", *backpack, hp, stamina,
                                           firearmLvl, meleeLvl, 1, {player1}, coins);
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
@@ -176,6 +176,10 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     addRemovable(unshuffeledEn, missionPowerPotions);
     addRemovable(unshuffeledEn, missionThrowables);
     shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
+
+    // Setting names:
+    for (int i = 0; i < unshuffeledEn.size(); ++i)
+        unshuffeledEn[i]->setName("Human" + to_string(1 + i));
 
     // Saving enemies in a usable format:
     return saveEnemies(waves, unshuffeledEn);
@@ -196,7 +200,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         Stat hp;
         Stat stamina;
         // Creating the enemy based on type:
-        Character *enemy = new ZombieEnemy("Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
+        Character *enemy = new ZombieEnemy("", 1000, "male", *backpack, hp, stamina,
                                            level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
@@ -218,7 +222,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
         Stat hp;
         Stat stamina;
-        Character *enemy = new SpecialZombie("Special Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
+        Character *enemy = new SpecialZombie("", 1000, "male", *backpack, hp, stamina,
                                              (level + rand() % 3 + 1), level + (rand() % 2 + 1), 1, {player1}, (level * 20));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
@@ -233,9 +237,17 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
     shuffle(casualEn.begin(), casualEn.end(), gen);
 
+    // Setting names:
+    for (int i = 0; i < casualEn.size(); ++i)
+        casualEn[i]->setName("Zombie" + to_string(1 + i));
+    for (int i = 0; i < specialEn.size(); ++i)
+        specialEn[i]->setName("Special Zombie" + to_string(1 + i));
+
     // Saving enemies in a usable format:
     enemies = saveEnemies(waves, casualEn);
-    enemies.push_back(specialEn);
+    if (specialEnemy > 0)
+        enemies.push_back(specialEn);
+
     return enemies;
 }
 
