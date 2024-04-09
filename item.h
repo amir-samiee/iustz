@@ -29,6 +29,7 @@ protected:
     int stamina = 0;
 
 public:
+    static vector<string> useNews;
     Item(string name, int price, Character *owner, int stamina);
     Item() = default;
 
@@ -50,7 +51,7 @@ public:
     // others
     bool checkForUse();
     void takeStamina();
-    virtual void useItem() = 0;
+    virtual void useItem();
     virtual void info() = 0;
 };
 
@@ -82,8 +83,7 @@ public:
 
     // others
     void useItem();
-    virtual void info() override ;
-
+    virtual void info() override;
 };
 
 class Consumable : public Removable
@@ -91,7 +91,6 @@ class Consumable : public Removable
 public:
     Consumable(string name, int price, Character *owner, int stamina);
     virtual string getType() const = 0;
-
 };
 
 class HpPotion : public Consumable
@@ -112,7 +111,7 @@ public:
 
     // others
     void useItem() override;
-    virtual void info() override ;
+    virtual void info() override;
 };
 
 class StaminaPotion : public Consumable
@@ -153,8 +152,7 @@ public:
 
     // others
     void useItem() override;
-    virtual void info() override ;
-
+    virtual void info() override;
 };
 
 class Permanent : public Item
@@ -172,7 +170,6 @@ public:
 
     // setters
     void setSpecial(int newdamage) override { damage = newdamage; }
-
 };
 
 class Melee : public Permanent
@@ -184,7 +181,7 @@ public:
     virtual string getType() const override { return meleeType; }
     // others
     void useItem() override;
-    virtual void info() override ;
+    virtual void info() override;
 };
 
 class Firearm : public Permanent
@@ -196,7 +193,7 @@ public:
     virtual string getType() const override { return firearmType; }
     // others
     void useItem() override;
-    virtual void info() override ;
+    virtual void info() override;
 };
 
 // do not change the order of items declarations
@@ -205,14 +202,14 @@ public:
 
 // objects of Throwable class
 Throwable throwable1("Grenade", 5, nullptr, 5, 2);
-Throwable throwable2("Biotic Grenade", 10, nullptr, 10,3);
-Throwable throwable3("Molotov Cocktails", 15, nullptr, 20,6);
+Throwable throwable2("Biotic Grenade", 10, nullptr, 10, 3);
+Throwable throwable3("Molotov Cocktails", 15, nullptr, 20, 6);
 Throwable throwable4("Acid Bottle", 20, nullptr, 15, 8);
-Throwable throwable5("EMP", 25 , nullptr, 25, 12);
-Throwable throwable6("Drone",50, nullptr, 50, 18);
+Throwable throwable5("EMP", 25, nullptr, 25, 12);
+Throwable throwable6("Drone", 50, nullptr, 50, 18);
 Throwable throwable7("Armata", 75, nullptr, 100, 24);
-Throwable throwable8("Bell 201", 100, nullptr, 100,30);
-Throwable throwable9("Kiowa", 125 , nullptr, 150, 40);
+Throwable throwable8("Bell 201", 100, nullptr, 100, 30);
+Throwable throwable9("Kiowa", 125, nullptr, 150, 40);
 Throwable throwable10("Gunship", 150, nullptr, 200, 50);
 
 // objects of permanant class
@@ -220,9 +217,9 @@ Throwable throwable10("Gunship", 150, nullptr, 200, 50);
 Melee melee0("Punch", 0, nullptr, 0, 3);
 Melee melee1("Knife", 10, nullptr, 5, 6);
 Melee melee2("Axe", 15, nullptr, 10, 9);
-Melee melee3("Nunchaku", 20, nullptr, 15,12);
-Melee melee4("Sword", 25, nullptr, 15,15);
-Melee melee5("Katana", 30, nullptr, 20,18);
+Melee melee3("Nunchaku", 20, nullptr, 15, 12);
+Melee melee4("Sword", 25, nullptr, 15, 15);
+Melee melee5("Katana", 30, nullptr, 20, 18);
 Melee melee6("Dagger", 35, nullptr, 20, 21);
 Melee melee7("Spear", 40, nullptr, 25, 24);
 Melee melee8("Halberd", 45, nullptr, 25, 27);
@@ -232,14 +229,14 @@ Melee melee10("Chainsaw", 60, nullptr, 30, 33);
 //"fireArm"
 Firearm fireArm1("Desert Eagle", 10, nullptr, 10, 4);
 Firearm fireArm2("Glock 17", 20, nullptr, 20, 8);
-Firearm fireArm3("Shutgun", 30, nullptr, 25,12);
+Firearm fireArm3("Shutgun", 30, nullptr, 25, 12);
 Firearm fireArm4("Rifle", 40, nullptr, 25, 16);
 Firearm fireArm5("Submachine", 50, nullptr, 30, 20);
 Firearm fireArm6("Carbine", 60, nullptr, 30, 24);
 Firearm fireArm7("Assault R", 70, nullptr, 35, 28);
 Firearm fireArm8("Sniper R", 80, nullptr, 40, 28);
 Firearm fireArm9("Machine gun", 90, nullptr, 40, 32);
-Firearm fireArm10("FN SCAR", 100, nullptr, 45,36);
+Firearm fireArm10("FN SCAR", 100, nullptr, 45, 36);
 
 // object of consumable class
 // hp potion

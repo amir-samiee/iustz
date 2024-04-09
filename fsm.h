@@ -103,6 +103,7 @@ public:
 
     // setters
     void setSelf(Character *self) { this->self = self; }
+    void resetState() { currentState = StateName::StartPoint; }
 
     // other
     void runTurn();

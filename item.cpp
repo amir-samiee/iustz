@@ -1,6 +1,8 @@
 #pragma once
 #include "headers.h"
 
+vector<string> Item::useNews = {};
+
 Item::Item(string name, int price, Character *owner, int stamina)
 {
     this->name = name;
@@ -34,6 +36,18 @@ void Item::takeStamina()
     owner->getStamina()->setCurrentPoint(newPoint);
 }
 
+void Item::useItem()
+{
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " used " + name;
+    useNews.push_back(news);
+}
+
 Removable::Removable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
 
 void Removable::removeFromBackpack() { owner->getBackpack()->removeItem(name); }
@@ -48,6 +62,7 @@ Throwable::Throwable(string name, int price, Character *owner, int stamina, int 
 
 void Throwable::useItem()
 {
+    info();
     if (checkForUse())
     {
         double special = (getSpecial() * owner->getPowerBoost()) * (rand() % 26 + 75);
@@ -63,17 +78,22 @@ void Throwable::useItem()
 
 void Throwable::info()
 {
-    cout << owner->getName() << "threw" << name << endl;
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " threw " + name;
+    useNews.push_back(news);
 }
 
 Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
-
 
 Permanent::Permanent(string name, int price, Character *owner, int stamina, int damage) : Item(name, price, owner, stamina)
 {
     this->damage = damage;
 }
-
 
 Melee::Melee(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
 {
@@ -83,10 +103,11 @@ Melee::Melee(string name, int price, Character *owner, int stamina, int damage) 
 
 void Melee::useItem()
 {
+    info();
     if (checkForUse())
     {
-        int special = getSpecial() * (rand() % 26 + 75) ;
-        owner->getWave()[0]->takeDamage( special* (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
+        int special = getSpecial() * (rand() % 26 + 75);
+        owner->getWave()[0]->takeDamage(special * (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
@@ -94,7 +115,14 @@ void Melee::useItem()
 
 void Melee::info()
 {
-    cout << owner->getName() << "hit" << name << endl;
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " hit " + name;
+    useNews.push_back(news);
 }
 
 Firearm::Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
@@ -104,9 +132,10 @@ Firearm::Firearm(string name, int price, Character *owner, int stamina, int dama
 }
 void Firearm::useItem()
 {
+    info();
     if (checkForUse())
-    {   
-        int special = getSpecial() * (rand() % 26 + 75) ;
+    {
+        int special = getSpecial() * (rand() % 26 + 75);
         owner->getWave()[0]->takeDamage(special * (1 + ((owner->getFirearmLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
@@ -115,7 +144,14 @@ void Firearm::useItem()
 
 void Firearm::info()
 {
-    cout << owner->getName() << "shot" << name << endl;
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " shot " + name;
+    useNews.push_back(news);
 }
 
 HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
@@ -127,6 +163,7 @@ HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int he
 
 void HpPotion::useItem()
 {
+    info();
     if (checkForUse())
     {
         int newPoint = owner->getHp()->getCurrentPoint() + getSpecial();
@@ -138,7 +175,14 @@ void HpPotion::useItem()
 
 void HpPotion::info()
 {
-    cout << owner->getName() << "11" << name << endl;
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " 11 " + name;
+    useNews.push_back(news);
 }
 
 StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
@@ -150,6 +194,7 @@ StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stami
 
 void StaminaPotion::useItem()
 {
+    info();
     int newPoint = owner->getStamina()->getCurrentPoint() + getSpecial();
     owner->getStamina()->setCurrentPoint(newPoint);
     removeFromBackpack();
@@ -157,7 +202,14 @@ void StaminaPotion::useItem()
 
 void StaminaPotion::info()
 {
-    cout << owner->getName() << "12" << name << endl;
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " 12 " + name;
+    useNews.push_back(news);
 }
 
 PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
@@ -169,6 +221,7 @@ PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, 
 
 void PowerPotion::useItem()
 {
+    info();
     if (checkForUse())
     {
         owner->setPowerBoost(getSpecial());
@@ -179,5 +232,12 @@ void PowerPotion::useItem()
 
 void PowerPotion::info()
 {
-    cout << owner->getName() << "13" << name << endl;
+    string news;
+    news += owner->getName();
+    if (dynamic_cast<Player *>(owner) != nullptr)
+        news += cyan + " (player)";
+    else
+        news += magenta + " (enemy)";
+    news += reset + " 13 " + name;
+    useNews.push_back(news);
 }

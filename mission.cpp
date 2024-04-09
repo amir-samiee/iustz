@@ -293,19 +293,40 @@ void Mission::story()
 void Mission::enemyTurn()
 {
     Character *enemy = player1->currentEnemy();
-    while (enemy->move())
+    StateName currentState;
+    fsm.setSelf(enemy);
+    fsm.resetState();
+    do
     {
-        // display();
-        // cout << "enemy moving... " << endl;}
-    }
+        currentState = fsm.getCurrentState();
+        // cout << "state code: " << static_cast<int>(currentState) << endl;
+        fsm.runTurn();
+    } while (currentState != StateName::Attack);
 }
 
 void Mission::playerTurn()
 {
-    do
+    while (1)
+    {
         display();
-    while (player1->move());
-    display();
+        Item::useNews.clear();
+        int choice;
+        Item *selectedItem;
+        while (1)
+        {
+            string options = "enter your choice: ";
+            LimitedStorage *backpack = player1->getBackpack();
+            choice = getInput(options, 1, backpack->getNames().size(), 0);
+            selectedItem = itemsMap[backpack->getNames()[choice - 1]];
+            selectedItem->setOwner(player1);
+            if (selectedItem->checkForUse())
+                break;
+            cout << yellow << "move is not confirmed" << reset << endl;
+        }
+        selectedItem->useItem();
+        if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
+            break;
+    }
 }
 
 void Mission::endWave()
@@ -320,6 +341,7 @@ void Mission::endWave()
 
 void Mission::end(bool lost)
 {
+    display();
     if (lost)
     {
         player1->getReward()->clearStorage();
@@ -354,14 +376,16 @@ void Mission::end(bool lost)
 
 void Mission::display()
 {
-    // clearScreen(); // this line might better be commented for debugging
+    clearScreen(); // this line might better be commented for debugging
     vector<Character *> wave = player1->getWave();
     if (!wave.empty())
         // wave[0]->display();
-        for (auto i : wave)
-            i->display();
+        for (auto enemy : wave)
+            enemy->display();
     player1->display();
     player1->getBackpack()->printStorage();
+    for (auto news : Item::useNews)
+        pprint(news, 400);
 }
 
 void Mission::start()

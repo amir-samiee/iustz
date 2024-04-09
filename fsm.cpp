@@ -226,7 +226,8 @@ FSM::~FSM()
 
 void FSM::runTurn()
 {
-    statesMap[currentState]->setSelf(self);
-    statesMap[currentState]->runState();
-    currentState = statesMap[currentState]->nextState();
+    States *current = statesMap[currentState];
+    current->setSelf(self);
+    current->runState();
+    currentState = current->nextState();
 }
