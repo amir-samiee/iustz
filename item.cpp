@@ -65,10 +65,10 @@ void Throwable::useItem()
     info();
     if (checkForUse())
     {
-        double special = (getSpecial() * owner->getPowerBoost()) * (rand() % 26 + 75);
+        double special = getSpecial() * ((rand() % 51 + 75) / 100.0);
         for (int i = owner->getWave().size() - 1; i >= 0; i--)
         {
-            owner->getWave()[i]->takeDamage(special / (i + 1));
+            owner->getWave()[i]->takeDamage((special * owner->getPowerBoost()) / (i + 1));
             owner->setPowerBoost(1);
         }
         takeStamina();

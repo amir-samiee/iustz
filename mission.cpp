@@ -152,15 +152,9 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     {
         LimitedStorage *backpack = new LimitedStorage;
         storageLeakHandle.push_back(backpack);
-        Stat hp;
-        Stat stamina;
-        // The value is not decided yet:
-        int firearmLvl;
-        int meleeLvl;
-        int coins;
         // Creating the enemy based on type:
-        Character *enemy = new HumanEnemy("Human" + to_string(1 + i), 30, "male", *backpack, hp, stamina,
-                                          firearmLvl, meleeLvl, 1, {player1}, coins);
+        Character *enemy = new HumanEnemy("", 30, "male", *backpack, Stat(), Stat(),
+                                          level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
@@ -176,6 +170,10 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     addRemovable(unshuffeledEn, missionPowerPotions);
     addRemovable(unshuffeledEn, missionThrowables);
     shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
+
+    // Setting names:
+    for (int i = 0; i < unshuffeledEn.size(); ++i)
+        unshuffeledEn[i]->setName("Human" + to_string(1 + i));
 
     // Saving enemies in a usable format:
     return saveEnemies(waves, unshuffeledEn);
@@ -196,7 +194,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         Stat hp;
         Stat stamina;
         // Creating the enemy based on type:
-        Character *enemy = new ZombieEnemy("Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
+        Character *enemy = new ZombieEnemy("", 1000, "male", *backpack, hp, stamina,
                                            level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
@@ -218,7 +216,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
         Stat hp;
         Stat stamina;
-        Character *enemy = new SpecialZombie("Special Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
+        Character *enemy = new SpecialZombie("", 1000, "male", *backpack, hp, stamina,
                                              (level + rand() % 3 + 1), level + (rand() % 2 + 1), 1, {player1}, (level * 20));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
@@ -233,9 +231,17 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
     shuffle(casualEn.begin(), casualEn.end(), gen);
 
+    // Setting names:
+    for (int i = 0; i < casualEn.size(); ++i)
+        casualEn[i]->setName("Zombie" + to_string(1 + i));
+    for (int i = 0; i < specialEn.size(); ++i)
+        specialEn[i]->setName("Special Zombie" + to_string(1 + i));
+
     // Saving enemies in a usable format:
     enemies = saveEnemies(waves, casualEn);
-    enemies.push_back(specialEn);
+    if (specialEnemy > 0)
+        enemies.push_back(specialEn);
+
     return enemies;
 }
 
@@ -390,6 +396,18 @@ void Mission::display()
 
 void Mission::start()
 {
+    if (dynamic_cast<ZombieMission *>(this) != nullptr)
+    {
+        // Feeding data to factory:
+        ZombieFactory factory(this->getMissionNum(), this->getCasualEnemyNum(), this->getSpecialEnemy());
+        this->setWaves(factory.createEnemy(factory.getWave()));
+    }
+    if (dynamic_cast<HumanMission *>(this) != nullptr)
+    {
+        // Feeding data to factory:
+        HumanFactory factory(this->getMissionNum(), this->getCasualEnemyNum(), this->getSpecialEnemy());
+        this->setWaves(factory.createEnemy(factory.getWave()));
+    }
     bool lost = 0; // this boolean prevents too many isAlive() function calls
     // story();
     player1->getHp()->fill();
@@ -400,7 +418,7 @@ void Mission::start()
 
         while (!lost)
         {
-            cout << magenta << "wave number: " << i << endl;
+            cout << magenta << "wave number: " << i+1 << endl;
             // if (player1->currentEnemy() != nullptr)
             playerTurn();
 
@@ -428,10 +446,6 @@ ZombieMission::ZombieMission(int missionNum, int specialEnemy)
     // Setting the ID:
     name = "z" + missionNum;
     missionMap[name] = this;
-
-    // Feeding data to factory:
-    ZombieFactory factory(missionNum, casualEnemyNum, specialEnemy);
-    waves = factory.createEnemy(factory.getWave());
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -484,10 +498,6 @@ HumanMission::HumanMission(int newMissionNum, int specialEnemy)
     // Setting the ID:
     name = "h" + newMissionNum;
     missionMap[name] = this;
-
-    // Feeding data to factory:
-    HumanFactory factory(newMissionNum, casualEnemyNum, specialEnemy);
-    waves = factory.createEnemy(factory.getWave());
 
     // saving mission:
     humanMissions.push_back(this);
