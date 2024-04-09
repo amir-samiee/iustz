@@ -95,9 +95,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
             }
         }
     }
-    cout<<myWeapon<<endl;
-    cout<<maxDamage<<endl;
-    getchPress();
+    
     return myWeapon;
 }
 

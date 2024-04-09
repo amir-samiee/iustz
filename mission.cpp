@@ -152,15 +152,9 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     {
         LimitedStorage *backpack = new LimitedStorage;
         storageLeakHandle.push_back(backpack);
-        Stat hp;
-        Stat stamina;
-        // The value is not decided yet:
-        int firearmLvl;
-        int meleeLvl;
-        int coins;
         // Creating the enemy based on type:
-        Character *enemy = new HumanEnemy("", 30, "male", *backpack, hp, stamina,
-                                          firearmLvl, meleeLvl, 1, {player1}, coins);
+        Character *enemy = new HumanEnemy("", 30, "male", *backpack, Stat(), Stat(),
+                                          level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
