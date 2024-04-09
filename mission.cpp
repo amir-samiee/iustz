@@ -444,8 +444,11 @@ void ZombieMission::end(bool lost)
 {
     Mission::end(lost);
     // saving player progress
-    int current = player1->getZombieLevels();
-    player1->setZombieLevels(max(zombieLevels + 1, current));
+    if (!lost)
+    {
+        int current = player1->getZombieLevels();
+        player1->setZombieLevels(max(zombieLevels + 1, current));
+    }
 }
 
 HumanMission::HumanMission(int newMissionNum, int specialEnemy)
@@ -498,8 +501,11 @@ void HumanMission::end(bool lost)
 {
     Mission::end(lost);
     // saving player progress
-    int current = player1->getHumanLevels();
-    player1->setHumanLevels(max(humanLevels + 1, current));
+    if (!lost)
+    {
+        int current = player1->getHumanLevels();
+        player1->setHumanLevels(max(humanLevels + 1, current));
+    }
 }
 
 void initializeMissions()
