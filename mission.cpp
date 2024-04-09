@@ -198,8 +198,6 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         // Creating the enemy based on type:
         Character *enemy = new ZombieEnemy("Zombie" + to_string(1 + i), 1000, "male", *backpack, hp, stamina,
                                            level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
-        cout << enemy->getName() << endl;
-        cout << enemy->getHp()->getCurrentPoint() << endl;
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
@@ -349,8 +347,9 @@ void Mission::end(bool lost)
 
         cout << "\033[35m"
              << "you won" << reset << endl;
+        save();
     }
-    save();
+    getchPress();
 }
 
 void Mission::display()
@@ -358,7 +357,9 @@ void Mission::display()
     // clearScreen(); // this line might better be commented for debugging
     vector<Character *> wave = player1->getWave();
     if (!wave.empty())
-        wave[0]->display();
+        // wave[0]->display();
+        for (auto i : wave)
+            i->display();
     player1->display();
     player1->getBackpack()->printStorage();
 }
@@ -375,6 +376,8 @@ void Mission::start()
 
         while (!lost)
         {
+            cout << magenta << "wave number: " << i << endl;
+            // if (player1->currentEnemy() != nullptr)
             playerTurn();
 
             if (player1->currentEnemy() != nullptr)
@@ -441,7 +444,8 @@ void ZombieMission::end(bool lost)
 {
     Mission::end(lost);
     // saving player progress
-    player1->setZombieLevels(zombieLevels + 1);
+    int current = player1->getZombieLevels();
+    player1->setZombieLevels(max(zombieLevels + 1, current));
 }
 
 HumanMission::HumanMission(int newMissionNum, int specialEnemy)
@@ -494,7 +498,8 @@ void HumanMission::end(bool lost)
 {
     Mission::end(lost);
     // saving player progress
-    player1->setHumanLevels(humanLevels + 1);
+    int current = player1->getHumanLevels();
+    player1->setHumanLevels(max(humanLevels + 1, current));
 }
 
 void initializeMissions()

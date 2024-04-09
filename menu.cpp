@@ -82,6 +82,8 @@ namespace menu
             options << "Firearm Level: " << player1->getFirearmLevel() << endl;
             options << "Melee Level: " << player1->getMeleeLevel() << endl;
             options << "Coins: " << player1->getCoins() << endl;
+            options << "Human Levels: " << player1->getHumanLevels() << endl;
+            options << "Zombie Levels: " << player1->getZombieLevels() << endl;
             options << reset;
             options << "1. Username: " << player1->getUsername() << endl;
             options << "2. Name: " << player1->getName() << endl;
@@ -132,6 +134,7 @@ namespace menu
             getchPress();
         }
     }
+
     void inventory()
     {
         clearScreen();

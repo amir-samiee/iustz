@@ -152,16 +152,16 @@ void MVC::EnemyController::die()
     transfer(self->getBackpack(), myplayer->getReward());
 
     // removing enemy from wave:
-    vector<Character *> newvec = this->self->currentEnemy()->getWave();
-    for (int i = 0; i < newvec.size(); i++)
+    vector<Character *> updatedWave = self->currentEnemy()->getWave();
+    for (int i = 0; i < updatedWave.size(); i++)
     {
-        if (newvec[i] == dynamic_cast<Character *>(self))
+        if (updatedWave[i] == dynamic_cast<Character *>(self))
         {
-            newvec.erase(newvec.begin() + i);
+            updatedWave.erase(updatedWave.begin() + i);
             break;
         }
     }
-    this->self->currentEnemy()->setWave(newvec);
+    this->self->currentEnemy()->setWave(updatedWave);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
