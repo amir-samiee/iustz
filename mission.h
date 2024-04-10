@@ -112,6 +112,7 @@ protected:
     vector<vector<Character *>> waves;
 
 public:
+    static vector<string> eventsLog;
     // constructors:
     Mission(int newMissionNum, int specialEnemy);
     Mission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy)

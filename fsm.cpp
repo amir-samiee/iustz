@@ -95,7 +95,7 @@ string States::appropriateWeapon(double powerBoost, Stat myStamina)
             }
         }
     }
-    
+
     return myWeapon;
 }
 
@@ -200,21 +200,7 @@ void BoostPower::runState()
 }
 
 // class FSM:
-FSM::FSM(Character *self) : self(self)
-{
-    currentState = StateName::StartPoint;
-    startPoint = new StartPoint(self);
-    attack = new Attack(self);
-    lowHp = new LowHp(self);
-    lowStamina = new LowStamina(self);
-    boostPower = new BoostPower(self);
-    map<StateName, States *> statesMap = {
-        {StateName::StartPoint, startPoint},
-        {StateName::Attack, attack},
-        {StateName::LowHp, lowHp},
-        {StateName::LowStamina, lowStamina},
-        {StateName::BoostPower, boostPower}};
-}
+FSM::FSM(Character *self) : self(self) {}
 
 FSM::~FSM()
 {

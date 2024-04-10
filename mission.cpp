@@ -150,10 +150,8 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     // Generating enemies backpacks with randomly generated number of permanents inside:
     for (int i = 0; i < casualEnemy; i++)
     {
-        LimitedStorage *backpack = new LimitedStorage;
-        storageLeakHandle.push_back(backpack);
         // Creating the enemy based on type:
-        Character *enemy = new HumanEnemy("", 30, "male", *backpack, Stat(), Stat(),
+        Character *enemy = new HumanEnemy("", 30, "male", LimitedStorage(), Stat(), Stat(),
                                           level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         characterLeakHandle.push_back(enemy);
         // Saving enemy in a primary vector:
@@ -315,7 +313,7 @@ void Mission::playerTurn()
     while (1)
     {
         display();
-        Item::useNews.clear();
+        eventsLog.clear();
         int choice;
         Item *selectedItem;
         while (1)
@@ -390,8 +388,8 @@ void Mission::display()
             enemy->display();
     player1->display();
     player1->getBackpack()->printStorage();
-    cout<<endl;
-    for (auto news : Item::useNews)
+    cout << endl;
+    for (auto news : eventsLog)
         pprint(news, 400);
 }
 
@@ -419,7 +417,7 @@ void Mission::start()
 
         while (!lost)
         {
-            cout << magenta << "wave number: " << i+1 << endl;
+            cout << magenta << "wave number: " << i + 1 << endl;
             // if (player1->currentEnemy() != nullptr)
             playerTurn();
 

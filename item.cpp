@@ -1,7 +1,7 @@
 #pragma once
 #include "headers.h"
 
-vector<string> Item::useNews = {};
+vector<string> Mission::eventsLog = {};
 
 Item::Item(string name, int price, Character *owner, int stamina)
 {
@@ -45,7 +45,7 @@ void Item::useItem()
     else
         news += magenta + " (enemy)";
     news += reset + " used " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }
 
 Removable::Removable(string name, int price, Character *owner, int stamina) : Item(name, price, owner, stamina) {}
@@ -85,7 +85,7 @@ void Throwable::info()
     else
         news += magenta + " (enemy)";
     news += reset + " threw a " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }
 
 Consumable::Consumable(string name, int price, Character *owner, int stamina) : Removable(name, price, owner, stamina) {}
@@ -122,7 +122,7 @@ void Melee::info()
     else
         news += magenta + " (enemy)";
     news += reset + " hit with " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }
 
 Firearm::Firearm(string name, int price, Character *owner, int stamina, int damage) : Permanent(name, price, owner, stamina, damage)
@@ -151,7 +151,7 @@ void Firearm::info()
     else
         news += magenta + " (enemy)";
     news += reset + " fired the " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }
 
 HpPotion::HpPotion(string name, int price, Character *owner, int stamina, int healingAmount) : Consumable(name, price, owner, stamina)
@@ -182,7 +182,7 @@ void HpPotion::info()
     else
         news += magenta + " (enemy)";
     news += reset + " Healed using " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }
 
 StaminaPotion::StaminaPotion(string name, int price, Character *owner, int stamina, int boostAmount) : Consumable(name, price, owner, stamina)
@@ -209,7 +209,7 @@ void StaminaPotion::info()
     else
         news += magenta + " (enemy)";
     news += reset + " boosted stamina using " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }
 
 PowerPotion::PowerPotion(string name, int price, Character *owner, int stamina, double empowerment) : Consumable(name, price, owner, stamina)
@@ -239,5 +239,5 @@ void PowerPotion::info()
     else
         news += magenta + " (enemy)";
     news += reset + " boosted power using " + name;
-    useNews.push_back(news);
+    Mission::eventsLog.push_back(news);
 }

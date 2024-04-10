@@ -29,7 +29,6 @@ protected:
     int stamina = 0;
 
 public:
-    static vector<string> useNews;
     Item(string name, int price, Character *owner, int stamina);
     Item() = default;
 
