@@ -31,10 +31,12 @@ void Storage::addItem(string name, bool isViewed)
     if (items.find(name) == items.end())
         items.insert({name, 1});
 
-    else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr && isViewed)
-        cout << yellow << "you can only add a permanent item once!\n"
-             << reset;
-
+    else if (dynamic_cast<Permanent *>(itemsMap[name]) != nullptr)
+    {
+        if (isViewed)
+            cout << yellow << "you can only add a permanent item once!\n"
+                 << reset;
+    }
     else
         items[name]++;
 }

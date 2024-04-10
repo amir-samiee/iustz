@@ -437,7 +437,7 @@ void Mission::end(bool lost)
         transfer(&temp, backpack);
 
         cout << "\033[35m"
-             << "you won" << reset << endl;
+             << "\nYou Won\n\nNew items added to your inventory!\nGo check them out" << reset << endl;
         save();
     }
     getchPress();
