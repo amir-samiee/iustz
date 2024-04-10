@@ -31,18 +31,18 @@ int main()
     cout << "\nthrowable items:" << endl;
     for (auto i : throwables)
     {
-        cout << "\t" << i->getName() << endl;
+        cout << "" << i->getName() << endl;
     }
 
     cout << "\nconsumable items:" << endl;
     for (auto i : consumables)
     {
-        cout << "\t" << i->getName() << endl;
+        cout << "" << i->getName() << endl;
     }
 
     cout << "\npermanent items:" << endl;
     for (auto i : permanents)
     {
-        cout << "\t" << i->getName() << endl;
+        cout << "" << i->getName() << endl;
     }
 }

@@ -312,7 +312,7 @@ void Mission::playerTurn()
         Item *selectedItem = nullptr;
         while (1)
         {
-            string options = "enter your choice(0 to quit): ";
+            string options = "enter your choice (0 to quit): ";
             LimitedStorage *backpack = player1->getBackpack();
             choice = getInput(options, 0, backpack->getNames().size(), 0);
             if (choice == 0)
@@ -349,11 +349,15 @@ void Mission::display()
 {
     clearScreen(); // this line might better be commented for debugging
     vector<Character *> wave = player1->getWave();
+    for (int i = wave.size() - 1; i > 0; i--)
+        wave[i]->display();
     if (!wave.empty())
-        // wave[0]->display();
-        for (auto enemy : wave)
-            enemy->display();
+    {
+        player1->currentEnemy()->display(1);
+        cout << endl;
+    }
     player1->display();
+    cout << cyan + "Backpack:" + reset << endl;
     player1->getBackpack()->printStorage();
     cout << endl;
     for (auto news : eventsLog)
@@ -389,6 +393,7 @@ void Mission::middleGame()
     for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
+        eventsLog.push_back("\033[0;100mWelcome to wave " + to_string(i + 1) + reset);
 
         while (1)
         {
@@ -425,7 +430,7 @@ void Mission::end(bool lost)
         player1->getBackpack()->loadItems();
         player1->getHp()->loadPoint();
         player1->setRewardCoins(0);
-        eventsLog.push_back("you" + red + " lost!" + reset);
+        eventsLog.push_back("\033[0;41myou lost!" + reset);
     }
     else
     {
@@ -448,7 +453,7 @@ void Mission::end(bool lost)
         player1->setCoins(player1->getCoins() + player1->getRewardCoins());
         player1->setRewardCoins(0);
 
-        eventsLog.push_back("you" + green + " won!" + reset);
+        eventsLog.push_back("\033[0;42myou won!" + reset);
         eventsLog.push_back("new items added to your inventory");
         eventsLog.push_back("go check them out!");
         save();
