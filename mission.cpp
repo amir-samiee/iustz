@@ -312,8 +312,7 @@ void Mission::enemyTurn()
 
 void Mission::playerTurn()
 {
-    bool exit = 0;
-    while (!exit)
+    while (1)
     {
         display();
         Item::useNews.clear();
@@ -324,17 +323,16 @@ void Mission::playerTurn()
             string options = "enter your choice(0 to quit): ";
             LimitedStorage *backpack = player1->getBackpack();
             choice = getInput(options, 0, backpack->getNames().size(), 0);
-            if (choice == 0)
-            {
-                player1->getHp()->setCurrentPoint(0);
-                exit = 1;
-                break;
-            }
             selectedItem = itemsMap[backpack->getNames()[choice - 1]];
             selectedItem->setOwner(player1);
             if (selectedItem->checkForUse())
                 break;
             cout << yellow << "move is not confirmed" << reset << endl;
+        }
+        if (choice == 0)
+        {
+            player1->getHp()->setCurrentPoint(0);
+            break;
         }
         if (selectedItem != nullptr)
             selectedItem->useItem();
@@ -436,14 +434,16 @@ void Mission::start()
             // if (player1->currentEnemy() != nullptr)
             playerTurn();
 
-            if (!player1->isAlive())
+            if (!player1->isAlive()){
                 lost = 1;
+                break;
+            }
 
-            if (player1->currentEnemy() != nullptr && !lost)
+            if (player1->currentEnemy() != nullptr)
                 enemyTurn();
             else
                 break;
-            
+
             if (!player1->isAlive())
                 lost = 1;
         }
