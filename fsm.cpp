@@ -170,14 +170,12 @@ void LowStamina ::runState()
 void BoostPower::runState()
 {
     Item *beforeBoostWeapon = itemsMap[appropriateWeapon(self->getPowerBoost(), *self->getStamina())];
-    int maxDamage = 0;
+    int maxDamage = beforeBoostWeapon->getSpecial() * self->getPowerBoost() ;
 
     if (dynamic_cast<Firearm *>(beforeBoostWeapon) != nullptr)
-        maxDamage = beforeBoostWeapon->getSpecial() * self->getPowerBoost() * self->getFirearmLevel();
+        maxDamage *= self->getFirearmLevel();
     else if (dynamic_cast<Melee *>(beforeBoostWeapon) != nullptr)
-        maxDamage = beforeBoostWeapon->getSpecial() * self->getPowerBoost() * self->getMeleeLevel();
-    else if (dynamic_cast<Throwable *>(beforeBoostWeapon) != nullptr)
-        maxDamage = beforeBoostWeapon->getSpecial() * self->getPowerBoost();
+        maxDamage *= self->getMeleeLevel();
 
     string myPowerPotion = "";
     vector<string> staminaPotions = self->getBackpack()->getStaminaPotions();
