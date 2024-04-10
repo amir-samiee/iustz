@@ -136,10 +136,10 @@ public:
     void setZombieLevels(int newLevels) { zombieLevels = newLevels; }
 
     // methods:
-    void generateEnemies();
     bool humanQualified(Player *player);
     bool zombieQualified(Player *player);
     bool isUnlocked(Player *player);
+    virtual bool isPassed(Player *player) = 0;
     void start();
     void story();
     void middleGame();
@@ -155,6 +155,7 @@ class ZombieMission : public Mission
 public:
     // constructors:
     ZombieMission(int newMissionNum, int newSpecialEnemy);
+    bool isPassed(Player *player) override;
     void end(bool lost) override;
 };
 
@@ -163,6 +164,7 @@ class HumanMission : public Mission
 public:
     // constructor:
     HumanMission(int newMissionNum, int newSpecialEnemy);
+    bool isPassed(Player *player) override;
     void end(bool lost) override;
 };
 

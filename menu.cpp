@@ -15,6 +15,10 @@ namespace menu
                 Mission *mission = missions[i];
                 if (!mission->isUnlocked(player1))
                     options << gray;
+                else if (mission->isPassed(player1))
+                    options << strikethrough;
+                else
+                    options << white;
                 options << i + 1 << ". " << mission->getName() << reset << endl;
             }
             options << "0. Back" << endl;

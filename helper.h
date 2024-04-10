@@ -19,6 +19,9 @@ const string cyan("\033[0;36m");
 const string magenta("\033[0;35m");
 const string gray("\033[90m");
 const string reset("\033[0m");
+const string white("\033[97m");
+const string blink("\033[5m");
+const string strikethrough("\033[9m");
 
 const string usersFilePath = "Data/users.json";
 const string iustzTitle =

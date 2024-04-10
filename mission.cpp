@@ -474,6 +474,16 @@ ZombieMission::ZombieMission(int missionNum, int specialEnemy)
     zombieMissions.push_back(this);
 }
 
+bool ZombieMission::isPassed(Player *player)
+{
+    return player->getZombieLevels() > zombieLevels && humanQualified(player);
+}
+
+bool HumanMission::isPassed(Player *player)
+{
+    return player->getHumanLevels() > humanLevels && zombieQualified(player);
+}
+
 void ZombieMission::end(bool lost)
 {
     Mission::end(lost);
