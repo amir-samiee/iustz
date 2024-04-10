@@ -162,6 +162,7 @@ void MVC::EnemyController::die()
         }
     }
     this->self->currentEnemy()->setWave(updatedWave);
+    delete self;
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)

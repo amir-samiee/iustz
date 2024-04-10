@@ -390,6 +390,7 @@ void Mission::display()
             enemy->display();
     player1->display();
     player1->getBackpack()->printStorage();
+    cout<<endl;
     for (auto news : Item::useNews)
         pprint(news, 400);
 }

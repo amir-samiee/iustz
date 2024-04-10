@@ -84,7 +84,7 @@ void Throwable::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " threw " + name;
+    news += reset + " threw a " + name;
     useNews.push_back(news);
 }
 
@@ -106,7 +106,7 @@ void Melee::useItem()
     info();
     if (checkForUse())
     {
-        int special = getSpecial() * (rand() % 26 + 75);
+        int special = getSpecial() * ((rand() % 51 + 75) / 100.0);
         owner->getWave()[0]->takeDamage(special * (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
@@ -121,7 +121,7 @@ void Melee::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " hit " + name;
+    news += reset + " hit with " + name;
     useNews.push_back(news);
 }
 
@@ -135,7 +135,7 @@ void Firearm::useItem()
     info();
     if (checkForUse())
     {
-        int special = getSpecial() * (rand() % 26 + 75);
+        int special = getSpecial() * ((rand() % 51 + 75) / 100.0);
         owner->getWave()[0]->takeDamage(special * (1 + ((owner->getFirearmLevel() - 1) / 6)) * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
@@ -150,7 +150,7 @@ void Firearm::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " shot " + name;
+    news += reset + " fired the " + name;
     useNews.push_back(news);
 }
 
@@ -181,7 +181,7 @@ void HpPotion::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " 11 " + name;
+    news += reset + " Healed using " + name;
     useNews.push_back(news);
 }
 
@@ -208,7 +208,7 @@ void StaminaPotion::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " 12 " + name;
+    news += reset + " boosted stamina using " + name;
     useNews.push_back(news);
 }
 
@@ -238,6 +238,6 @@ void PowerPotion::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " 13 " + name;
+    news += reset + " boosted power using " + name;
     useNews.push_back(news);
 }
