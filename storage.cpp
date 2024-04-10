@@ -7,25 +7,13 @@ void Storage::setItems(map<string, int> newItems)
     addItem(newItems);
 }
 
-void Storage::saveItems()
-{
-    lastSavedItems = items;
-}
+void Storage::saveItems() { lastSavedItems = items; }
 
-void Storage::loadItems()
-{
-    setItems(lastSavedItems);
-}
+void Storage::loadItems() { setItems(lastSavedItems); }
 
-void Storage::clearStorage()
-{
-    removeItem(items);
-}
+void Storage::clearStorage() { removeItem(items); }
 
-void Storage::loadStorage(json data)
-{
-    setItems(data["items"]);
-}
+void Storage::loadStorage(json data) { setItems(data["items"]); }
 
 json Storage::dumpStorage()
 {

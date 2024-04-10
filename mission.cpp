@@ -415,8 +415,9 @@ void Mission::end(bool lost)
             delete enemy;
     if (lost)
     {
-        player1->getReward()->clearStorage();
+        player1->getRewardItems()->clearStorage();
         player1->getBackpack()->loadItems();
+        player1->setRewardCoins(0);
         cout << "\033[35m"
              << "you lost" << reset << endl;
     }
@@ -435,9 +436,11 @@ void Mission::end(bool lost)
         Storage *inventory = player1->getInventory();
         LimitedStorage temp = *backpack;
         transfer(backpack, inventory);
-        transfer(player1->getReward(), inventory);
+        transfer(player1->getRewardItems(), inventory);
         inventory->removeItem(temp.getItems());
         transfer(&temp, backpack);
+        player1->setCoins(player1->getCoins()+ player1->getRewardCoins());
+        player1->setRewardCoins(0);
 
         cout << "\033[35m"
              << "\nYou Won\n\nNew items added to your inventory!\nGo check them out" << reset << endl;

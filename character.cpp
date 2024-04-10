@@ -67,6 +67,8 @@ void Player::display()
          << reset;
 }
 
+void Player::addRewardCoins(int addedCoins) { rewardCoins += addedCoins; }
+
 void Player::loadPlayer(json data)
 {
     name = data["name"];
@@ -149,7 +151,8 @@ void MVC::EnemyController::die()
 {
     Player *myplayer = dynamic_cast<Player *>(self->currentEnemy());
     // setting rewards:
-    transfer(self->getBackpack(), myplayer->getReward());
+    transfer(self->getBackpack(), myplayer->getRewardItems());
+    player1->addRewardCoins(model->coins);
 
     // removing enemy from wave:
     vector<Character *> updatedWave = self->currentEnemy()->getWave();

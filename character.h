@@ -78,7 +78,8 @@ protected:
     double powerBoost = 1;
     int coins;
     vector<Character *> currentWave;
-    Storage reward;
+    Storage rewardItems;
+    int rewardCoins = 0;
     Storage inventory;
     int humanLevels = 0;
     int zombieLevels = 0;
@@ -105,7 +106,8 @@ public:
     Storage *getInventory() { return &inventory; }
     int getHumanLevels() { return humanLevels; }
     int getZombieLevels() { return zombieLevels; }
-    Storage *getReward() { return &reward; }
+    Storage *getRewardItems() { return &rewardItems; }
+    int getRewardCoins() { return rewardCoins; }
 
     // setters
     void setUsername(string newUsername) { username = newUsername; }
@@ -123,7 +125,8 @@ public:
     void setInventory(Storage newInventory) { inventory = newInventory; }
     void setHumanLevels(int newLevel) { humanLevels = newLevel; }
     void setZombieLevels(int newLevel) { zombieLevels = newLevel; }
-    void setReward(Storage newReward) { reward = newReward; }
+    void setRewardItems(Storage newReward) { rewardItems = newReward; }
+    void setRewardCoins(int newReward) { rewardCoins = newReward; }
 
     // others
     bool isAlive() override;
@@ -132,6 +135,7 @@ public:
     void die() override;
     void takeDamage(int newPoint) override;
     void display() override;
+    void addRewardCoins(int addedCoins);
     void loadPlayer(json data);
     json dumpPlayer();
 };
