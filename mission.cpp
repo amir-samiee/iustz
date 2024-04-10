@@ -308,25 +308,19 @@ void Mission::playerTurn()
         display();
         eventsLog.clear();
         int choice;
-        Item *selectedItem = nullptr;
+        Item *selectedItem;
         while (1)
         {
-            string options = "enter your choice(0 to quit): ";
+            string options = "enter your choice: ";
             LimitedStorage *backpack = player1->getBackpack();
-            choice = getInput(options, 0, backpack->getNames().size(), 0);
+            choice = getInput(options, 1, backpack->getNames().size(), 0);
             selectedItem = itemsMap[backpack->getNames()[choice - 1]];
             selectedItem->setOwner(player1);
             if (selectedItem->checkForUse())
                 break;
             cout << yellow << "move is not confirmed" << reset << endl;
         }
-        if (choice == 0)
-        {
-            player1->getHp()->setCurrentPoint(0);
-            break;
-        }
-        if (selectedItem != nullptr)
-            selectedItem->useItem();
+        selectedItem->useItem();
         if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
             break;
     }

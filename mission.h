@@ -136,7 +136,6 @@ public:
     void setZombieLevels(int newLevels) { zombieLevels = newLevels; }
 
     // methods:
-    void generateEnemies();
     bool humanQualified(Player *player);
     bool zombieQualified(Player *player);
     bool isUnlocked(Player *player);
