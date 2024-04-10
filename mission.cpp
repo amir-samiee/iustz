@@ -314,6 +314,11 @@ void Mission::playerTurn()
             string options = "enter your choice(0 to quit): ";
             LimitedStorage *backpack = player1->getBackpack();
             choice = getInput(options, 0, backpack->getNames().size(), 0);
+            if (choice == 0)
+            {
+                player1->getHp()->setCurrentPoint(0);
+                break;
+            }
             selectedItem = itemsMap[backpack->getNames()[choice - 1]];
             selectedItem->setOwner(player1);
             if (selectedItem->checkForUse())
@@ -321,12 +326,8 @@ void Mission::playerTurn()
             cout << yellow << "move is not confirmed" << reset << endl;
         }
         if (choice == 0)
-        {
-            player1->getHp()->setCurrentPoint(0);
             break;
-        }
-        if (selectedItem != nullptr)
-            selectedItem->useItem();
+        selectedItem->useItem();
         if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
             break;
     }
@@ -359,11 +360,12 @@ void Mission::display()
 
 void Mission::start()
 {
+    eventsLog.clear();
+    waves.clear();
     player1->getHp()->fill();
     player1->getStamina()->fill();
     player1->getBackpack()->saveItems();
 
-    waves.clear();
     // Feeding data to factory:
     if (dynamic_cast<ZombieMission *>(this) != nullptr)
     {
@@ -386,18 +388,24 @@ void Mission::middleGame()
     {
         player1->setWave(waves[i]);
 
-        while (!lost)
+        while (1)
         {
-            cout << magenta << "wave number: " << i + 1 << endl;
-            // if (player1->currentEnemy() != nullptr)
             playerTurn();
+            if (!player1->isAlive())
+            {
+                lost = 1;
+                break;
+            }
 
             if (player1->currentEnemy() != nullptr)
                 enemyTurn();
             else
                 break;
             if (!player1->isAlive())
+            {
                 lost = 1;
+                break;
+            }
         }
         if (lost)
             break;

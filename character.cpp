@@ -124,7 +124,15 @@ MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage 
 
 bool MVC::EnemyModel::isAlive() { return hp.getCurrentPoint() > 0; }
 
-void MVC::EnemyView::display(const EnemyModel &model) {}
+void MVC::EnemyView::display(const EnemyModel &model)
+{
+    cout << red
+         << "Enemy Name: " << model.name << endl
+         << "HP: " << model.hp.getCurrentPoint() << endl
+         << "Stamina: " << model.stamina.getCurrentPoint() << endl
+         << "Power Boost: " << model.powerBoost << endl
+         << reset;
+}
 
 void MVC::EnemyController::takeDamage(int takenDamage)
 {
@@ -141,10 +149,6 @@ bool MVC::EnemyController::move()
     // cout << "state code: " << static_cast<int>(currentState) << endl;
     fsm.runTurn();
     return (currentState != StateName::Attack);
-}
-
-MVC::EnemyController::~EnemyController()
-{
 }
 
 void MVC::EnemyController::die()
@@ -165,6 +169,7 @@ void MVC::EnemyController::die()
         }
     }
     self->currentEnemy()->setWave(updatedWave);
+    Mission::eventsLog.push_back(model->name + magenta + " {enemy} " + red + "died" + reset);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
@@ -275,10 +280,5 @@ bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
 void Enemy::display()
 {
-    cout << red
-         << "Enemy Name: " << model->name << endl
-         << "HP: " << model->hp.getCurrentPoint() << endl
-         << "Stamina: " << model->stamina.getCurrentPoint() << endl
-         << "Power Boost: " << model->powerBoost << endl
-         << reset;
+    view->display(*model);
 }
