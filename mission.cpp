@@ -360,8 +360,10 @@ void Mission::display()
 void Mission::start()
 {
     player1->getHp()->fill();
-    waves.clear();
     player1->getStamina()->fill();
+    player1->getBackpack()->saveItems();
+
+    waves.clear();
     // Feeding data to factory:
     if (dynamic_cast<ZombieMission *>(this) != nullptr)
     {
@@ -414,6 +416,7 @@ void Mission::end(bool lost)
     if (lost)
     {
         player1->getReward()->clearStorage();
+        player1->getBackpack()->loadItems();
         cout << "\033[35m"
              << "you lost" << reset << endl;
     }

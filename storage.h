@@ -6,6 +6,7 @@ class Storage
 {
 protected:
     map<string, int> items = {};
+    map<string, int> lastSavedItems = {};
     vector<string> names;
 
 public:
@@ -22,6 +23,8 @@ public:
 
     // others
     void clearStorage();
+    void saveItems();
+    void loadItems();
     virtual void loadStorage(json data);
     virtual json dumpStorage();
     virtual void addItem(string name, bool isViewed = false);
