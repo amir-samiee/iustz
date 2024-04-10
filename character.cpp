@@ -161,8 +161,8 @@ void MVC::EnemyController::die()
             break;
         }
     }
-    this->self->currentEnemy()->setWave(updatedWave);
-    delete self;
+    self->currentEnemy()->setWave(updatedWave);
+    deletePtr(self);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
@@ -223,6 +223,7 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : ZombieEnemy(name, age, gender, backpack, hp, stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins)
 {
+    delete controller;
     controller = new MVC::SpecialEnemyController(model, view, this);
 }
 
@@ -236,9 +237,10 @@ bool Player::move()
     Item *selectedItem;
     while (1)
     {
-        string options = "enter your choice ('0' to quit): ";
+        string options = "enter your choice (0 to quit): ";
         choice = getInput(options, 0, backpack.getNames().size(), 0);
-        if(choice == 0){
+        if (choice == 0)
+        {
             hp.setCurrentPoint(0);
             return 0;
         }

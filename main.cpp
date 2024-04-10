@@ -21,7 +21,7 @@ int main()
         *player1 = defaultPlayer;
         clearScreen();
         // Sleep(2000);
-        cout << iustzTitle << string(2, '\n') << "enter your usename ('0' to quit): ";
+        cout << iustzTitle << string(2, '\n') << "enter your usename (0 to quit): ";
         string username;
         getline(cin, username);
         if (username == "0")

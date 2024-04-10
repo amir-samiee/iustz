@@ -161,16 +161,35 @@ void save()
 
 void cleanUp()
 {
-    cout << cyan << "exiting cleanly..." << reset << endl;
+    cout << cyan << "exiting cleanly..." << endl;
     deletePtr(player1);
+    cout << "player cleaned..." << endl;
     for (auto i : zombieMissions)
+    {
+        cout << i->getName() << endl;
         deletePtr(i);
+    }
+    cout << "zombie missions cleaned..." << endl;
     for (auto i : humanMissions)
         deletePtr(i);
+    cout << "human missions cleaned..." << endl;
     for (auto i : storageLeakHandle)
         deletePtr(i);
+    cout << "storage objects cleaned..." << endl;
     for (auto i : characterLeakHandle)
-        deletePtr(i);
+    {
+        cout << i << endl;
+        i->setName("blabla");
+        cout << i->getName() << endl;
+        try
+        {
+            deletePtr(i);
+        }
+        catch (const std::exception &e)
+        {
+        }
+    }
+    cout << "character objects cleaned..." << endl;
     cout << green << "done!" << reset << endl;
 }
 
