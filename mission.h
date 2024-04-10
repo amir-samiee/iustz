@@ -169,7 +169,7 @@ public:
 };
 
 // a map for connecting missioins to their ID:
-map<string, Mission *> missionMap;
+map<Mission * , string> missionMap;
 
 // vectors for saving missions:
 vector<Mission *> zombieMissions;

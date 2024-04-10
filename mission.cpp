@@ -56,6 +56,7 @@ void Factory::addPermanent(vector<Character *> unshuffeledEn, vector<string> add
 // Adding removable items to a vector of enemies:
 void Factory::addRemovable(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
+    shuffle(unshuffeledEn.begin(), unshuffeledEn.end(), gen);
     int i = 0;
     while (!addingItem.empty())
     {
@@ -269,7 +270,9 @@ bool Mission::isUnlocked(Player *player)
 
 void Mission::story()
 {
-    ifstream file("Stories/" + name + ".txt");
+    cout << missionMap[this] << endl;
+    getchPress();
+    ifstream file("Stories/" + missionMap[this] + ".txt");
     if (file.is_open())
     {
         string line;
@@ -296,7 +299,7 @@ void Mission::enemyTurn()
     do
     {
         currentState = fsm.getCurrentState();
-        cout << "state code: " << static_cast<int>(currentState) << endl;
+        //cout << "state code: " << static_cast<int>(currentState) << endl;
         getchPress();
         fsm.runTurn();
     } while (currentState != StateName::Attack);
@@ -383,7 +386,7 @@ void Mission::start()
         HumanFactory factory(missionNum, casualEnemyNum, specialEnemy);
         setWaves(factory.createEnemy(factory.getWave()));
     }
-    // story();
+    story();
     middleGame();
 }
 
@@ -473,8 +476,8 @@ ZombieMission::ZombieMission(int missionNum, int specialEnemy)
     humanLevels = 3 * (zombieLevels / 3);
 
     // Setting the ID:
-    name = "z" + missionNum;
-    missionMap[name] = this;
+    string id = "z" + to_string(missionNum);
+    missionMap[this] = id;
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -509,8 +512,8 @@ HumanMission::HumanMission(int newMissionNum, int specialEnemy)
     zombieLevels = 3 * (humanLevels / 3);
 
     // Setting the ID:
-    name = "h" + newMissionNum;
-    missionMap[name] = this;
+    string id = "h" + to_string(missionNum);
+    missionMap[this] = name;
 
     // saving mission:
     humanMissions.push_back(this);
