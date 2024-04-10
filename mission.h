@@ -104,6 +104,7 @@ class Mission
 {
 protected:
     string name;
+    string id;
     int humanLevels;  // to be required to pass
     int zombieLevels; // to be required to pass
     int missionNum;
@@ -120,6 +121,7 @@ public:
 
     // getters:
     string getName() const { return name; }
+    string getID() const { return id; }
     int getMissionNum() const { return missionNum; }
     int getCasualEnemyNum() const { return casualEnemyNum; }
     int getSpecialEnemy() const { return specialEnemy; }
@@ -167,9 +169,6 @@ public:
     bool isPassed(Player *player) override;
     void end(bool lost) override;
 };
-
-// a map for connecting missioins to their ID:
-map<Mission * , string> missionMap;
 
 // vectors for saving missions:
 vector<Mission *> zombieMissions;

@@ -270,9 +270,7 @@ bool Mission::isUnlocked(Player *player)
 
 void Mission::story()
 {
-    cout << missionMap[this] << endl;
-    getchPress();
-    ifstream file("Stories/" + missionMap[this] + ".txt");
+    ifstream file("Stories/" + getID() + ".txt");
     if (file.is_open())
     {
         string line;
@@ -476,8 +474,7 @@ ZombieMission::ZombieMission(int missionNum, int specialEnemy)
     humanLevels = 3 * (zombieLevels / 3);
 
     // Setting the ID:
-    string id = "z" + to_string(missionNum);
-    missionMap[this] = id;
+    id = "z" + to_string(missionNum);
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -512,8 +509,7 @@ HumanMission::HumanMission(int newMissionNum, int specialEnemy)
     zombieLevels = 3 * (humanLevels / 3);
 
     // Setting the ID:
-    string id = "h" + to_string(missionNum);
-    missionMap[this] = name;
+    id = "h" + to_string(missionNum);
 
     // saving mission:
     humanMissions.push_back(this);
