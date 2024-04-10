@@ -108,7 +108,7 @@ void Melee::useItem()
     {
         int special = getSpecial() * ((rand() % 51 + 75) / 100.0);
         double skill = 1 + ((owner->getMeleeLevel() - 1) / (6.0));
-        owner->getWave()[0]->takeDamage(special * skill * owner->getPowerBoost());
+        owner->currentEnemy()->takeDamage(special * skill * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }

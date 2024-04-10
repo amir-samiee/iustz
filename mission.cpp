@@ -271,7 +271,7 @@ bool Mission::isUnlocked(Player *player)
 void Mission::story()
 {
     clearScreen();
-    ifstream file("stories\\" + getID() + ".txt");
+    ifstream file("Stories/" + id + ".txt");
     if (file.is_open())
     {
         string line;
