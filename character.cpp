@@ -67,15 +67,15 @@ void Player::takeDamage(int takenDamage)
     if (newPoint <= 0)
         this->die();
 }
-void Player::display()
+void Player::display(bool isFighting)
 {
-    cout << green
-         << "Player: " << name << endl
-         << "HP: " << hp.getCurrentPoint() << endl
-         << "Stamina: " << stamina.getCurrentPoint() << endl
-         << "Power Boost: " << powerBoost << endl
-         << "Current Enemies Count: " << currentWave.size() << endl
-         << reset;
+    cout << green << "Name: " << reset << name << left << endl
+         << cyan << "HP: " << reset << setw(8) << hp.getCurrentPoint()
+         << cyan << "Stamina: " << reset << setw(6) << stamina.getCurrentPoint()
+         << cyan << "Power Boost: " << reset << setw(5) << powerBoost
+         << cyan << "Firearm Level: " << reset << setw(6) << firearmLevel
+         << cyan << "Melee Level: " << reset << setw(5) << meleeLevel
+         << reset << endl;
 }
 
 void Player::addRewardCoins(int addedCoins) { rewardCoins += addedCoins; }
@@ -135,14 +135,38 @@ MVC::EnemyModel::EnemyModel(string name, int age, string gender, LimitedStorage 
 
 bool MVC::EnemyModel::isAlive() { return hp.getCurrentPoint() > 0; }
 
-void MVC::EnemyView::display(const EnemyModel &model)
+void MVC::EnemyView::display(const EnemyModel &model, bool isFighting)
 {
-    cout << red
-         << "Enemy Name: " << model.name << endl
-         << "HP: " << model.hp.getCurrentPoint() << endl
-         << "Stamina: " << model.stamina.getCurrentPoint() << endl
-         << "Power Boost: " << model.powerBoost << endl
-         << reset;
+    if (isFighting)
+    {
+        cout << red << "Name: " << reset << model.name << left << endl
+             << magenta << "HP: " << reset << setw(8) << model.hp.getCurrentPoint()
+             << magenta << "Stamina: " << reset << setw(6) << model.stamina.getCurrentPoint()
+             << magenta << "Power Boost: " << reset << setw(5) << model.powerBoost
+             << magenta << "Firearm Level: " << reset << setw(6) << model.firearmLevel
+             << magenta << "Melee Level: " << reset << setw(5) << model.meleeLevel
+             << magenta << "\nBackpack:  " << yellow;
+
+        for (auto i : model.backpack.getWeapons())
+            cout << i << "  ";
+        for (auto i : model.backpack.getHpPotions())
+            cout << i << "  ";
+        for (auto i : model.backpack.getPowerPotions())
+            cout << i << "  ";
+        for (auto i : model.backpack.getStaminaPotions())
+            cout << i << "  ";
+
+        cout << reset << endl;
+    }
+    else
+        cout << gray
+             << "Name: " << model.name << left << endl
+             << "HP: " << setw(8) << model.hp.getCurrentPoint()
+             << "Stamina: " << setw(6) << model.stamina.getCurrentPoint()
+             << "Power Boost: " << setw(5) << model.powerBoost
+             << "Firearm Level: " << setw(6) << model.firearmLevel
+             << "Melee Level: " << setw(5) << model.meleeLevel
+             << reset << endl;
 }
 
 void MVC::EnemyController::takeDamage(int takenDamage)
@@ -289,4 +313,4 @@ MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy 
 
 bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
-void Enemy::display() { view->display(*model); }
+void Enemy::display(bool isFighting) { view->display(*model, isFighting); }

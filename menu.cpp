@@ -220,12 +220,14 @@ namespace menu
                 break;
             case 2:
                 shop.displayShop();
+                save();
                 break;
             case 3:
                 profile();
                 break;
             case 4:
                 inventory();
+                save();
                 break;
             case 0:
                 save();

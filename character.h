@@ -63,7 +63,7 @@ public:
     virtual bool move() = 0;
     virtual void die() = 0;
     virtual void takeDamage(int newPoint) = 0;
-    virtual void display() = 0;
+    virtual void display(bool isFighting = 0) = 0;
 };
 
 class Player : public Character
@@ -137,7 +137,7 @@ public:
     bool move() override;
     void die() override;
     void takeDamage(int newPoint) override;
-    void display() override;
+    void display(bool isFighing = 0) override;
     void addRewardCoins(int addedCoins);
     void loadPlayer(json data);
     json dumpPlayer();
@@ -175,7 +175,7 @@ namespace MVC
     class EnemyView
     {
     public:
-        void display(const EnemyModel &model);
+        void display(const EnemyModel &model, bool isFighring = 0);
     };
 
     class EnemyController
@@ -249,7 +249,7 @@ public:
     virtual void takeDamage(int damage) override;
     bool move() override;
     void die() override;
-    void display() override;
+    void display(bool isFighting = 0) override;
 };
 
 class HumanEnemy : public Enemy
