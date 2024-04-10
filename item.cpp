@@ -107,7 +107,8 @@ void Melee::useItem()
     if (checkForUse())
     {
         int special = getSpecial() * ((rand() % 51 + 75) / 100.0);
-        owner->getWave()[0]->takeDamage(special * (1 + ((owner->getMeleeLevel() - 1) / 6)) * owner->getPowerBoost());
+        double skill = 1 + ((owner->getMeleeLevel() - 1) / (6.0));
+        owner->getWave()[0]->takeDamage(special * skill * owner->getPowerBoost());
         owner->setPowerBoost(1);
         takeStamina();
     }
@@ -224,7 +225,7 @@ void PowerPotion::useItem()
     info();
     if (checkForUse())
     {
-        owner->setPowerBoost(getSpecial());
+        owner->setPowerBoost(getSpecial()*owner->getPowerBoost());
         takeStamina();
         removeFromBackpack();
     }

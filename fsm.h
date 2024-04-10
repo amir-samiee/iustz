@@ -13,6 +13,7 @@ class States
 {
 protected:
     Character *self;
+    bool wastingPowerPotion;
 
 public:
     States(Character *self) : self(self) {}
@@ -43,13 +44,14 @@ class StartPoint : public States
 {
 public:
     StartPoint(Character *self) : States(self) {}
+    void runState() override;
 };
 
 class Attack : public States
 {
 public:
     Attack(Character *self) : States(self) {}
-    void runState();
+    void runState() override;
     StateName nextState() { return StateName::StartPoint; }
 };
 
@@ -57,7 +59,7 @@ class LowHp : public States
 {
 public:
     LowHp(Character *self) : States(self) {}
-    void runState();
+    void runState() override;
     // StateName nextState();
 };
 
@@ -65,7 +67,7 @@ class LowStamina : public States
 {
 public:
     LowStamina(Character *self) : States(self) {}
-    void runState();
+    void runState() override;
     // StateName nextState();
 };
 
@@ -73,7 +75,7 @@ class BoostPower : public States
 {
 public:
     BoostPower(Character *self) : States(self) {}
-    void runState();
+    void runState() override;
     // StateName nextState();
 };
 

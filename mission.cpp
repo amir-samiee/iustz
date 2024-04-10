@@ -69,7 +69,7 @@ void Factory::addRemovable(vector<Character *> unshuffeledEn, vector<string> add
 }
 
 // initializing removable items for a mission:
-void Factory::initRemovable(vector<Item *> adding, vector<string> to)
+void Factory::initRemovable(vector<Item *> adding, vector<string> &to)
 {
     int index = 0;
     int potionNums = (casualEnemy * 2) + (rand() % (casualEnemy / 2)) - (casualEnemy / 4);
@@ -296,7 +296,8 @@ void Mission::enemyTurn()
     do
     {
         currentState = fsm.getCurrentState();
-        // cout << "state code: " << static_cast<int>(currentState) << endl;
+        cout << "state code: " << static_cast<int>(currentState) << endl;
+        getchPress();
         fsm.runTurn();
     } while (currentState != StateName::Attack);
 }
