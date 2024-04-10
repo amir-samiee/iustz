@@ -348,16 +348,14 @@ void Mission::display()
 {
     clearScreen(); // this line might better be commented for debugging
     vector<Character *> wave = player1->getWave();
-    player1->display();
-    cout << string(2, '\n');
+    for (int i = wave.size() - 1; i > 0; i--)
+        wave[i]->display();
     if (!wave.empty())
     {
         player1->currentEnemy()->display(1);
         cout << endl;
     }
-    for (int i = 1; i < wave.size(); i++)
-        wave[i]->display();
-    cout << string(2, '\n');
+    player1->display();
     cout << cyan + "Backpack:" + reset << endl;
     player1->getBackpack()->printStorage();
     cout << endl;
