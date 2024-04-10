@@ -316,6 +316,7 @@ void Mission::playerTurn()
             choice = getInput(options, 0, backpack->getNames().size(), 0);
             if (choice == 0)
             {
+                player1->getHp()->savePoint();
                 player1->getHp()->setCurrentPoint(0);
                 break;
             }
@@ -417,17 +418,13 @@ void Mission::middleGame()
 
 void Mission::end(bool lost)
 {
-    display();
-    for (auto wave : waves)
-        for (auto enemy : wave)
-            delete enemy;
     if (lost)
     {
         player1->getRewardItems()->clearStorage();
         player1->getBackpack()->loadItems();
+        player1->getHp()->loadPoint();
         player1->setRewardCoins(0);
-        cout << "\033[35m"
-             << "you lost" << reset << endl;
+        eventsLog.push_back("you" + red + " lost!" + reset);
     }
     else
     {
@@ -447,13 +444,18 @@ void Mission::end(bool lost)
         transfer(player1->getRewardItems(), inventory);
         inventory->removeItem(temp.getItems());
         transfer(&temp, backpack);
-        player1->setCoins(player1->getCoins()+ player1->getRewardCoins());
+        player1->setCoins(player1->getCoins() + player1->getRewardCoins());
         player1->setRewardCoins(0);
 
-        cout << "\033[35m"
-             << "\nYou Won\n\nNew items added to your inventory!\nGo check them out" << reset << endl;
+        eventsLog.push_back("you" + green + " won!" + reset);
+        eventsLog.push_back("new items added to your inventory");
+        eventsLog.push_back("go check them out!");
         save();
     }
+    display();
+    for (auto wave : waves)
+        for (auto enemy : wave)
+            delete enemy;
     getchPress();
 }
 

@@ -6,6 +6,7 @@ class Stat
 protected:
     int maxPoint = 100;
     int currentPoint = maxPoint;
+    int lastSavedPoint = 0;
 
 public:
     Stat() = default;
@@ -20,6 +21,8 @@ public:
     // other
     void loadStat(json data);
     json dumpStat();
+    void savePoint();
+    void loadPoint();
     void fill();
     int level();
 };

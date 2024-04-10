@@ -23,6 +23,17 @@ json Stat::dumpStat()
     return data;
 }
 
+void Stat::savePoint()
+{
+    lastSavedPoint = currentPoint;
+}
+
+void Stat::loadPoint()
+{
+    currentPoint = lastSavedPoint;
+    lastSavedPoint = 0;
+}
+
 void Stat::fill()
 {
     currentPoint = maxPoint;
@@ -169,7 +180,7 @@ void MVC::EnemyController::die()
         }
     }
     self->currentEnemy()->setWave(updatedWave);
-    Mission::eventsLog.push_back(model->name + magenta + " {enemy} " + red + "died" + reset);
+    Mission::eventsLog.push_back(model->name + magenta + " (enemy) " + red + "died" + reset);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
@@ -278,7 +289,4 @@ MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy 
 
 bool Enemy::move() { return controller->move(); }
 void Enemy::die() { controller->die(); }
-void Enemy::display()
-{
-    view->display(*model);
-}
+void Enemy::display() { view->display(*model); }
