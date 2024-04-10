@@ -270,12 +270,11 @@ bool Mission::isUnlocked(Player *player)
 
 void Mission::story()
 {
-    ifstream file("Stories/" + getID() + ".txt");
+    clearScreen();
+    ifstream file("stories\\" + getID() + ".txt");
     if (file.is_open())
     {
         string line;
-        cout << "Mission " << missionNum << " - " << name << ":\n";
-
         while (getline(file, line))
             pprint(line);
 
