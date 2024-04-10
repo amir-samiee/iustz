@@ -204,11 +204,11 @@ FSM::FSM(Character *self) : self(self) {}
 
 FSM::~FSM()
 {
-    deletePtr(startPoint);
-    deletePtr(attack);
-    deletePtr(lowHp);
-    deletePtr(lowStamina);
-    deletePtr(boostPower);
+    delete startPoint;
+    delete attack;
+    delete lowHp;
+    delete lowStamina;
+    delete boostPower;
 }
 
 void FSM::runTurn()

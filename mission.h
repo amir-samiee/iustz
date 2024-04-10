@@ -141,6 +141,7 @@ public:
     bool isUnlocked(Player *player);
     void start();
     void story();
+    void middleGame();
     void display();
     void playerTurn();
     void enemyTurn();
@@ -153,13 +154,6 @@ class ZombieMission : public Mission
 public:
     // constructors:
     ZombieMission(int newMissionNum, int newSpecialEnemy);
-    ZombieMission(const string &name, int missionNum, int specialEnemy,
-                  const vector<string> &missionPermanents,
-                  const vector<string> &missionThrowables,
-                  const vector<string> &missionHpPotions,
-                  const vector<string> &missionStaminaPotions,
-                  const vector<string> &missionPowerPotions,
-                  const vector<int> wavesInfo);
     void end(bool lost) override;
 };
 
@@ -168,13 +162,6 @@ class HumanMission : public Mission
 public:
     // constructor:
     HumanMission(int newMissionNum, int newSpecialEnemy);
-    HumanMission(const string &name, int missionNum, int specialEnemy,
-                 const vector<string> &missionPermanents,
-                 const vector<string> &missionThrowables,
-                 const vector<string> &missionHpPotions,
-                 const vector<string> &missionStaminaPotions,
-                 const vector<string> &missionPowerPotions,
-                 const vector<int> wavesInfo);
     void end(bool lost) override;
 };
 

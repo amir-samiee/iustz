@@ -162,7 +162,6 @@ void MVC::EnemyController::die()
         }
     }
     self->currentEnemy()->setWave(updatedWave);
-    deletePtr(self);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
@@ -187,9 +186,9 @@ Enemy::Enemy(string name, int age, string gender, LimitedStorage backpack, Stat 
 
 Enemy::~Enemy()
 {
-    deletePtr(model);
-    deletePtr(view);
-    deletePtr(controller);
+    delete model;
+    delete view;
+    delete controller;
 }
 
 Character *Enemy::currentEnemy(bool isViewd)

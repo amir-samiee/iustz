@@ -54,9 +54,6 @@ void dumpData(string fileName);
 template <typename K>
 void print_vector(vector<K> vec);
 
-template<typename K>
-void deletePtr(K*&ptr );
-
 void save();
 void cleanUp();
 

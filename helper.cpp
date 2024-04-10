@@ -145,13 +145,6 @@ void transfer(Storage *adding, Storage *to)
     adding->clearStorage();
 }
 
-template <typename K>
-void deletePtr(K *&ptr)
-{
-    delete ptr;
-    ptr = nullptr;
-}
-
 void save()
 {
     json data = loadData(usersFilePath);
@@ -162,34 +155,14 @@ void save()
 void cleanUp()
 {
     cout << cyan << "exiting cleanly..." << endl;
-    deletePtr(player1);
+    delete player1;
     cout << "player cleaned..." << endl;
     for (auto i : zombieMissions)
-    {
-        cout << i->getName() << endl;
-        deletePtr(i);
-    }
+        delete i;
     cout << "zombie missions cleaned..." << endl;
     for (auto i : humanMissions)
-        deletePtr(i);
+        delete i;
     cout << "human missions cleaned..." << endl;
-    for (auto i : storageLeakHandle)
-        deletePtr(i);
-    cout << "storage objects cleaned..." << endl;
-    for (auto i : characterLeakHandle)
-    {
-        cout << i << endl;
-        i->setName("blabla");
-        cout << i->getName() << endl;
-        try
-        {
-            deletePtr(i);
-        }
-        catch (const std::exception &e)
-        {
-        }
-    }
-    cout << "character objects cleaned..." << endl;
     cout << green << "done!" << reset << endl;
 }
 
