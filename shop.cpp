@@ -142,6 +142,7 @@ void Shop ::upgrade()
 
         result << "COINS: " << player1->getCoins() << endl
                << endl;
+
         result << left << "    NAME" << right << setw(20)
                << "LEVEL" << setw(20)
                << "ESCALATION" << setw(20)
@@ -150,7 +151,7 @@ void Shop ::upgrade()
         result << "1- Hp" << setw(21)
                << player1->getHp()->level()
                << setw(22) << "1 = 30 hp"
-               << setw(18) << upgradePrice("hp", player1->getStamina()->level()) << endl;
+               << setw(18) << upgradePrice("hp", player1->getHp()->level()) << endl;
 
         result << "2- Stamina" << setw(16)
                << player1->getStamina()->level()
@@ -249,10 +250,7 @@ void Shop ::upgrade()
             break;
         }
         case 0:
-        {
             return;
-            break;
-        }
         }
     }
 }
@@ -260,7 +258,6 @@ void Shop ::upgrade()
 int Shop::upgradePrice(string type, int choice)
 {
     int upgradeResult;
-    bool breakFlag = 0;
     if (type == "hp")
     {
         upgradeResult = 15 + (choice - 1) * 15;
@@ -282,7 +279,7 @@ int Shop::upgradePrice(string type, int choice)
         return upgradeResult;
     }
     else
-        cout << "\ncant upgrade price" << endl;
+        cout << "\ncan't upgrade price" << endl;
 
     return 0;
 }

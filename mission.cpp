@@ -297,7 +297,6 @@ void Mission::enemyTurn()
     {
         currentState = fsm.getCurrentState();
         //cout << "state code: " << static_cast<int>(currentState) << endl;
-        getchPress();
         fsm.runTurn();
     } while (currentState != StateName::Attack);
 }
@@ -462,6 +461,7 @@ void Mission::end(bool lost)
     for (auto wave : waves)
         for (auto enemy : wave)
             delete enemy;
+    waves.clear();
     getchPress();
 }
 
