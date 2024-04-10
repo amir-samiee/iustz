@@ -312,24 +312,32 @@ void Mission::enemyTurn()
 
 void Mission::playerTurn()
 {
-    while (1)
+    bool exit = 0;
+    while (!exit)
     {
         display();
         Item::useNews.clear();
         int choice;
-        Item *selectedItem;
+        Item *selectedItem = nullptr;
         while (1)
         {
-            string options = "enter your choice: ";
+            string options = "enter your choice(0 to quit): ";
             LimitedStorage *backpack = player1->getBackpack();
-            choice = getInput(options, 1, backpack->getNames().size(), 0);
+            choice = getInput(options, 0, backpack->getNames().size(), 0);
+            if (choice == 0)
+            {
+                player1->getHp()->setCurrentPoint(0);
+                exit = 1;
+                break;
+            }
             selectedItem = itemsMap[backpack->getNames()[choice - 1]];
             selectedItem->setOwner(player1);
             if (selectedItem->checkForUse())
                 break;
             cout << yellow << "move is not confirmed" << reset << endl;
         }
-        selectedItem->useItem();
+        if (selectedItem != nullptr)
+            selectedItem->useItem();
         if (dynamic_cast<Permanent *>(selectedItem) != nullptr || dynamic_cast<Throwable *>(selectedItem) != nullptr)
             break;
     }
@@ -390,12 +398,12 @@ void Mission::display()
             enemy->display();
     player1->display();
     player1->getBackpack()->printStorage();
-    cout<<endl;
+    cout << endl;
     for (auto news : Item::useNews)
         pprint(news, 400);
 }
 
-void Mission::start()
+void Mission::generateEnemies()
 {
     if (dynamic_cast<ZombieMission *>(this) != nullptr)
     {
@@ -409,6 +417,11 @@ void Mission::start()
         HumanFactory factory(this->getMissionNum(), this->getCasualEnemyNum(), this->getSpecialEnemy());
         this->setWaves(factory.createEnemy(factory.getWave()));
     }
+}
+
+void Mission::start()
+{
+    generateEnemies();
     bool lost = 0; // this boolean prevents too many isAlive() function calls
     // story();
     player1->getHp()->fill();
@@ -419,14 +432,18 @@ void Mission::start()
 
         while (!lost)
         {
-            cout << magenta << "wave number: " << i+1 << endl;
+            cout << magenta << "wave number: " << i + 1 << endl;
             // if (player1->currentEnemy() != nullptr)
             playerTurn();
 
-            if (player1->currentEnemy() != nullptr)
+            if (!player1->isAlive())
+                lost = 1;
+
+            if (player1->currentEnemy() != nullptr && !lost)
                 enemyTurn();
             else
                 break;
+            
             if (!player1->isAlive())
                 lost = 1;
         }
