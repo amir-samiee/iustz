@@ -180,7 +180,6 @@ namespace MVC
 
     public:
         EnemyController(EnemyModel *model, EnemyView *view, Enemy *self);
-        ~EnemyController();
         virtual void takeDamage(int damage);
         void die();
         bool move();
