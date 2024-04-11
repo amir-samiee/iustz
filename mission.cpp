@@ -417,7 +417,7 @@ void Mission::middleGame()
     for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
-        eventsLog.push_back("\033[0;100m wave " + to_string(i + 1) + " begins" + reset);
+        eventsLog.push_back("\033[0;100m wave " + to_string(i + 1) + " begins " + reset);
 
         while (1)
         {
