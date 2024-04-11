@@ -46,7 +46,7 @@ void Storage::addItem(map<string, int> addingItems, bool isViewed)
             addItem(item.first, isViewed);
 }
 
-string Storage::getStorageData(string beforeNumber, string afterNumber)
+string Storage::getStorageData(string beforeNumber, string afterNumber , bool priceView)
 {
     if (items.empty())
         return "Storage is Empty!\n";
@@ -72,7 +72,10 @@ string Storage::getStorageData(string beforeNumber, string afterNumber)
            << setw(maxTypeLength + 2) << "Type" << right
            << setw(12) << "Effectivity"
            << setw(10) << "Stamina"
-           << setw(10) << "Count" << endl;
+           << setw(10) << "Count";
+    if(priceView)
+        result<<setw(10)<<"Price";
+    result<<endl;
     names.clear();
     for (auto &item : items)
     {
@@ -84,15 +87,20 @@ string Storage::getStorageData(string beforeNumber, string afterNumber)
                << setw(maxTypeLength + 2) << itemPtr->getType() << right
                << setw(9) << itemPtr->getSpecial() << string(3, ' ')
                << setw(8) << itemPtr->getStamina() << string(2, ' ')
-               << setw(8) << item.second << endl;
+               << setw(8) << item.second;
+        if(priceView){
+            int price = itemPtr->getPrice()*0.7;
+            result<<setw(10)<<price;
+        }
+        result<<endl;
         i++;
     }
     return result.str();
 }
 
-void Storage::printStorage(string beforeNumber, string afterNumber)
+void Storage::printStorage(string beforeNumber, string afterNumber , bool priceView)
 {
-    cout << getStorageData(beforeNumber, afterNumber);
+    cout << getStorageData(beforeNumber, afterNumber , priceView);
 }
 
 void Storage::removeItem(string name, bool isViewd)

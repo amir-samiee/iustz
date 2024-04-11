@@ -142,7 +142,7 @@ void LowHp::runState()
         {
             Stat myStat = *self->getHp();
             int newHpAmount = myStat.getCurrentPoint() + itemsMap[myHpPotions[i]]->getSpecial();
-            if (newHpAmount > 40.0 && !wastingPotion(itemsMap[myHpPotions[i]], myStat))
+            if (newHpAmount > 0.4*myStat.getMaxPoint() && !wastingPotion(itemsMap[myHpPotions[i]], myStat))
                 hpName = myHpPotions[i];
         }
     }

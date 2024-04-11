@@ -41,7 +41,7 @@ void Stat::fill()
 
 int Stat::level()
 {
-    return (((maxPoint - 100) / 30) + 1);
+    return (((maxPoint - 300) / 50) + 1);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -306,7 +306,7 @@ bool Player::move()
 double SpecialZombie::getPowerBoost()
 {
 
-    if (this->getHp()->getMaxPoint() <= (20))
+    if (this->getHp()->getCurrentPoint() <= (0.2*getHp()->getMaxPoint()))
         return model->powerBoost * 1.5;
 
     return model->powerBoost;

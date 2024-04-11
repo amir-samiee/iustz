@@ -5,7 +5,54 @@ void Shop::displayShop()
 {
     while (1)
     {
-        string options1 = "Welcome to the shop! Here are the items available for purchase:\n";
+        stringstream data;
+        data << "Welcome to shop! You can buy and sell items here:\n";
+        data << green << "1- Buy" << reset << endl;
+        data << red << "2- Sell" << reset << endl;
+        data << "\n0- Back\n";
+        data << "\nenter your choice: ";
+        int choice = getInput(data.str(), 0, 2);
+        switch (choice)
+        {
+        case 0:
+            return;
+        case 1:
+            displayBuy();
+            break;
+        case 2:
+            displaySell();
+            break;
+        }
+    }
+}
+void Shop::displaySell()
+{
+    while (1)
+    {
+        stringstream data;
+        data << "COINS: " << player1->getCoins() << endl
+             << endl;
+        data << "Here are the items you can sell:\n";
+        data << "Inventory:" << endl;
+        data << player1->getInventory()->getStorageData("", "- ", 1);
+        data << "\n\n 0- Back\n";
+        data << "\nenter your choice: ";
+        int choice = getInput(data.str(), 0, player1->getInventory()->getNames().size());
+        if (choice == 0)
+            return;
+        clearScreen();
+        string itemName = player1->getInventory()->getNames()[choice - 1];
+        player1->getInventory()->removeItem(itemName);
+        player1->setCoins(player1->getCoins() + (itemsMap[itemName]->getPrice() * 0.7));
+        cout << green << itemName << " sold!" << reset << endl;
+        getchPress();
+    }
+}
+void Shop::displayBuy()
+{
+    while (1)
+    {
+        string options1 = "Here are the items available for purchase:\n";
         options1 += "1- Throwables\n2- Potions\n3- Weapons\n4- Upgrade\n\n0- Back\nenter your choice: ";
         int firstInput = getInput(options1, 0, 4);
         int secondInput;
@@ -150,12 +197,12 @@ void Shop ::upgrade()
 
         result << "1- Hp" << setw(21)
                << player1->getHp()->level()
-               << setw(22) << "1 = 30 hp"
+               << setw(22) << "1 = 50 hp"
                << setw(18) << upgradePrice("hp", player1->getHp()->level()) << endl;
 
         result << "2- Stamina" << setw(16)
                << player1->getStamina()->level()
-               << setw(24) << "1 = 30 stamina"
+               << setw(24) << "1 = 50 stamina"
                << setw(16) << upgradePrice("stamina", player1->getStamina()->level()) << endl;
 
         result << "3- Firearm Level" << setw(10)
@@ -181,7 +228,7 @@ void Shop ::upgrade()
                 // Deduct the upgrade cost from player's coins
                 player1->setCoins(player1->getCoins() - upgradeCost);
                 // Perform the upgrade
-                player1->getHp()->setMaxPoint(player1->getHp()->getMaxPoint() + 30);
+                player1->getHp()->setMaxPoint(player1->getHp()->getMaxPoint() + 50);
                 cout << green << "Hp upgraded successfully!" << reset << endl;
                 getchPress();
             }
@@ -200,7 +247,7 @@ void Shop ::upgrade()
                 // Deduct the upgrade cost from player's coins
                 player1->setCoins(player1->getCoins() - upgradeCost);
                 // Perform the upgrade
-                player1->getStamina()->setMaxPoint(player1->getStamina()->getMaxPoint() + 30);
+                player1->getStamina()->setMaxPoint(player1->getStamina()->getMaxPoint() + 50);
                 cout << green << "Stamina upgraded successfully!" << reset << endl;
                 getchPress();
             }

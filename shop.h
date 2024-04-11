@@ -8,6 +8,8 @@ public:
     // methods
     static void subShop(vector<Item *> items, string title, string special);
     void displayShop();
+    void displayBuy();
+    void displaySell();
     static void buy(Item *shopItem);
     int upgradePrice(string type, int secondInput);
     void upgrade();

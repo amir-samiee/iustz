@@ -23,7 +23,13 @@ vector<int> Factory::getWave()
     vector<int> waves;
     int waveNum = (casualEnemy / 3);
     int remaining = casualEnemy % 3;
-
+    
+    if (waveNum == 0)
+    {
+        waves.push_back(remaining);
+        return waves;
+    }
+    
     for (int i = 0; i < waveNum; i++)
         waves.push_back(3);
 
@@ -35,6 +41,7 @@ vector<int> Factory::getWave()
         index--;
         remaining--;
     }
+    
     shuffle(waves.begin(), waves.end(), gen);
     return waves;
 }
@@ -262,8 +269,11 @@ void Mission::setNameAuto()
 Mission::Mission(int newMissionNum, int specialEnemy)
 {
     missionNum = newMissionNum;
-    // Random number of enemies based on level:
-    casualEnemyNum = (rand() % 4) + missionNum + 2;
+    if (missionNum == 1)
+        casualEnemyNum = 2;
+    else
+        // Random number of enemies based on level:
+        casualEnemyNum = (rand() % 4) + missionNum + 2;
     this->specialEnemy = specialEnemy;
 }
 
