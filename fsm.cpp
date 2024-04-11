@@ -109,7 +109,7 @@ StateName States::nextState()
     {
         return StateName::LowStamina;
     }
-    else if (lowHp() && haveHpPotion() && canUse(self->getBackpack()->getHpPotions()))
+    else if (lowHp() && haveHpPotion() && canUse(self->getBackpack()->getHpPotions()) && (!wastingPotion(self->getBackpack()->getHpPotions(), *self->getHp())))
     {
         return StateName::LowHp;
     }
@@ -130,29 +130,36 @@ void Attack::runState()
     itemsMap[myWeapon]->setOwner(self);
     itemsMap[myWeapon]->useItem();
 }
+
 // class LowHp:
 void LowHp::runState()
 {
-    string hpName;
-    vector<string> myHpPotion = self->getBackpack()->getHpPotions();
-    if (self->getBackpack()->getStaminaPotions().size() > 0)
+    string hpName = "";
+    vector<string> myHpPotions = self->getBackpack()->getHpPotions();
+    if (!self->getBackpack()->getStaminaPotions().size() > 0)
     {
-        for (int i = myHpPotion.size() - 1; i >= 0; i--)
-            if (itemsMap[myHpPotion[i]]->getStamina() < self->getStamina()->getCurrentPoint())
-                hpName = myHpPotion[i];
-    }
-    else
-    {
-        for (int i = 0; i < myHpPotion.size(); ++i)
+        for (int i = 0; i < myHpPotions.size(); ++i)
         {
             Stat myStat = *self->getHp();
-            int newHpAmount = myStat.getCurrentPoint() + itemsMap[myHpPotion[i]]->getSpecial();
-            if (newHpAmount > 50.0 && !wastingPotion(itemsMap[myHpPotion[i]], myStat))
-                hpName = myHpPotion[i];
+            int newHpAmount = myStat.getCurrentPoint() + itemsMap[myHpPotions[i]]->getSpecial();
+            if (newHpAmount > 40.0 && !wastingPotion(itemsMap[myHpPotions[i]], myStat))
+                hpName = myHpPotions[i];
         }
     }
-    itemsMap[hpName]->setOwner(self);
-    itemsMap[hpName]->useItem();
+    if(hpName=="")
+    {
+        for (int i = myHpPotions.size() - 1; i >= 0; i--)
+            if (canUse(myHpPotions[i]))
+                if (!wastingPotion(itemsMap[myHpPotions[i]], *self->getHp()))
+                    hpName = myHpPotions[i];
+    }
+    if (hpName != "")
+    {
+        itemsMap[hpName]->setOwner(self);
+        itemsMap[hpName]->useItem();
+    }
+    else
+        cerr << "error in hp state";
 }
 
 // class LowStamina:
@@ -170,7 +177,7 @@ void LowStamina ::runState()
 void BoostPower::runState()
 {
     Item *beforeBoostWeapon = itemsMap[appropriateWeapon(self->getPowerBoost(), *self->getStamina())];
-    int maxDamage = beforeBoostWeapon->getSpecial() * self->getPowerBoost() ;
+    int maxDamage = beforeBoostWeapon->getSpecial() * self->getPowerBoost();
 
     if (dynamic_cast<Firearm *>(beforeBoostWeapon) != nullptr)
         maxDamage *= self->getFirearmLevel();
