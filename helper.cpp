@@ -123,10 +123,13 @@ json loadData(string fileName)
     return j;
 }
 
-void dumpData(string fileName, json data)
+template <typename K>
+void dumpData(string fileName, K data, ios_base::openmode mode)
 {
-    ofstream file(fileName);
-    file << setw(2) << data << endl;
+    ofstream file(fileName, mode);
+    if (is_same<K, json>::value)
+        file << setw(2);
+    file << data << endl;
     file.close();
 }
 

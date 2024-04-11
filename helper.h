@@ -52,7 +52,8 @@ template <typename element, typename list>
 bool isIn(element x, list A);
 
 json loadData(string fileName);
-void dumpData(string fileName, json data);
+template <typename K>
+void dumpData(string fileName, K data, ios_base::openmode mode = ios::out);
 
 template <typename K>
 void print_vector(vector<K> vec);

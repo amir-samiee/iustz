@@ -271,6 +271,7 @@ bool Mission::isUnlocked(Player *player)
 void Mission::story()
 {
     clearScreen();
+    cout << cyan;
     ifstream file("Stories/" + id + ".txt");
     if (file.is_open())
     {
@@ -281,10 +282,8 @@ void Mission::story()
         file.close();
     }
     else
-        cerr << "Unable to open file! " << endl;
-
+        cerr << red << "Unable to open file! " << endl;
     getchPress();
-    clearScreen();
 }
 
 void Mission::enemyTurn()
@@ -297,10 +296,9 @@ void Mission::enemyTurn()
     {
         currentState = fsm.getCurrentState();
 
-        ofstream fsmData("Data/fsmLog.txt", ios::app);
-        fsmData << currentTime() << ": fsm state code: " << static_cast<int>(currentState) << endl;
-        fsmData.close();
-        
+        string data = currentTime() + ": fsm state code: " + to_string(static_cast<int>(currentState));
+        dumpData("Data/fsmLog.txt", data, ios::app);
+
         fsm.runTurn();
     } while (currentState != StateName::Attack);
 }
@@ -364,7 +362,10 @@ void Mission::display()
     player1->getBackpack()->printStorage();
     cout << endl;
     for (auto news : eventsLog)
+    {
+        dumpData("Data/eventsLog.txt", currentTime() + ": " + removeColors(news), ios::app);
         pprint(news, 400);
+    }
 }
 
 void Mission::start()
@@ -386,7 +387,13 @@ void Mission::start()
         HumanFactory factory(missionNum, casualEnemyNum, specialEnemy);
         setWaves(factory.createEnemy(factory.getWave()));
     }
-    story();
+    clearScreen();
+    cout << "do you wish to skip the story?(y/n...): ";
+    string choice;
+    getline(cin, choice);
+    if (choice != "y")
+        story();
+    dumpData("Data/eventsLog.txt", currentTime() + ": " + "mission started", ios::app);
     middleGame();
 }
 
@@ -462,6 +469,7 @@ void Mission::end(bool lost)
         save();
     }
     display();
+    dumpData("Data/eventsLog.txt", currentTime() + ": " + "mission ended\n", ios::app);
     for (auto wave : waves)
         for (auto enemy : wave)
             delete enemy;

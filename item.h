@@ -257,5 +257,5 @@ StaminaPotion staminaPotion5("StamBlitz", 50, nullptr, 0, 50);
 PowerPotion powerPotion1("Savage Serum", 25, nullptr, 0, 1.1);
 PowerPotion powerPotion2("Titan Tonic", 50, nullptr, 0, 1.2);
 PowerPotion powerPotion3("Cataclysmic", 75, nullptr, 0, 1.3);
-PowerPotion powerPotion4("Blitzkrieg ", 100, nullptr, 0, 1.4);
+PowerPotion powerPotion4("Blitzkrieg", 100, nullptr, 0, 1.4);
 PowerPotion powerPotion5("Valor Elixir", 150, nullptr, 0, 1.5);

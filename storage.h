@@ -29,8 +29,8 @@ public:
     virtual json dumpStorage();
     virtual void addItem(string name, bool isViewed = false);
     virtual void addItem(map<string, int> addingItems, bool isViewed = false);
-    string getStorageData(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
-    void printStorage(string beforeNumber = "", string afterNumber = "- ", int leftMargin = -1);
+    string getStorageData(string beforeNumber = "", string afterNumber = "- ");
+    void printStorage(string beforeNumber = "", string afterNumber = "- ");
     virtual void removeItem(string name, bool isViewd = 1);
     void removeItem(map<string, int> items, bool isViewd = 1);
 };

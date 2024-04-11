@@ -145,16 +145,16 @@ void MVC::EnemyView::display(const EnemyModel &model, bool isFighting)
              << magenta << "Power Boost: " << reset << setw(5) << model.powerBoost
              << magenta << "Firearm Level: " << reset << setw(6) << model.firearmLevel
              << magenta << "Melee Level: " << reset << setw(5) << model.meleeLevel
-             << magenta << "\nBackpack:  " << yellow;
-
-        for (auto i : model.backpack.getWeapons())
-            cout << i << "  ";
-        for (auto i : model.backpack.getHpPotions())
-            cout << i << "  ";
-        for (auto i : model.backpack.getPowerPotions())
-            cout << i << "  ";
-        for (auto i : model.backpack.getStaminaPotions())
-            cout << i << "  ";
+             << magenta << "\nBackpack:  ";
+        for (auto t : vector<vector<string>>{model.backpack.getWeapons(),
+                                             model.backpack.getHpPotions(),
+                                             model.backpack.getPowerPotions(),
+                                             model.backpack.getStaminaPotions()})
+            for (auto i : t)
+            {
+                Item *itemPtr = itemsMap[i];
+                cout << yellow << i << red + "(" << itemPtr->getType()[0] << "/" << itemPtr->getSpecial() << ")  " + reset;
+            }
 
         cout << reset << endl;
     }

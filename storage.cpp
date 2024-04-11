@@ -46,7 +46,7 @@ void Storage::addItem(map<string, int> addingItems, bool isViewed)
             addItem(item.first, isViewed);
 }
 
-string Storage::getStorageData(string beforeNumber, string afterNumber, int leftMargin)
+string Storage::getStorageData(string beforeNumber, string afterNumber)
 {
     if (items.empty())
         return "Storage is Empty!\n";
@@ -65,8 +65,7 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
         if (typeLength > maxTypeLength)
             maxTypeLength = typeLength;
     }
-    if (leftMargin == -1)
-        leftMargin = (beforeNumber + afterNumber).size() + 4;
+    int leftMargin = (beforeNumber + afterNumber).size() + 4;
     string noColor = removeColors(beforeNumber + afterNumber);
     result << left << setw(noColor.size() + 4) << "No."
            << setw(maxNameLength + 5) << "Name"
@@ -91,9 +90,9 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
     return result.str();
 }
 
-void Storage::printStorage(string beforeNumber, string afterNumber, int leftMargin)
+void Storage::printStorage(string beforeNumber, string afterNumber)
 {
-    cout << getStorageData(beforeNumber, afterNumber, leftMargin);
+    cout << getStorageData(beforeNumber, afterNumber);
 }
 
 void Storage::removeItem(string name, bool isViewd)

@@ -3,6 +3,7 @@
 #define HEADERS_H
 
 using namespace std;
+#include <type_traits>
 #include <windows.h>
 #include <algorithm>
 #include <iostream>
