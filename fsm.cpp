@@ -136,14 +136,7 @@ void LowHp::runState()
 {
     string hpName = "";
     vector<string> myHpPotions = self->getBackpack()->getHpPotions();
-    if (self->getBackpack()->getStaminaPotions().size() > 0)
-    {
-        for (int i = myHpPotions.size() - 1; i >= 0; i--)
-            if (canUse(myHpPotions[i]))
-                if (!wastingPotion(itemsMap[myHpPotions[i]], *self->getHp()))
-                    hpName = myHpPotions[i];
-    }
-    else
+    if (!self->getBackpack()->getStaminaPotions().size() > 0)
     {
         for (int i = 0; i < myHpPotions.size(); ++i)
         {
@@ -153,15 +146,20 @@ void LowHp::runState()
                 hpName = myHpPotions[i];
         }
     }
-
-    if (hpName == "")
+    else
+    {
         for (int i = myHpPotions.size() - 1; i >= 0; i--)
             if (canUse(myHpPotions[i]))
                 if (!wastingPotion(itemsMap[myHpPotions[i]], *self->getHp()))
                     hpName = myHpPotions[i];
-
-    itemsMap[hpName]->setOwner(self);
-    itemsMap[hpName]->useItem();
+    }
+    if (hpName != "")
+    {
+        itemsMap[hpName]->setOwner(self);
+        itemsMap[hpName]->useItem();
+    }
+    else
+        cerr << "error in hp state";
 }
 
 // class LowStamina:
