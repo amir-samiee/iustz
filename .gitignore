@@ -3,3 +3,4 @@
 tester*.cpp
 shoptest.cpp
 Data/users.json
+fsmLog.txt

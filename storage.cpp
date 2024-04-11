@@ -66,8 +66,10 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
             maxTypeLength = typeLength;
     }
     if (leftMargin == -1)
-        leftMargin = (beforeNumber + afterNumber).size() + 3;
-    result << left << setw(leftMargin) << "No." << setw(maxNameLength + 5) << "Name"
+        leftMargin = (beforeNumber + afterNumber).size() + 4;
+    string noColor = removeColors(beforeNumber + afterNumber);
+    result << left << setw(noColor.size() + 4) << "No."
+           << setw(maxNameLength + 5) << "Name"
            << setw(maxTypeLength + 2) << "Type" << right
            << setw(12) << "Effectivity"
            << setw(10) << "Stamina"
@@ -78,7 +80,8 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, int left
         string itemName = item.first;
         Item *itemPtr = itemsMap[itemName];
         names.push_back(itemName);
-        result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber << setw(maxNameLength + 5) << itemName
+        result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber
+               << setw(maxNameLength + 5) << itemName
                << setw(maxTypeLength + 2) << itemPtr->getType() << right
                << setw(9) << itemPtr->getSpecial() << string(3, ' ')
                << setw(8) << itemPtr->getStamina() << string(2, ' ')

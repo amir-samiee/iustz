@@ -14,6 +14,7 @@ using namespace std;
 #include <conio.h>
 #include <vector>
 #include <random>
+#include <regex>
 #include <ctime>
 #include <map>
 

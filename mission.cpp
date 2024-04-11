@@ -296,7 +296,11 @@ void Mission::enemyTurn()
     do
     {
         currentState = fsm.getCurrentState();
-        //cout << "state code: " << static_cast<int>(currentState) << endl;
+
+        ofstream fsmData("Data/fsmLog.txt", ios::app);
+        fsmData << currentTime() << ": fsm state code: " << static_cast<int>(currentState) << endl;
+        fsmData.close();
+        
         fsm.runTurn();
     } while (currentState != StateName::Attack);
 }

@@ -190,6 +190,20 @@ void getchPress()
     getch();
 }
 
+string currentTime()
+{
+    time_t now = time(0);
+    string dateTime = ctime(&now);
+    dateTime.pop_back();
+    return dateTime;
+}
+
+string removeColors(string input)
+{
+    regex colorRegex("\033\\[[0-9;]+m");
+    return regex_replace(input, colorRegex, "");
+}
+
 int mapSize(map<string, int> items)
 {
     int newSize = 0;

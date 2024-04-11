@@ -177,11 +177,12 @@ void MVC::EnemyController::takeDamage(int takenDamage)
         this->die();
 }
 
+// this function used to be called in Mission::enemyTurn() but we decided to transfer the code to that function itself.
+// althoug the function will stay here due to the possibility of further need.
 bool MVC::EnemyController::move()
 {
     fsm.setSelf(self);
     StateName currentState = fsm.getCurrentState();
-    // cout << "state code: " << static_cast<int>(currentState) << endl;
     fsm.runTurn();
     return (currentState != StateName::Attack);
 }
@@ -273,6 +274,8 @@ void SpecialZombie::takeDamage(int damage) { this->controller->takeDamage(damage
 
 ////////////////////////////////////////////////////////////////
 
+// this function used to be called in Mission::playerTurn() but we decided to transfer the code to that function itself.
+// although the function will stay here due to the possibility of further need.
 bool Player::move()
 {
     int choice;
@@ -299,6 +302,7 @@ bool Player::move()
     }
     return 1;
 }
+
 double SpecialZombie::getPowerBoost()
 {
 
@@ -307,7 +311,8 @@ double SpecialZombie::getPowerBoost()
 
     return model->powerBoost;
 }
-void Player::die() {}
+
+void Player::die() { Mission::eventsLog.push_back(name + cyan + " (player) " + red + "died!" + reset); }
 
 MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
 

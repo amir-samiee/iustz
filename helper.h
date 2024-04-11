@@ -52,7 +52,7 @@ template <typename element, typename list>
 bool isIn(element x, list A);
 
 json loadData(string fileName);
-void dumpData(string fileName);
+void dumpData(string fileName, json data);
 
 template <typename K>
 void print_vector(vector<K> vec);
@@ -64,5 +64,7 @@ void removeUsername(string username);
 bool changeUsername(string oldUsername, string newUsername);
 
 void getchPress();
+string currentTime();
 
+string removeColors(string input);
 inline int mapSize(map<string, int> items);

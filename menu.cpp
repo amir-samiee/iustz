@@ -146,9 +146,9 @@ namespace menu
         {
             stringstream data;
             data << "Inventory:" << endl;
-            data << player1->getInventory()->getStorageData(green + "+", reset + "   ", 5);
+            data << player1->getInventory()->getStorageData(green + "+", reset);
             data << "\nBackpack:" << endl;
-            data << player1->getBackpack()->getStorageData(red + "-", reset + "   ", 5);
+            data << player1->getBackpack()->getStorageData(red + "-", reset);
             if (player1->getBackpack()->isFull())
                 data << yellow << "backpack is full!" << reset;
             else
