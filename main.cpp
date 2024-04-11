@@ -3,19 +3,19 @@
 int main()
 {
     initializeMissions();
-    // string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
-    // clearScreen();
-    // Sleep(2000);
-    // cout << starterMessage;
-    // getch();
-    // int t = 500;
-    // while (t)
-    // {
-    //     cout << endl
-    //          << starterMessage;
-    //     Sleep(t);
-    //     t /= 1.5;
-    // }
+    string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
+    clearScreen();
+    Sleep(2000);
+    cout << starterMessage;
+    getch();
+    int t = 500;
+    while (t)
+    {
+        cout << endl
+             << starterMessage;
+        Sleep(t);
+        t /= 1.5;
+    }
     while (1)
     {
         *player1 = defaultPlayer;
@@ -36,24 +36,14 @@ int main()
 
         if (users[username].is_null())
         {
-            // uncomment to see how pprint function works
-            // this part of code will be removed later
-
-            pprint("");
-            pprint("Hello, friend.");
-            pprint("This is the end of the world...");
-            // pprint("The quick brown fox jumps over the lazy dog.");
-            // pprint("In the midst of chaos, there is also opportunity.");
-            // pprint("Life is like riding a bicycle. To keep your balance, you must keep moving.");
-            // pprint("Success is not final, failure is not fatal: It is the courage to continue that counts.");
-            // pprint("Happiness depends upon ourselves.");
-            // pprint("The cat sat on the mat.");
-            // pprint("Tomorrow is another day.");
-            // pprint("Coding is fun and challenging.");
-            // pprint("Music soothes the soul.");
-            // pprint("The sun sets in the west.");
-
-            // some story ...
+            clearScreen();
+            cout << cyan;
+            ifstream file("Stories/intro.txt");
+            string line;
+            while (getline(file, line))
+                pprint(line);
+            file.close();
+            cout << reset;
 
             // set gender
             int genderChoice = getInput(genderOptions, 1, 3, 0);
@@ -73,8 +63,8 @@ int main()
         }
         else
         {
-            player1->loadPlayer(users[username]);
             clearScreen();
+            player1->loadPlayer(users[username]);
             cout << "Welcome back, " << cyan << player1->getName() << reset << "!" << endl;
             getchPress();
         }

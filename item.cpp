@@ -84,7 +84,7 @@ void Throwable::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " threw a " + name;
+    news += reset + " threw " + name;
     Mission::eventsLog.push_back(news);
 }
 
@@ -182,7 +182,7 @@ void HpPotion::info()
         news += cyan + " (player)";
     else
         news += magenta + " (enemy)";
-    news += reset + " Healed using " + name;
+    news += reset + " healed using " + name;
     Mission::eventsLog.push_back(news);
 }
 
@@ -225,7 +225,7 @@ void PowerPotion::useItem()
     info();
     if (checkForUse())
     {
-        owner->setPowerBoost(getSpecial()*owner->getPowerBoost());
+        owner->setPowerBoost(getSpecial() * owner->getPowerBoost());
         takeStamina();
         removeFromBackpack();
     }

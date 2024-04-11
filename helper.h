@@ -37,7 +37,7 @@ const string iustzTitle =
     ":     : :: :   :: : :  " + red + "    :   " + reset + "  : :: : :  \n";
 
 void clearScreen();
-void pprint(string text, int milliseconds = -1, bool goNextLine = 1);
+void pprint(string text, int milliseconds = -1, bool storyMode = 1);
 
 bool isInteger(string s);
 bool isZero(string s);
@@ -52,6 +52,7 @@ template <typename element, typename list>
 bool isIn(element x, list A);
 
 json loadData(string fileName);
+
 template <typename K>
 void dumpData(string fileName, K data, ios_base::openmode mode = ios::out);
 

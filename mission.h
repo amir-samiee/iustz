@@ -112,6 +112,7 @@ protected:
     int specialEnemy;
     vector<vector<Character *>> waves;
 
+    void setNameAuto();
 public:
     static vector<string> eventsLog;
     // constructors:

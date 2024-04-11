@@ -7,12 +7,20 @@ void clearScreen()
     system("cls");
 }
 
-void pprint(string text, int milliseconds, bool goNextLine)
+void pprint(string text, int milliseconds, bool storyMode)
 {
-    cout << text << ((goNextLine) ? "\n" : "");
+    if (storyMode)
+        for (auto i : text)
+        {
+            cout << i;
+            Sleep(5);
+        }
+    else
+        cout << text;
     if (milliseconds == -1)
-        milliseconds = text.size() * 80;
+        milliseconds = text.size() * 60;
     Sleep(milliseconds);
+    cout << endl;
 }
 
 bool isInteger(string s)

@@ -146,7 +146,7 @@ void LowHp::runState()
                 hpName = myHpPotions[i];
         }
     }
-    if(hpName=="")
+    if (hpName == "")
     {
         for (int i = myHpPotions.size() - 1; i >= 0; i--)
             if (canUse(myHpPotions[i]))

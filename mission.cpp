@@ -245,6 +245,20 @@ HumanFactory::HumanFactory(int lvl, int casualEn, int specialEn)
 
 //////////////////////////////////////////////////////////
 
+void Mission::setNameAuto()
+{
+    ifstream storyFile("Stories/" + id + ".txt");
+    if (storyFile.is_open())
+    {
+        string name;
+        getline(storyFile, name);
+        this->name = name.substr(1, name.size() - 2);
+        storyFile.close();
+    }
+    else
+        name = "Mission " + to_string(missionNum);
+}
+
 Mission::Mission(int newMissionNum, int specialEnemy)
 {
     missionNum = newMissionNum;
@@ -364,7 +378,7 @@ void Mission::display()
     for (auto news : eventsLog)
     {
         dumpData("Data/eventsLog.txt", currentTime() + ": " + removeColors(news), ios::app);
-        pprint(news, 400);
+        pprint(news, 400, 0);
     }
 }
 
@@ -403,7 +417,7 @@ void Mission::middleGame()
     for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
-        eventsLog.push_back("\033[0;100mWelcome to wave " + to_string(i + 1) + reset);
+        eventsLog.push_back("\033[0;100m wave " + to_string(i + 1) + " begins" + reset);
 
         while (1)
         {
@@ -486,6 +500,7 @@ ZombieMission::ZombieMission(int missionNum, int specialEnemy)
 
     // Setting the ID:
     id = "z" + to_string(missionNum);
+    setNameAuto();
 
     // Saving mission:
     zombieMissions.push_back(this);
@@ -521,6 +536,7 @@ HumanMission::HumanMission(int newMissionNum, int specialEnemy)
 
     // Setting the ID:
     id = "h" + to_string(missionNum);
+    setNameAuto();
 
     // saving mission:
     humanMissions.push_back(this);
@@ -548,8 +564,5 @@ void initializeMissions()
 
         ZombieMission *newZombieMission = new ZombieMission(missionNum, specialEnemyZombie);
         HumanMission *newHumanmission = new HumanMission(missionNum, 0);
-
-        newZombieMission->setName("Mission " + to_string(i + 1));
-        newHumanmission->setName("Mission " + to_string(i + 1));
     }
 }

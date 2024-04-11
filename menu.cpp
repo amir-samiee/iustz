@@ -35,7 +35,8 @@ namespace menu
                 cout << "you haven't unlocked this mission!  " << cyan << "(" << selected->getName() << ")" << reset
                      << "\nnotice: you might have to continue the other branch to unlock this mission"
                      << "\n\nRequired Human Levels: " << selected->getHumanLevels()
-                     << "\nRequired Zombie Levels: " << selected->getZombieLevels();
+                     << "\nRequired Zombie Levels: " << selected->getZombieLevels()
+                     << endl;
                 getchPress();
             }
         }
@@ -43,8 +44,26 @@ namespace menu
 
     void finale()
     {
-        cout << "finale" << endl;
-        getch();
+        clearScreen();
+        if (player1->getHumanLevels() == 9 && player1->getZombieLevels() == 9)
+        {
+            cout << cyan;
+            ifstream file("Stories/finale.txt");
+            string line;
+            while (getline(file, line))
+                pprint(line);
+            file.close();
+        }
+        else
+        {
+            clearScreen();
+            cout << "you haven't unlocked this mission!  " << cyan << "(Finale)" << reset
+                 << "\nnotice: you might have to continue the other branch to unlock this mission"
+                 << "\n\nRequired Human Levels: " << 9
+                 << "\nRequired Zombie Levels: " << 9
+                 << endl;
+        }
+        getchPress();
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
