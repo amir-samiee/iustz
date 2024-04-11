@@ -41,7 +41,7 @@ void Stat::fill()
 
 int Stat::level()
 {
-    return (((maxPoint - 300) / 50) + 1);
+    return (((maxPoint - basePoint) / 50) + 1);
 }
 
 ///////////////////////////////////////////////////////////////

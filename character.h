@@ -4,12 +4,16 @@
 class Stat
 {
 protected:
-    int maxPoint = 100;
+    int basePoint = 100;
+    int maxPoint = basePoint;
     int currentPoint = maxPoint;
     int lastSavedPoint = 0;
 
 public:
+    // constructors:
     Stat() = default;
+    Stat(int basePoint) : basePoint(basePoint) {}
+
     // getters:
     int getMaxPoint() const { return maxPoint; }
     int getCurrentPoint() const { return currentPoint; }
@@ -144,8 +148,9 @@ public:
 };
 
 Player defaultPlayer("default name", 18, "default gender", LimitedStorage(),
-                     Stat(), Stat(), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
+                     Stat(300), Stat(300), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
 Player *player1 = new Player(defaultPlayer);
+
 // Enemies
 class Enemy;
 class FSM;
