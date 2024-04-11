@@ -1,3 +1,4 @@
 "Safe Haven"
 In search of a secure refuge, you embark on a perilous journey to find a rumored safe haven.
-Battling through hordes of undead and navigating treacherous terrain, you must reach the sanctuary before it's too late.
+Battling through hordes of undead and navigating treacherous terrain, 
+you must reach the sanctuary before it's too late.

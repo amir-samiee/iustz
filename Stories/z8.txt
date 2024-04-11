@@ -1,3 +1,4 @@
 "Betrayal"
 A traitor threatens to sabotage your efforts to find a cure.
-Unraveling the conspiracy, you must confront the betrayer and secure the research data before it falls into the wrong hands.
+Unraveling the conspiracy, you must confront the betrayer 
+and secure the research data before it falls into the wrong hands.

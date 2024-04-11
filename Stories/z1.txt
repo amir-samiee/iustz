@@ -1,3 +1,4 @@
 "Outbreak Origins"
 As the outbreak begins, you and your team are tasked with investigating Patient Zero's origin.
-Tracing the virus's source leads you to a deserted research facility, where you uncover clues hinting at a sinister experiment gone wrong.
+Tracing the virus's source leads you to a deserted research facility, 
+where you uncover clues hinting at a sinister experiment gone wrong.
