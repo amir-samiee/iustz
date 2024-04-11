@@ -32,6 +32,16 @@ int main()
 
         // set username
         player1->setUsername(username);
+
+        ifstream data(usersFilePath);
+        if (!data.is_open())
+        {
+            ofstream newFile(usersFilePath);
+            newFile << "{}";
+            newFile.close();
+        }
+        data.close();
+
         json users = loadData(usersFilePath);
 
         if (users[username].is_null())

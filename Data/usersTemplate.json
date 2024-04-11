@@ -1,0 +1,27 @@
+{
+  "templateUsername": {
+    "age": 25,
+    "backpack": {
+      "capacity": 12,
+      "items": {
+        "Punch": 1
+      }
+    },
+    "coins": 0,
+    "firearmLevel": 1,
+    "gender": "other",
+    "hp": {
+      "maxPoint": 100
+    },
+    "humanLevels": 0,
+    "inventory": {
+      "items": {}
+    },
+    "meleeLevel": 1,
+    "name": "template name",
+    "stamina": {
+      "maxPoint": 100
+    },
+    "zombieLevels": 0
+  }
+}
