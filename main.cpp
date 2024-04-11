@@ -56,19 +56,31 @@ int main()
             cout << reset;
 
             // set gender
-            int genderChoice = getInput(genderOptions, 1, 3, 0);
+            int genderChoice = getInput(genderOptions, 1, 3, 1);
             string gender = genders[genderChoice - 1];
             player1->setGender(gender);
 
             // set name
-            cout << "what should we call you? ";
             string name;
-            getline(cin, name);
-            player1->setName(name);
+            bool error = 0;
+            while (1)
+            {
+                clearScreen();
+                if(error)
+                    cout << red << "invalid input" << reset << endl;
+                cout << "what should we call you? ";
+                getline(cin, name);
+                if (name != "")
+                {
+                    player1->setName(name);
+                    break;
+                }
+                error = 1;
+            }
 
             // set age
             cout << "nice " << name << "! now";
-            int age = getInput("enter your age: ", 1, 200, 0);
+            int age = getInput("enter your age: ", 1, 200, 1);
             player1->setAge(age);
         }
         else

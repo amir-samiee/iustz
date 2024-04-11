@@ -6,7 +6,7 @@ void Shop::displayShop()
     while (1)
     {
         stringstream data;
-        data << "Welcome to shop! You can buy and sell items here:\n";
+        data << "Welcome to the shop! You can buy and sell items here:\n";
         data << green << "1- Buy" << reset << endl;
         data << red << "2- Sell" << reset << endl;
         data << "\n0- Back\n";

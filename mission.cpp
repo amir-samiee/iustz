@@ -50,7 +50,7 @@ vector<int> Factory::getWave()
 void Factory::addPermanent(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
     // Generating a random number of permanents:
-    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
+    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4) +1;
 
     for (int i = 0; i < randomPermanentNum; i++)
     {
