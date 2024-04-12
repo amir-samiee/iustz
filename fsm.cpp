@@ -27,25 +27,14 @@ bool States::canKill()
 bool States::wastingPotion(vector<string> potions, Stat myStat)
 {
     for (int i = 0; i < potions.size(); ++i)
-        if (itemsMap[potions[i]]->getSpecial() + myStat.getCurrentPoint() > myStat.getMaxPoint())
+        if (wastingPotion(itemsMap[potions[i]] , myStat))
             return 1;
     return 0;
 }
 
 bool States::wastingPotion(Item *potion, Stat myStat)
 {
-    if (dynamic_cast<HpPotion *>(potion) != nullptr)
-    {
-        if (myStat.getCurrentPoint() + potion->getSpecial() > myStat.getMaxPoint())
-            return 1;
-    }
-    if (dynamic_cast<StaminaPotion *>(potion) != nullptr)
-    {
-        if (myStat.getCurrentPoint() + potion->getSpecial() > myStat.getMaxPoint())
-            return 1;
-    }
-
-    return 0;
+    return myStat.getCurrentPoint() + potion->getSpecial() - myStat.getMaxPoint() > potion->getSpecial()*0.1;
 }
 
 string States::appropriateStamina(Stat myStamina)

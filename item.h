@@ -200,42 +200,42 @@ public:
 // do not change the order of items declarations
 
 // objects of Throwable class
-Throwable throwable1("Grenade", 5, nullptr, 5, 2);
-Throwable throwable2("Biotic Grenade", 10, nullptr, 10, 3);
-Throwable throwable3("Molotov Cocktails", 15, nullptr, 20, 6);
-Throwable throwable4("Acid Bottle", 20, nullptr, 15, 8);
-Throwable throwable5("EMP", 25, nullptr, 25, 12);
-Throwable throwable6("Drone", 50, nullptr, 50, 18);
-Throwable throwable7("Armata", 75, nullptr, 100, 24);
-Throwable throwable8("Bell 201", 100, nullptr, 100, 30);
-Throwable throwable9("Kiowa", 125, nullptr, 150, 40);
-Throwable throwable10("Gunship", 150, nullptr, 200, 50);
+Throwable throwable1("Grenade", 5, nullptr, 5, 9);
+Throwable throwable2("Biotic Grenade", 10, nullptr, 10, 14);
+Throwable throwable3("Molotov Cocktails", 15, nullptr, 20, 16);
+Throwable throwable4("Acid Bottle", 20, nullptr, 15, 20);
+Throwable throwable5("EMP", 25, nullptr, 25, 24);
+Throwable throwable6("Drone", 50, nullptr, 40, 26);
+Throwable throwable7("Armata", 75, nullptr, 50, 30);
+Throwable throwable8("Bell 201", 100, nullptr, 70, 34);
+Throwable throwable9("Kiowa", 125, nullptr, 100, 38);
+Throwable throwable10("Gunship", 150, nullptr, 150, 50);
 
 // objects of permanant class
 // "melee"
 Melee melee0("Punch", 0, nullptr, 0, 3);
-Melee melee1("Knife", 10, nullptr, 5, 6);
-Melee melee2("Axe", 15, nullptr, 10, 9);
-Melee melee3("Nunchaku", 20, nullptr, 15, 12);
-Melee melee4("Sword", 25, nullptr, 15, 15);
-Melee melee5("Katana", 30, nullptr, 20, 18);
-Melee melee6("Dagger", 35, nullptr, 20, 21);
-Melee melee7("Spear", 40, nullptr, 25, 24);
-Melee melee8("Halberd", 45, nullptr, 25, 27);
-Melee melee9("Rapier", 50, nullptr, 25, 30);
-Melee melee10("Chainsaw", 60, nullptr, 30, 33);
+Melee melee1("Knife", 10, nullptr, 5, 7);
+Melee melee2("Axe", 15, nullptr, 10, 12);
+Melee melee3("Nunchaku", 20, nullptr, 15, 15);
+Melee melee4("Sword", 25, nullptr, 15, 19);
+Melee melee5("Katana", 30, nullptr, 20, 22);
+Melee melee6("Dagger", 35, nullptr, 20, 25);
+Melee melee7("Spear", 40, nullptr, 25, 28);
+Melee melee8("Halberd", 45, nullptr, 25, 32);
+Melee melee9("Rapier", 50, nullptr, 25, 36);
+Melee melee10("Chainsaw", 60, nullptr, 30, 40);
 
 //"fireArm"
-Firearm fireArm1("Desert Eagle", 10, nullptr, 5, 8);
-Firearm fireArm2("Glock 17", 20, nullptr, 10, 12);
+Firearm fireArm1("Desert Eagle", 10, nullptr, 5, 9);
+Firearm fireArm2("Glock 17", 20, nullptr, 10, 14);
 Firearm fireArm3("Shutgun", 30, nullptr, 14, 16);
-Firearm fireArm4("Rifle", 40, nullptr, 18, 19);
-Firearm fireArm5("Submachine", 50, nullptr, 21, 22);
-Firearm fireArm6("Carbine", 60, nullptr, 25, 25);
-Firearm fireArm7("Assault R", 70, nullptr, 30, 28);
+Firearm fireArm4("Rifle", 40, nullptr, 18, 20);
+Firearm fireArm5("Submachine", 50, nullptr, 21, 24);
+Firearm fireArm6("Carbine", 60, nullptr, 25, 28);
+Firearm fireArm7("Assault R", 70, nullptr, 30, 32);
 Firearm fireArm8("Sniper R", 80, nullptr, 35, 35);
-Firearm fireArm9("Machine gun", 90, nullptr, 40, 40);
-Firearm fireArm10("FN SCAR", 100, nullptr, 45, 45);
+Firearm fireArm9("Machine gun", 90, nullptr, 40, 39);
+Firearm fireArm10("FN SCAR", 100, nullptr, 45, 42);
 
 // object of consumable class
 // hp potion
