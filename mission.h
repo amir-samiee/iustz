@@ -114,7 +114,7 @@ protected:
 
     void setNameAuto();
 public:
-    static vector<string> eventsLog;
+    static queue<string> eventsLog;
     // constructors:
     Mission(int newMissionNum, int specialEnemy);
     Mission(const string &name, int missionNum, int casualEnemyNum, int specialEnemy)

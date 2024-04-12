@@ -207,14 +207,14 @@ void MVC::EnemyController::die()
         }
     }
     self->currentEnemy()->setWave(updatedWave);
-    Mission::eventsLog.push_back(model->name + magenta + " (enemy) " + red + "died" + reset);
+    Mission::eventsLog.push(model->name + magenta + " (enemy) " + red + "died" + reset);
 }
 
 void MVC::SpecialEnemyController::takeDamage(int damage)
 {
     double ratio = (1.0 / ((rand() % 3) + 1));
     int newPoint = model->hp.getCurrentPoint() - (damage * ratio);
-    Mission::eventsLog.push_back(model->name + magenta + " (enemy)" + reset + " took " + to_string((int)(100 * ratio)) + "% of the damage!");
+    Mission::eventsLog.push(model->name + magenta + " (enemy)" + reset + " took " + to_string((int)(100 * ratio)) + "% of the damage!");
     model->hp.setCurrentPoint(newPoint);
     if (newPoint <= 0)
         this->die();
@@ -315,7 +315,7 @@ double SpecialZombie::getPowerBoost() const
     return model->powerBoost;
 }
 
-void Player::die() { Mission::eventsLog.push_back(name + cyan + " (player) " + red + "died!" + reset); }
+void Player::die() { Mission::eventsLog.push(name + cyan + " (player) " + red + "died!" + reset); }
 
 MVC::EnemyController::EnemyController(EnemyModel *model, EnemyView *view, Enemy *self) : model(model), view(view), self(self) {}
 

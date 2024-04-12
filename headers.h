@@ -16,6 +16,7 @@ using namespace std;
 #include <vector>
 #include <random>
 #include <regex>
+#include <queue>
 #include <ctime>
 #include <map>
 

@@ -333,7 +333,6 @@ void Mission::playerTurn()
     while (1)
     {
         display();
-        eventsLog.clear();
         int choice;
         Item *selectedItem = nullptr;
         while (1)
@@ -386,16 +385,19 @@ void Mission::display()
     cout << cyan + "Backpack:" + reset << endl;
     player1->getBackpack()->printStorage();
     cout << endl;
-    for (auto news : eventsLog)
+    while (!eventsLog.empty())
     {
+        string news = eventsLog.front();
         dumpData("Data/eventsLog.txt", currentTime() + ": " + removeColors(news), ios::app);
         pprint(news, 400, 0);
+        eventsLog.pop();
     }
 }
 
 void Mission::start()
 {
-    eventsLog.clear();
+    while (!eventsLog.empty())
+        eventsLog.pop();
     waves.clear();
     player1->getHp()->fill();
     player1->getStamina()->fill();
@@ -428,7 +430,7 @@ void Mission::middleGame()
     for (int i = 0; i < waves.size(); i++)
     {
         player1->setWave(waves[i]);
-        eventsLog.push_back("\033[0;100m wave " + to_string(i + 1) + " begins " + reset);
+        eventsLog.push("\033[0;100m wave " + to_string(i + 1) + " begins " + reset);
 
         while (1)
         {
@@ -466,7 +468,7 @@ void Mission::end(bool lost)
         player1->getRewardItems()->clearStorage();
         player1->getBackpack()->loadItems();
         player1->setRewardCoins(0);
-        eventsLog.push_back("\033[0;41myou lost!" + reset);
+        eventsLog.push("\033[0;41myou lost!" + reset);
     }
     else
     {
@@ -491,9 +493,9 @@ void Mission::end(bool lost)
         player1->setCoins(player1->getCoins() + player1->getRewardCoins());
         player1->setRewardCoins(0);
 
-        eventsLog.push_back("\033[0;42myou won!" + reset);
-        eventsLog.push_back("new items added to your inventory");
-        eventsLog.push_back("go check them out!");
+        eventsLog.push("\033[0;42myou won!" + reset);
+        eventsLog.push("new items added to your inventory");
+        eventsLog.push("go check them out!");
         save();
     }
     display();
