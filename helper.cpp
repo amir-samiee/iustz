@@ -195,13 +195,13 @@ void cleanUp()
 {
     cout << cyan << "exiting cleanly..." << endl;
     delete player1;
-    cout << "player cleaned..." << endl;
+    cout << "player cleared..." << endl;
     for (auto i : zombieMissions)
         delete i;
-    cout << "zombie missions cleaned..." << endl;
+    cout << "zombie missions cleared..." << endl;
     for (auto i : humanMissions)
         delete i;
-    cout << "human missions cleaned..." << endl;
+    cout << "human missions cleared..." << endl;
     cout << green << "done!" << reset << endl;
 }
 

@@ -297,11 +297,14 @@ void Mission::story()
     clearScreen();
     cout << cyan;
     ifstream file("Stories/" + id + ".txt");
+    pprint("Mission " + to_string(missionNum) + ": " + name);
     if (file.is_open())
     {
         string line;
+        getline(file, line);
+        cout << endl;
         while (getline(file, line))
-            pprint(line);
+            pprint(line, 400);
 
         file.close();
     }

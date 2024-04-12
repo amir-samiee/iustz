@@ -51,7 +51,10 @@ namespace menu
             ifstream file("Stories/finale.txt");
             string line;
             while (getline(file, line))
-                pprint(line);
+                if (line.size())
+                    pprint(line, 300);
+                else
+                    pprint(line);
             file.close();
         }
         else
