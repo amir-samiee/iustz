@@ -32,7 +32,7 @@ Welcome to "IUSTZ"! This gripping text-based adventure plunges you into a harrow
 
 To embark on your perilous journey, simply execute the game's executable file. As the game boots up, you'll receive a welcoming message inviting you to immerse yourself fully by switching to full-screen mode. Once you've made your selection, press any key to plunge headlong into the adventure that awaits!
 
-![Main Menu](Media/Screenshot%202024-04-12%20145411.png)
+![Main Menu](Media/mainMenu.png)
 
 ## Gameplay <a name="gameplay"></a>
 
