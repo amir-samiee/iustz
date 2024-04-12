@@ -102,7 +102,7 @@ StateName States::nextState()
     {
         return StateName::LowHp;
     }
-    else if (highStamina() && havePowerPotion() && canUse(self->getBackpack()->getPowerPotions()) && !wastingPowerPotion)
+    else if (havePowerPotion() && canUse(self->getBackpack()->getPowerPotions()) && !wastingPowerPotion)
     {
         return StateName::BoostPower;
     }
