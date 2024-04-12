@@ -46,7 +46,7 @@ public:
     virtual Character *currentEnemy(bool isViewd = 0) = 0;
     virtual int getFirearmLevel() const = 0;
     virtual int getMeleeLevel() const = 0;
-    virtual double getPowerBoost() = 0;
+    virtual double getPowerBoost() const = 0;
     virtual int getCoins() const = 0;
 
     // setters
@@ -67,7 +67,7 @@ public:
     virtual int level() = 0;
     virtual bool move() = 0;
     virtual void die() = 0;
-    virtual void takeDamage(int newPoint) = 0;
+    virtual void takeDamage(int takenDamage) = 0;
     virtual void display(bool isFighting = 0) = 0;
 };
 
@@ -107,7 +107,7 @@ public:
     Stat *getStamina() override { return &stamina; }
     int getFirearmLevel() const override { return firearmLevel; }
     int getMeleeLevel() const override { return meleeLevel; }
-    double getPowerBoost() override { return powerBoost; }
+    double getPowerBoost() const override { return powerBoost; }
     int getCoins() const override { return coins; }
     vector<Character *> getWave() const override { return currentWave; }
     Character *currentEnemy(bool isViewd = 0) override;
@@ -141,7 +141,7 @@ public:
     int level() override;
     bool move() override;
     void die() override;
-    void takeDamage(int newPoint) override;
+    void takeDamage(int takenDamage) override;
     void display(bool isFighing = 0) override;
     void addRewardCoins(int addedCoins);
     void loadPlayer(json data);
@@ -194,7 +194,7 @@ namespace MVC
 
     public:
         EnemyController(EnemyModel *model, EnemyView *view, Enemy *self);
-        virtual void takeDamage(int damage);
+        virtual void takeDamage(int takenDamage);
         void die();
         bool move();
     };
@@ -207,7 +207,7 @@ namespace MVC
             : EnemyController(model, view, self) {}
 
         // methodes:
-        void takeDamage(int damage) override;
+        void takeDamage(int takenDamage) override;
     };
 }
 
@@ -232,7 +232,7 @@ public:
     Stat *getStamina() override { return &model->stamina; };
     int getFirearmLevel() const override { return model->firearmLevel; };
     int getMeleeLevel() const override { return model->meleeLevel; };
-    virtual double getPowerBoost() override { return model->powerBoost; };
+    virtual double getPowerBoost() const override { return model->powerBoost; };
     int getCoins() const override { return model->coins; };
     vector<Character *> getWave() const override { return model->currentWave; };
     Character *currentEnemy(bool isViewd = 0) override;
@@ -253,7 +253,7 @@ public:
     // others
     bool isAlive() override;
     int level() override;
-    virtual void takeDamage(int damage) override;
+    virtual void takeDamage(int takenDamage) override;
     bool move() override;
     void die() override;
     void display(bool isFighting = 0) override;
@@ -271,8 +271,8 @@ class ZombieEnemy : public Enemy
 public:
     ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                 Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
-    virtual void takeDamage(int damage);
-    virtual double getPowerBoost() override { return model->powerBoost; };
+    virtual void takeDamage(int takenDamage);
+    virtual double getPowerBoost() const override { return model->powerBoost; };
 };
 
 class SpecialZombie : public ZombieEnemy
@@ -280,8 +280,8 @@ class SpecialZombie : public ZombieEnemy
 public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
-    double getPowerBoost() override;
-    void takeDamage(int damage) override;
+    double getPowerBoost() const override;
+    void takeDamage(int takenDamage) override;
 };
 
 vector<Character *> characterLeakHandle;

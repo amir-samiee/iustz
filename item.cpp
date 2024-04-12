@@ -1,7 +1,6 @@
 #pragma once
 #include "headers.h"
 
-vector<string> Mission::eventsLog = {};
 
 Item::Item(string name, int price, Character *owner, int stamina)
 {

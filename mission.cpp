@@ -1,6 +1,8 @@
 #pragma once
 #include "headers.h"
 
+vector<string> Mission::eventsLog = {};
+
 Factory::Factory(int lvl, int specialEn,
                  const vector<string> &permanents,
                  const vector<string> &throwables,

@@ -216,10 +216,10 @@ void MVC::EnemyController::die()
     Mission::eventsLog.push_back(model->name + magenta + " (enemy) " + red + "died" + reset);
 }
 
-void MVC::SpecialEnemyController::takeDamage(int damage)
+void MVC::SpecialEnemyController::takeDamage(int takenDamage)
 {
     double ratio = (1.0 / ((rand() % 3) + 1));
-    int newPoint = model->hp.getCurrentPoint() - (damage * ratio);
+    int newPoint = model->hp.getCurrentPoint() - (takenDamage * ratio);
     if(ratio != 1)
         Mission::eventsLog.push_back(model->name + magenta + " (enemy)" + reset + " took " + to_string((int)(100 * ratio)) + "% of the damage!");
     if (model->hp.getCurrentPoint() > model->hp.getMaxPoint() * 0.3 && newPoint <= model->hp.getMaxPoint() * 0.3)
@@ -263,7 +263,7 @@ Character *Enemy::currentEnemy(bool isViewd)
 
 bool Enemy::isAlive() { return model->isAlive(); }
 int Enemy::level() { return (model->firearmLevel + model->meleeLevel + model->hp.level() + model->stamina.level()) / 4; }
-void Enemy::takeDamage(int damage) { controller->takeDamage(damage); }
+void Enemy::takeDamage(int takenDamage) { controller->takeDamage(takenDamage); }
 
 HumanEnemy::HumanEnemy(string name, int age, string gender, LimitedStorage backpack,
                        Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
@@ -274,7 +274,7 @@ ZombieEnemy::ZombieEnemy(string name, int age, string gender, LimitedStorage bac
                          Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
     : Enemy(name, age, gender, backpack, hp,
             stamina, firearmLevel, meleeLevel, powerBoost, currentWave, coins) {}
-void ZombieEnemy::takeDamage(int damage) { controller->takeDamage(damage); }
+void ZombieEnemy::takeDamage(int takenDamage) { controller->takeDamage(takenDamage); }
 
 SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                              Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins)
@@ -282,7 +282,6 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
 {
     delete controller;
     controller = new MVC::SpecialEnemyController(model, view, this);
-    model->backpack.addItem({{powerPotion4.getName(), 5}});
 }
 
 void SpecialZombie::takeDamage(int damage) { controller->takeDamage(damage); }
@@ -318,7 +317,7 @@ bool Player::move()
     return 1;
 }
 
-double SpecialZombie::getPowerBoost()
+double SpecialZombie::getPowerBoost() const
 {
 
     if (model->hp.getCurrentPoint() <= (0.3 * model->hp.getMaxPoint()))
