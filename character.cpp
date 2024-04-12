@@ -1,6 +1,12 @@
 #pragma once
 #include "headers.h"
 
+Stat::Stat(int basePoint, int lvl) : basePoint(basePoint)
+{
+    maxPoint = (lvl - 1) * 30 + basePoint;
+    currentPoint = maxPoint;
+}
+
 void Stat::setCurrentPoint(int newValue)
 {
     if (newValue > maxPoint)
@@ -213,6 +219,8 @@ void MVC::EnemyController::die()
 void MVC::SpecialEnemyController::takeDamage(int takenDamage)
 {
     int newPoint = model->hp.getCurrentPoint() - (takenDamage / ((rand() % 3) + 1));
+    if (model->hp.getCurrentPoint() > model->hp.getMaxPoint() * 0.3 && newPoint <= model->hp.getMaxPoint() * 0.3)
+        Mission::eventsLog.push_back(yellow + model->name + magenta + " (enemy) " + red + "raged" + reset);
     model->hp.setCurrentPoint(newPoint);
     if (newPoint <= 0)
         this->die();
@@ -308,8 +316,8 @@ bool Player::move()
 double SpecialZombie::getPowerBoost()
 {
 
-    if (this->getHp()->getCurrentPoint() <= (0.2 * getHp()->getMaxPoint()))
-        return model->powerBoost * 1.5;
+    if (getHp()->getCurrentPoint() <= (0.3 * getHp()->getMaxPoint()))
+        return model->powerBoost * 1.25;
 
     return model->powerBoost;
 }

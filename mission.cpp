@@ -50,7 +50,7 @@ vector<int> Factory::getWave()
 void Factory::addPermanent(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
     // Generating a random number of permanents:
-    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4) + 1;
+    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4);
 
     for (int i = 0; i < randomPermanentNum; i++)
     {
@@ -158,8 +158,13 @@ vector<vector<Character *>> HumanFactory::createEnemy(vector<int> waves)
     // Generating enemies backpacks with randomly generated number of permanents inside:
     for (int i = 0; i < casualEnemy; i++)
     {
+        int statLevel;
+        if(level == 1){statLevel = 1;}
+        else
+            statLevel = ((level - 1) / 3) + 1 + (rand() % 2);
+
         // Creating the enemy based on type:
-        Character *enemy = new HumanEnemy("", 30, "male", LimitedStorage(), Stat(), Stat(),
+        Character *enemy = new HumanEnemy("", 30, "male", LimitedStorage(), Stat(100, statLevel), Stat(100, statLevel),
                                           level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         // Saving enemy in a primary vector:
         unshuffeledEn.push_back(enemy);
@@ -194,8 +199,13 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
 
     for (int i = 0; i < casualEnemy; i++)
     {
+        int statLevel;
+        if(level == 1){statLevel = 1;}
+        else
+            statLevel = ((level - 1) / 3) + 1 + (rand() % 2);
+
         // Creating the enemy based on type:
-        Character *enemy = new ZombieEnemy("", 1000, "male", LimitedStorage(), Stat(), Stat(),
+        Character *enemy = new ZombieEnemy("", 1000, "male", LimitedStorage(), Stat(100, statLevel), Stat(100 , statLevel),
                                            level + (rand() % 2), level + (rand() % 2), 1, {player1}, (level * 10));
         // Saving enemy in a primary vector:
         casualEn.push_back(enemy);
@@ -213,7 +223,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         int bestWeapon = (missionPermanents.size() - 1);
         backpack.addItem(missionPermanents[bestWeapon]);
 
-        Character *enemy = new SpecialZombie("", 1000, "male", backpack, Stat(200), Stat(200),
+        Character *enemy = new SpecialZombie("", 1000, "male", backpack, Stat(200, ((level - 1) / 3) + 1), Stat(200, ((level - 1) / 3) + 1),
                                              (level + rand() % 3 + 1), level + (rand() % 2 + 1), 1, {player1}, (level * 20));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);

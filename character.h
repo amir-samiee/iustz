@@ -13,6 +13,7 @@ public:
     // constructors:
     Stat() = default;
     Stat(int basePoint) : basePoint(basePoint) {}
+    Stat(int basePoint , int lvl);
 
     // getters:
     int getMaxPoint() const { return maxPoint; }
@@ -45,7 +46,7 @@ public:
     virtual Character *currentEnemy(bool isViewd = 0) = 0;
     virtual int getFirearmLevel() const = 0;
     virtual int getMeleeLevel() const = 0;
-    virtual double getPowerBoost() const = 0;
+    virtual double getPowerBoost() = 0;
     virtual int getCoins() const = 0;
 
     // setters
@@ -106,7 +107,7 @@ public:
     Stat *getStamina() override { return &stamina; }
     int getFirearmLevel() const override { return firearmLevel; }
     int getMeleeLevel() const override { return meleeLevel; }
-    double getPowerBoost() const override { return powerBoost; }
+    double getPowerBoost() override { return powerBoost; }
     int getCoins() const override { return coins; }
     vector<Character *> getWave() const override { return currentWave; }
     Character *currentEnemy(bool isViewd = 0) override;
@@ -231,7 +232,7 @@ public:
     Stat *getStamina() override { return &model->stamina; };
     int getFirearmLevel() const override { return model->firearmLevel; };
     int getMeleeLevel() const override { return model->meleeLevel; };
-    double getPowerBoost() const override { return model->powerBoost; };
+    virtual double getPowerBoost() override { return model->powerBoost; };
     int getCoins() const override { return model->coins; };
     vector<Character *> getWave() const override { return model->currentWave; };
     Character *currentEnemy(bool isViewd = 0) override;
@@ -271,6 +272,7 @@ public:
     ZombieEnemy(string name, int age, string gender, LimitedStorage backpack,
                 Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
     virtual void takeDamage(int damage);
+    virtual double getPowerBoost() override { return model->powerBoost; };
 };
 
 class SpecialZombie : public ZombieEnemy
@@ -278,7 +280,7 @@ class SpecialZombie : public ZombieEnemy
 public:
     SpecialZombie(string name, int age, string gender, LimitedStorage backpack,
                   Stat hp, Stat stamina, int firearmLevel, int meleeLevel, double powerBoost, vector<Character *> currentWave, int coins);
-    double getPowerBoost();
+    double getPowerBoost() override;
     void takeDamage(int damage) override;
 };
 
