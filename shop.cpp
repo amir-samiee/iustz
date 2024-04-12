@@ -198,12 +198,12 @@ void Shop ::upgrade()
 
         result << "1- Hp" << setw(21)
                << player1->getHp()->level()
-               << setw(22) << "1 = 50 hp"
+               << setw(22) << "1 =30 hp"
                << setw(18) << upgradePrice("hp", player1->getHp()->level()) << endl;
 
         result << "2- Stamina" << setw(16)
                << player1->getStamina()->level()
-               << setw(24) << "1 = 50 stamina"
+               << setw(24) << "1 = 30 stamina"
                << setw(16) << upgradePrice("stamina", player1->getStamina()->level()) << endl;
 
         result << "3- Firearm Level" << setw(10)
@@ -229,7 +229,7 @@ void Shop ::upgrade()
                 // Deduct the upgrade cost from player's coins
                 player1->setCoins(player1->getCoins() - upgradeCost);
                 // Perform the upgrade
-                player1->getHp()->setMaxPoint(player1->getHp()->getMaxPoint() + 50);
+                player1->getHp()->setMaxPoint(player1->getHp()->getMaxPoint() + 30);
                 cout << green << "Hp upgraded successfully!" << reset << endl;
                 getchPress();
             }
@@ -248,7 +248,7 @@ void Shop ::upgrade()
                 // Deduct the upgrade cost from player's coins
                 player1->setCoins(player1->getCoins() - upgradeCost);
                 // Perform the upgrade
-                player1->getStamina()->setMaxPoint(player1->getStamina()->getMaxPoint() + 50);
+                player1->getStamina()->setMaxPoint(player1->getStamina()->getMaxPoint() + 30);
                 cout << green << "Stamina upgraded successfully!" << reset << endl;
                 getchPress();
             }
