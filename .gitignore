@@ -1,5 +1,4 @@
 *.exe
-!main.exe
 /.vscode
 tester*.cpp
 shoptest.cpp
