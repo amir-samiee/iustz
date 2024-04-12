@@ -11,6 +11,7 @@
     "firearmLevel": 1,
     "gender": "other",
     "hp": {
+      "basePoint": 200,
       "maxPoint": 100
     },
     "humanLevels": 0,
@@ -20,7 +21,8 @@
     "meleeLevel": 1,
     "name": "template name",
     "stamina": {
-      "maxPoint": 100
+      "basePoint": 300,
+      "maxPoint": 300
     },
     "zombieLevels": 0
   }

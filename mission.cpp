@@ -339,7 +339,7 @@ void Mission::playerTurn()
         {
             string options = "enter your choice (0 to quit): ";
             LimitedStorage *backpack = player1->getBackpack();
-            choice = getInput(options, 0, backpack->getNames().size(), 0);
+            choice = getInt(options, 0, backpack->getNames().size(), 0);
             if (choice == 0)
             {
                 player1->getHp()->savePoint();

@@ -23,7 +23,7 @@ namespace menu
             }
             options << "0. Back" << endl;
             options << "\nenter the mission number: ";
-            int intInput = getInput(iustzTitle + options.str(), 0, 9, true, "invalid input");
+            int intInput = getInt(iustzTitle + options.str(), 0, 9, true, "invalid input");
             Mission *selected = missions[intInput - 1];
             if (intInput == 0)
                 return;
@@ -74,7 +74,7 @@ namespace menu
         do
         {
             string attacksMenu = "\n1. Zombies \n2. Humans \n3. Finale \n0. Back\nenter your choice: ";
-            intInput = getInput(iustzTitle + attacksMenu, 0, 3, true, "invalid input");
+            intInput = getInt(iustzTitle + attacksMenu, 0, 3, true, "invalid input");
             switch (intInput)
             {
             case 1:
@@ -114,7 +114,7 @@ namespace menu
             options << "4. Gender: " << player1->getGender() << endl;
             options << "0. Back" << endl;
             options << "\nenter a number to make changes: ";
-            int choice = getInput(options.str(), 0, 4);
+            int choice = getInt(options.str(), 0, 4);
 
             int newAge, genderChoice;
             string newUsername, newName, newGender;
@@ -140,12 +140,12 @@ namespace menu
                 cout << green << "name changed successfully!" << reset;
                 break;
             case 3:
-                newAge = getInput("enter new age: ", 1, 200, 1);
+                newAge = getInt("enter new age: ", 1, 200, 1);
                 player1->setAge(newAge);
                 cout << green << "age changed successfully!" << reset;
                 break;
             case 4:
-                genderChoice = getInput(genderOptions, 1, 3);
+                genderChoice = getInt(genderOptions, 1, 3);
                 newGender = genders[genderChoice - 1];
                 player1->setGender(newGender);
                 cout << green << "gender changed successfully!" << reset;
@@ -174,7 +174,7 @@ namespace menu
                 data << "Remained Space: " << player1->getBackpack()->remainedSpace();
             data << "\n\n 0   Back\n";
             data << "\nenter your choice: ";
-            int choice = getInput(data.str(), -player1->getBackpack()->getNames().size(),
+            int choice = getInt(data.str(), -player1->getBackpack()->getNames().size(),
                                   player1->getInventory()->getNames().size());
 
             if (choice == 0)
@@ -231,7 +231,7 @@ namespace menu
         while (1)
         {
             string menu = "\n 1. Attack \n 2. Shop \n 3. Profile \n 4. Invnetory\n 5. Delete Account\n 0. Back\n-1. Exit\n\nenter your choice: ";
-            int intInput = getInput(iustzTitle + menu, -1, 5, true, "invalid input");
+            int intInput = getInt(iustzTitle + menu, -1, 5, true, "invalid input");
             switch (intInput)
             {
             case 1:

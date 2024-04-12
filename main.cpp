@@ -2,6 +2,7 @@
 
 int main()
 {
+    srand(time(0));
     initializeMissions();
     string starterMessage = "Switch to " + red + "full-screen mode" + reset + " for a better game experience " + cyan + "(>_*)!" + reset;
     clearScreen();
@@ -19,11 +20,8 @@ int main()
     while (1)
     {
         *player1 = defaultPlayer;
-        clearScreen();
         // Sleep(2000);
-        cout << iustzTitle << string(2, '\n') << "enter your usename (0 to quit): ";
-        string username;
-        getline(cin, username);
+        string username = getString(iustzTitle + "\n\nenter your usename (0 to quit): ");
         if (username == "0")
         {
             cleanUp();
@@ -53,34 +51,20 @@ int main()
             while (getline(file, line))
                 pprint(line);
             file.close();
-            cout << reset;
+            getchPress();
 
             // set gender
-            int genderChoice = getInput(genderOptions, 1, 3, 1);
+            int genderChoice = getInt(genderOptions, 1, 3);
             string gender = genders[genderChoice - 1];
             player1->setGender(gender);
 
             // set name
-            string name;
-            bool error = 0;
-            while (1)
-            {
-                clearScreen();
-                if(error)
-                    cout << red << "invalid input" << reset << endl;
-                cout << "what should we call you? ";
-                getline(cin, name);
-                if (name != "")
-                {
-                    player1->setName(name);
-                    break;
-                }
-                error = 1;
-            }
+            string name = getString("what should we call you?: ", 0);
+            player1->setName(name);
 
             // set age
             cout << "nice " << name << "! now";
-            int age = getInput("enter your age: ", 1, 200, 1);
+            int age = getInt("enter your age: ", 1, 200, 0);
             player1->setAge(age);
         }
         else

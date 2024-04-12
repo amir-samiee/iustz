@@ -13,12 +13,14 @@ void Stat::setCurrentPoint(int newValue)
 
 void Stat::loadStat(json data)
 {
+    basePoint = data["basePoint"];
     maxPoint = data["maxPoint"];
 }
 
 json Stat::dumpStat()
 {
     json data;
+    data["basePoint"] = basePoint;
     data["maxPoint"] = maxPoint;
     return data;
 }
@@ -283,7 +285,7 @@ bool Player::move()
     while (1)
     {
         string options = "enter your choice (0 to quit): ";
-        choice = getInput(options, 0, backpack.getNames().size(), 0);
+        choice = getInt(options, 0, backpack.getNames().size(), 0);
         if (choice == 0)
         {
             hp.setCurrentPoint(0);
@@ -306,7 +308,7 @@ bool Player::move()
 double SpecialZombie::getPowerBoost()
 {
 
-    if (this->getHp()->getCurrentPoint() <= (0.2*getHp()->getMaxPoint()))
+    if (this->getHp()->getCurrentPoint() <= (0.2 * getHp()->getMaxPoint()))
         return model->powerBoost * 1.5;
 
     return model->powerBoost;

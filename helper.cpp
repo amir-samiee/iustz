@@ -74,7 +74,7 @@ void cleanIntString(string &s)
     }
 }
 
-int getInput(string options, int from, int to, bool cls, string errorMessage)
+int getInt(string options, int from, int to, bool cls, string errorMessage)
 {
     string input;
     bool indexError = 0, typeError = 0, emptyString = 0;
@@ -109,6 +109,26 @@ int getInput(string options, int from, int to, bool cls, string errorMessage)
         }
     } while (indexError || typeError || emptyString);
     return stoi(input);
+}
+
+string getString(string message, bool cls)
+{
+    string input;
+    bool error = 0;
+    while (1)
+    {
+        if (cls)
+            clearScreen();
+        if (error)
+            cout << red << "invalid input" << reset;
+        cout << endl
+             << message;
+        getline(cin, input);
+        if (input != "")
+            return input;
+        else
+            error = 1;
+    }
 }
 
 template <typename element, typename list>

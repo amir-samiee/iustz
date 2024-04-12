@@ -11,7 +11,7 @@ void Shop::displayShop()
         data << red << "2- Sell" << reset << endl;
         data << "\n0- Back\n";
         data << "\nenter your choice: ";
-        int choice = getInput(data.str(), 0, 2);
+        int choice = getInt(data.str(), 0, 2);
         switch (choice)
         {
         case 0:
@@ -37,7 +37,7 @@ void Shop::displaySell()
         data << player1->getInventory()->getStorageData("", "- ", 1);
         data << "\n\n 0- Back\n";
         data << "\nenter your choice: ";
-        int choice = getInput(data.str(), 0, player1->getInventory()->getNames().size());
+        int choice = getInt(data.str(), 0, player1->getInventory()->getNames().size());
         if (choice == 0)
             return;
         clearScreen();
@@ -54,7 +54,7 @@ void Shop::displayBuy()
     {
         string options1 = "Here are the items available for purchase:\n";
         options1 += "1- Throwables\n2- Potions\n3- Weapons\n4- Upgrade\n\n0- Back\nenter your choice: ";
-        int firstInput = getInput(options1, 0, 4);
+        int firstInput = getInt(options1, 0, 4);
         int secondInput;
         string options2;
         string option3;
@@ -69,7 +69,7 @@ void Shop::displayBuy()
             while (!breakFlag)
             {
                 options2 = "Potions Items :\n1- Hp Potions\n2- Stamina Potions\n3- Power Potions\n0- Back\n\nenter your choice: ";
-                secondInput = getInput(options2, 0, 3);
+                secondInput = getInt(options2, 0, 3);
                 switch (secondInput)
                 {
                 case 1:
@@ -91,7 +91,7 @@ void Shop::displayBuy()
             while (!breakFlag)
             {
                 options2 = "Permenet Weapons Items\n1- Melees\n2- Firearms\n0- Back\n\nenter your choice: ";
-                secondInput = getInput(options2, 0, 2);
+                secondInput = getInt(options2, 0, 2);
                 switch (secondInput)
                 {
                 case 1:
@@ -149,7 +149,7 @@ void Shop::subShop(vector<Item *> shopItems, string title, string special)
         }
         result << backOption << endl
                << "enetr your choice: ";
-        int input = getInput(result.str(), 0, shopItems.size());
+        int input = getInt(result.str(), 0, shopItems.size());
 
         if (input == 0)
             return;
@@ -216,7 +216,7 @@ void Shop ::upgrade()
                << upgradePrice("melee", player1->getMeleeLevel()) << endl;
 
         result1 = result.str() + "\n0- Back\nenter your choice : ";
-        secondInput = getInput(result1, 0, 4);
+        secondInput = getInt(result1, 0, 4);
         clearScreen();
         switch (secondInput)
         {

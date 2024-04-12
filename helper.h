@@ -43,7 +43,9 @@ bool isInteger(string s);
 bool isZero(string s);
 
 void cleanIntString(string &s);
-int getInput(string options, int from, int to, bool cls = true, string errorMessage = "invalid input");
+
+int getInt(string options, int from, int to, bool cls = true, string errorMessage = "invalid input");
+string getString(string message, bool cls = 1);
 
 class Storage;
 void transfer(Storage *adding, Storage *to);
