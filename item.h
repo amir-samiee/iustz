@@ -205,11 +205,11 @@ Throwable throwable2("Biotic Grenade", 10, nullptr, 10, 14);
 Throwable throwable3("Molotov Cocktails", 15, nullptr, 20, 16);
 Throwable throwable4("Acid Bottle", 20, nullptr, 15, 20);
 Throwable throwable5("EMP", 25, nullptr, 25, 24);
-Throwable throwable6("Drone", 50, nullptr, 40, 28);
-Throwable throwable7("Armata", 75, nullptr, 50, 32);
-Throwable throwable8("Bell 201", 100, nullptr, 70, 38);
-Throwable throwable9("Kiowa", 125, nullptr, 100, 45);
-Throwable throwable10("Gunship", 150, nullptr, 150, 55);
+Throwable throwable6("Drone", 50, nullptr, 40, 26);
+Throwable throwable7("Armata", 75, nullptr, 50, 30);
+Throwable throwable8("Bell 201", 100, nullptr, 70, 34);
+Throwable throwable9("Kiowa", 125, nullptr, 100, 38);
+Throwable throwable10("Gunship", 150, nullptr, 150, 50);
 
 // objects of permanant class
 // "melee"
@@ -221,9 +221,9 @@ Melee melee4("Sword", 25, nullptr, 15, 19);
 Melee melee5("Katana", 30, nullptr, 20, 22);
 Melee melee6("Dagger", 35, nullptr, 20, 25);
 Melee melee7("Spear", 40, nullptr, 25, 28);
-Melee melee8("Halberd", 45, nullptr, 25, 35);
-Melee melee9("Rapier", 50, nullptr, 25, 40);
-Melee melee10("Chainsaw", 60, nullptr, 30, 45);
+Melee melee8("Halberd", 45, nullptr, 25, 32);
+Melee melee9("Rapier", 50, nullptr, 25, 36);
+Melee melee10("Chainsaw", 60, nullptr, 30, 40);
 
 //"fireArm"
 Firearm fireArm1("Desert Eagle", 10, nullptr, 5, 9);
@@ -233,9 +233,9 @@ Firearm fireArm4("Rifle", 40, nullptr, 18, 20);
 Firearm fireArm5("Submachine", 50, nullptr, 21, 24);
 Firearm fireArm6("Carbine", 60, nullptr, 25, 28);
 Firearm fireArm7("Assault R", 70, nullptr, 30, 32);
-Firearm fireArm8("Sniper R", 80, nullptr, 35, 38);
-Firearm fireArm9("Machine gun", 90, nullptr, 40, 43);
-Firearm fireArm10("FN SCAR", 100, nullptr, 45, 48);
+Firearm fireArm8("Sniper R", 80, nullptr, 35, 35);
+Firearm fireArm9("Machine gun", 90, nullptr, 40, 39);
+Firearm fireArm10("FN SCAR", 100, nullptr, 45, 42);
 
 // object of consumable class
 // hp potion
