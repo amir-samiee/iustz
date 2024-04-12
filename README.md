@@ -33,12 +33,12 @@ Welcome to "IUSTZ"! This gripping text-based adventure plunges you into a harrow
 To embark on your perilous journey, simply execute the game's executable file. As the game boots up, you'll receive a welcoming message inviting you to immerse yourself fully by switching to full-screen mode. Once you've made your selection, press any key to plunge headlong into the adventure that awaits!
 
 <!-- ![Main Menu](Media/mainMenu.png) -->
-<img src="Media/mainMenu.png" alt="Alt text" title="Optional title" style="width: 300px;"/>
+<img src="Media/mainMenu.png" alt="Alt text" title="Optional title" style="width: 600px;"/>
 
 ## Gameplay <a name="gameplay"></a>
 
 <!-- ![Gameplay](Media/gamePlay.png) -->
-<img src="Media/gameplay.png" alt="Alt text" title="Optional title" style="width: 300px;"/>
+<img src="Media/gameplay.png" alt="Alt text" title="Optional title" style="width: 600px;"/>
 
 ### Main Menu <a name="main-menu"></a>
 
@@ -90,7 +90,7 @@ From the sprawling urban landscapes to the desolate wilderness, each mission is 
 Your character's profile serves as a repository of vital information, tracking your progress and attributes as you traverse through the game world. From customizing your avatar to monitoring your health, stamina, and combat proficiency, profile management allows you to tailor your survivor persona to suit your playstyle.
 
 <!-- ![Inventory](Media/Inventory.png) -->
-<img src="Media/inventory.png" alt="Alt text" title="Optional title" style="width: 300px;"/>
+<img src="Media/inventory.png" alt="Alt text" title="Optional title" style="width: 600px;"/>
 
 ### Inventory <a name="inventory"></a>
 

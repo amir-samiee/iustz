@@ -216,11 +216,15 @@ void MVC::EnemyController::die()
     Mission::eventsLog.push_back(model->name + magenta + " (enemy) " + red + "died" + reset);
 }
 
-void MVC::SpecialEnemyController::takeDamage(int takenDamage)
+void MVC::SpecialEnemyController::takeDamage(int damage)
 {
-    int newPoint = model->hp.getCurrentPoint() - (takenDamage / ((rand() % 3) + 1));
+    double ratio = (1.0 / ((rand() % 3) + 1));
+    int newPoint = model->hp.getCurrentPoint() - (damage * ratio);
+    if(ratio != 1)
+        Mission::eventsLog.push_back(model->name + magenta + " (enemy)" + reset + " took " + to_string((int)(100 * ratio)) + "% of the damage!");
     if (model->hp.getCurrentPoint() > model->hp.getMaxPoint() * 0.3 && newPoint <= model->hp.getMaxPoint() * 0.3)
         Mission::eventsLog.push_back(yellow + model->name + magenta + " (enemy) " + red + "raged" + reset);
+    
     model->hp.setCurrentPoint(newPoint);
     if (newPoint <= 0)
         this->die();
@@ -278,9 +282,10 @@ SpecialZombie::SpecialZombie(string name, int age, string gender, LimitedStorage
 {
     delete controller;
     controller = new MVC::SpecialEnemyController(model, view, this);
+    model->backpack.addItem({{powerPotion4.getName(), 5}});
 }
 
-void SpecialZombie::takeDamage(int damage) { this->controller->takeDamage(damage); }
+void SpecialZombie::takeDamage(int damage) { controller->takeDamage(damage); }
 
 ////////////////////////////////////////////////////////////////
 
@@ -316,7 +321,7 @@ bool Player::move()
 double SpecialZombie::getPowerBoost()
 {
 
-    if (getHp()->getCurrentPoint() <= (0.3 * getHp()->getMaxPoint()))
+    if (model->hp.getCurrentPoint() <= (0.3 * model->hp.getMaxPoint()))
         return model->powerBoost * 1.25;
 
     return model->powerBoost;
