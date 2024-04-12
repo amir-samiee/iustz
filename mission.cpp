@@ -23,13 +23,13 @@ vector<int> Factory::getWave()
     vector<int> waves;
     int waveNum = (casualEnemy / 3);
     int remaining = casualEnemy % 3;
-    
+
     if (waveNum == 0)
     {
         waves.push_back(remaining);
         return waves;
     }
-    
+
     for (int i = 0; i < waveNum; i++)
         waves.push_back(3);
 
@@ -41,7 +41,7 @@ vector<int> Factory::getWave()
         index--;
         remaining--;
     }
-    
+
     shuffle(waves.begin(), waves.end(), gen);
     return waves;
 }
@@ -50,7 +50,7 @@ vector<int> Factory::getWave()
 void Factory::addPermanent(vector<Character *> unshuffeledEn, vector<string> addingItem)
 {
     // Generating a random number of permanents:
-    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4) +1;
+    int randomPermanentNum = rand() % (casualEnemy / 2) + (casualEnemy / 4) + 1;
 
     for (int i = 0; i < randomPermanentNum; i++)
     {
@@ -451,6 +451,8 @@ void Mission::middleGame()
         if (lost)
             break;
 
+        player1->getHp()->savePoint();
+        player1->getStamina()->savePoint();
         endWave();
     }
     end(lost);
@@ -462,12 +464,13 @@ void Mission::end(bool lost)
     {
         player1->getRewardItems()->clearStorage();
         player1->getBackpack()->loadItems();
-        player1->getHp()->loadPoint();
         player1->setRewardCoins(0);
         eventsLog.push_back("\033[0;41myou lost!" + reset);
     }
     else
     {
+        player1->getHp()->loadPoint();
+        player1->getStamina()->loadPoint();
         /*
 
         here, first backpack transfers to inventory to prevent adding

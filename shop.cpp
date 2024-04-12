@@ -25,6 +25,7 @@ void Shop::displayShop()
         }
     }
 }
+
 void Shop::displaySell()
 {
     while (1)
@@ -190,7 +191,7 @@ void Shop ::upgrade()
         result << "COINS: " << player1->getCoins() << endl
                << endl;
 
-        result << left << "    NAME" << right << setw(20)
+        result << left << "   NAME " << right << setw(20)
                << "LEVEL" << setw(20)
                << "ESCALATION" << setw(20)
                << "PRICE" << endl;

@@ -29,8 +29,8 @@ public:
     virtual json dumpStorage();
     virtual void addItem(string name, bool isViewed = false);
     virtual void addItem(map<string, int> addingItems, bool isViewed = false);
-    string getStorageData(string beforeNumber = "", string afterNumber = "- " , bool priceView = false);
-    void printStorage(string beforeNumber = "", string afterNumber = "- " , bool priceView = false);
+    string getStorageData(string beforeNumber = "", string afterNumber = "- ", bool priceView = false);
+    void printStorage(string beforeNumber = "", string afterNumber = "- ", bool priceView = false);
     virtual void removeItem(string name, bool isViewd = 1);
     void removeItem(map<string, int> items, bool isViewd = 1);
 };
@@ -47,6 +47,8 @@ protected:
     static void sortItems(vector<string> items);
 
 public:
+    LimitedStorage() = default;
+    LimitedStorage(map<string, int> items) { setItems(items); }
     // getters
     int getCapacity() { return capacity; }
     int getSize() { return size; }

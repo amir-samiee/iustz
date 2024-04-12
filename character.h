@@ -147,8 +147,9 @@ public:
     json dumpPlayer();
 };
 
-Player defaultPlayer("default name", 18, "default gender", LimitedStorage(),
-                     Stat(300), Stat(300), 1, 1, 1, vector<Character *>(), 0, Storage(), 0, 0);
+Player defaultPlayer("default name", 18, "default gender",
+                     LimitedStorage({{"Grenade", 1}, {"Knife", 1}, {"FirstAid Kits", 1}, {"Vigor Rush", 1}, {"Savage Serum", 1}}),
+                     Stat(300), Stat(300), 1, 1, 1, vector<Character *>(), 50, Storage(), 0, 0);
 Player *player1 = new Player(defaultPlayer);
 
 // Enemies

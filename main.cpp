@@ -17,10 +17,11 @@ int main()
         Sleep(t);
         t /= 1.5;
     }
+    clearScreen();
+    Sleep(2000);
     while (1)
     {
         *player1 = defaultPlayer;
-        // Sleep(2000);
         string username = getString(iustzTitle + "\n\nenter your usename (0 to quit): ");
         if (username == "0")
         {
