@@ -48,6 +48,7 @@ void Storage::addItem(map<string, int> addingItems, bool isViewed)
 
 string Storage::getStorageData(string beforeNumber, string afterNumber, bool priceView)
 {
+    names.clear();
     if (items.empty())
         return "Storage is Empty!\n";
     stringstream result;
@@ -76,12 +77,12 @@ string Storage::getStorageData(string beforeNumber, string afterNumber, bool pri
     if (priceView)
         result << setw(10) << "Price";
     result << endl;
-    names.clear();
     for (auto &item : items)
     {
         string itemName = item.first;
         Item *itemPtr = itemsMap[itemName];
-        names.push_back(itemName);
+        if(itemName != "")
+            names.push_back(itemName);
         result << left << setw(leftMargin) << beforeNumber + to_string(i) + afterNumber
                << setw(maxNameLength + 5) << itemName
                << setw(maxTypeLength + 2) << itemPtr->getType() << right

@@ -30,7 +30,6 @@ public:
     bool haveStaminaPotion() { return !self->getBackpack()->getStaminaPotions().empty(); }
     bool haveHpPotion() { return !self->getBackpack()->getHpPotions().empty(); }
     bool havePowerPotion() { return !self->getBackpack()->getPowerPotions().empty(); }
-    bool highStamina() { return self->getStamina()->getCurrentPoint() > 0.5 * self->getStamina()->getMaxPoint(); }
     bool wastingPotion(vector<string> potions, Stat myStat); // check if there is a potion of a type that wont go to waste
     bool wastingPotion(Item *potion, Stat myStat);           // check if a certain potion wont go to waste
     string appropriateStamina(Stat myStat);
