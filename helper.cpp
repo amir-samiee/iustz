@@ -151,6 +151,14 @@ json loadData(string fileName)
     return j;
 }
 
+// handles arrow keys so they don't pre-waste the next getch()
+void getch2()
+{
+    int ch = getch();
+    if (ch == 0 || ch == 224)
+        getch();
+}
+
 template <typename K>
 void dumpData(string fileName, K data, ios_base::openmode mode)
 {
@@ -218,7 +226,7 @@ bool changeUsername(string oldUsername, string newUsername)
 void getchPress()
 {
     cout << yellow << "\nPlease press any key to continue... " << reset << endl;
-    getch();
+    getch2();
 }
 
 string currentTime()

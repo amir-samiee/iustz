@@ -98,22 +98,22 @@ namespace menu
         {
             clearScreen();
             stringstream options;
-            options << gray;
-            options << "Hp Level: " << player1->getHp()->level() << endl;
-            options << "Stamina Level: " << player1->getStamina()->level() << endl;
-            options << "Gender: " << player1->getGender() << endl;
-            options << "Firearm Level: " << player1->getFirearmLevel() << endl;
-            options << "Melee Level: " << player1->getMeleeLevel() << endl;
-            options << "Coins: " << player1->getCoins() << endl;
-            options << "Human Levels: " << player1->getHumanLevels() << endl;
-            options << "Zombie Levels: " << player1->getZombieLevels() << endl;
-            options << reset;
-            options << "1. Username: " << player1->getUsername() << endl;
-            options << "2. Name: " << player1->getName() << endl;
-            options << "3. Age: " << player1->getAge() << endl;
-            options << "4. Gender: " << player1->getGender() << endl;
-            options << "0. Back" << endl;
-            options << "\nenter a number to make changes: ";
+            options << gray
+                    << "Hp Level: " << player1->getHp()->level() << endl
+                    << "Stamina Level: " << player1->getStamina()->level() << endl
+                    << "Gender: " << player1->getGender() << endl
+                    << "Firearm Level: " << player1->getFirearmLevel() << endl
+                    << "Melee Level: " << player1->getMeleeLevel() << endl
+                    << "Coins: " << player1->getCoins() << endl
+                    << "Human Levels: " << player1->getHumanLevels() << endl
+                    << "Zombie Levels: " << player1->getZombieLevels() << endl
+                    << reset << endl
+                    << "1. Username: " << player1->getUsername() << endl
+                    << "2. Name: " << player1->getName() << endl
+                    << "3. Age: " << player1->getAge() << endl
+                    << "4. Gender: " << player1->getGender() << endl
+                    << "0. Back" << endl
+                    << "\nenter a number to make changes: ";
             int choice = getInt(options.str(), 0, 4);
 
             int newAge, genderChoice;
@@ -175,7 +175,7 @@ namespace menu
             data << "\n\n 0   Back\n";
             data << "\nenter your choice: ";
             int choice = getInt(data.str(), -player1->getBackpack()->getNames().size(),
-                                  player1->getInventory()->getNames().size());
+                                player1->getInventory()->getNames().size());
 
             if (choice == 0)
                 return;

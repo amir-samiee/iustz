@@ -8,7 +8,7 @@ int main()
     clearScreen();
     Sleep(2000);
     cout << starterMessage;
-    getch();
+    getch2();
     int t = 500;
     while (t)
     {
