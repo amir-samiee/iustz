@@ -131,6 +131,7 @@ Firearm::Firearm(string name, int price, Character *owner, int stamina, int dama
     Item *basePtr = this;
     firearms.push_back(basePtr);
 }
+
 void Firearm::useItem()
 {
     info();
