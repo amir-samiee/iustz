@@ -34,7 +34,7 @@ bool States::wastingPotion(vector<string> potions, Stat myStat)
 
 bool States::wastingPotion(Item *potion, Stat myStat)
 {
-    return myStat.getCurrentPoint() + potion->getSpecial() - myStat.getMaxPoint() > potion->getSpecial()*0.1;
+    return myStat.getCurrentPoint() + potion->getSpecial() - myStat.getMaxPoint() > potion->getSpecial()*0.2;
 }
 
 string States::appropriateStamina(Stat myStamina)
