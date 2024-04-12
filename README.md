@@ -2,16 +2,25 @@
 # Welcome to "IUSTZ"!
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-3. [Gameplay](#gameplay)
-    - [Main Menu](#main-menu)
-    - [Mission Selection](#mission-selection)
-    - [Profile Management](#profile-management)
-    - [Inventory](#inventory)
-    - [Shop](#shop)
-4. [Exiting the Game](#exiting-the-game)
-5. [Feedback and Support](#feedback-and-support)
+- [Welcome to "IUSTZ"!](#welcome-to-iustz)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction ](#introduction-)
+  - [Getting Started ](#getting-started-)
+  - [Gameplay ](#gameplay-)
+    - [Main Menu ](#main-menu-)
+    - [Mission Selection ](#mission-selection-)
+      - [Zombie Missions](#zombie-missions)
+      - [Human Missions](#human-missions)
+      - [Finale Mission](#finale-mission)
+      - [Factory Functionality](#factory-functionality)
+      - [Enemy Generation](#enemy-generation)
+      - [Item Initialization](#item-initialization)
+      - [Mission Initialization](#mission-initialization)
+    - [Profile Management ](#profile-management-)
+    - [Inventory ](#inventory-)
+    - [Shop ](#shop-)
+  - [Exiting the Game ](#exiting-the-game-)
+  - [Feedback and Support ](#feedback-and-support-)
 
 ---
 
@@ -23,9 +32,12 @@ Welcome to "IUSTZ"! This gripping text-based adventure plunges you into a harrow
 
 To embark on your perilous journey, simply execute the game's executable file. As the game boots up, you'll receive a welcoming message inviting you to immerse yourself fully by switching to full-screen mode. Once you've made your selection, press any key to plunge headlong into the adventure that awaits!
 
+![Main Menu](Media/Screenshot%202024-04-12%20145411.png)
+
 ## Gameplay <a name="gameplay"></a>
 
- 
+![Gameplay](Media/gamePlay.png)
+
 ### Main Menu <a name="main-menu"></a>
 
 Upon entering the main menu, you'll be presented with a plethora of options, each crucial for your survival:
@@ -74,6 +86,8 @@ From the sprawling urban landscapes to the desolate wilderness, each mission is 
 ### Profile Management <a name="profile-management"></a>
 
 Your character's profile serves as a repository of vital information, tracking your progress and attributes as you traverse through the game world. From customizing your avatar to monitoring your health, stamina, and combat proficiency, profile management allows you to tailor your survivor persona to suit your playstyle.
+
+![Inventory](Media/Inventory.png)
 
 ### Inventory <a name="inventory"></a>
 
