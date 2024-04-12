@@ -213,9 +213,7 @@ vector<vector<Character *>> ZombieFactory::createEnemy(vector<int> waves)
         int bestWeapon = (missionPermanents.size() - 1);
         backpack.addItem(missionPermanents[bestWeapon]);
 
-        Stat hp;
-        Stat stamina;
-        Character *enemy = new SpecialZombie("", 1000, "male", backpack, hp, stamina,
+        Character *enemy = new SpecialZombie("", 1000, "male", backpack, Stat(200), Stat(200),
                                              (level + rand() % 3 + 1), level + (rand() % 2 + 1), 1, {player1}, (level * 20));
         characterLeakHandle.push_back(enemy);
         specialEn.push_back(enemy);
